@@ -1,5 +1,19 @@
 *.class
 
+# default Eclipse binary folder
+bin/
+
+# default maven binary folder
+target/
+
+# various temporaty files
+*~
+*.rej
+*.bak
+
+# Apple folder
+.DS_Store
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
