@@ -1,0 +1,11 @@
+target "ModelWriter Helios Target Platform"
+
+with source requirements
+
+location "http://download.eclipse.org/releases/helios" {
+	org.eclipse.platform.sdk lazy
+	org.eclipse.emf.sdk.feature.group lazy
+	
+	org.junit [4.0.0,5.0.0)
+}
+
