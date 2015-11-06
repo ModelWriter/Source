@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Semantic
+Bundle-SymbolicName: eu.modelwriter.semantic
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: eu.modelwriter.semantic,
+ eu.modelwriter.semantic.internal;x-friends:="eu.modelwriter.semantic.tests"
