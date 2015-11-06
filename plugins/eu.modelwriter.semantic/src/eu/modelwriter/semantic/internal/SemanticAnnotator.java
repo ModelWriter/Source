@@ -45,14 +45,23 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	 * @see eu.modelwriter.semantic.ISemanticAnnotator#addSemanticProvider(eu.modelwriter.semantic.ISemanticProvider)
 	 */
 	public void addSemanticProvider(ISemanticProvider provider) {
-		int index = 0;
-		for (ISemanticProvider semanticProvider : semanticProviders) {
-			if (semanticProvider.getConceptType().isAssignableFrom(provider.getConceptType())) {
-				semanticProviders.add(index, provider);
-				break;
-			} else {
-				index++;
+		if (provider != null) {
+			int index = 0;
+			boolean added = false;
+			for (ISemanticProvider semanticProvider : semanticProviders) {
+				if (semanticProvider.getConceptType().isAssignableFrom(provider.getConceptType())) {
+					semanticProviders.add(index, provider);
+					added = true;
+					break;
+				} else {
+					index++;
+				}
 			}
+			if (!added) {
+				semanticProviders.add(index, provider);
+			}
+		} else {
+			throw new IllegalArgumentException("ISemanticProvider can't be null.");
 		}
 	}
 
@@ -62,7 +71,9 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	 * @see eu.modelwriter.semantic.ISemanticAnnotator#removeSemanticProvider(eu.modelwriter.semantic.ISemanticProvider)
 	 */
 	public void removeSemanticProvider(ISemanticProvider provider) {
-		semanticProviders.remove(provider);
+		if (provider != null) {
+			semanticProviders.remove(provider);
+		}
 	}
 
 	/**
@@ -71,7 +82,11 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	 * @see eu.modelwriter.semantic.ISemanticAnnotator#addSemanticSimilarityProvider(eu.modelwriter.semantic.ISemanticSimilarityProvider)
 	 */
 	public void addSemanticSimilarityProvider(ISemanticSimilarityProvider provider) {
-		similarityProviders.add(provider);
+		if (provider != null) {
+			similarityProviders.add(provider);
+		} else {
+			throw new IllegalArgumentException("ISemanticSimilarityProvider can't be null.");
+		}
 	}
 
 	/**
@@ -80,7 +95,9 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	 * @see eu.modelwriter.semantic.ISemanticAnnotator#removeSemanticSimilarityProvider(eu.modelwriter.semantic.ISemanticSimilarityProvider)
 	 */
 	public void removeSemanticSimilarityProvider(ISemanticSimilarityProvider provider) {
-		similarityProviders.remove(provider);
+		if (provider != null) {
+			similarityProviders.remove(provider);
+		}
 	}
 
 	/**
