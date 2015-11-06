@@ -464,4 +464,30 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
+	@Test
+	public void getTypeDefault() throws InstantiationException, IllegalAccessException {
+		final ILocation location = createLocation();
+
+		assertEquals(null, location.getType());
+	}
+
+	@Test
+	public void setType() throws InstantiationException, IllegalAccessException {
+		final ILocation location = createLocation();
+		final String type = "Type";
+
+		location.setType(type);
+
+		assertEquals(type, location.getType());
+	}
+
+	@Test
+	public void setTypeNull() throws InstantiationException, IllegalAccessException {
+		final ILocation location = createLocation();
+
+		location.setType(null);
+
+		assertEquals(null, location.getType());
+	}
+
 }

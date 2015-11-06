@@ -12,8 +12,11 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
+import java.io.Serializable;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -90,6 +93,13 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * @generated
 	 */
 	private EEnum statusEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EDataType typeEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -230,6 +240,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
+	public EAttribute getLocation_Type() {
+		return (EAttribute)locationEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getScope() {
 		return scopeEClass;
 	}
@@ -295,6 +314,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 */
 	public EReference getLink_Target() {
 		return (EReference)linkEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getLink_Type() {
+		return (EAttribute)linkEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -392,6 +420,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
+	public EDataType getType() {
+		return typeEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public MappingFactory getMappingFactory() {
 		return (MappingFactory)getEFactoryInstance();
 	}
@@ -423,6 +460,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		createEReference(locationEClass, LOCATION__CONTENTS);
 		createEReference(locationEClass, LOCATION__CONTAINER);
 		createEReference(locationEClass, LOCATION__REFERENCING_SCOPES);
+		createEAttribute(locationEClass, LOCATION__TYPE);
 
 		scopeEClass = createEClass(SCOPE);
 		createEReference(scopeEClass, SCOPE__LOCATIONS);
@@ -433,6 +471,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		createEAttribute(linkEClass, LINK__DESCRIPTION);
 		createEReference(linkEClass, LINK__SOURCE);
 		createEReference(linkEClass, LINK__TARGET);
+		createEAttribute(linkEClass, LINK__TYPE);
 
 		baseEClass = createEClass(BASE);
 		createEReference(baseEClass, BASE__ROOT_LOCATIONS);
@@ -449,6 +488,9 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 
 		// Create enums
 		statusEEnum = createEEnum(STATUS);
+
+		// Create data types
+		typeEDataType = createEDataType(TYPE);
 	}
 
 	/**
@@ -510,6 +552,8 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		initEReference(getLocation_ReferencingScopes(), this.getScope(), this.getScope_Locations(),
 				"referencingScopes", null, 0, -1, Location.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLocation_Type(), this.getType(), "type", null, 0, 1, Location.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(scopeEClass, Scope.class, "Scope", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -533,6 +577,8 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		initEReference(getLink_Target(), this.getLocation(), this.getLocation_SourceLinks(), "target", null,
 				1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLink_Type(), this.getType(), "type", null, 0, 1, Link.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(baseEClass, Base.class, "Base", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBase_RootLocations(), this.getLocation(), null, "rootLocations", null, 0, -1,
@@ -567,6 +613,10 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		addEEnumLiteral(statusEEnum, Status.CHANGED_TARGET);
 		addEEnumLiteral(statusEEnum, Status.DELETED_SOURCE);
 		addEEnumLiteral(statusEEnum, Status.DELETED_TARGET);
+
+		// Initialize data types
+		initEDataType(typeEDataType, Serializable.class, "Type", IS_SERIALIZABLE,
+				!IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

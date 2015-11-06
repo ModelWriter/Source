@@ -12,6 +12,7 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -40,6 +41,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getDescription <em>Description</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getSource <em>Source</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getTarget <em>Target</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,6 +97,26 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	 * @ordered
 	 */
 	protected Location target;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Serializable TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected Serializable type = TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -277,6 +299,27 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	 * 
 	 * @generated
 	 */
+	public Serializable getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setType(Serializable newType) {
+		Serializable oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.LINK__TYPE, oldType, type));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -342,6 +385,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				if (resolve)
 					return getTarget();
 				return basicGetTarget();
+			case MappingPackage.LINK__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -365,6 +410,9 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				return;
 			case MappingPackage.LINK__TARGET:
 				setTarget((Location)newValue);
+				return;
+			case MappingPackage.LINK__TYPE:
+				setType((Serializable)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -390,6 +438,9 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 			case MappingPackage.LINK__TARGET:
 				setTarget((Location)null);
 				return;
+			case MappingPackage.LINK__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -411,6 +462,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				return getSource() != null;
 			case MappingPackage.LINK__TARGET:
 				return target != null;
+			case MappingPackage.LINK__TYPE:
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -430,6 +483,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 		result.append(status);
 		result.append(", description: ");
 		result.append(description);
+		result.append(", type: ");
+		result.append(type);
 		result.append(')');
 		return result.toString();
 	}

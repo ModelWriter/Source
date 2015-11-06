@@ -12,6 +12,8 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
+import java.io.Serializable;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -94,6 +96,8 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 		switch (eDataType.getClassifierID()) {
 			case MappingPackage.STATUS:
 				return createStatusFromString(eDataType, initialValue);
+			case MappingPackage.TYPE:
+				return createTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName()
 						+ "' is not a valid classifier");
@@ -110,6 +114,8 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 		switch (eDataType.getClassifierID()) {
 			case MappingPackage.STATUS:
 				return convertStatusToString(eDataType, instanceValue);
+			case MappingPackage.TYPE:
+				return convertTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName()
 						+ "' is not a valid classifier");
@@ -186,6 +192,24 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 	 */
 	public String convertStatusToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public Serializable createTypeFromString(EDataType eDataType, String initialValue) {
+		return (Serializable)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String convertTypeToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**

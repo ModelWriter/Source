@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.base;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
@@ -112,6 +113,15 @@ public class LocationFactoryTests {
 		}
 
 		public void removeListener(ILocationListener listener) {
+			// nothing to do here
+		}
+
+		public Serializable getType() {
+			// nothing to do here
+			return null;
+		}
+
+		public void setType(Serializable type) {
 			// nothing to do here
 		}
 

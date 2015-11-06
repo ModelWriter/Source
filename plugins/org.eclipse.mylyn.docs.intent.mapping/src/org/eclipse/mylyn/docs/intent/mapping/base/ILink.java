@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
+import java.io.Serializable;
+
 /**
  * Connect two {@link ILocation}.
  *
@@ -122,5 +124,20 @@ public interface ILink extends IMappingElement, IBaseElement {
 	 *            the {@link ILinkListener} to remove
 	 */
 	void removeListener(ILinkListener listener);
+
+	/**
+	 * Gets the type.
+	 * 
+	 * @return the type
+	 */
+	Serializable getType();
+
+	/**
+	 * Sets the type.
+	 * 
+	 * @param type
+	 *            the type
+	 */
+	void setType(Serializable type);
 
 }

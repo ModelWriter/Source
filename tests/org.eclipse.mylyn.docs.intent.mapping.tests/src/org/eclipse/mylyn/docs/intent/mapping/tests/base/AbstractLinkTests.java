@@ -177,4 +177,30 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 		assertNull(link.getTarget());
 	}
 
+	@Test
+	public void getTypeDefault() throws InstantiationException, IllegalAccessException {
+		final ILink link = createLink();
+
+		assertEquals(null, link.getType());
+	}
+
+	@Test
+	public void setType() throws InstantiationException, IllegalAccessException {
+		final ILink link = createLink();
+		final String type = "Type";
+
+		link.setType(type);
+
+		assertEquals(type, link.getType());
+	}
+
+	@Test
+	public void setTypeNull() throws InstantiationException, IllegalAccessException {
+		final ILink link = createLink();
+
+		link.setType(null);
+
+		assertEquals(null, link.getType());
+	}
+
 }

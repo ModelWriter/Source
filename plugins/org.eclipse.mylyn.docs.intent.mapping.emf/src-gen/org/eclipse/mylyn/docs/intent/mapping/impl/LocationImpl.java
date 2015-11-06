@@ -12,6 +12,7 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -127,6 +128,26 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected EList<IScope> referencingScopes;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Serializable TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected Serializable type = TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -331,6 +352,28 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * 
 	 * @generated
 	 */
+	public Serializable getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setType(Serializable newType) {
+		Serializable oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.LOCATION__TYPE, oldType,
+					type));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -421,6 +464,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				return getContainer();
 			case MappingPackage.LOCATION__REFERENCING_SCOPES:
 				return getReferencingScopes();
+			case MappingPackage.LOCATION__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -459,6 +504,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				getReferencingScopes().clear();
 				getReferencingScopes().addAll((Collection<? extends Scope>)newValue);
 				return;
+			case MappingPackage.LOCATION__TYPE:
+				setType((Serializable)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -492,6 +540,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 			case MappingPackage.LOCATION__REFERENCING_SCOPES:
 				getReferencingScopes().clear();
 				return;
+			case MappingPackage.LOCATION__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -518,6 +569,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				return getContainer() != null;
 			case MappingPackage.LOCATION__REFERENCING_SCOPES:
 				return referencingScopes != null && !referencingScopes.isEmpty();
+			case MappingPackage.LOCATION__TYPE:
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -535,6 +588,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", type: ");
+		result.append(type);
 		result.append(')');
 		return result.toString();
 	}

@@ -14,6 +14,7 @@ package org.eclipse.mylyn.docs.intent.mapping;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -164,13 +165,21 @@ public interface MappingPackage extends EPackage {
 	int LOCATION__REFERENCING_SCOPES = IEMF_BASE_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LOCATION__TYPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Location</em>' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 7;
+	int LOCATION_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of operations of the '<em>Location</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
@@ -273,13 +282,21 @@ public interface MappingPackage extends EPackage {
 	int LINK__TARGET = IEMF_BASE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__TYPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Link</em>' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
+	int LINK_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Link</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -406,6 +423,14 @@ public interface MappingPackage extends EPackage {
 	int TEXT_LOCATION__REFERENCING_SCOPES = LOCATION__REFERENCING_SCOPES;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_LOCATION__TYPE = LOCATION__TYPE;
+
+	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -513,6 +538,14 @@ public interface MappingPackage extends EPackage {
 	int EOBJECT_LOCATION__REFERENCING_SCOPES = TEXT_LOCATION__REFERENCING_SCOPES;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_LOCATION__TYPE = TEXT_LOCATION__TYPE;
+
+	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -565,6 +598,15 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	int STATUS = 7;
+
+	/**
+	 * The meta object id for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see java.io.Serializable
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getType()
+	 * @generated
+	 */
+	int TYPE = 8;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Location
@@ -661,6 +703,18 @@ public interface MappingPackage extends EPackage {
 	EReference getLocation_ReferencingScopes();
 
 	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.Location#getType <em>Type</em>}'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Location#getType()
+	 * @see #getLocation()
+	 * @generated
+	 */
+	EAttribute getLocation_Type();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Scope <em>Scope</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -749,6 +803,17 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getLink_Target();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.mylyn.docs.intent.mapping.Link#getType
+	 * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Link#getType()
+	 * @see #getLink()
+	 * @generated
+	 */
+	EAttribute getLink_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Base <em>Base</em>}'.
@@ -860,6 +925,17 @@ public interface MappingPackage extends EPackage {
 	EEnum getStatus();
 
 	/**
+	 * Returns the meta object for data type '{@link java.io.Serializable <em>Type</em>}'. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for data type '<em>Type</em>'.
+	 * @see java.io.Serializable
+	 * @model instanceClass="java.io.Serializable"
+	 * @generated
+	 */
+	EDataType getType();
+
+	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
@@ -949,6 +1025,14 @@ public interface MappingPackage extends EPackage {
 		EReference LOCATION__REFERENCING_SCOPES = eINSTANCE.getLocation_ReferencingScopes();
 
 		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute LOCATION__TYPE = eINSTANCE.getLocation_Type();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.ScopeImpl
 		 * <em>Scope</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
@@ -1015,6 +1099,14 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference LINK__TARGET = eINSTANCE.getLink_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute LINK__TYPE = eINSTANCE.getLink_Type();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl
@@ -1107,6 +1199,16 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum STATUS = eINSTANCE.getStatus();
+
+		/**
+		 * The meta object literal for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
+		 * 
+		 * @see java.io.Serializable
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getType()
+		 * @generated
+		 */
+		EDataType TYPE = eINSTANCE.getType();
 
 	}
 
