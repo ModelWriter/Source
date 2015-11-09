@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-extensions="aaa"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.tests.content-typeA"
+            name="Test content type A"
+            priority="normal">
+      </content-type>
+      <content-type
+            base-type="org.eclipse.mylyn.docs.intent.mapping.ide.tests.content-typeA"
+            file-extensions="bbb"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.tests.content-typeB"
+            name="Test content type B"
+            priority="normal">
+      </content-type>
+      <content-type
+            base-type="org.eclipse.mylyn.docs.intent.mapping.ide.tests.content-typeB"
+            file-extensions="ccc"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.tests.content-typeC"
+            name="Test content type C"
+            priority="normal">
+      </content-type>
+   </extension>
+
+</plugin>

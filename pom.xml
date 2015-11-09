@@ -53,13 +53,17 @@
     <module>releng/eu.modelwriter.targetplatforms/indigo</module>
     <module>releng/eu.modelwriter.targetplatforms/helios</module>
 
+    <module>features/org.eclipse.mylyn.docs.intent.mapping.feature</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping</module>
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf</module>
-
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.tests</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.tests</module>
+    <module>tests/org.eclipse.mylyn.docs.intent.mapping.ide.tests</module>
 
-    <module>features/org.eclipse.mylyn.docs.intent.mapping.feature</module>
+    <module>features/eu.modelwriter.semantic.feature</module>
+    <module>plugins/eu.modelwriter.semantic</module>
+    <module>tests/eu.modelwriter.semantic.tests</module>
   </modules>
 
   <build>
