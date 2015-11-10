@@ -68,7 +68,7 @@ public class ResourceConnectorTests {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public class TestResourceLocation extends TestLocation implements IFileLocation {
+	public static class TestResourceLocation extends TestLocation implements IFileLocation {
 
 		/**
 		 * The full path.

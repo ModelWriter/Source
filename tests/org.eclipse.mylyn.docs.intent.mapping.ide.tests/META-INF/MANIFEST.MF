@@ -10,3 +10,6 @@ Require-Bundle: org.junit;bundle-version="4.0.0",
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.mylyn.docs.intent.mapping.tests
+Export-Package: org.eclipse.mylyn.docs.intent.mapping.ide.tests.connecor,
+ org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector,
+ org.eclipse.mylyn.docs.intent.mapping.ide.tests.resource

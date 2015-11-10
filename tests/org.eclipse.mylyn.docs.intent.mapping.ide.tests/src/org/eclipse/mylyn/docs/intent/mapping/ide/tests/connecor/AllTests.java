@@ -13,6 +13,7 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.tests.connecor;
 
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.ResourceConnectorTests;
+import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.TextFileConnectorDelegateTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -23,7 +24,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {FileDelegateRegistryTests.class, ResourceConnectorTests.class, })
+@SuiteClasses(value = {FileDelegateRegistryTests.class, ResourceConnectorTests.class,
+		TextFileConnectorDelegateTests.class, })
 public class AllTests {
 
 }

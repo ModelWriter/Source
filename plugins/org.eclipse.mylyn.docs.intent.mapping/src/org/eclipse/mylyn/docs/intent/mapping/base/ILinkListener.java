@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    {INITIAL AUTHOR} - initial API and implementation and/or initial documentation
+ *    Oveo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
