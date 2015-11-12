@@ -1,0 +1,8 @@
+target "Apache Jena"
+
+with source requirements
+
+location Apache-Jena "http://ghillairet.github.com/p2" {
+	org.apache.jena.feature.feature.group lazy
+}
+

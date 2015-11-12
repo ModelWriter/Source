@@ -1,5 +1,7 @@
 target "ModelWriter Juno Target Platform"
 
+include "../common/apache-jena.tpd"
+
 with source requirements
 
 location "http://download.eclipse.org/releases/juno" {
