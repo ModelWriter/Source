@@ -42,8 +42,7 @@ public interface ISemanticProvider {
 	 * 
 	 * @param concept
 	 *            the source concept
-	 * @return the mapping of {@link Object relation} to the {@link Set} of related concepts if any,
-	 *         <code>null</code> otherwise
+	 * @return the mapping of {@link Object relation} to the {@link Set} of related concepts
 	 */
 	Map<Object, Set<Object>> getRelatedConcepts(Object concept);
 
