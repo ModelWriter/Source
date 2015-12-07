@@ -20,33 +20,39 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 public interface ITextLocation extends ILocation {
 
 	/**
-	 * Sets the text.
-	 * 
-	 * @param text
-	 *            the text
-	 */
-	void setText(String text);
-
-	/**
-	 * Gets the text.
-	 * 
-	 * @return the text
-	 */
-	String getText();
-
-	/**
-	 * Sets the offset of {@link ITextLocation#getText() text} in the surrounding text.
+	 * Sets the start offset of {@link ITextLocation#getText() text} in the {@link ITextContainer#getText()
+	 * surrounding text}.
 	 * 
 	 * @param offset
-	 *            the offset
+	 *            the start offset
 	 */
-	void setTextOffset(int offset);
+	void setStartOffset(int offset);
 
 	/**
-	 * Gets the offset of {@link ITextLocation#getText() text} in the surrounding text.
+	 * Gets the start offset of {@link ITextLocation#getText() text} in the {@link ITextContainer#getText()
+	 * surrounding text}.
 	 * 
-	 * @return the offset of {@link ITextLocation#getText() text} in the surrounding text
+	 * @return the start offset of {@link ITextLocation#getText() text} in the
+	 *         {@link ITextContainer#getText() surrounding text}
 	 */
-	int getTextOffset();
+	int getStartOffset();
+
+	/**
+	 * Sets the end offset of {@link ITextLocation#getText() text} in the {@link ITextContainer#getText()
+	 * surrounding text}.
+	 * 
+	 * @param offset
+	 *            the end offset
+	 */
+	void setEndOffset(int offset);
+
+	/**
+	 * Gets the end offset of {@link ITextLocation#getText() text} in the {@link ITextContainer#getText()
+	 * surrounding text}.
+	 * 
+	 * @return the end offset of {@link ITextLocation#getText() text} in the {@link ITextContainer#getText()
+	 *         surrounding text}
+	 */
+	int getEndOffset();
 
 }

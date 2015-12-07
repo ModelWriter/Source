@@ -431,21 +431,22 @@ public interface MappingPackage extends EPackage {
 	int TEXT_LOCATION__TYPE = LOCATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Text</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_LOCATION__TEXT = LOCATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Text Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * The feature id for the '<em><b>Start Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TEXT_LOCATION__TEXT_OFFSET = LOCATION_FEATURE_COUNT + 1;
+	int TEXT_LOCATION__START_OFFSET = LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>End Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_LOCATION__END_OFFSET = LOCATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Text Location</em>' class. <!-- begin-user-doc --> <!--
@@ -546,21 +547,22 @@ public interface MappingPackage extends EPackage {
 	int EOBJECT_LOCATION__TYPE = TEXT_LOCATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Text</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EOBJECT_LOCATION__TEXT = TEXT_LOCATION__TEXT;
-
-	/**
-	 * The feature id for the '<em><b>Text Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * The feature id for the '<em><b>Start Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__TEXT_OFFSET = TEXT_LOCATION__TEXT_OFFSET;
+	int EOBJECT_LOCATION__START_OFFSET = TEXT_LOCATION__START_OFFSET;
+
+	/**
+	 * The feature id for the '<em><b>End Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_LOCATION__END_OFFSET = TEXT_LOCATION__END_OFFSET;
 
 	/**
 	 * The feature id for the '<em><b>Setting</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -870,27 +872,27 @@ public interface MappingPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.TextLocation#getText <em>Text</em>}'. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.TextLocation#getStartOffset <em>Start Offset</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the attribute '<em>Text</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.TextLocation#getText()
+	 * @return the meta object for the attribute '<em>Start Offset</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.TextLocation#getStartOffset()
 	 * @see #getTextLocation()
 	 * @generated
 	 */
-	EAttribute getTextLocation_Text();
+	EAttribute getTextLocation_StartOffset();
 
 	/**
 	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.TextLocation#getTextOffset <em>Text Offset</em>}'. <!--
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.TextLocation#getEndOffset <em>End Offset</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the attribute '<em>Text Offset</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.TextLocation#getTextOffset()
+	 * @return the meta object for the attribute '<em>End Offset</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.TextLocation#getEndOffset()
 	 * @see #getTextLocation()
 	 * @generated
 	 */
-	EAttribute getTextLocation_TextOffset();
+	EAttribute getTextLocation_EndOffset();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation
@@ -1156,20 +1158,20 @@ public interface MappingPackage extends EPackage {
 		EClass TEXT_LOCATION = eINSTANCE.getTextLocation();
 
 		/**
-		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature. <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EAttribute TEXT_LOCATION__TEXT = eINSTANCE.getTextLocation_Text();
-
-		/**
-		 * The meta object literal for the '<em><b>Text Offset</b></em>' attribute feature. <!--
+		 * The meta object literal for the '<em><b>Start Offset</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
-		EAttribute TEXT_LOCATION__TEXT_OFFSET = eINSTANCE.getTextLocation_TextOffset();
+		EAttribute TEXT_LOCATION__START_OFFSET = eINSTANCE.getTextLocation_StartOffset();
+
+		/**
+		 * The meta object literal for the '<em><b>End Offset</b></em>' attribute feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute TEXT_LOCATION__END_OFFSET = eINSTANCE.getTextLocation_EndOffset();
 
 		/**
 		 * The meta object literal for the '

@@ -24,8 +24,9 @@ import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl#getText <em>Text</em>}</li>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl#getTextOffset <em>Text Offset</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl#getStartOffset <em>Start Offset
+ * </em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl#getEndOffset <em>End Offset</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,44 +34,44 @@ import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
  */
 public class TextLocationImpl extends LocationImpl implements TextLocation {
 	/**
-	 * The default value of the '{@link #getText() <em>Text</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The default value of the '{@link #getStartOffset() <em>Start Offset</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @see #getText()
+	 * @see #getStartOffset()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TEXT_EDEFAULT = null;
+	protected static final int START_OFFSET_EDEFAULT = -1;
 
 	/**
-	 * The cached value of the '{@link #getText() <em>Text</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getStartOffset() <em>Start Offset</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @see #getText()
+	 * @see #getStartOffset()
 	 * @generated
 	 * @ordered
 	 */
-	protected String text = TEXT_EDEFAULT;
+	protected int startOffset = START_OFFSET_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTextOffset() <em>Text Offset</em>}' attribute. <!-- begin-user-doc
+	 * The default value of the '{@link #getEndOffset() <em>End Offset</em>}' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
-	 * @see #getTextOffset()
+	 * @see #getEndOffset()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int TEXT_OFFSET_EDEFAULT = -1;
+	protected static final int END_OFFSET_EDEFAULT = -1;
 
 	/**
-	 * The cached value of the '{@link #getTextOffset() <em>Text Offset</em>}' attribute. <!-- begin-user-doc
+	 * The cached value of the '{@link #getEndOffset() <em>End Offset</em>}' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
-	 * @see #getTextOffset()
+	 * @see #getEndOffset()
 	 * @generated
 	 * @ordered
 	 */
-	protected int textOffset = TEXT_OFFSET_EDEFAULT;
+	protected int endOffset = END_OFFSET_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -96,8 +97,8 @@ public class TextLocationImpl extends LocationImpl implements TextLocation {
 	 * 
 	 * @generated
 	 */
-	public String getText() {
-		return text;
+	public int getStartOffset() {
+		return startOffset;
 	}
 
 	/**
@@ -105,12 +106,12 @@ public class TextLocationImpl extends LocationImpl implements TextLocation {
 	 * 
 	 * @generated
 	 */
-	public void setText(String newText) {
-		String oldText = text;
-		text = newText;
+	public void setStartOffset(int newStartOffset) {
+		int oldStartOffset = startOffset;
+		startOffset = newStartOffset;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.TEXT_LOCATION__TEXT,
-					oldText, text));
+			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.TEXT_LOCATION__START_OFFSET,
+					oldStartOffset, startOffset));
 	}
 
 	/**
@@ -118,8 +119,8 @@ public class TextLocationImpl extends LocationImpl implements TextLocation {
 	 * 
 	 * @generated
 	 */
-	public int getTextOffset() {
-		return textOffset;
+	public int getEndOffset() {
+		return endOffset;
 	}
 
 	/**
@@ -127,12 +128,12 @@ public class TextLocationImpl extends LocationImpl implements TextLocation {
 	 * 
 	 * @generated
 	 */
-	public void setTextOffset(int newTextOffset) {
-		int oldTextOffset = textOffset;
-		textOffset = newTextOffset;
+	public void setEndOffset(int newEndOffset) {
+		int oldEndOffset = endOffset;
+		endOffset = newEndOffset;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.TEXT_LOCATION__TEXT_OFFSET,
-					oldTextOffset, textOffset));
+			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.TEXT_LOCATION__END_OFFSET,
+					oldEndOffset, endOffset));
 	}
 
 	/**
@@ -143,10 +144,10 @@ public class TextLocationImpl extends LocationImpl implements TextLocation {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case MappingPackage.TEXT_LOCATION__TEXT:
-				return getText();
-			case MappingPackage.TEXT_LOCATION__TEXT_OFFSET:
-				return getTextOffset();
+			case MappingPackage.TEXT_LOCATION__START_OFFSET:
+				return getStartOffset();
+			case MappingPackage.TEXT_LOCATION__END_OFFSET:
+				return getEndOffset();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -159,11 +160,11 @@ public class TextLocationImpl extends LocationImpl implements TextLocation {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case MappingPackage.TEXT_LOCATION__TEXT:
-				setText((String)newValue);
+			case MappingPackage.TEXT_LOCATION__START_OFFSET:
+				setStartOffset((Integer)newValue);
 				return;
-			case MappingPackage.TEXT_LOCATION__TEXT_OFFSET:
-				setTextOffset((Integer)newValue);
+			case MappingPackage.TEXT_LOCATION__END_OFFSET:
+				setEndOffset((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -177,11 +178,11 @@ public class TextLocationImpl extends LocationImpl implements TextLocation {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case MappingPackage.TEXT_LOCATION__TEXT:
-				setText(TEXT_EDEFAULT);
+			case MappingPackage.TEXT_LOCATION__START_OFFSET:
+				setStartOffset(START_OFFSET_EDEFAULT);
 				return;
-			case MappingPackage.TEXT_LOCATION__TEXT_OFFSET:
-				setTextOffset(TEXT_OFFSET_EDEFAULT);
+			case MappingPackage.TEXT_LOCATION__END_OFFSET:
+				setEndOffset(END_OFFSET_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -195,10 +196,10 @@ public class TextLocationImpl extends LocationImpl implements TextLocation {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case MappingPackage.TEXT_LOCATION__TEXT:
-				return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
-			case MappingPackage.TEXT_LOCATION__TEXT_OFFSET:
-				return textOffset != TEXT_OFFSET_EDEFAULT;
+			case MappingPackage.TEXT_LOCATION__START_OFFSET:
+				return startOffset != START_OFFSET_EDEFAULT;
+			case MappingPackage.TEXT_LOCATION__END_OFFSET:
+				return endOffset != END_OFFSET_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -214,10 +215,10 @@ public class TextLocationImpl extends LocationImpl implements TextLocation {
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (text: ");
-		result.append(text);
-		result.append(", textOffset: ");
-		result.append(textOffset);
+		result.append(" (startOffset: ");
+		result.append(startOffset);
+		result.append(", endOffset: ");
+		result.append(endOffset);
 		result.append(')');
 		return result.toString();
 	}

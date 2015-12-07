@@ -375,7 +375,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	public EAttribute getTextLocation_Text() {
+	public EAttribute getTextLocation_StartOffset() {
 		return (EAttribute)textLocationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -384,7 +384,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	public EAttribute getTextLocation_TextOffset() {
+	public EAttribute getTextLocation_EndOffset() {
 		return (EAttribute)textLocationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -480,8 +480,8 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		iemfBaseElementEClass = createEClass(IEMF_BASE_ELEMENT);
 
 		textLocationEClass = createEClass(TEXT_LOCATION);
-		createEAttribute(textLocationEClass, TEXT_LOCATION__TEXT);
-		createEAttribute(textLocationEClass, TEXT_LOCATION__TEXT_OFFSET);
+		createEAttribute(textLocationEClass, TEXT_LOCATION__START_OFFSET);
+		createEAttribute(textLocationEClass, TEXT_LOCATION__END_OFFSET);
 
 		eObjectLocationEClass = createEClass(EOBJECT_LOCATION);
 		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__SETTING);
@@ -593,10 +593,10 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 
 		initEClass(textLocationEClass, TextLocation.class, "TextLocation", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTextLocation_Text(), ecorePackage.getEString(), "text", null, 1, 1,
+		initEAttribute(getTextLocation_StartOffset(), ecorePackage.getEInt(), "startOffset", "-1", 1, 1,
 				TextLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTextLocation_TextOffset(), ecorePackage.getEInt(), "textOffset", "-1", 1, 1,
+		initEAttribute(getTextLocation_EndOffset(), ecorePackage.getEInt(), "endOffset", "-1", 1, 1,
 				TextLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

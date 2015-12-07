@@ -44,8 +44,8 @@
     </genClasses>
     <genClasses image="false" ecoreClass="mapping.ecore#//IEMFBaseElement"/>
     <genClasses ecoreClass="mapping.ecore#//TextLocation">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//TextLocation/text"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//TextLocation/textOffset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//TextLocation/startOffset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//TextLocation/endOffset"/>
     </genClasses>
     <genClasses ecoreClass="mapping.ecore#//EObjectLocation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectLocation/setting"/>

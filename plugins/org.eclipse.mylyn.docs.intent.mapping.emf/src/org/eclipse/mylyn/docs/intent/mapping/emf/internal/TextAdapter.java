@@ -207,9 +207,9 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 	 */
 	public void setLocationFromText(IEObjectLocation location) {
 
-		final int offset = location.getTextOffset();
+		final int offset = location.getStartOffset();
 		if (offset == getTextOffset()) {
-			if (((double)location.getText().length() / (double)getText().length()) >= deleteThreshold) {
+			if (((double)(location.getEndOffset() - location.getStartOffset()) / (double)getText().length()) >= deleteThreshold) {
 				location.setEObject(getTarget());
 				location.setEStructuralFeature(null);
 				location.setValue(null);
@@ -217,7 +217,7 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 				clearLocation(location);
 			}
 		} else {
-			final FeatureValue featureValue = offsetToFeatureValues.get(location.getTextOffset());
+			final FeatureValue featureValue = offsetToFeatureValues.get(location.getStartOffset());
 			if (featureValue == null) {
 				FeatureValue child = null;
 				for (Entry<Integer, FeatureValue> entry : offsetToFeatureValues.entrySet()) {
@@ -234,7 +234,7 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 					clearLocation(location);
 				}
 			} else {
-				// TODO compare surounding EObject serialisation and discarde the location according to the
+				// TODO compare surrounding EObject serialization and discard the location according to the
 				// editing distance for instance
 				if (location.isSetting()) {
 					location.setEObject(getTarget());
@@ -256,8 +256,8 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 	 *            the {@link IEObjectLocation} to clear
 	 */
 	private void clearLocation(IEObjectLocation location) {
-		location.setText("");
-		location.setTextOffset(-1);
+		location.setStartOffset(-1);
+		location.setEndOffset(-1);
 		location.setEObject(null);
 		location.setEStructuralFeature(null);
 		location.setValue(null);
@@ -271,14 +271,15 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 	public void setLocationFromEObject(IEObjectLocation location) {
 		assert location.getEObject() == getTarget();
 
+		final String text = getText();
 		if (location.getEStructuralFeature() == null) {
-			location.setText(getText());
-			location.setTextOffset(getTextOffset());
+			location.setStartOffset(getTextOffset());
+			location.setEndOffset(getTextOffset() + text.length());
 		} else {
-			int[] offsets = featureValueToOffsets.get(location.getEStructuralFeature()).get(
+			final int[] offsets = featureValueToOffsets.get(location.getEStructuralFeature()).get(
 					location.getValue());
-			location.setText(getText().substring(offsets[0] - getTextOffset(), offsets[1] - getTextOffset()));
-			location.setTextOffset(offsets[0]);
+			location.setStartOffset(offsets[0]);
+			location.setEndOffset(offsets[1]);
 		}
 	}
 

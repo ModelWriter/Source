@@ -32,7 +32,7 @@ public class TextConnector extends AbstractConnector {
 	public Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType, Object element) {
 		final Class<? extends ILocation> res;
 
-		if (ITextContainer.class.isAssignableFrom(containerType) && element instanceof String) {
+		if (ITextContainer.class.isAssignableFrom(containerType) && element instanceof TextRegion) {
 			res = ITextLocation.class;
 		} else {
 			res = null;
@@ -45,12 +45,8 @@ public class TextConnector extends AbstractConnector {
 	protected void initLocation(ILocation location, Object element) {
 		final ITextLocation toInit = (ITextLocation)location;
 
-		final String text = ((ITextContainer)location.getContainer()).getText();
-
-		toInit.setText((String)element);
-		// FIXME this is bogus we need more than the String itself to initialize the ITextLocation
-		// in case of duplicates for instance
-		toInit.setTextOffset(text.indexOf((String)element));
+		toInit.setStartOffset(((TextRegion)element).getStartOffset());
+		toInit.setEndOffset(((TextRegion)element).getEndOffset());
 	}
 
 	/**
@@ -69,12 +65,10 @@ public class TextConnector extends AbstractConnector {
 			for (ILocation child : container.getContents()) {
 				if (child instanceof ITextLocation) {
 					final ITextLocation location = (ITextLocation)child;
-					final int oldLength = location.getText().length();
-					int oldOffset = location.getTextOffset();
-					int newStartOffset = diff.getIndex(oldOffset);
-					int newEndOffset = diff.getIndex(oldOffset + oldLength);
-					location.setText(text.substring(newStartOffset, newEndOffset));
-					location.setTextOffset(newStartOffset);
+					final int newStartOffset = diff.getIndex(location.getStartOffset());
+					final int newEndOffset = diff.getIndex(location.getEndOffset());
+					location.setStartOffset(newStartOffset);
+					location.setEndOffset(newEndOffset);
 				}
 			}
 		}

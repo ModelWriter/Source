@@ -18,6 +18,7 @@ import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrize
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;
+import org.eclipse.mylyn.docs.intent.mapping.text.TextRegion;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -46,7 +47,8 @@ public class TextConnectorTests extends TextConnector {
 
 	@Test
 	public void getLocation() {
-		final Class<? extends ILocation> type = getLocationType(TestTextContainerLocation.class, "");
+		final Class<? extends ILocation> type = getLocationType(TestTextContainerLocation.class,
+				new TextRegion(0, 0));
 
 		assertEquals(ITextLocation.class, type);
 	}
@@ -58,10 +60,10 @@ public class TextConnectorTests extends TextConnector {
 		final ITextLocation location = new TestTextLocation();
 		location.setContainer(container);
 
-		super.initLocation(location, "cd");
+		super.initLocation(location, new TextRegion(2, 4));
 
-		assertEquals("cd", location.getText());
-		assertEquals(2, location.getTextOffset());
+		assertEquals(2, location.getStartOffset());
+		assertEquals(4, location.getEndOffset());
 	}
 
 }

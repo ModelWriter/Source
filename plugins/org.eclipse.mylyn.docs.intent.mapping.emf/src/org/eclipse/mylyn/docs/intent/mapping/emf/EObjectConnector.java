@@ -58,7 +58,7 @@ public class EObjectConnector extends AbstractConnector {
 		final Object value;
 		final boolean setting;
 		final String text;
-		final int textOffset;
+		final int textStartOffset;
 		if (element instanceof Setting) {
 			eObject = ((Setting)element).getEObject();
 			feature = ((Setting)element).getEStructuralFeature();
@@ -69,7 +69,7 @@ public class EObjectConnector extends AbstractConnector {
 			final int[] offsets = adapter.getOffsets(feature, value);
 			text = containerText.substring(offsets[0] - adapter.getTextOffset(), offsets[1]
 					- adapter.getTextOffset());
-			textOffset = offsets[0];
+			textStartOffset = offsets[0];
 		} else {
 			eObject = (EObject)element;
 			feature = null;
@@ -77,15 +77,15 @@ public class EObjectConnector extends AbstractConnector {
 			setting = false;
 			final ITextAdapter adapter = getTextAdapter(eObject);
 			text = adapter.getText();
-			textOffset = adapter.getTextOffset();
+			textStartOffset = adapter.getTextOffset();
 		}
 
 		toInit.setEObject(eObject);
 		toInit.setEStructuralFeature(feature);
 		toInit.setSetting(setting);
 		toInit.setValue(value);
-		toInit.setText(text);
-		toInit.setTextOffset(textOffset);
+		toInit.setStartOffset(textStartOffset);
+		toInit.setEndOffset(textStartOffset + text.length());
 	}
 
 	/**
@@ -107,12 +107,10 @@ public class EObjectConnector extends AbstractConnector {
 			for (ILocation child : container.getContents()) {
 				if (child instanceof IEObjectLocation) {
 					final IEObjectLocation location = (IEObjectLocation)child;
-					final int oldLength = location.getText().length();
-					int oldOffset = location.getTextOffset();
-					int newStartOffset = diff.getIndex(oldOffset);
-					int newEndOffset = diff.getIndex(oldOffset + oldLength);
-					location.setText(newText.substring(newStartOffset, newEndOffset));
-					location.setTextOffset(newStartOffset);
+					final int newStartOffset = diff.getIndex(location.getStartOffset());
+					final int newEndOffset = diff.getIndex(location.getEndOffset());
+					location.setStartOffset(newStartOffset);
+					location.setEndOffset(newEndOffset);
 				}
 			}
 			for (ILocation child : container.getContents()) {
@@ -121,7 +119,7 @@ public class EObjectConnector extends AbstractConnector {
 					ITextAdapter adapter = null;
 					for (EObject eObj : container.getEObjects()) {
 						final ITextAdapter textAdapter = getTextAdapter(eObj);
-						if (textAdapter.getTextOffset() > location.getTextOffset()) {
+						if (textAdapter.getTextOffset() > location.getStartOffset()) {
 							break;
 						} else {
 							adapter = textAdapter;

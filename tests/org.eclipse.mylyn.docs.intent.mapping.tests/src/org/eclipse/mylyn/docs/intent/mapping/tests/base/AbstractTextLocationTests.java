@@ -29,44 +29,35 @@ public abstract class AbstractTextLocationTests extends AbstractLocationTests {
 	}
 
 	@Test
-	public void setTextNull() throws InstantiationException, IllegalAccessException {
+	public void setStartOffset() throws InstantiationException, IllegalAccessException {
 		ITextLocation location = createLocation();
 
-		location.setText(null);
+		location.setStartOffset(50);
 
-		assertEquals(null, location.getText());
+		assertEquals(50, location.getStartOffset());
 	}
 
 	@Test
-	public void setText() throws InstantiationException, IllegalAccessException {
+	public void getStartOffsetDefault() throws InstantiationException, IllegalAccessException {
 		ITextLocation location = createLocation();
 
-		location.setText("test text");
-
-		assertEquals("test text", location.getText());
+		assertEquals(-1, location.getStartOffset());
 	}
 
 	@Test
-	public void getTextDefault() throws InstantiationException, IllegalAccessException {
+	public void setEndOffset() throws InstantiationException, IllegalAccessException {
 		ITextLocation location = createLocation();
 
-		assertEquals(null, location.getText());
+		location.setEndOffset(50);
+
+		assertEquals(50, location.getEndOffset());
 	}
 
 	@Test
-	public void setTextOffset() throws InstantiationException, IllegalAccessException {
+	public void getEndOffsetDefault() throws InstantiationException, IllegalAccessException {
 		ITextLocation location = createLocation();
 
-		location.setTextOffset(50);
-
-		assertEquals(50, location.getTextOffset());
-	}
-
-	@Test
-	public void getTextOffsetDefault() throws InstantiationException, IllegalAccessException {
-		ITextLocation location = createLocation();
-
-		assertEquals(-1, location.getTextOffset());
+		assertEquals(-1, location.getEndOffset());
 	}
 
 }

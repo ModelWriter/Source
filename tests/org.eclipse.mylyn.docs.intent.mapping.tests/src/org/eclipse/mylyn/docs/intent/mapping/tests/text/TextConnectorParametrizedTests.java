@@ -84,14 +84,14 @@ public class TextConnectorParametrizedTests {
 		private ILocation container;
 
 		/**
-		 * The text.
+		 * The start offset.
 		 */
-		private String text;
+		private int startOffset;
 
 		/**
-		 * The offset.
+		 * The end offset.
 		 */
-		private int textOffset;
+		private int endOffset;
 
 		@Override
 		public void setContainer(ILocation location) {
@@ -103,20 +103,20 @@ public class TextConnectorParametrizedTests {
 			return container;
 		}
 
-		public void setText(String text) {
-			this.text = text;
+		public void setStartOffset(int offset) {
+			startOffset = offset;
 		}
 
-		public String getText() {
-			return text;
+		public int getStartOffset() {
+			return startOffset;
 		}
 
-		public void setTextOffset(int offset) {
-			textOffset = offset;
+		public void setEndOffset(int offset) {
+			endOffset = offset;
 		}
 
-		public int getTextOffset() {
-			return textOffset;
+		public int getEndOffset() {
+			return endOffset;
 		}
 
 	}
@@ -140,7 +140,8 @@ public class TextConnectorParametrizedTests {
 		this.original = original;
 		this.altered = altered;
 		try {
-			testText = getContent(TextConnectorParametrizedTests.class.getResourceAsStream("/text.txt"), "UTF-8");
+			testText = getContent(TextConnectorParametrizedTests.class.getResourceAsStream("/text.txt"),
+					"UTF-8");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -177,14 +178,14 @@ public class TextConnectorParametrizedTests {
 	 *            if <code>true</code> {@link AbstractTextConnectorTests#altered} is used,
 	 *            {@link AbstractTextConnectorTests#original} is used otherwise
 	 * @param shift
-	 *            the value to add to {@link ITextLocation#getTextOffset() text offset}.
+	 *            the value to add to {@link ITextLocation#getStartOffset() text offset}.
 	 * @return the {@link ITextLocation} to test
 	 */
 	protected ITextLocation createTextLocations(TestTextContainerLocation container) {
 		final ITextLocation res = new TestTextLocation();
 
-		res.setText(original);
-		res.setTextOffset(container.getText().indexOf(original));
+		res.setStartOffset(container.getText().indexOf(original));
+		res.setEndOffset(container.getText().indexOf(original) + original.length());
 		res.setContainer(container);
 		container.getContents().add(res);
 
@@ -235,13 +236,13 @@ public class TextConnectorParametrizedTests {
 		connector.update(container, testText);
 		final ITextLocation location = createTextLocations(container);
 
-		final String expectedText = location.getText();
-		final int expectedTextOffset = location.getTextOffset();
+		final int expectedStartOffset = location.getStartOffset();
+		final int expectedEndOffset = location.getEndOffset();
 
 		connector.update(container, testText);
 
 		assertEquals(testText, container.getText());
-		assertTextLocation(location, expectedText, expectedTextOffset);
+		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
 	}
 
 	@Test
@@ -251,14 +252,14 @@ public class TextConnectorParametrizedTests {
 		connector.update(container, testText);
 		final ITextLocation location = createTextLocations(container);
 
-		final String expectedText = location.getText();
-		final int expectedTextOffset = location.getTextOffset() + 20;
+		final int expectedStartOffset = location.getStartOffset() + 20;
+		final int expectedEndOffset = location.getEndOffset() + 20;
 
 		final String newText = createString(20) + container.getText();
 		connector.update(container, newText);
 
 		assertEquals(newText, container.getText());
-		assertTextLocation(location, expectedText, expectedTextOffset);
+		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
 	}
 
 	@Test
@@ -268,14 +269,14 @@ public class TextConnectorParametrizedTests {
 		connector.update(container, testText);
 		final ITextLocation location = createTextLocations(container);
 
-		final String expectedText = location.getText();
-		final int expectedTextOffset = location.getTextOffset() - 20;
+		final int expectedStartOffset = location.getStartOffset() - 20;
+		final int expectedEndOffset = location.getEndOffset() - 20;
 
 		final String newText = container.getText().substring(20);
 		connector.update(container, newText);
 
 		assertEquals(newText, container.getText());
-		assertTextLocation(location, expectedText, expectedTextOffset);
+		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
 	}
 
 	@Test
@@ -285,14 +286,14 @@ public class TextConnectorParametrizedTests {
 		connector.update(container, testText);
 		final ITextLocation location = createTextLocations(container);
 
-		final String expectedText = altered;
-		final int expectedTextOffset = location.getTextOffset();
+		final int expectedStartOffset = location.getStartOffset();
+		final int expectedEndOffset = location.getStartOffset() + altered.length();
 
 		final String newText = container.getText().replace(original, altered);
 		connector.update(container, newText);
 
 		assertEquals(newText, container.getText());
-		assertTextLocation(location, expectedText, expectedTextOffset);
+		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
 	}
 
 	@Test
@@ -302,14 +303,14 @@ public class TextConnectorParametrizedTests {
 		connector.update(container, testText);
 		final ITextLocation location = createTextLocations(container);
 
-		final String expectedText = altered;
-		final int expectedTextOffset = location.getTextOffset() + 20;
+		final int expectedStartOffset = location.getStartOffset() + 20;
+		final int expectedEndOffset = location.getStartOffset() + altered.length() + 20;
 
 		final String newText = createString(20) + container.getText().replace(original, altered);
 		connector.update(container, newText);
 
 		assertEquals(newText, container.getText());
-		assertTextLocation(location, expectedText, expectedTextOffset);
+		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
 	}
 
 	@Test
@@ -319,19 +320,19 @@ public class TextConnectorParametrizedTests {
 		connector.update(container, testText);
 		final ITextLocation location = createTextLocations(container);
 
-		final String expectedText = altered;
-		final int expectedTextOffset = location.getTextOffset() - 20;
+		final int expectedStartOffset = location.getStartOffset() - 20;
+		final int expectedEndOffset = location.getStartOffset() + altered.length() - 20;
 
 		final String newText = container.getText().replace(original, altered).substring(20);
 		connector.update(container, newText);
 
 		assertEquals(newText, container.getText());
-		assertTextLocation(location, expectedText, expectedTextOffset);
+		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
 	}
 
-	private void assertTextLocation(ITextLocation location, String expectedText, int expectedTextOffset) {
-		assertEquals(expectedText, location.getText());
-		assertEquals(expectedTextOffset, location.getTextOffset());
+	private void assertTextLocation(ITextLocation location, int expectedStartOffset, int expectedEndOffset) {
+		assertEquals(expectedStartOffset, location.getStartOffset());
+		assertEquals(expectedEndOffset, location.getEndOffset());
 	}
 
 	@Test
@@ -341,14 +342,14 @@ public class TextConnectorParametrizedTests {
 		connector.update(container, testText);
 		final ITextLocation location = createTextLocations(container);
 
-		final String expectedText = "";
-		final int expectedTextOffset = location.getTextOffset();
+		final int expectedStartOffset = location.getStartOffset();
+		final int expectedEndOffset = expectedStartOffset;
 
 		final String newText = container.getText().replace(original, "");
 		connector.update(container, newText);
 
 		assertEquals(newText, container.getText());
-		assertTextLocation(location, expectedText, expectedTextOffset);
+		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
 	}
 
 	@Test
@@ -358,14 +359,14 @@ public class TextConnectorParametrizedTests {
 		connector.update(container, testText);
 		final ITextLocation location = createTextLocations(container);
 
-		final String expectedText = "";
-		final int expectedTextOffset = location.getTextOffset() + 20;
+		final int expectedStartOffset = location.getStartOffset() + 20;
+		final int expectedEndOffset = expectedStartOffset;
 
 		final String newText = createString(20) + container.getText().replace(original, "");
 		connector.update(container, newText);
 
 		assertEquals(newText, container.getText());
-		assertTextLocation(location, expectedText, expectedTextOffset);
+		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
 	}
 
 	@Test
@@ -375,14 +376,14 @@ public class TextConnectorParametrizedTests {
 		connector.update(container, testText);
 		final ITextLocation location = createTextLocations(container);
 
-		final String expectedText = "";
-		final int expectedTextOffset = location.getTextOffset() - 20;
+		final int expectedStartOffset = location.getStartOffset() - 20;
+		final int expectedEndOffset = expectedStartOffset;
 
 		final String newText = container.getText().replace(original, "").substring(20);
 		connector.update(container, newText);
 
 		assertEquals(newText, container.getText());
-		assertTextLocation(location, expectedText, expectedTextOffset);
+		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
 	}
 
 }
