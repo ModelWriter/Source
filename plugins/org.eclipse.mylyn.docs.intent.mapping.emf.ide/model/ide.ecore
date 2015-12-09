@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="ide" nsURI="http://www.modelwriter.eu/mapping/ide" nsPrefix="ide">
+  <eClassifiers xsi:type="ecore:EClass" name="ResourceLocation" eSuperTypes="../../org.eclipse.mylyn.docs.intent.mapping.emf/model/mapping.ecore#//Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fullPath" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileLocation" eSuperTypes="#//ResourceLocation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TextFileLocation" eSuperTypes="#//FileLocation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EObjectFileLocation" eSuperTypes="#//TextFileLocation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eObjects" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" volatile="true"/>
+  </eClassifiers>
+</ecore:EPackage>

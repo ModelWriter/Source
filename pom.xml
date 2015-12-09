@@ -57,9 +57,11 @@
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf</module>
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.tests</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.tests</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.ide.tests</module>
+    <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests</module>
 
     <module>features/eu.modelwriter.semantic.feature</module>
     <module>plugins/eu.modelwriter.semantic</module>

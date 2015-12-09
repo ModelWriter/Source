@@ -9,23 +9,24 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.ide.tests.connecor;
+package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests;
 
-import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests;
-import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.ResourceConnectorTests;
-import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.TextFileConnectorDelegateTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.EObjectFileConnectorDelegateTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.resource.EMFEObjectFileLocationTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.resource.EMFResourceLocationTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.resource.EMFTextFileLocationTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * Aggregates tests for the org.eclipse.mylyn.docs.intent.mapping.ide plug-in.
+ * Aggregates tests for the org.eclipse.mylyn.docs.intent.mapping.emf.ide plug-in.
  * 
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {FileDelegateRegistryTests.class, ResourceConnectorTests.class,
-		TextFileConnectorDelegateTests.class, })
+@SuiteClasses(value = {EMFResourceLocationTests.class, EMFTextFileLocationTests.class,
+		EMFEObjectFileLocationTests.class, EObjectFileConnectorDelegateTests.class, })
 public class AllTests {
 
 }

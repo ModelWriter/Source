@@ -9,33 +9,28 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide.connector;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+package org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.eclipse.intent.mapping.ide.resource.IFileLocation;
-import org.eclipse.intent.mapping.ide.resource.ITextFileLocation;
-import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;
+import org.eclipse.mylyn.docs.intent.mapping.emf.EObjectConnector;
+import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 
 /**
- * {@link ITextFileLocation} delegate.
+ * {@link IEObjectFileLocation} delegate.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class TextFileConnectorDelegate implements IFileConnectorDelegate {
-
-	/**
-	 * The default buffer size.
-	 */
-	private static final int BUFFER_SIZE = 4048;
+public class EObjectFileConnectorDelegate implements IFileConnectorDelegate {
 
 	/**
 	 * {@inheritDoc}
@@ -45,7 +40,7 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 	public IContentType getContentType() {
 		final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
 
-		return contentTypeManager.getContentType(IContentTypeManager.CT_TEXT);
+		return contentTypeManager.getContentType("org.eclipse.emf.ecore.xmi");
 	}
 
 	/**
@@ -54,7 +49,7 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 	 * @see org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate#getFileLocationType()
 	 */
 	public Class<? extends IFileLocation> getFileLocationType() {
-		return ITextFileLocation.class;
+		return IEObjectFileLocation.class;
 	}
 
 	/**
@@ -64,26 +59,11 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 	 *      org.eclipse.core.resources.IFile)
 	 */
 	public void initLocation(IFileLocation location, IFile element) {
-		try {
-			final StringBuilder text = new StringBuilder(BUFFER_SIZE);
-			final BufferedReader reader = new BufferedReader(new InputStreamReader(element.getContents(),
-					element.getCharset()));
-			String line = reader.readLine();
-			while (line != null) {
-				text.append(line);
-				line = reader.readLine();
-			}
-			final TextConnector connector = new TextConnector();
-			connector.update((ITextFileLocation)location, text.toString());
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		final ResourceSet rs = new ResourceSetImpl();
+		final Resource resource = rs.getResource(URI.createPlatformResourceURI(element.getFullPath()
+				.toPortableString(), true), true);
+		final EObjectConnector connector = new EObjectConnector();
+		connector.update((IEObjectContainer)location, resource.getContents());
 	}
+
 }
