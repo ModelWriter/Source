@@ -29,6 +29,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
+import org.eclipse.intent.mapping.ide.IdeMappingUtils;
+import org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.EObjectFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.ResourceConnectorTests.TestResourceLocation;
@@ -37,6 +39,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests {@link EObjectFileConnectorDelegate}.
@@ -163,6 +166,19 @@ public class EObjectFileConnectorDelegateTests {
 		delegate.initLocation(location, file);
 
 		assertEquals(3, location.getEObjects().size());
+	}
+
+	@Test
+	public void registred() {
+		boolean registred = false;
+		for (IFileConnectorDelegate d : IdeMappingUtils.getFileConectorDelegateRegistry()
+				.getConnectorDelegates()) {
+			if (d instanceof EObjectFileConnectorDelegate) {
+				registred = true;
+				break;
+			}
+		}
+		assertTrue(registred);
 	}
 
 }

@@ -11,12 +11,18 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import name.fraser.neil.plaintext.diff_match_patch;
 import name.fraser.neil.plaintext.diff_match_patch.Diff;
 
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.internal.base.BaseRegistry;
 
 /**
@@ -105,7 +111,12 @@ public final class MappingUtils {
 	/**
 	 * The {@link IBaseRegistry}.
 	 */
-	private static final BaseRegistry BASE_REGISTRY = new BaseRegistry();
+	private static final BaseRegistry BASE_REGISTRY = intBaseRegistry();
+
+	/**
+	 * {@link IBase} kind to {@link ILocation} interface/implementation mapping.
+	 */
+	private static final Map<Class<? extends IBase>, Map<Class<? extends ILocation>, Class<? extends ILocation>>> LOCATION_IMPLEMENTATIONS = new HashMap<Class<? extends IBase>, Map<Class<? extends ILocation>, Class<? extends ILocation>>>();
 
 	/**
 	 * Diff match patch instance.
@@ -117,6 +128,39 @@ public final class MappingUtils {
 	 */
 	private MappingUtils() {
 		// nothing to do here
+	}
+
+	/**
+	 * Initialize the {@link BaseRegistry}.
+	 * 
+	 * @return the {@link BaseRegistry}
+	 */
+	private static BaseRegistry intBaseRegistry() {
+		final BaseRegistry res = new BaseRegistry();
+
+		res.addListener(new IBaseRegistryListener() {
+
+			@SuppressWarnings("unchecked")
+			public void baseRegistred(IBase base) {
+				for (Entry<Class<? extends IBase>, Map<Class<? extends ILocation>, Class<? extends ILocation>>> entry : LOCATION_IMPLEMENTATIONS
+						.entrySet()) {
+					if (entry.getKey().isAssignableFrom(base.getClass())) {
+						for (Entry<Class<? extends ILocation>, Class<? extends ILocation>> locationEntry : entry
+								.getValue().entrySet()) {
+							base.getFactory().addClassInstance((Class<ILocation>)locationEntry.getKey(),
+									(Class<ILocation>)locationEntry.getValue());
+						}
+					}
+				}
+			}
+
+			public void baseUnregistred(IBase base) {
+				// nothing to do here
+			}
+
+		});
+
+		return res;
 	}
 
 	/**
@@ -139,6 +183,61 @@ public final class MappingUtils {
 	 */
 	public static IBaseRegistry getBaseRegistry() {
 		return BASE_REGISTRY;
+	}
+
+	/**
+	 * Registers the given {@link ILocation} implementation to instantiate the given {@link ILocation}
+	 * interface for the given {@link IBase} kind.
+	 * 
+	 * @param baseClass
+	 *            the {@link IBase} kind
+	 * @param locationInterface
+	 *            the {@link ILocation} interface
+	 * @param locationClass
+	 *            the {@link ILocation} implementation for the {@link IBase} kind
+	 * @param <L>
+	 *            the {@link ILocation} interface kind
+	 */
+	public static <L extends ILocation> void registerLocationImplementation(Class<? extends IBase> baseClass,
+			Class<L> locationInterface, Class<? extends L> locationClass) {
+		synchronized(getBaseRegistry()) {
+			Map<Class<? extends ILocation>, Class<? extends ILocation>> implementations = LOCATION_IMPLEMENTATIONS
+					.get(baseClass);
+			if (implementations == null) {
+				implementations = new HashMap<Class<? extends ILocation>, Class<? extends ILocation>>();
+				LOCATION_IMPLEMENTATIONS.put(baseClass, implementations);
+			}
+			implementations.put(locationInterface, locationClass);
+			for (IBase base : getBaseRegistry().getBases()) {
+				if (baseClass.isAssignableFrom(base.getClass())) {
+					base.getFactory().addClassInstance(locationInterface, locationClass);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Removes the given {@link ILocation} interface instantiation {@link Class} for the given {@link IBase}.
+	 * 
+	 * @param baseClass
+	 *            the {@link IBase} kind
+	 * @param locationInterface
+	 *            the {@link ILocation} interface
+	 */
+	public static void unregisterLocationImplementation(Class<? extends IBase> baseClass,
+			Class<? extends ILocation> locationInterface) {
+		synchronized(getBaseRegistry()) {
+			Map<Class<? extends ILocation>, Class<? extends ILocation>> implementations = LOCATION_IMPLEMENTATIONS
+					.get(baseClass);
+			if (implementations != null) {
+				implementations.remove(locationInterface);
+			}
+			for (IBase base : getBaseRegistry().getBases()) {
+				if (baseClass.isAssignableFrom(base.getClass())) {
+					base.getFactory().removeClassInstance(locationInterface);
+				}
+			}
+		}
 	}
 
 }

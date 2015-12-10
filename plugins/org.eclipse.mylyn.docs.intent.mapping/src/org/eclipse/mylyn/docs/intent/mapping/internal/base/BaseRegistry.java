@@ -31,13 +31,12 @@ public class BaseRegistry implements IBaseRegistry {
 	/**
 	 * The {@link Set} of {@link BaseRegistry#register(IBase) registered} {@link IBase}.
 	 */
-	private final Set<IBase> bases = Collections.synchronizedSet(new LinkedHashSet<IBase>());
+	private final Set<IBase> bases = new LinkedHashSet<IBase>();
 
 	/**
 	 * The {@link List} of {@link IBaseRegistryListener}.
 	 */
-	private final List<IBaseRegistryListener> listeners = Collections
-			.synchronizedList(new ArrayList<IBaseRegistryListener>());
+	private final List<IBaseRegistryListener> listeners = new ArrayList<IBaseRegistryListener>();
 
 	/**
 	 * Gets the {@link List} of {@link IBaseRegistryListener} in a thread save way.
@@ -56,7 +55,11 @@ public class BaseRegistry implements IBaseRegistry {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry#register(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
 	 */
 	public void register(IBase base) {
-		if (bases.add(base)) {
+		final boolean added;
+		synchronized(this) {
+			added = bases.add(base);
+		}
+		if (added) {
 			for (IBaseRegistryListener listener : getListeners()) {
 				listener.baseRegistred(base);
 			}
@@ -69,7 +72,11 @@ public class BaseRegistry implements IBaseRegistry {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry#unregister(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
 	 */
 	public void unregister(IBase base) {
-		if (bases.remove(base)) {
+		final boolean removed;
+		synchronized(this) {
+			removed = bases.remove(base);
+		}
+		if (removed) {
 			for (IBaseRegistryListener listener : getListeners()) {
 				listener.baseUnregistred(base);
 			}
@@ -82,7 +89,7 @@ public class BaseRegistry implements IBaseRegistry {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry#getBases()
 	 */
 	public Set<IBase> getBases() {
-		synchronized(bases) {
+		synchronized(this) {
 			return Collections.unmodifiableSet(bases);
 		}
 	}
@@ -93,7 +100,9 @@ public class BaseRegistry implements IBaseRegistry {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry#addListener(org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener)
 	 */
 	public void addListener(IBaseRegistryListener listener) {
-		listeners.add(listener);
+		synchronized(listeners) {
+			listeners.add(listener);
+		}
 	}
 
 	/**
@@ -102,7 +111,9 @@ public class BaseRegistry implements IBaseRegistry {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry#removeListener(org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener)
 	 */
 	public void removeListener(IBaseRegistryListener listener) {
-		listeners.remove(listener);
+		synchronized(listeners) {
+			listeners.remove(listener);
+		}
 	}
 
 }

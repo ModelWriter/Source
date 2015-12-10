@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.mylyn.docs.intent.mapping.ide" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.mylyn.docs.intent.mapping.ide" id="org.eclipse.mylyn.docs.intent.mapping.ide.location" name="Location"/>
+      </appinfo>
+      <documentation>
+         Defines an location class to instanciate for a location interface and a base implementation.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="base"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="base">
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="location"/>
+         </sequence>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The IBase kind.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.mylyn.docs.intent.mapping.base.IBase"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="location">
+      <complexType>
+         <attribute name="interface" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The ILocation interface.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.mylyn.docs.intent.mapping.base.ILocation"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="implementation" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Must implement the referenced ILocation interface.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.mylyn.docs.intent.mapping.base.ILocation"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         1.0.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+            &lt;extension
+         point=&quot;org.eclipse.mylyn.docs.intent.mapping.ide.location&quot;&gt;
+      &lt;base
+            class=&quot;org.eclipse.mylyn.docs.intent.mapping.Base&quot;&gt;
+         &lt;location
+               implementation=&quot;org.eclipse.mylyn.docs.intent.mapping.ide.impl.ResourceLocationImpl&quot;
+               interface=&quot;org.eclipse.intent.mapping.ide.resource.IResourceLocation&quot;&gt;
+         &lt;/location&gt;
+         &lt;location
+               implementation=&quot;org.eclipse.mylyn.docs.intent.mapping.ide.impl.TextFileLocationImpl&quot;
+               interface=&quot;org.eclipse.intent.mapping.ide.resource.ITextFileLocation&quot;&gt;
+         &lt;/location&gt;
+         &lt;location
+               implementation=&quot;org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl&quot;
+               interface=&quot;org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation&quot;&gt;
+         &lt;/location&gt;
+      &lt;/base&gt;
+   &lt;/extension&gt;
+
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         org.eclipse.mylyn.docs.intent.mapping.MappingUtils.registerLocationImplementation(Class&lt;? extends IBase&gt; baseClass, Class&lt;L&gt; locationInterface, Class&lt;? extends L&gt; locationClass)
+      </documentation>
+   </annotation>
+
+
+   <annotation>
+      <appinfo>
+         <meta.section type="copyright"/>
+      </appinfo>
+      <documentation>
+         Copyright (c) 2015 Obeo.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+   Obeo - initial API and implementation and/or initial documentation
+   ...
+      </documentation>
+   </annotation>
+
+</schema>

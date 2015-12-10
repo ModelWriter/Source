@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.fileConnectorDelegate" name="FileConnectorDelegate" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.fileConnectorDelegate.exsd"/>
+   <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.location" name="Location" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.location.exsd"/>
+
+</plugin>

@@ -18,9 +18,12 @@ import java.io.UnsupportedEncodingException;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
+import org.eclipse.intent.mapping.ide.Activator;
 import org.eclipse.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.intent.mapping.ide.resource.ITextFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;
@@ -76,14 +79,14 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 			final TextConnector connector = new TextConnector();
 			connector.update((ITextFileLocation)location, text.toString());
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		}
 	}
 }

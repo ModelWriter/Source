@@ -12,6 +12,8 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.tests.resource;
 
 import org.eclipse.intent.mapping.ide.resource.ITextFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -22,6 +24,17 @@ import static org.junit.Assert.assertEquals;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public abstract class AbstractTextFileLocationTests extends AbstractResourceLocationTests {
+
+	@Override
+	public void before() {
+		super.before();
+		MappingUtils.getBaseRegistry().register(base);
+	}
+
+	@After
+	public void after() {
+		MappingUtils.getBaseRegistry().unregister(base);
+	}
 
 	protected ITextFileLocation createLocation() throws InstantiationException, IllegalAccessException {
 		return getBase().getFactory().createElement(ITextFileLocation.class);

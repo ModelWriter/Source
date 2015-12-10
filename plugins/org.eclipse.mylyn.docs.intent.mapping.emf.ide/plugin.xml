@@ -23,5 +23,29 @@
             class="org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage"
             genModel="model/ide.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.location">
+      <base
+            class="org.eclipse.mylyn.docs.intent.mapping.Base">
+         <location
+               implementation="org.eclipse.mylyn.docs.intent.mapping.ide.impl.ResourceLocationImpl"
+               interface="org.eclipse.intent.mapping.ide.resource.IResourceLocation">
+         </location>
+         <location
+               implementation="org.eclipse.mylyn.docs.intent.mapping.ide.impl.TextFileLocationImpl"
+               interface="org.eclipse.intent.mapping.ide.resource.ITextFileLocation">
+         </location>
+         <location
+               implementation="org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl"
+               interface="org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation">
+         </location>
+      </base>
+   </extension>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.fileConnectorDelegate">
+      <fileConnectorDelegate
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.EObjectFileConnectorDelegate">
+      </fileConnectorDelegate>
+   </extension>
 
 </plugin>

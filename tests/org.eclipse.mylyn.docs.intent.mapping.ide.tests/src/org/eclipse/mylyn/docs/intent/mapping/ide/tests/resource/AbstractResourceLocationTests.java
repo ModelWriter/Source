@@ -12,7 +12,9 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.tests.resource;
 
 import org.eclipse.intent.mapping.ide.resource.IResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractLocationTests;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -23,6 +25,17 @@ import static org.junit.Assert.assertEquals;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public abstract class AbstractResourceLocationTests extends AbstractLocationTests {
+
+	@Override
+	public void before() {
+		super.before();
+		MappingUtils.getBaseRegistry().register(base);
+	}
+
+	@After
+	public void after() {
+		MappingUtils.getBaseRegistry().unregister(base);
+	}
 
 	protected IResourceLocation createLocation() throws InstantiationException, IllegalAccessException {
 		return getBase().getFactory().createElement(IResourceLocation.class);

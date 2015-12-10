@@ -17,8 +17,11 @@ import java.io.InputStream;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
+import org.eclipse.intent.mapping.ide.Activator;
 import org.eclipse.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.intent.mapping.ide.resource.IResourceLocation;
@@ -93,11 +96,11 @@ public class ResourceConnector extends AbstractConnector {
 				}
 			}
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		}
 
 		return res;
