@@ -597,17 +597,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#getSemanticName()
-	 * @generated NOT
-	 */
-	public String getSemanticName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#markAsChanged()
 	 * @generated NOT
 	 */

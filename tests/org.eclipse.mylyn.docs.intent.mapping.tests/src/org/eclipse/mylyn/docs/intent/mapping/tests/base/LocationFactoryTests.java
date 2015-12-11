@@ -52,11 +52,6 @@ public class LocationFactoryTests {
 			return null;
 		}
 
-		public String getSemanticName() {
-			// nothing to do here
-			return null;
-		}
-
 		public void markAsChanged() {
 			// nothing to do here
 		}

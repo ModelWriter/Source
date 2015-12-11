@@ -29,13 +29,6 @@ public interface ILocation extends IMappingElement, IBaseElement {
 	String getName();
 
 	/**
-	 * Gets the semantic name.
-	 * 
-	 * @return the semantic name
-	 */
-	String getSemanticName();
-
-	/**
 	 * Marks the location as changed. All {@link ILocation#getSourceLinks() source} must be
 	 * {@link ILink#getStatus() marked} as
 	 * {@link org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus#CHANGED_TARGET CHANGED_TARGET} and
