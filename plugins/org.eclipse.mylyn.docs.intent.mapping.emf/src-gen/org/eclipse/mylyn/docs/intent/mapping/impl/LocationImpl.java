@@ -34,6 +34,7 @@ import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.Scope;
+import org.eclipse.mylyn.docs.intent.mapping.Status;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
@@ -601,8 +602,12 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated NOT
 	 */
 	public void markAsChanged() {
-		// TODO Auto-generated method stub
-
+		for (ILink link : getSourceLinks()) {
+			((Link)link).setStatus(Status.CHANGED_TARGET);
+		}
+		for (ILink link : getTargetLinks()) {
+			((Link)link).setStatus(Status.CHANGED_SOURCE);
+		}
 	}
 
 	/**
@@ -612,8 +617,12 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated NOT
 	 */
 	public void markAsDeleted() {
-		// TODO Auto-generated method stub
-
+		for (ILink link : getSourceLinks()) {
+			((Link)link).setStatus(Status.DELETED_TARGET);
+		}
+		for (ILink link : getTargetLinks()) {
+			((Link)link).setStatus(Status.DELETED_SOURCE);
+		}
 	}
 
 	/**
@@ -634,8 +643,16 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated NOT
 	 */
 	public ILocation getContentLocation(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		ILocation res = null;
+
+		for (ILocation childLocation : getContents()) {
+			if (name.equals(childLocation.getName())) {
+				res = childLocation;
+				break;
+			}
+		}
+
+		return res;
 	}
 
 	/**

@@ -15,12 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 /**
  * Test {@link ILocation}.
@@ -236,7 +239,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		location.removeListener(removedListener);
 		location.setScope(null);
 
-		assertNull(location.getName());
+		assertNull(location.getScope());
 
 		assertTestLocationListener(listener, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -488,6 +491,55 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		location.setType(null);
 
 		assertEquals(null, location.getType());
+	}
+
+	@Ignore
+	@Test
+	public void getContentLocation() throws InstantiationException, IllegalAccessException {
+		final ILocation parent = createLocation();
+		final ILocation child1 = createLocation();
+		final ILocation child2 = createLocation();
+		final ILocation child3 = createLocation();
+
+		// TODO see if we need to add a ILocation.setName() or this should be dealt internally by
+		// implementation
+		fail("not implemented yet.");
+	}
+
+	@Test
+	public void markAsChanged() throws InstantiationException, IllegalAccessException {
+		final ILocation a = createLocation();
+		final ILocation b = createLocation();
+		final ILocation c = createLocation();
+		final ILink ab = createLink();
+		final ILink bc = createLink();
+		ab.setSource(a);
+		ab.setTarget(b);
+		bc.setSource(b);
+		bc.setTarget(c);
+
+		b.markAsChanged();
+
+		assertEquals(LinkStatus.CHANGED_TARGET, ab.getLinkStatus());
+		assertEquals(LinkStatus.CHANGED_SOURCE, bc.getLinkStatus());
+	}
+
+	@Test
+	public void markAsDeleted() throws InstantiationException, IllegalAccessException {
+		final ILocation a = createLocation();
+		final ILocation b = createLocation();
+		final ILocation c = createLocation();
+		final ILink ab = createLink();
+		final ILink bc = createLink();
+		ab.setSource(a);
+		ab.setTarget(b);
+		bc.setSource(b);
+		bc.setTarget(c);
+
+		b.markAsDeleted();
+
+		assertEquals(LinkStatus.DELETED_TARGET, ab.getLinkStatus());
+		assertEquals(LinkStatus.DELETED_SOURCE, bc.getLinkStatus());
 	}
 
 }
