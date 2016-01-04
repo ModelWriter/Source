@@ -103,12 +103,13 @@ public interface MappingPackage extends EPackage {
 	int LOCATION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__NAME = IEMF_BASE_ELEMENT_FEATURE_COUNT + 0;
+	int LOCATION__CONTENTS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -138,22 +139,13 @@ public interface MappingPackage extends EPackage {
 	int LOCATION__TARGET_LINKS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int LOCATION__CONTENTS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__CONTAINER = IEMF_BASE_ELEMENT_FEATURE_COUNT + 5;
+	int LOCATION__CONTAINER = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Referencing Scopes</b></em>' reference list. <!-- begin-user-doc -->
@@ -162,7 +154,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__REFERENCING_SCOPES = IEMF_BASE_ELEMENT_FEATURE_COUNT + 6;
+	int LOCATION__REFERENCING_SCOPES = IEMF_BASE_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -170,7 +162,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__TYPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 7;
+	int LOCATION__TYPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Location</em>' class. <!-- begin-user-doc --> <!--
@@ -179,7 +171,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 8;
+	int LOCATION_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of operations of the '<em>Location</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
@@ -317,13 +309,13 @@ public interface MappingPackage extends EPackage {
 	int BASE = 3;
 
 	/**
-	 * The feature id for the '<em><b>Root Locations</b></em>' containment reference list. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int BASE__ROOT_LOCATIONS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 0;
+	int BASE__CONTENTS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -361,12 +353,13 @@ public interface MappingPackage extends EPackage {
 	int TEXT_LOCATION = 5;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TEXT_LOCATION__NAME = LOCATION__NAME;
+	int TEXT_LOCATION__CONTENTS = LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -394,15 +387,6 @@ public interface MappingPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_LOCATION__TARGET_LINKS = LOCATION__TARGET_LINKS;
-
-	/**
-	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_LOCATION__CONTENTS = LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
@@ -477,12 +461,13 @@ public interface MappingPackage extends EPackage {
 	int EOBJECT_LOCATION = 6;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__NAME = TEXT_LOCATION__NAME;
+	int EOBJECT_LOCATION__CONTENTS = TEXT_LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -510,15 +495,6 @@ public interface MappingPackage extends EPackage {
 	 * @ordered
 	 */
 	int EOBJECT_LOCATION__TARGET_LINKS = TEXT_LOCATION__TARGET_LINKS;
-
-	/**
-	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EOBJECT_LOCATION__CONTENTS = TEXT_LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
@@ -592,6 +568,43 @@ public interface MappingPackage extends EPackage {
 	int EOBJECT_LOCATION_OPERATION_COUNT = TEXT_LOCATION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer
+	 * <em>Location Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.LocationContainer
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getLocationContainer()
+	 * @generated
+	 */
+	int LOCATION_CONTAINER = 7;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LOCATION_CONTAINER__CONTENTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Location Container</em>' class. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LOCATION_CONTAINER_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Location Container</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LOCATION_CONTAINER_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.Status <em>Status</em>}' enum.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -599,7 +612,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getStatus()
 	 * @generated
 	 */
-	int STATUS = 7;
+	int STATUS = 8;
 
 	/**
 	 * The meta object id for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -608,7 +621,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 8;
+	int TYPE = 9;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Location
@@ -619,18 +632,6 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getLocation();
-
-	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Location#getName <em>Name</em>}'. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Location#getName()
-	 * @see #getLocation()
-	 * @generated
-	 */
-	EAttribute getLocation_Name();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -667,18 +668,6 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getLocation_TargetLinks();
-
-	/**
-	 * Returns the meta object for the containment reference list '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Location#getContents <em>Contents</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference list '<em>Contents</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Location#getContents()
-	 * @see #getLocation()
-	 * @generated
-	 */
-	EReference getLocation_Contents();
 
 	/**
 	 * Returns the meta object for the container reference '
@@ -828,18 +817,6 @@ public interface MappingPackage extends EPackage {
 	EClass getBase();
 
 	/**
-	 * Returns the meta object for the containment reference list '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Base#getRootLocations <em>Root Locations</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference list '<em>Root Locations</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Base#getRootLocations()
-	 * @see #getBase()
-	 * @generated
-	 */
-	EReference getBase_RootLocations();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.mylyn.docs.intent.mapping.Base#getName
 	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -917,6 +894,28 @@ public interface MappingPackage extends EPackage {
 	EAttribute getEObjectLocation_Setting();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer
+	 * <em>Location Container</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Location Container</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.LocationContainer
+	 * @generated
+	 */
+	EClass getLocationContainer();
+
+	/**
+	 * Returns the meta object for the containment reference list '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer#getContents <em>Contents</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '<em>Contents</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.LocationContainer#getContents()
+	 * @see #getLocationContainer()
+	 * @generated
+	 */
+	EReference getLocationContainer_Contents();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.mylyn.docs.intent.mapping.Status <em>Status</em>}
 	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -971,14 +970,6 @@ public interface MappingPackage extends EPackage {
 		EClass LOCATION = eINSTANCE.getLocation();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EAttribute LOCATION__NAME = eINSTANCE.getLocation_Name();
-
-		/**
 		 * The meta object literal for the '<em><b>Scope</b></em>' containment reference feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
@@ -1001,14 +992,6 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference LOCATION__TARGET_LINKS = eINSTANCE.getLocation_TargetLinks();
-
-		/**
-		 * The meta object literal for the '<em><b>Contents</b></em>' containment reference list feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference LOCATION__CONTENTS = eINSTANCE.getLocation_Contents();
 
 		/**
 		 * The meta object literal for the '<em><b>Container</b></em>' container reference feature. <!--
@@ -1121,14 +1104,6 @@ public interface MappingPackage extends EPackage {
 		EClass BASE = eINSTANCE.getBase();
 
 		/**
-		 * The meta object literal for the '<em><b>Root Locations</b></em>' containment reference list
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference BASE__ROOT_LOCATIONS = eINSTANCE.getBase_RootLocations();
-
-		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
@@ -1191,6 +1166,24 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EOBJECT_LOCATION__SETTING = eINSTANCE.getEObjectLocation_Setting();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer
+		 * <em>Location Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.LocationContainer
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getLocationContainer()
+		 * @generated
+		 */
+		EClass LOCATION_CONTAINER = eINSTANCE.getLocationContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Contents</b></em>' containment reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference LOCATION_CONTAINER__CONTENTS = eINSTANCE.getLocationContainer_Contents();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.Status

@@ -74,12 +74,13 @@ public interface IdePackage extends EPackage {
 	int RESOURCE_LOCATION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_LOCATION__NAME = MappingPackage.LOCATION__NAME;
+	int RESOURCE_LOCATION__CONTENTS = MappingPackage.LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -107,15 +108,6 @@ public interface IdePackage extends EPackage {
 	 * @ordered
 	 */
 	int RESOURCE_LOCATION__TARGET_LINKS = MappingPackage.LOCATION__TARGET_LINKS;
-
-	/**
-	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int RESOURCE_LOCATION__CONTENTS = MappingPackage.LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
@@ -181,12 +173,13 @@ public interface IdePackage extends EPackage {
 	int FILE_LOCATION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_LOCATION__NAME = RESOURCE_LOCATION__NAME;
+	int FILE_LOCATION__CONTENTS = RESOURCE_LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -214,15 +207,6 @@ public interface IdePackage extends EPackage {
 	 * @ordered
 	 */
 	int FILE_LOCATION__TARGET_LINKS = RESOURCE_LOCATION__TARGET_LINKS;
-
-	/**
-	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_LOCATION__CONTENTS = RESOURCE_LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
@@ -288,12 +272,13 @@ public interface IdePackage extends EPackage {
 	int TEXT_FILE_LOCATION = 2;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TEXT_FILE_LOCATION__NAME = FILE_LOCATION__NAME;
+	int TEXT_FILE_LOCATION__CONTENTS = FILE_LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -321,15 +306,6 @@ public interface IdePackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_FILE_LOCATION__TARGET_LINKS = FILE_LOCATION__TARGET_LINKS;
-
-	/**
-	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_FILE_LOCATION__CONTENTS = FILE_LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
@@ -404,12 +380,13 @@ public interface IdePackage extends EPackage {
 	int EOBJECT_FILE_LOCATION = 3;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION__NAME = TEXT_FILE_LOCATION__NAME;
+	int EOBJECT_FILE_LOCATION__CONTENTS = TEXT_FILE_LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -437,15 +414,6 @@ public interface IdePackage extends EPackage {
 	 * @ordered
 	 */
 	int EOBJECT_FILE_LOCATION__TARGET_LINKS = TEXT_FILE_LOCATION__TARGET_LINKS;
-
-	/**
-	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EOBJECT_FILE_LOCATION__CONTENTS = TEXT_FILE_LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--

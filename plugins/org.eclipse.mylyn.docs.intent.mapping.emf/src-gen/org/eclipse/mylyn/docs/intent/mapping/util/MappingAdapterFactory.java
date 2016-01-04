@@ -21,6 +21,7 @@ import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
+import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.Scope;
 import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
@@ -110,6 +111,11 @@ public class MappingAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseEObjectLocation(EObjectLocation object) {
 			return createEObjectLocationAdapter();
+		}
+
+		@Override
+		public Adapter caseLocationContainer(LocationContainer object) {
+			return createLocationContainerAdapter();
 		}
 
 		@Override
@@ -226,6 +232,20 @@ public class MappingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEObjectLocationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer <em>Location Container</em>}'. <!--
+	 * begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+	 * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.LocationContainer
+	 * @generated
+	 */
+	public Adapter createLocationContainerAdapter() {
 		return null;
 	}
 

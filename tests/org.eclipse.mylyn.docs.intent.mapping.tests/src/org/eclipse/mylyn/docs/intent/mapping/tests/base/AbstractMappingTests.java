@@ -45,12 +45,12 @@ public abstract class AbstractMappingTests {
 		private int nameChanged;
 
 		/**
-		 * Number of time {@link TestBaseListener#rootLocationAdded(ILocation)} has been called.
+		 * Number of time {@link TestBaseListener#contentsAdded(ILocation)} has been called.
 		 */
 		private int rootLocationAdded;
 
 		/**
-		 * Number of time {@link TestBaseListener#rootLocationRemoved(ILocation)} has been called.
+		 * Number of time {@link TestBaseListener#contentsRemoved(ILocation)} has been called.
 		 */
 		private int rootLocationRemoved;
 
@@ -61,18 +61,18 @@ public abstract class AbstractMappingTests {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#rootLocationAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 		 */
-		public void rootLocationAdded(ILocation location) {
+		public void contentsAdded(ILocation location) {
 			rootLocationAdded++;
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#rootLocationRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 		 */
-		public void rootLocationRemoved(ILocation location) {
+		public void contentsRemoved(ILocation location) {
 			rootLocationRemoved++;
 		}
 

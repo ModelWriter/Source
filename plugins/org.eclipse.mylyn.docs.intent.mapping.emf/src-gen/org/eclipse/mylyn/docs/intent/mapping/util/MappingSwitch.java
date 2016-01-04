@@ -20,6 +20,7 @@ import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
+import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.Scope;
 import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
@@ -80,6 +81,8 @@ public class MappingSwitch<T> extends Switch<T> {
 				if (result == null)
 					result = caseIEMFBaseElement(location);
 				if (result == null)
+					result = caseLocationContainer(location);
+				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
 			}
@@ -107,6 +110,8 @@ public class MappingSwitch<T> extends Switch<T> {
 				if (result == null)
 					result = caseIEMFBaseElement(base);
 				if (result == null)
+					result = caseLocationContainer(base);
+				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
 			}
@@ -125,6 +130,8 @@ public class MappingSwitch<T> extends Switch<T> {
 				if (result == null)
 					result = caseIEMFBaseElement(textLocation);
 				if (result == null)
+					result = caseLocationContainer(textLocation);
+				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
 			}
@@ -137,6 +144,15 @@ public class MappingSwitch<T> extends Switch<T> {
 					result = caseLocation(eObjectLocation);
 				if (result == null)
 					result = caseIEMFBaseElement(eObjectLocation);
+				if (result == null)
+					result = caseLocationContainer(eObjectLocation);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case MappingPackage.LOCATION_CONTAINER: {
+				LocationContainer locationContainer = (LocationContainer)theEObject;
+				T result = caseLocationContainer(locationContainer);
 				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -248,6 +264,21 @@ public class MappingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEObjectLocation(EObjectLocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Location Container</em>'. <!--
+	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the
+	 * switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Location Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLocationContainer(LocationContainer object) {
 		return null;
 	}
 

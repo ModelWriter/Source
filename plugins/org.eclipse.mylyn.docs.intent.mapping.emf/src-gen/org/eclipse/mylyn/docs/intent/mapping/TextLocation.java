@@ -27,7 +27,7 @@ import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
  *
  * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getTextLocation()
  * @model
- * @generated
+ * @generated NOT
  */
 public interface TextLocation extends Location, ITextLocation {
 	/**

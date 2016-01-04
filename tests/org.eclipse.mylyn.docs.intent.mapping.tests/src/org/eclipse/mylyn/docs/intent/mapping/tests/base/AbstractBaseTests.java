@@ -82,10 +82,10 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 		base.removeListener(removedListener);
 		final ILocation location = base.getFactory().createElement(ITextLocation.class);
 
-		base.getRootLocations().add(location);
+		base.getContents().add(location);
 
-		assertEquals(1, base.getRootLocations().size());
-		assertEquals(location, base.getRootLocations().get(0));
+		assertEquals(1, base.getContents().size());
+		assertEquals(location, base.getContents().get(0));
 
 		assertTestBaseListener(listener, 0, 1, 0);
 		assertTestBaseListener(removedListener, 0, 0, 0);
@@ -106,11 +106,11 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 		locations.add(location1);
 		locations.add(location2);
 
-		base.getRootLocations().addAll(locations);
+		base.getContents().addAll(locations);
 
-		assertEquals(2, base.getRootLocations().size());
-		assertEquals(location1, base.getRootLocations().get(0));
-		assertEquals(location2, base.getRootLocations().get(1));
+		assertEquals(2, base.getContents().size());
+		assertEquals(location1, base.getContents().get(0));
+		assertEquals(location2, base.getContents().get(1));
 
 		assertTestBaseListener(listener, 0, 2, 0);
 		assertTestBaseListener(removedListener, 0, 0, 0);
@@ -127,14 +127,14 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 		base.removeListener(removedListener);
 		final ILocation location = base.getFactory().createElement(ITextLocation.class);
 
-		base.getRootLocations().add(location);
+		base.getContents().add(location);
 
-		assertEquals(1, base.getRootLocations().size());
-		assertEquals(location, base.getRootLocations().get(0));
+		assertEquals(1, base.getContents().size());
+		assertEquals(location, base.getContents().get(0));
 
-		base.getRootLocations().remove(location);
+		base.getContents().remove(location);
 
-		assertEquals(0, base.getRootLocations().size());
+		assertEquals(0, base.getContents().size());
 
 		assertTestBaseListener(listener, 0, 1, 1);
 		assertTestBaseListener(removedListener, 0, 0, 0);
@@ -155,15 +155,15 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 		locations.add(location1);
 		locations.add(location2);
 
-		base.getRootLocations().addAll(locations);
+		base.getContents().addAll(locations);
 
-		assertEquals(2, base.getRootLocations().size());
-		assertEquals(location1, base.getRootLocations().get(0));
-		assertEquals(location2, base.getRootLocations().get(1));
+		assertEquals(2, base.getContents().size());
+		assertEquals(location1, base.getContents().get(0));
+		assertEquals(location2, base.getContents().get(1));
 
-		base.getRootLocations().removeAll(locations);
+		base.getContents().removeAll(locations);
 
-		assertEquals(0, base.getRootLocations().size());
+		assertEquals(0, base.getContents().size());
 
 		assertTestBaseListener(listener, 0, 2, 2);
 		assertTestBaseListener(removedListener, 0, 0, 0);

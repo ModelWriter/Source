@@ -36,18 +36,18 @@ public interface IBaseListener {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#rootLocationAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 		 */
-		public void rootLocationAdded(ILocation location) {
+		public void contentsAdded(ILocation location) {
 			// nothing to do here
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#rootLocationRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 		 */
-		public void rootLocationRemoved(ILocation location) {
+		public void contentsRemoved(ILocation location) {
 			// nothing to do here
 		}
 
@@ -62,19 +62,19 @@ public interface IBaseListener {
 	void nameChanged(String name);
 
 	/**
-	 * Notifies when the {@link IBase#getRootLocations() root} {@link ILocation} is added.
+	 * Notifies when the {@link IBase#getContents() contents} {@link ILocation} is added.
 	 * 
 	 * @param location
-	 *            the added {@link IBase#getRootLocations() root} {@link ILocation}
+	 *            the added {@link IBase#getContents() contents} {@link ILocation}
 	 */
-	void rootLocationAdded(ILocation location);
+	void contentsAdded(ILocation location);
 
 	/**
-	 * Notifies when the {@link IBase#getRootLocations() root} {@link ILocation} is removed.
+	 * Notifies when the {@link IBase#getContents() contents} {@link ILocation} is removed.
 	 * 
 	 * @param location
-	 *            the removed {@link IBase#getRootLocations() root} {@link ILocation}
+	 *            the removed {@link IBase#getContents() contents} {@link ILocation}
 	 */
-	void rootLocationRemoved(ILocation location);
+	void contentsRemoved(ILocation location);
 
 }

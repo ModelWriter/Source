@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
-import java.util.List;
 
 /**
  * A base stores root {@link ILocation}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface IBase extends IMappingElement {
+public interface IBase extends IMappingElement, ILocationContainer {
 
 	/**
 	 * Sets the {@link IBase#getName() name} of the {@link IBase}.
@@ -33,13 +32,6 @@ public interface IBase extends IMappingElement {
 	 * @return the name of the {@link IBase}
 	 */
 	String getName();
-
-	/**
-	 * Gets the {@link ILocation} with no {@link ILocation#getContainer() container}.
-	 * 
-	 * @return the {@link ILocation} with no {@link ILocation#getContainer() container}
-	 */
-	List<ILocation> getRootLocations();
 
 	/**
 	 * Adds a {@link IBaseListener}.
@@ -58,9 +50,11 @@ public interface IBase extends IMappingElement {
 	void removeListener(IBaseListener listener);
 
 	/**
-	 * Gets the {@link BaseElementFactory} use to create instances of {@link ILocation} for this {@link IBase}.
+	 * Gets the {@link BaseElementFactory} use to create instances of {@link ILocation} for this {@link IBase}
+	 * .
 	 * 
-	 * @return the {@link BaseElementFactory} use to create instances of {@link ILocation} for this {@link IBase}
+	 * @return the {@link BaseElementFactory} use to create instances of {@link ILocation} for this
+	 *         {@link IBase}
 	 */
 	BaseElementFactory getFactory();
 

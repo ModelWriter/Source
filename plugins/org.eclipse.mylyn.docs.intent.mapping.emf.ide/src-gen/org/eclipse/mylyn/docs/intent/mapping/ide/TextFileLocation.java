@@ -26,7 +26,7 @@ import org.eclipse.intent.mapping.ide.resource.ITextFileLocation;
  *
  * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage#getTextFileLocation()
  * @model
- * @generated
+ * @generated NOT
  */
 public interface TextFileLocation extends FileLocation, ITextFileLocation {
 	/**

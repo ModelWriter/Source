@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.LocationFactoryTests.TestLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
@@ -81,7 +82,7 @@ public class TextConnectorParametrizedTests {
 		/**
 		 * the container.
 		 */
-		private ILocation container;
+		private ILocationContainer container;
 
 		/**
 		 * The start offset.
@@ -94,12 +95,12 @@ public class TextConnectorParametrizedTests {
 		private int endOffset;
 
 		@Override
-		public void setContainer(ILocation location) {
-			container = location;
+		public void setContainer(ILocationContainer container) {
+			this.container = container;
 		}
 
 		@Override
-		public ILocation getContainer() {
+		public ILocationContainer getContainer() {
 			return container;
 		}
 

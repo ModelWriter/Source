@@ -28,15 +28,6 @@ public interface ILocationListener {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#nameChanged(java.lang.String)
-		 */
-		public void nameChanged(String name) {
-			// nothing to do here
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
 		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#sourceLinkAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILink)
 		 */
 		public void sourceLinkAdded(ILink link) {
@@ -116,14 +107,6 @@ public interface ILocationListener {
 		}
 
 	}
-
-	/**
-	 * Notifies when the {@link ILocation#getName() name} is changed.
-	 * 
-	 * @param name
-	 *            the new {@link ILocation#getName() name}
-	 */
-	void nameChanged(String name);
 
 	/**
 	 * Notifies when the {@link ILocation#getSourceLinks() source} {@link ILink} is added.

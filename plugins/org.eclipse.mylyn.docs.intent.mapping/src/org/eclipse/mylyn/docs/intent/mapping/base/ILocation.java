@@ -18,15 +18,7 @@ import java.util.List;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface ILocation extends IMappingElement, IBaseElement {
-
-	/**
-	 * The name of the {@link ILocation}. It must be unique across any {@link ILocation}
-	 * {@link ILocation#getContents() content}.
-	 * 
-	 * @return the name of the {@link ILocation}
-	 */
-	String getName();
+public interface ILocation extends IMappingElement, ILocationContainer, IBaseElement {
 
 	/**
 	 * Marks the location as changed. All {@link ILocation#getSourceLinks() source} must be
@@ -82,34 +74,17 @@ public interface ILocation extends IMappingElement, IBaseElement {
 	/**
 	 * Sets the containing {@link ILocation}.
 	 * 
-	 * @param location
-	 *            the containing {@link ILocation}
+	 * @param container
+	 *            the containing {@link ILocationContainer}
 	 */
-	void setContainer(ILocation location);
+	void setContainer(ILocationContainer container);
 
 	/**
-	 * Gets the containing {@link ILocation}.
+	 * Gets the containing {@link ILocationContainer}.
 	 * 
-	 * @return the containing {@link ILocation} if any, <code>null</code> otherwise
+	 * @return the containing {@link ILocationContainer} if any, <code>null</code> otherwise
 	 */
-	ILocation getContainer();
-
-	/**
-	 * Gets the {@link List} of contained {@link ILocation}.
-	 * 
-	 * @return the {@link List} of contained {@link ILocation}
-	 */
-	List<ILocation> getContents();
-
-	/**
-	 * Gets the {@link ILocation#getContents() content} {@link ILocation} by its {@link ILocation#getName()}.
-	 * 
-	 * @param name
-	 *            the {@link ILocation} {@link ILocation#getName() name}
-	 * @return the {@link ILocation#getContents() content} {@link ILocation} by its
-	 *         {@link ILocation#getName()} if any, <code>null</code> otherwise
-	 */
-	ILocation getContentLocation(String name);
+	ILocationContainer getContainer();
 
 	/**
 	 * Gets the {@link List} of {@link IScope} {@link IScope#getLocations() referencing} this

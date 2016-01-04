@@ -77,7 +77,7 @@ public class BaseRegistryTests {
 			return null;
 		}
 
-		public List<ILocation> getRootLocations() {
+		public List<ILocation> getContents() {
 			// nothing to do here
 			return null;
 		}

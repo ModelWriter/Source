@@ -38,34 +38,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
  * @model interface="true" abstract="true"
  * @generated NOT
  */
-public interface Location extends IEMFBaseElement, ILocation {
-	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a
-	 * description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getLocation_Name()
-	 * @model required="true"
-	 * @generated
-	 */
-	String getName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.Location#getName <em>Name</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
-	 * @generated
-	 */
-	void setName(String value);
-
+public interface Location extends IEMFBaseElement, LocationContainer, ILocation {
 	/**
 	 * Returns the value of the '<em><b>Scope</b></em>' containment reference. It is bidirectional and its
 	 * opposite is '{@link org.eclipse.mylyn.docs.intent.mapping.Scope#getHolder <em>Holder</em>}'. <!--
@@ -168,7 +141,7 @@ public interface Location extends IEMFBaseElement, ILocation {
 	 * @model opposite="contents" transient="false"
 	 * @generated
 	 */
-	Location getContainer();
+	LocationContainer getContainer();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.Location#getContainer
@@ -179,7 +152,7 @@ public interface Location extends IEMFBaseElement, ILocation {
 	 * @see #getContainer()
 	 * @generated
 	 */
-	void setContainer(Location value);
+	void setContainer(LocationContainer value);
 
 	/**
 	 * Returns the value of the '<em><b>Referencing Scopes</b></em>' reference list. The list contents are of

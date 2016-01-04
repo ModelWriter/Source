@@ -30,7 +30,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
  * @model
  * @generated NOT
  */
-public interface Base extends IEMFBaseElement, IBase {
+public interface Base extends IEMFBaseElement, LocationContainer, IBase {
 	/**
 	 * Returns the value of the '<em><b>Root Locations</b></em>' containment reference list. The list contents
 	 * are of type {@link org.eclipse.mylyn.docs.intent.mapping.Location}. <!-- begin-user-doc -->
@@ -45,7 +45,7 @@ public interface Base extends IEMFBaseElement, IBase {
 	 * @model containment="true"
 	 * @generated NOT
 	 */
-	EList<ILocation> getRootLocations();
+	EList<ILocation> getContents();
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->

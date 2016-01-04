@@ -31,6 +31,7 @@ import org.eclipse.mylyn.docs.intent.mapping.Status;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Link</b></em>'. <!-- end-user-doc -->
@@ -195,10 +196,21 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	public NotificationChain basicSetSource(Location newSource, NotificationChain msgs) {
+		final ILocation oldSource = getSource();
+
 		msgs = eBasicSetContainer((InternalEObject)newSource, MappingPackage.LINK__SOURCE, msgs);
+
+		if (getLinkStatus() == LinkStatus.DELETED_SOURCE) {
+			final ILocationContainer container = oldSource.getContainer();
+			if (container != null && oldSource.getTargetLinks().isEmpty()
+					&& oldSource.getSourceLinks().isEmpty()) {
+				container.getContents().remove(oldSource);
+			}
+		}
+
 		return msgs;
 	}
 
@@ -256,10 +268,11 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	public NotificationChain basicSetTarget(Location newTarget, NotificationChain msgs) {
-		Location oldTarget = target;
+		final Location oldTarget = target;
+
 		target = newTarget;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
@@ -269,6 +282,15 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 			else
 				msgs.add(notification);
 		}
+
+		if (getLinkStatus() == LinkStatus.DELETED_TARGET) {
+			final ILocationContainer container = oldTarget.getContainer();
+			if (container != null && oldTarget.getSourceLinks().isEmpty()
+					&& oldTarget.getTargetLinks().isEmpty()) {
+				container.getContents().remove(oldTarget);
+			}
+		}
+
 		return msgs;
 	}
 
@@ -507,6 +529,7 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	 */
 	public void setSource(ILocation location) {
 		assert location instanceof Location;
+
 		setSource((Location)location);
 	}
 
@@ -518,6 +541,7 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	 */
 	public void setTarget(ILocation location) {
 		assert location instanceof Location;
+
 		setTarget((Location)location);
 	}
 

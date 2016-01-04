@@ -32,11 +32,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
+import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.Scope;
 import org.eclipse.mylyn.docs.intent.mapping.Status;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
 
@@ -61,24 +63,14 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
  */
 public abstract class LocationImpl extends MinimalEObjectImpl.Container implements Location {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getContents() <em>Contents</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @see #getName()
-	 * @generated
+	 * @see #getContents()
+	 * @generated NOT
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
+	protected EList<ILocation> contents;
 
 	/**
 	 * The cached value of the '{@link #getScope() <em>Scope</em>}' containment reference. <!-- begin-user-doc
@@ -109,16 +101,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected EList<ILink> targetLinks;
-
-	/**
-	 * The cached value of the '{@link #getContents() <em>Contents</em>}' containment reference list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getContents()
-	 * @generated NOT
-	 * @ordered
-	 */
-	protected EList<ILocation> contents;
 
 	/**
 	 * The cached value of the '{@link #getReferencingScopes() <em>Referencing Scopes</em>}' reference list.
@@ -167,28 +149,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	protected EClass eStaticClass() {
 		return MappingPackage.Literals.LOCATION;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.LOCATION__NAME, oldName,
-					name));
 	}
 
 	/**
@@ -281,24 +241,14 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	}
 
 	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#setContainer(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
-	 * @generated NOT
-	 */
-	public void setContainer(ILocation location) {
-		location.getContents().add(this);
-	}
-
-	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-	public Location getContainer() {
+	public LocationContainer getContainer() {
 		if (eContainerFeatureID() != MappingPackage.LOCATION__CONTAINER)
 			return null;
-		return (Location)eInternalContainer();
+		return (LocationContainer)eInternalContainer();
 	}
 
 	/**
@@ -306,17 +256,28 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * 
 	 * @generated
 	 */
-	public NotificationChain basicSetContainer(Location newContainer, NotificationChain msgs) {
+	public NotificationChain basicSetContainer(LocationContainer newContainer, NotificationChain msgs) {
 		msgs = eBasicSetContainer((InternalEObject)newContainer, MappingPackage.LOCATION__CONTAINER, msgs);
 		return msgs;
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#setContainer(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer)
+	 * @generated NOT
+	 */
+	public void setContainer(ILocationContainer container) {
+		assert container instanceof LocationContainer;
+		setContainer((LocationContainer)container);
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-	public void setContainer(Location newContainer) {
+	public void setContainer(LocationContainer newContainer) {
 		if (newContainer != eInternalContainer()
 				|| (eContainerFeatureID() != MappingPackage.LOCATION__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
@@ -325,8 +286,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newContainer != null)
-				msgs = ((InternalEObject)newContainer).eInverseAdd(this, MappingPackage.LOCATION__CONTENTS,
-						Location.class, msgs);
+				msgs = ((InternalEObject)newContainer).eInverseAdd(this,
+						MappingPackage.LOCATION_CONTAINER__CONTENTS, LocationContainer.class, msgs);
 			msgs = basicSetContainer(newContainer, msgs);
 			if (msgs != null)
 				msgs.dispatch();
@@ -379,6 +340,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case MappingPackage.LOCATION__CONTENTS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getContents()).basicAdd(otherEnd,
+						msgs);
 			case MappingPackage.LOCATION__SCOPE:
 				if (scope != null)
 					msgs = ((InternalEObject)scope).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
@@ -390,13 +354,10 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 			case MappingPackage.LOCATION__TARGET_LINKS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTargetLinks()).basicAdd(
 						otherEnd, msgs);
-			case MappingPackage.LOCATION__CONTENTS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getContents()).basicAdd(otherEnd,
-						msgs);
 			case MappingPackage.LOCATION__CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetContainer((Location)otherEnd, msgs);
+				return basicSetContainer((LocationContainer)otherEnd, msgs);
 			case MappingPackage.LOCATION__REFERENCING_SCOPES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getReferencingScopes()).basicAdd(
 						otherEnd, msgs);
@@ -412,14 +373,14 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case MappingPackage.LOCATION__CONTENTS:
+				return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
 			case MappingPackage.LOCATION__SCOPE:
 				return basicSetScope(null, msgs);
 			case MappingPackage.LOCATION__SOURCE_LINKS:
 				return ((InternalEList<?>)getSourceLinks()).basicRemove(otherEnd, msgs);
 			case MappingPackage.LOCATION__TARGET_LINKS:
 				return ((InternalEList<?>)getTargetLinks()).basicRemove(otherEnd, msgs);
-			case MappingPackage.LOCATION__CONTENTS:
-				return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
 			case MappingPackage.LOCATION__CONTAINER:
 				return basicSetContainer(null, msgs);
 			case MappingPackage.LOCATION__REFERENCING_SCOPES:
@@ -437,8 +398,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case MappingPackage.LOCATION__CONTAINER:
-				return eInternalContainer().eInverseRemove(this, MappingPackage.LOCATION__CONTENTS,
-						Location.class, msgs);
+				return eInternalContainer().eInverseRemove(this, MappingPackage.LOCATION_CONTAINER__CONTENTS,
+						LocationContainer.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -451,16 +412,14 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case MappingPackage.LOCATION__NAME:
-				return getName();
+			case MappingPackage.LOCATION__CONTENTS:
+				return getContents();
 			case MappingPackage.LOCATION__SCOPE:
 				return getScope();
 			case MappingPackage.LOCATION__SOURCE_LINKS:
 				return getSourceLinks();
 			case MappingPackage.LOCATION__TARGET_LINKS:
 				return getTargetLinks();
-			case MappingPackage.LOCATION__CONTENTS:
-				return getContents();
 			case MappingPackage.LOCATION__CONTAINER:
 				return getContainer();
 			case MappingPackage.LOCATION__REFERENCING_SCOPES:
@@ -480,8 +439,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case MappingPackage.LOCATION__NAME:
-				setName((String)newValue);
+			case MappingPackage.LOCATION__CONTENTS:
+				getContents().clear();
+				getContents().addAll((Collection<? extends Location>)newValue);
 				return;
 			case MappingPackage.LOCATION__SCOPE:
 				setScope((Scope)newValue);
@@ -494,12 +454,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				getTargetLinks().clear();
 				getTargetLinks().addAll((Collection<? extends Link>)newValue);
 				return;
-			case MappingPackage.LOCATION__CONTENTS:
-				getContents().clear();
-				getContents().addAll((Collection<? extends Location>)newValue);
-				return;
 			case MappingPackage.LOCATION__CONTAINER:
-				setContainer((Location)newValue);
+				setContainer((LocationContainer)newValue);
 				return;
 			case MappingPackage.LOCATION__REFERENCING_SCOPES:
 				getReferencingScopes().clear();
@@ -520,8 +476,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case MappingPackage.LOCATION__NAME:
-				setName(NAME_EDEFAULT);
+			case MappingPackage.LOCATION__CONTENTS:
+				getContents().clear();
 				return;
 			case MappingPackage.LOCATION__SCOPE:
 				setScope((Scope)null);
@@ -532,11 +488,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 			case MappingPackage.LOCATION__TARGET_LINKS:
 				getTargetLinks().clear();
 				return;
-			case MappingPackage.LOCATION__CONTENTS:
-				getContents().clear();
-				return;
 			case MappingPackage.LOCATION__CONTAINER:
-				setContainer((Location)null);
+				setContainer((LocationContainer)null);
 				return;
 			case MappingPackage.LOCATION__REFERENCING_SCOPES:
 				getReferencingScopes().clear();
@@ -556,16 +509,14 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case MappingPackage.LOCATION__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case MappingPackage.LOCATION__CONTENTS:
+				return contents != null && !contents.isEmpty();
 			case MappingPackage.LOCATION__SCOPE:
 				return scope != null;
 			case MappingPackage.LOCATION__SOURCE_LINKS:
 				return sourceLinks != null && !sourceLinks.isEmpty();
 			case MappingPackage.LOCATION__TARGET_LINKS:
 				return targetLinks != null && !targetLinks.isEmpty();
-			case MappingPackage.LOCATION__CONTENTS:
-				return contents != null && !contents.isEmpty();
 			case MappingPackage.LOCATION__CONTAINER:
 				return getContainer() != null;
 			case MappingPackage.LOCATION__REFERENCING_SCOPES:
@@ -582,14 +533,48 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated
 	 */
 	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == LocationContainer.class) {
+			switch (derivedFeatureID) {
+				case MappingPackage.LOCATION__CONTENTS:
+					return MappingPackage.LOCATION_CONTAINER__CONTENTS;
+				default:
+					return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == LocationContainer.class) {
+			switch (baseFeatureID) {
+				case MappingPackage.LOCATION_CONTAINER__CONTENTS:
+					return MappingPackage.LOCATION__CONTENTS;
+				default:
+					return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public String toString() {
 		if (eIsProxy())
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", type: ");
+		result.append(" (type: ");
 		result.append(type);
 		result.append(')');
 		return result.toString();
@@ -637,25 +622,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	}
 
 	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#getContentLocation(java.lang.String)
-	 * @generated NOT
-	 */
-	public ILocation getContentLocation(String name) {
-		ILocation res = null;
-
-		for (ILocation childLocation : getContents()) {
-			if (name.equals(childLocation.getName())) {
-				res = childLocation;
-				break;
-			}
-		}
-
-		return res;
-	}
-
-	/**
 	 * {@link ILocation} adapter.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
@@ -681,13 +647,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		@Override
 		public void notifyChanged(Notification msg) {
 			switch (msg.getFeatureID(Location.class)) {
-				case MappingPackage.LOCATION__NAME:
-					for (Adapter adapter : eAdapters()) {
-						if (adapter instanceof LocationAdapter) {
-							((LocationAdapter)adapter).listener.nameChanged((String)msg.getNewValue());
-						}
-					}
-					break;
 				case MappingPackage.LOCATION__SCOPE:
 					for (Adapter adapter : eAdapters()) {
 						if (adapter instanceof LocationAdapter) {

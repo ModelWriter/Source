@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
+import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.FileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage;
@@ -81,6 +82,8 @@ public class IdeSwitch<T> extends Switch<T> {
 				if (result == null)
 					result = caseIEMFBaseElement(resourceLocation);
 				if (result == null)
+					result = caseLocationContainer(resourceLocation);
+				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
 			}
@@ -93,6 +96,8 @@ public class IdeSwitch<T> extends Switch<T> {
 					result = caseLocation(fileLocation);
 				if (result == null)
 					result = caseIEMFBaseElement(fileLocation);
+				if (result == null)
+					result = caseLocationContainer(fileLocation);
 				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -108,6 +113,8 @@ public class IdeSwitch<T> extends Switch<T> {
 					result = caseLocation(textFileLocation);
 				if (result == null)
 					result = caseIEMFBaseElement(textFileLocation);
+				if (result == null)
+					result = caseLocationContainer(textFileLocation);
 				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -125,6 +132,8 @@ public class IdeSwitch<T> extends Switch<T> {
 					result = caseLocation(eObjectFileLocation);
 				if (result == null)
 					result = caseIEMFBaseElement(eObjectFileLocation);
+				if (result == null)
+					result = caseLocationContainer(eObjectFileLocation);
 				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -206,6 +215,21 @@ public class IdeSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIEMFBaseElement(IEMFBaseElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Location Container</em>'. <!--
+	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the
+	 * switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Location Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLocationContainer(LocationContainer object) {
 		return null;
 	}
 

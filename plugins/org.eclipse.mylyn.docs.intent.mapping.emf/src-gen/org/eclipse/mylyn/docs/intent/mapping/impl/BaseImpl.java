@@ -25,10 +25,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
+import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
@@ -44,7 +45,7 @@ import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getRootLocations <em>Root Locations</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getContents <em>Contents</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
@@ -53,14 +54,14 @@ import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
  */
 public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	/**
-	 * The cached value of the '{@link #getRootLocations() <em>Root Locations</em>}' containment reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getContents() <em>Contents</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @see #getRootLocations()
+	 * @see #getContents()
 	 * @generated NOT
 	 * @ordered
 	 */
-	protected EList<ILocation> rootLocations;
+	protected EList<ILocation> contents;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!--
@@ -106,12 +107,12 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	 * 
 	 * @generated NOT
 	 */
-	public EList<ILocation> getRootLocations() {
-		if (rootLocations == null) {
-			rootLocations = new EObjectContainmentEList<ILocation>(Location.class, this,
-					MappingPackage.BASE__ROOT_LOCATIONS);
+	public EList<ILocation> getContents() {
+		if (contents == null) {
+			contents = new EObjectContainmentWithInverseEList<ILocation>(Location.class, this,
+					MappingPackage.BASE__CONTENTS, MappingPackage.LOCATION__CONTAINER);
 		}
-		return rootLocations;
+		return contents;
 	}
 
 	/**
@@ -140,11 +141,27 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	 * 
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case MappingPackage.BASE__CONTENTS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getContents()).basicAdd(otherEnd,
+						msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case MappingPackage.BASE__ROOT_LOCATIONS:
-				return ((InternalEList<?>)getRootLocations()).basicRemove(otherEnd, msgs);
+			case MappingPackage.BASE__CONTENTS:
+				return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -157,8 +174,8 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case MappingPackage.BASE__ROOT_LOCATIONS:
-				return getRootLocations();
+			case MappingPackage.BASE__CONTENTS:
+				return getContents();
 			case MappingPackage.BASE__NAME:
 				return getName();
 		}
@@ -174,9 +191,9 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case MappingPackage.BASE__ROOT_LOCATIONS:
-				getRootLocations().clear();
-				getRootLocations().addAll((Collection<? extends Location>)newValue);
+			case MappingPackage.BASE__CONTENTS:
+				getContents().clear();
+				getContents().addAll((Collection<? extends Location>)newValue);
 				return;
 			case MappingPackage.BASE__NAME:
 				setName((String)newValue);
@@ -193,8 +210,8 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case MappingPackage.BASE__ROOT_LOCATIONS:
-				getRootLocations().clear();
+			case MappingPackage.BASE__CONTENTS:
+				getContents().clear();
 				return;
 			case MappingPackage.BASE__NAME:
 				setName(NAME_EDEFAULT);
@@ -211,12 +228,48 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case MappingPackage.BASE__ROOT_LOCATIONS:
-				return rootLocations != null && !rootLocations.isEmpty();
+			case MappingPackage.BASE__CONTENTS:
+				return contents != null && !contents.isEmpty();
 			case MappingPackage.BASE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == LocationContainer.class) {
+			switch (derivedFeatureID) {
+				case MappingPackage.BASE__CONTENTS:
+					return MappingPackage.LOCATION_CONTAINER__CONTENTS;
+				default:
+					return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == LocationContainer.class) {
+			switch (baseFeatureID) {
+				case MappingPackage.LOCATION_CONTAINER__CONTENTS:
+					return MappingPackage.BASE__CONTENTS;
+				default:
+					return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**
@@ -269,12 +322,12 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 						}
 					}
 					break;
-				case MappingPackage.BASE__ROOT_LOCATIONS:
+				case MappingPackage.BASE__CONTENTS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
 							for (Adapter adapter : eAdapters()) {
 								if (adapter instanceof BaseAdapter) {
-									((BaseAdapter)adapter).listener.rootLocationAdded((ILocation)msg
+									((BaseAdapter)adapter).listener.contentsAdded((ILocation)msg
 											.getNewValue());
 								}
 							}
@@ -283,7 +336,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 							for (Adapter adapter : eAdapters()) {
 								if (adapter instanceof BaseAdapter) {
 									for (ILocation location : (List<ILocation>)msg.getNewValue()) {
-										((BaseAdapter)adapter).listener.rootLocationAdded(location);
+										((BaseAdapter)adapter).listener.contentsAdded(location);
 									}
 								}
 							}
@@ -291,7 +344,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 						case Notification.REMOVE:
 							for (Adapter adapter : eAdapters()) {
 								if (adapter instanceof BaseAdapter) {
-									((BaseAdapter)adapter).listener.rootLocationRemoved((ILocation)msg
+									((BaseAdapter)adapter).listener.contentsRemoved((ILocation)msg
 											.getOldValue());
 								}
 							}
@@ -300,7 +353,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 							for (Adapter adapter : eAdapters()) {
 								if (adapter instanceof BaseAdapter) {
 									for (ILocation location : (List<ILocation>)msg.getOldValue()) {
-										((BaseAdapter)adapter).listener.rootLocationRemoved(location);
+										((BaseAdapter)adapter).listener.contentsRemoved(location);
 									}
 								}
 							}

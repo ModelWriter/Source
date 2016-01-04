@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
 import org.junit.Test;
@@ -79,11 +80,11 @@ public class LocationFactoryTests {
 			return null;
 		}
 
-		public void setContainer(ILocation location) {
+		public void setContainer(ILocationContainer container) {
 			// nothing to do here
 		}
 
-		public ILocation getContainer() {
+		public ILocationContainer getContainer() {
 			// nothing to do here
 			return null;
 		}

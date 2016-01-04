@@ -18,12 +18,10 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 /**
  * Test {@link ILocation}.
@@ -131,6 +129,65 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
+	public void removeSourceLinksDeleted() throws InstantiationException, IllegalAccessException {
+		final TestLocationListener listener = new TestLocationListener();
+		final TestLocationListener removedListener = new TestLocationListener();
+
+		final ILocation location = createLocation();
+		location.addListener(listener);
+		location.addListener(removedListener);
+		location.removeListener(removedListener);
+		final ILink link = createLink();
+
+		location.getSourceLinks().add(link);
+
+		assertEquals(1, location.getSourceLinks().size());
+		assertEquals(link, location.getSourceLinks().get(0));
+
+		getBase().getContents().add(location);
+		location.markAsDeleted();
+		location.getSourceLinks().remove(link);
+
+		assertEquals(0, location.getSourceLinks().size());
+		assertEquals(0, getBase().getContents().size());
+
+		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	}
+
+	@Test
+	public void removeManySourceLinksDeleted() throws InstantiationException, IllegalAccessException {
+		final TestLocationListener listener = new TestLocationListener();
+		final TestLocationListener removedListener = new TestLocationListener();
+
+		final ILocation location = createLocation();
+		location.addListener(listener);
+		location.addListener(removedListener);
+		location.removeListener(removedListener);
+		final ILink link1 = createLink();
+		final ILink link2 = createLink();
+		final List<ILink> links = new ArrayList<ILink>();
+		links.add(link1);
+		links.add(link2);
+
+		location.getSourceLinks().addAll(links);
+
+		assertEquals(2, location.getSourceLinks().size());
+		assertEquals(link1, location.getSourceLinks().get(0));
+		assertEquals(link2, location.getSourceLinks().get(1));
+
+		getBase().getContents().add(location);
+		location.markAsDeleted();
+		location.getSourceLinks().removeAll(links);
+
+		assertEquals(0, location.getSourceLinks().size());
+		assertEquals(0, getBase().getContents().size());
+
+		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	}
+
+	@Test
 	public void addTargetLinks() throws InstantiationException, IllegalAccessException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
@@ -229,6 +286,65 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
+	public void removeTargetLinksDeleted() throws InstantiationException, IllegalAccessException {
+		final TestLocationListener listener = new TestLocationListener();
+		final TestLocationListener removedListener = new TestLocationListener();
+
+		final ILocation location = createLocation();
+		location.addListener(listener);
+		location.addListener(removedListener);
+		location.removeListener(removedListener);
+		final ILink link = createLink();
+
+		location.getTargetLinks().add(link);
+
+		assertEquals(1, location.getTargetLinks().size());
+		assertEquals(link, location.getTargetLinks().get(0));
+
+		getBase().getContents().add(location);
+		location.markAsDeleted();
+		location.getTargetLinks().remove(link);
+
+		assertEquals(0, location.getTargetLinks().size());
+		assertEquals(0, getBase().getContents().size());
+
+		assertTestLocationListener(listener, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	}
+
+	@Test
+	public void removeManyTargetLinksDeleted() throws InstantiationException, IllegalAccessException {
+		final TestLocationListener listener = new TestLocationListener();
+		final TestLocationListener removedListener = new TestLocationListener();
+
+		final ILocation location = createLocation();
+		location.addListener(listener);
+		location.addListener(removedListener);
+		location.removeListener(removedListener);
+		final ILink link1 = createLink();
+		final ILink link2 = createLink();
+		final List<ILink> links = new ArrayList<ILink>();
+		links.add(link1);
+		links.add(link2);
+
+		location.getTargetLinks().addAll(links);
+
+		assertEquals(2, location.getTargetLinks().size());
+		assertEquals(link1, location.getTargetLinks().get(0));
+		assertEquals(link2, location.getTargetLinks().get(1));
+
+		getBase().getContents().add(location);
+		location.markAsDeleted();
+		location.getTargetLinks().removeAll(links);
+
+		assertEquals(0, location.getTargetLinks().size());
+		assertEquals(0, getBase().getContents().size());
+
+		assertTestLocationListener(listener, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	}
+
+	@Test
 	public void setScopeNull() throws InstantiationException, IllegalAccessException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
@@ -272,7 +388,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addContentLocations() throws InstantiationException, IllegalAccessException {
+	public void addContents() throws InstantiationException, IllegalAccessException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -292,7 +408,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addManyContentLocations() throws InstantiationException, IllegalAccessException {
+	public void addManyContents() throws InstantiationException, IllegalAccessException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -317,7 +433,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeContentLocations() throws InstantiationException, IllegalAccessException {
+	public void removeContents() throws InstantiationException, IllegalAccessException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -341,7 +457,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeManyContentLocations() throws InstantiationException, IllegalAccessException {
+	public void removeManyContents() throws InstantiationException, IllegalAccessException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -493,19 +609,6 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(null, location.getType());
 	}
 
-	@Ignore
-	@Test
-	public void getContentLocation() throws InstantiationException, IllegalAccessException {
-		final ILocation parent = createLocation();
-		final ILocation child1 = createLocation();
-		final ILocation child2 = createLocation();
-		final ILocation child3 = createLocation();
-
-		// TODO see if we need to add a ILocation.setName() or this should be dealt internally by
-		// implementation
-		fail("not implemented yet.");
-	}
-
 	@Test
 	public void markAsChanged() throws InstantiationException, IllegalAccessException {
 		final ILocation a = createLocation();
@@ -518,10 +621,27 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		bc.setSource(b);
 		bc.setTarget(c);
 
+		final TestLinkListener listenerAB = new TestLinkListener();
+		final TestLinkListener removedListenerAB = new TestLinkListener();
+		final TestLinkListener listenerBC = new TestLinkListener();
+		final TestLinkListener removedListenerBC = new TestLinkListener();
+
+		ab.addListener(listenerAB);
+		ab.addListener(removedListenerAB);
+		ab.removeListener(removedListenerAB);
+		bc.addListener(listenerBC);
+		bc.addListener(removedListenerBC);
+		bc.removeListener(removedListenerBC);
+
 		b.markAsChanged();
 
 		assertEquals(LinkStatus.CHANGED_TARGET, ab.getLinkStatus());
 		assertEquals(LinkStatus.CHANGED_SOURCE, bc.getLinkStatus());
+
+		assertTestLinkListener(listenerAB, 0, 1, 0, 0);
+		assertTestLinkListener(removedListenerAB, 0, 0, 0, 0);
+		assertTestLinkListener(listenerBC, 0, 1, 0, 0);
+		assertTestLinkListener(removedListenerBC, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -536,10 +656,27 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		bc.setSource(b);
 		bc.setTarget(c);
 
+		final TestLinkListener listenerAB = new TestLinkListener();
+		final TestLinkListener removedListenerAB = new TestLinkListener();
+		final TestLinkListener listenerBC = new TestLinkListener();
+		final TestLinkListener removedListenerBC = new TestLinkListener();
+
+		ab.addListener(listenerAB);
+		ab.addListener(removedListenerAB);
+		ab.removeListener(removedListenerAB);
+		bc.addListener(listenerBC);
+		bc.addListener(removedListenerBC);
+		bc.removeListener(removedListenerBC);
+
 		b.markAsDeleted();
 
 		assertEquals(LinkStatus.DELETED_TARGET, ab.getLinkStatus());
 		assertEquals(LinkStatus.DELETED_SOURCE, bc.getLinkStatus());
+
+		assertTestLinkListener(listenerAB, 0, 1, 0, 0);
+		assertTestLinkListener(removedListenerAB, 0, 0, 0, 0);
+		assertTestLinkListener(listenerBC, 0, 1, 0, 0);
+		assertTestLinkListener(removedListenerBC, 0, 0, 0, 0);
 	}
 
 }
