@@ -11,6 +11,7 @@
  *******************************************************************************/
 package eu.modelwriter.semantic;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -28,16 +29,14 @@ public interface ISemanticSimilarityProvider {
 	Object getType();
 
 	/**
-	 * Gets semantic similarities for the given {@link Object concept} and/or
-	 * {@link ISemanticProvider#getSemanticLabel(Object) label}.
+	 * Gets semantic similarities for the given mapping of a
+	 * {@link ISemanticProvider#getSemanticLabels(Object) label} to its {@link Object concepts}.
 	 * 
-	 * @param concept
-	 *            the {@link Object concept}
-	 * @param label
-	 *            the {@link ISemanticProvider#getSemanticLabel(Object) label}
-	 * @return semantic similarities for the given {@link Object concept} and/or
-	 *         {@link ISemanticProvider#getSemanticLabel(Object) label} if any, <code>null</code> otherwise
+	 * @param labels
+	 *            the mapping of a {@link ISemanticProvider#getSemanticLabels(Object) label} to its
+	 *            {@link Object concepts}
+	 * @return the mapping of a similarity to its {@link Object concepts} if any, <code>null</code> otherwise
 	 */
-	Set<String> getSemanticSimilarities(Object concept, String label);
+	Map<String, Set<Object>> getSemanticSimilarities(Map<String, Set<Object>> labels);
 
 }

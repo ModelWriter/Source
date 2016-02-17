@@ -11,11 +11,12 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.jena;
 
-import com.hp.hpl.jena.ontology.OntResource;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 import eu.modelwriter.semantic.ISemanticProvider;
 
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,19 +33,29 @@ public class JenaSemanticProvider implements ISemanticProvider {
 	 * @see eu.modelwriter.semantic.ISemanticProvider#getConceptType()
 	 */
 	public Class<?> getConceptType() {
-		return OntResource.class;
+		return Resource.class;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see eu.modelwriter.semantic.ISemanticProvider#getSemanticLabel(java.lang.Object)
+	 * @see eu.modelwriter.semantic.ISemanticProvider#getSemanticLabels(java.lang.Object)
 	 */
-	public String getSemanticLabel(Object concept) {
-		final String res;
+	public Set<String> getSemanticLabels(Object concept) {
+		final Set<String> res;
 
 		if (concept instanceof Resource) {
-			res = ((Resource)concept).getLocalName();
+			Set<String> labels = new LinkedHashSet<String>();
+			final Resource resource = (Resource)concept;
+
+			labels.addAll(JenaUtils.getLabelsForProperty(resource, RDFS.label));
+			labels.add(resource.getLocalName());
+
+			if (labels.isEmpty()) {
+				res = null;
+			} else {
+				res = labels;
+			}
 		} else {
 			res = null;
 		}

@@ -11,6 +11,9 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.emf;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.eclipse.emf.ecore.ENamedElement;
 
 /**
@@ -32,13 +35,15 @@ public class EcoreSemanticProvider extends AbstractEObjectSemanticProvider {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see eu.modelwriter.semantic.ISemanticProvider#getSemanticLabel(java.lang.Object)
+	 * @see eu.modelwriter.semantic.ISemanticProvider#getSemanticLabels(java.lang.Object)
 	 */
-	public String getSemanticLabel(Object concept) {
-		final String res;
+	public Set<String> getSemanticLabels(Object concept) {
+		final Set<String> res;
 
 		if (concept instanceof ENamedElement) {
-			res = ((ENamedElement)concept).getName();
+			res = new LinkedHashSet<String>();
+			// TODO camel case separation of words ?
+			res.add(((ENamedElement)concept).getName());
 		} else {
 			res = null;
 		}

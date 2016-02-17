@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Automaton
+Bundle-SymbolicName: dk.brics.automaton
+Bundle-Version: 1.11.7.qualifier
+Bundle-Activator: dk.brics.automaton.Activator
+Bundle-Vendor: Anders Møller
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Export-Package: dk.brics.automaton

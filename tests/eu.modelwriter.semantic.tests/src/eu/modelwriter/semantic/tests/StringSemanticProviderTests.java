@@ -13,6 +13,9 @@ package eu.modelwriter.semantic.tests;
 
 import eu.modelwriter.semantic.StringSemanticProvider;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -36,17 +39,20 @@ public class StringSemanticProviderTests {
 
 	@Test
 	public void getSemanticLabelNull() {
-		assertEquals(null, provider.getSemanticLabel(null));
+		assertEquals(null, provider.getSemanticLabels(null));
 	}
 
 	@Test
 	public void getSemanticLabelNotString() {
-		assertEquals(null, provider.getSemanticLabel(new Object()));
+		assertEquals(null, provider.getSemanticLabels(new Object()));
 	}
 
 	@Test
 	public void getSemanticLabel() {
-		assertEquals("SomeString", provider.getSemanticLabel("SomeString"));
+		final Set<String> expected = new LinkedHashSet<String>();
+		expected.add("SomeString");
+
+		assertEquals(expected, provider.getSemanticLabels("SomeString"));
 	}
 
 	@Test

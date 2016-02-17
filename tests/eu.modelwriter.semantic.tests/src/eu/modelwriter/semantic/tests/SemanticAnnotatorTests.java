@@ -13,8 +13,12 @@ package eu.modelwriter.semantic.tests;
 
 import eu.modelwriter.semantic.ISemanticProvider;
 import eu.modelwriter.semantic.ISemanticSimilarityProvider;
+import eu.modelwriter.semantic.IdentitySimilarityProvider;
+import eu.modelwriter.semantic.StringSemanticProvider;
 import eu.modelwriter.semantic.internal.SemanticAnnotator;
 
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -86,8 +90,12 @@ public class SemanticAnnotatorTests {
 			return ConceptA.class;
 		}
 
-		public String getSemanticLabel(Object concept) {
-			return "A";
+		public Set<String> getSemanticLabels(Object concept) {
+			final Set<String> res = new LinkedHashSet<String>();
+
+			res.add("A");
+
+			return res;
 		}
 
 		public Map<Object, Set<Object>> getRelatedConcepts(Object concept) {
@@ -107,8 +115,12 @@ public class SemanticAnnotatorTests {
 			return ConceptB.class;
 		}
 
-		public String getSemanticLabel(Object concept) {
-			return "B";
+		public Set<String> getSemanticLabels(Object concept) {
+			final Set<String> res = new LinkedHashSet<String>();
+
+			res.add("B");
+
+			return res;
 		}
 
 		public Map<Object, Set<Object>> getRelatedConcepts(Object concept) {
@@ -128,8 +140,12 @@ public class SemanticAnnotatorTests {
 			return ConceptC.class;
 		}
 
-		public String getSemanticLabel(Object concept) {
-			return "C";
+		public Set<String> getSemanticLabels(Object concept) {
+			final Set<String> res = new LinkedHashSet<String>();
+
+			res.add("C");
+
+			return res;
 		}
 
 		public Map<Object, Set<Object>> getRelatedConcepts(Object concept) {
@@ -226,7 +242,7 @@ public class SemanticAnnotatorTests {
 				return null;
 			}
 
-			public Set<String> getSemanticSimilarities(Object concept, String label) {
+			public Map<String, Set<Object>> getSemanticSimilarities(Map<String, Set<Object>> labels) {
 				return null;
 			}
 		};
@@ -252,7 +268,7 @@ public class SemanticAnnotatorTests {
 				return null;
 			}
 
-			public Set<String> getSemanticSimilarities(Object concept, String label) {
+			public Map<String, Set<Object>> getSemanticSimilarities(Map<String, Set<Object>> labels) {
 				return null;
 			}
 		};
@@ -267,6 +283,36 @@ public class SemanticAnnotatorTests {
 		assertEquals(0, annotator.getSimilatiryProviders().size());
 	}
 
-	// TODO test getSemanticAnnotations()
+	@Test
+	public void getSemanticAnnotations() {
+		final ISemanticProvider semanticProvider = new StringSemanticProvider();
+
+		annotator.addSemanticProvider(semanticProvider);
+
+		annotator.addSemanticSimilarityProvider(new IdentitySimilarityProvider());
+
+		final Set<Object> concepts = new LinkedHashSet<Object>();
+		concepts.add("b");
+		concepts.add("e");
+
+		Map<Object, Map<Object, Set<int[]>>> annotations = annotator.getSemanticAnnotations("a b c d e f",
+				concepts);
+
+		assertEquals(2, annotations.size());
+		Set<int[]> bAnnotations = annotations.get("b").get(IdentitySimilarityProvider.TYPE);
+
+		assertEquals(1, bAnnotations.size());
+
+		Iterator<int[]> it = bAnnotations.iterator();
+		int[] bRange = it.next();
+		assertEquals(2, bRange[0]);
+		assertEquals(3, bRange[1]);
+
+		Set<int[]> eAnnotations = annotations.get("e").get(IdentitySimilarityProvider.TYPE);
+		it = eAnnotations.iterator();
+		int[] eRange = it.next();
+		assertEquals(8, eRange[0]);
+		assertEquals(9, eRange[1]);
+	}
 
 }

@@ -29,13 +29,13 @@ public interface ISemanticProvider {
 	Class<?> getConceptType();
 
 	/**
-	 * Gets the semantic label for a given {@link Object concept}.
+	 * Gets the semantic labels for a given {@link Object concept}.
 	 * 
 	 * @param concept
 	 *            the {@link Object concept}
-	 * @return the semantic label for a given {@link Object concept} if any, <code>null</code> otherwise
+	 * @return the semantic labels for a given {@link Object concept} if any, <code>null</code> otherwise
 	 */
-	String getSemanticLabel(Object concept);
+	Set<String> getSemanticLabels(Object concept);
 
 	/**
 	 * Gets the mapping of {@link Object relation} to the {@link Set} of related concepts.

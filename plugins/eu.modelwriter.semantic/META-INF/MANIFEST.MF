@@ -6,3 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: eu.modelwriter.semantic,
  eu.modelwriter.semantic.internal;x-friends:="eu.modelwriter.semantic.tests"
+Require-Bundle: dk.brics.automaton;bundle-version="1.11.7"
+Bundle-ClassPath: .,
+ lib/stanford-corenlp-3.4-models.jar,
+ lib/stanford-corenlp-3.5.2.jar

@@ -11,6 +11,7 @@
  *******************************************************************************/
 package eu.modelwriter.semantic;
 
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,13 +34,14 @@ public class StringSemanticProvider implements ISemanticProvider {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see eu.modelwriter.semantic.ISemanticProvider#getSemanticLabel(java.lang.Object)
+	 * @see eu.modelwriter.semantic.ISemanticProvider#getSemanticLabels(java.lang.Object)
 	 */
-	public String getSemanticLabel(Object concept) {
-		final String res;
+	public Set<String> getSemanticLabels(Object concept) {
+		final Set<String> res;
 
 		if (concept instanceof String) {
-			res = (String)concept;
+			res = new LinkedHashSet<String>();
+			res.add((String)concept);
 		} else {
 			res = null;
 		}

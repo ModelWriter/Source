@@ -65,6 +65,7 @@
 
     <module>features/eu.modelwriter.semantic.feature</module>
     <module>plugins/eu.modelwriter.semantic</module>
+    <module>plugins/dk.brics.automaton</module>
     <module>plugins/eu.modelwriter.semantic.emf</module>
     <module>plugins/eu.modelwriter.semantic.jena</module>
     <module>tests/eu.modelwriter.semantic.tests</module>

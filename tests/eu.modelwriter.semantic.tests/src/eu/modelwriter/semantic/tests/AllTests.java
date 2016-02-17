@@ -21,7 +21,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {SemanticAnnotatorTests.class, StringSemanticProviderTests.class, })
+@SuiteClasses(value = {IdentitySimilarityProviderTests.class, MorphologySimilarityProviderTests.class,
+		SemanticAnnotatorTests.class, StringSemanticProviderTests.class, })
 public class AllTests {
 
 }
