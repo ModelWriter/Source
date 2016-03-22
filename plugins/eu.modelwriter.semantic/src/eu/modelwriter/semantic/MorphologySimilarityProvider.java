@@ -37,8 +37,28 @@ public class MorphologySimilarityProvider implements ISemanticSimilarityProvider
 	 */
 	public static final Object TYPE = new Object();
 
+	/**
+	 * Standford pipeline.
+	 */
+	private static final StanfordCoreNLP PIPELINE = initPipeline("annotators", "tokenize, ssplit, pos, lemma");
+
 	public Object getType() {
 		return TYPE;
+	}
+
+	/**
+	 * Initializes the Standford pipeline with the given properties.
+	 * 
+	 * @param props
+	 *            the properties
+	 * @return a new Standford pipeline with the given properties
+	 */
+	private static StanfordCoreNLP initPipeline(String... props) {
+		final Properties properties = new Properties();
+		properties.put("annotators", "tokenize, ssplit, pos, lemma");
+
+		StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
+		return pipeline;
 	}
 
 	/**
@@ -58,11 +78,7 @@ public class MorphologySimilarityProvider implements ISemanticSimilarityProvider
 			}
 
 			Annotation document = new Annotation(builder.substring(0, builder.length() - 1));
-			final Properties properties = new Properties();
-			properties.put("annotators", "tokenize, ssplit, pos, lemma");
-
-			StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
-			pipeline.annotate(document);
+			PIPELINE.annotate(document);
 
 			final List<CoreMap> sentences = document.get(SentencesAnnotation.class);
 			for (CoreMap sentence : sentences) {
