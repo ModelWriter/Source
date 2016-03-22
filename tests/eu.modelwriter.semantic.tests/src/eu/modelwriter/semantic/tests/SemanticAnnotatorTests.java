@@ -14,6 +14,7 @@ package eu.modelwriter.semantic.tests;
 import eu.modelwriter.semantic.ISemanticProvider;
 import eu.modelwriter.semantic.ISemanticSimilarityProvider;
 import eu.modelwriter.semantic.IdentitySimilarityProvider;
+import eu.modelwriter.semantic.MorphologySimilarityProvider;
 import eu.modelwriter.semantic.StringSemanticProvider;
 import eu.modelwriter.semantic.internal.SemanticAnnotator;
 
@@ -313,6 +314,56 @@ public class SemanticAnnotatorTests {
 		int[] eRange = it.next();
 		assertEquals(8, eRange[0]);
 		assertEquals(9, eRange[1]);
+	}
+
+	@Test
+	public void getSemanticAnnotationsConceptToText() {
+		final ISemanticProvider semanticProvider = new StringSemanticProvider();
+
+		annotator.addSemanticProvider(semanticProvider);
+
+		annotator.addSemanticSimilarityProvider(new MorphologySimilarityProvider());
+
+		final Set<Object> concepts = new LinkedHashSet<Object>();
+		concepts.add("book");
+
+		Map<Object, Map<Object, Set<int[]>>> annotations = annotator.getSemanticAnnotations(
+				"our books are on the shelfs", concepts);
+
+		assertEquals(1, annotations.size());
+		Set<int[]> bAnnotations = annotations.get("book").get(MorphologySimilarityProvider.TYPE);
+
+		assertEquals(1, bAnnotations.size());
+
+		Iterator<int[]> it = bAnnotations.iterator();
+		int[] bRange = it.next();
+		assertEquals(4, bRange[0]);
+		assertEquals(9, bRange[1]);
+	}
+
+	@Test
+	public void getSemanticAnnotationsTextToConcept() {
+		final ISemanticProvider semanticProvider = new StringSemanticProvider();
+
+		annotator.addSemanticProvider(semanticProvider);
+
+		annotator.addSemanticSimilarityProvider(new MorphologySimilarityProvider());
+
+		final Set<Object> concepts = new LinkedHashSet<Object>();
+		concepts.add("books");
+
+		Map<Object, Map<Object, Set<int[]>>> annotations = annotator.getSemanticAnnotations(
+				"our book is on the top shelf", concepts);
+
+		assertEquals(1, annotations.size());
+		Set<int[]> bAnnotations = annotations.get("books").get(MorphologySimilarityProvider.TYPE);
+
+		assertEquals(1, bAnnotations.size());
+
+		Iterator<int[]> it = bAnnotations.iterator();
+		int[] bRange = it.next();
+		assertEquals(4, bRange[0]);
+		assertEquals(8, bRange[1]);
 	}
 
 }

@@ -13,6 +13,7 @@ package eu.modelwriter.semantic.internal;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.AutomatonMatcher;
+import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 import eu.modelwriter.semantic.ISemanticAnnotator;
 import eu.modelwriter.semantic.ISemanticProvider;
@@ -33,6 +34,11 @@ import java.util.Set;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class SemanticAnnotator implements ISemanticAnnotator {
+
+	/**
+	 * The {@link RunAutomaton} matching words.
+	 */
+	private static final RunAutomaton WORD_AUTOMATON = new RunAutomaton(new RegExp("[a-zA-Z]+").toAutomaton());
 
 	/**
 	 * The {@link List} of {@link ISemanticProvider}.
@@ -202,13 +208,18 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	private Map<String, Set<Object>> getWordPositions(String text, Set<String> analyzedWords) {
 		final Map<String, Set<Object>> res = new HashMap<String, Set<Object>>();
 
-		// TODO split the text into words and keep positions
-		final Map<String, Object> splittedText = new HashMap<String, Object>();
-
-		// TODO if possible directly filter when splitting
-		for (String word : analyzedWords) {
-			// remove already analyzed word
-			splittedText.remove(word);
+		final AutomatonMatcher matcher = WORD_AUTOMATON.newMatcher(text);
+		while (matcher.find()) {
+			final String foundWord = text.substring(matcher.start(), matcher.end());
+			if (!analyzedWords.contains(foundWord)) {
+				final int[] position = new int[] {matcher.start(), matcher.end() };
+				Set<Object> positions = res.get(foundWord);
+				if (positions == null) {
+					positions = new LinkedHashSet<Object>();
+					res.put(foundWord, positions);
+				}
+				positions.add(position);
+			}
 		}
 
 		return res;
