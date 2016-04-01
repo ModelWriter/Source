@@ -37,7 +37,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * Tests {@link EObjectConnector}.
@@ -160,7 +159,6 @@ public class EObjectConnectorParametrizedTests {
 	@Parameters(name = "{index}")
 	public static Iterable<Object[][]> data() {
 		return Arrays.asList(new Object[][][] {
-				// TODO altered version for the 3 first tests.
 				{ {EcorePackage.eINSTANCE.getEClassifiers().get(7), null, null, },
 						{createEClass(), null, null, }, },
 				{ {EcorePackage.eINSTANCE.getEClassifiers().get(10), null, null, },
@@ -181,12 +179,12 @@ public class EObjectConnectorParametrizedTests {
 								EcorePackage.eINSTANCE.getENamedElement_Name(), "someEOperation", }, },
 
 				{
-						{EcorePackage.eINSTANCE.getEClassifiers().get(2),
-								EcorePackage.eINSTANCE.getEClass_ESuperTypes(),
-								EcorePackage.eINSTANCE.getEClassifiers().get(3), },
-						{EcorePackage.eINSTANCE.getEClassifiers().get(2),
-								EcorePackage.eINSTANCE.getEClass_ESuperTypes(),
-								EcorePackage.eINSTANCE.getEClassifiers().get(4), }, }, });
+						{EcorePackage.eINSTANCE.getEClass_Abstract(),
+								EcorePackage.eINSTANCE.getETypedElement_EType(),
+								EcorePackage.eINSTANCE.getEBoolean(), },
+						{EcorePackage.eINSTANCE.getEClass_Abstract(),
+								EcorePackage.eINSTANCE.getETypedElement_EType(),
+								EcorePackage.eINSTANCE.getEBooleanObject(), }, }, });
 	}
 
 	private static EClass createEClass() {
@@ -219,14 +217,19 @@ public class EObjectConnectorParametrizedTests {
 		final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(res.getEObject());
 		textAdapter.setLocationFromEObject(res);
 		container.getContents().add(res);
+		res.setContainer(container);
 
 		return res;
 	}
 
 	public void assertEObjectLocation(IEObjectLocation location, String expectedText, int expectedTextOffset,
 			EObject expectedEObject, EStructuralFeature expectedFeature, Object expectedValue) {
-		assertEquals(expectedText, ((ITextContainer)location.getContainer()).getText().substring(
-				location.getStartOffset(), location.getEndOffset()));
+		if (location.getStartOffset() < 0 && location.getEndOffset() < 0) {
+			assertEquals(expectedText, "");
+		} else {
+			assertEquals(expectedText, ((ITextContainer)location.getContainer()).getText().substring(
+					location.getStartOffset(), location.getEndOffset()));
+		}
 		assertEquals(expectedTextOffset, location.getStartOffset());
 		assertEquals(expectedEObject, location.getEObject());
 		assertEquals(expectedFeature, location.getEStructuralFeature());
@@ -514,12 +517,67 @@ public class EObjectConnectorParametrizedTests {
 
 	@Test
 	public void updateEObjectsPlusShiftRemoved() {
-		fail();
+		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
+		final Copier copier = new Copier();
+		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		copier.copyReferences();
+		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
+		final EObjectConnector connector = new EObjectConnector();
+		connector.update(container, testEObjects);
+		final IEObjectLocation location = createEObjectLocation(copier, container);
+
+		final String expectedText = "";
+		final int expectedTextOffset = -1;
+		final EObject expectedEObject = null;
+		final EStructuralFeature expectedFeature = null;
+		final Object expectedValue = null;
+
+		List<EObject> newEObjects = testEObjects;
+		if (testEObjects.contains(copier.get(original[0]))) {
+			testEObjects.remove(copier.get(original[0]));
+		} else {
+			EcoreUtil.delete(copier.get(original[0]));
+		}
+
+		newEObjects.addAll(0, MappingPackage.eINSTANCE.getEClassifiers());
+		connector.update(container, newEObjects);
+
+		assertEquals(newEObjects, container.getEObjects());
+		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
+				expectedValue);
 	}
 
 	@Test
 	public void updateEObjectsMinusShiftRemoved() {
-		fail();
+		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
+		final Copier copier = new Copier();
+		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		copier.copyReferences();
+		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
+		final EObjectConnector connector = new EObjectConnector();
+		connector.update(container, testEObjects);
+		final IEObjectLocation location = createEObjectLocation(copier, container);
+
+		final String expectedText = "";
+		final int expectedTextOffset = -1;
+		final EObject expectedEObject = null;
+		final EStructuralFeature expectedFeature = null;
+		final Object expectedValue = null;
+
+		List<EObject> newEObjects = testEObjects;
+		if (testEObjects.contains(copier.get(original[0]))) {
+			testEObjects.remove(copier.get(original[0]));
+		} else {
+			EcoreUtil.delete(copier.get(original[0]));
+		}
+
+		newEObjects.remove(0);
+		newEObjects.remove(0);
+		connector.update(container, newEObjects);
+
+		assertEquals(newEObjects, container.getEObjects());
+		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
+				expectedValue);
 	}
 
 	private String getText(List<EObject> eObjects) {

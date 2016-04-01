@@ -26,7 +26,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses(value = {EMFBaseTests.class, EMFLinkTests.class, EMFTextLocationTests.class,
 		EMFScopeTests.class, EMFEObjectLocationTests.class, EObjectConnectorTests.class,
-/* TODO EObjectConnectorParametrizedTests.class, */})
+		EObjectConnectorParametrizedTests.class, })
 public class AllTests {
 
 }

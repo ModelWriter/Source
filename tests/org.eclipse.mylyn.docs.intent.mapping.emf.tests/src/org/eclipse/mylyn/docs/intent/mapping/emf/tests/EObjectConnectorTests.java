@@ -27,7 +27,9 @@ import org.eclipse.mylyn.docs.intent.mapping.tests.base.LocationFactoryTests.ITe
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests {@link EObjectConnector}.
@@ -68,8 +70,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 
 		super.initLocation(location, EcorePackage.eINSTANCE.getEClass());
 
-		assertEquals(12592, location.getStartOffset());
-		assertEquals(38893, location.getEndOffset());
+		assertEquals(12772, location.getStartOffset());
+		assertEquals(39773, location.getEndOffset());
 		assertEquals(EcorePackage.eINSTANCE.getEClass(), location.getEObject());
 		assertEquals(null, location.getEStructuralFeature());
 		assertEquals(null, location.getValue());
@@ -89,11 +91,174 @@ public class EObjectConnectorTests extends EObjectConnector {
 
 		assertEquals("name:EClass", container.getText().substring(location.getStartOffset(),
 				location.getEndOffset()));
-		assertEquals(12593, location.getStartOffset());
+		assertEquals(12778, location.getStartOffset());
 		assertEquals(EcorePackage.eINSTANCE.getEClass(), location.getEObject());
 		assertEquals(EcorePackage.eINSTANCE.getENamedElement_Name(), location.getEStructuralFeature());
 		assertEquals("EClass", location.getValue());
 		assertEquals(true, location.isSetting());
+	}
+
+	@Test
+	public void isValidOffsetsEObjectMismatchedStartShorter() {
+		final String text = "xxxx<<<<\n";
+		final int startOffset = 0;
+		final int endOffset = 9;
+
+		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsEObjectMismatchedStartLonger() {
+		final String text = "yyyyyyyyyyyyyyyyyyyyxxxx<<<<\n";
+		final int startOffset = 20;
+		final int endOffset = 29;
+
+		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsEObjectMismatchedStartSameLength() {
+		final String text = "yyyyyxxxx<<<<\n";
+		final int startOffset = 0;
+		final int endOffset = 14;
+
+		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsEObjectMismatchedEndShorter() {
+		final String text = ">>>>\nxxxx";
+		final int startOffset = 0;
+		final int endOffset = 9;
+
+		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsEObjectMismatchedEndLonger() {
+		final String text = ">>>>\nxxxxyyyyyyyyyyyyyyyyyyyy";
+		final int startOffset = 0;
+		final int endOffset = 14;
+
+		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsEObjectMismatchedEndSameLenght() {
+		final String text = ">>>>\nxxxxyyyyy";
+		final int startOffset = 0;
+		final int endOffset = 14;
+
+		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsEObject() {
+		final String text = ">>>>\nxxxx<<<<\n";
+		final int startOffset = 0;
+		final int endOffset = 14;
+
+		assertTrue(isValidOffsets(text, null, startOffset, endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSettingMismatchedStartShorter() {
+		final String text = "name:xxxx:\n";
+		final int startOffset = 0;
+		final int endOffset = 9;
+
+		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSettingMismatchedStartLonger() {
+		final String text = "yyyyyyyyyyyyyyyyyyyyname:xxxx:\n";
+		final int startOffset = 20;
+		final int endOffset = 29;
+
+		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSettingMismatchedStartSameLength() {
+		final String text = "yname:xxxx:\n";
+		final int startOffset = 1;
+		final int endOffset = 10;
+
+		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSettingMismatchedFeatureShorter() {
+		final String text = "::\n";
+		final int startOffset = 1;
+		final int endOffset = 1;
+
+		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSettingMismatchedFeatureLonger() {
+		final String text = ":yyyyyyyyyyyyyyyyyyyy:xxxx:\n";
+		final int startOffset = 1;
+		final int endOffset = 26;
+
+		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSettingMismatchedFeatureSameLenght() {
+		final String text = ":yyyyyxxxx:\n";
+		final int startOffset = 1;
+		final int endOffset = 10;
+
+		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSettingMismatchedEndShorter() {
+		final String text = ":name:xxxx";
+		final int startOffset = 1;
+		final int endOffset = 10;
+
+		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSettingMismatchedEndLonger() {
+		final String text = ":name:xxxxyyyyyyyyyyyyyyyyyyyy";
+		final int startOffset = 1;
+		final int endOffset = 10;
+
+		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSettingMismatchedEndSameLenght() {
+		final String text = ":name:xxxxyy";
+		final int startOffset = 1;
+		final int endOffset = 10;
+
+		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
+	}
+
+	@Test
+	public void isValidOffsetsSetting() {
+		final String text = ":name:xxxx:\n";
+		final int startOffset = 1;
+		final int endOffset = 10;
+
+		assertTrue(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
+				endOffset));
 	}
 
 }

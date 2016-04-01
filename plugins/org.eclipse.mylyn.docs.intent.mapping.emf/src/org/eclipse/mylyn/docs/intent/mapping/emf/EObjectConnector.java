@@ -109,8 +109,19 @@ public class EObjectConnector extends AbstractConnector {
 					final IEObjectLocation location = (IEObjectLocation)child;
 					final int newStartOffset = diff.getIndex(location.getStartOffset());
 					final int newEndOffset = diff.getIndex(location.getEndOffset());
-					location.setStartOffset(newStartOffset);
-					location.setEndOffset(newEndOffset);
+					if (isValidOffsets(newText, location.getEStructuralFeature(), newStartOffset,
+							newEndOffset)) {
+						location.setStartOffset(newStartOffset);
+						location.setEndOffset(newEndOffset);
+					} else {
+						location.setStartOffset(-1);
+						location.setEndOffset(-1);
+						// TODO at this point we might want to mark the location as deleted and keep its data
+						location.setEObject(null);
+						location.setSetting(false);
+						location.setEStructuralFeature(null);
+						location.setValue(null);
+					}
 				}
 			}
 			for (ILocation child : container.getContents()) {
@@ -125,10 +136,49 @@ public class EObjectConnector extends AbstractConnector {
 							adapter = textAdapter;
 						}
 					}
-					adapter.setLocationFromText(location);
+					if (adapter != null) {
+						adapter.setLocationFromText(location);
+					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * Tell if the start and end offsets are valid in the given text according to given
+	 * {@link EStructuralFeature}.
+	 * 
+	 * @param text
+	 *            the containing text
+	 * @param feature
+	 *            the {@link EStructuralFeature} if nay, <code>null</code> otherwise
+	 * @param startOffset
+	 *            the {@link IEObjectLocation#getStartOffset() start offset}
+	 * @param endOffset
+	 *            the {@link IEObjectLocation#getEndOffset() end offset}
+	 * @return <code>true</code> if the start and end offsets are valid in the given text according to given
+	 *         {@link EStructuralFeature}, <code>false</code> otherwise
+	 */
+	protected boolean isValidOffsets(String text, EStructuralFeature feature, int startOffset, int endOffset) {
+		final boolean res;
+
+		if (feature != null) {
+			final boolean startMatched = startOffset - TextAdapter.START_SETTING.length() >= 0
+					&& TextAdapter.START_SETTING.equals(text.substring(startOffset
+							- TextAdapter.START_SETTING.length(), startOffset));
+			final boolean featureMatched = text.substring(startOffset).startsWith(
+					feature.getName() + TextAdapter.MIDDLE_SETTING);
+			final boolean endMatched = endOffset + TextAdapter.END_SETTING.length() <= text.length()
+					&& text.substring(endOffset).startsWith(TextAdapter.END_SETTING);
+			res = startMatched && featureMatched && endMatched;
+		} else {
+			final boolean startMatched = text.substring(startOffset).startsWith(TextAdapter.START_EOBJECT);
+			final boolean endMatched = text.substring(endOffset - TextAdapter.END_EOBJECT.length())
+					.startsWith(TextAdapter.END_EOBJECT);
+			res = startMatched && endMatched;
+		}
+
+		return res;
 	}
 
 	/**

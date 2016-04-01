@@ -36,6 +36,31 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter;
 public class TextAdapter extends AdapterImpl implements ITextAdapter {
 
 	/**
+	 * Start {@link org.eclipse.emf.ecore.EStructuralFeature.Setting Setting} separator.
+	 */
+	public static final String START_SETTING = ":";
+
+	/**
+	 * Middle {@link org.eclipse.emf.ecore.EStructuralFeature.Setting Setting} separator.
+	 */
+	public static final String MIDDLE_SETTING = ":";
+
+	/**
+	 * End {@link org.eclipse.emf.ecore.EStructuralFeature.Setting Setting} separator.
+	 */
+	public static final String END_SETTING = ":\n";
+
+	/**
+	 * Start {@link EObject} separator.
+	 */
+	public static final String END_EOBJECT = "<<<<\n";
+
+	/**
+	 * End {@link EObject} separator.
+	 */
+	public static final String START_EOBJECT = ">>>>\n";
+
+	/**
 	 * Couple of a {@link EStructuralFeature} and a value.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
@@ -101,9 +126,11 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 
 		offsetToFeatureValues.clear();
 		featureValueToOffsets.clear();
+		builder.append(START_EOBJECT);
 		for (EStructuralFeature eFeature : getTarget().eClass().getEAllStructuralFeatures()) {
 			writeFeature(builder, eFeature);
 		}
+		builder.append(END_EOBJECT);
 
 		return builder.toString();
 	}
@@ -150,13 +177,13 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 		if (eFeature instanceof EReference && ((EReference)eFeature).isContainment()) {
 			if (value instanceof EObject) {
 				final ITextAdapter textAdapter = EObjectConnector.getTextAdapter((EObject)value);
-				builder.append(">>>>\n");
+				builder.append(START_EOBJECT);
 				textAdapter.setTextOffset(getTextOffset() + builder.length());
 				offsets[0] = getTextOffset() + builder.length();
 				offsetToFeatureValues.put(offsets[0], new FeatureValue(eFeature, value));
 				builder.append(textAdapter.getText());
 				offsets[1] = getTextOffset() + builder.length();
-				builder.append("<<<<\n");
+				builder.append(END_EOBJECT);
 			}
 		} else {
 			final String stringValue;
@@ -171,14 +198,14 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 			} else {
 				stringValue = "null";
 			}
-			builder.append(':');
+			builder.append(START_SETTING);
 			offsets[0] = getTextOffset() + builder.length();
 			offsetToFeatureValues.put(offsets[0], new FeatureValue(eFeature, value));
 			builder.append(eFeature.getName());
-			builder.append(':');
+			builder.append(MIDDLE_SETTING);
 			builder.append(stringValue);
 			offsets[1] = getTextOffset() + builder.length();
-			builder.append(":\n");
+			builder.append(END_SETTING);
 		}
 	}
 
