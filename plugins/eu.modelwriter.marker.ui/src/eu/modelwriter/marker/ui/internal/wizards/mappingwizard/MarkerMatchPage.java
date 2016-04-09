@@ -37,7 +37,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
 import eu.modelwriter.configuration.internal.AlloyUtilities;
-import eu.modelwriter.marker.internal.MappingUtilities;
 import eu.modelwriter.marker.internal.MarkUtilities;
 import eu.modelwriter.marker.internal.MarkerFactory;
 
@@ -222,8 +221,8 @@ public class MarkerMatchPage extends WizardPage {
           selectedMarker, RelationsWizardPage.selectedRelation.substring(0,
               RelationsWizardPage.selectedRelation.indexOf(" ")));
     } else {
-      MappingWizard.beforeCheckedMarkers = MappingUtilities.getTargetsOfMarker(selectedMarker);
-      // AlloyUtilities.getSecondSideMarkerIdsByMarkerAndRelationV2(selectedMarker);
+      MappingWizard.beforeCheckedMarkers =
+          AlloyUtilities.getSecondSideMarkerIdsByMarkerAndRelationV2(selectedMarker);
     }
     MarkerMatchPage.checkedElements = new ArrayList<>(MappingWizard.beforeCheckedMarkers);
   }

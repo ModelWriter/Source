@@ -28,7 +28,6 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -89,8 +88,6 @@ public class MarkerFactory {
   // Marker ID
   public static final String MARKER_MARKING = "eu.modelwriter.marker.marking";
   public static final String MARKER_MAPPING = "eu.modelwriter.marker.mapping";
-
-  private static int nextId = -1;
 
   /**
    * Creates a Ecore Marker from tree selection
@@ -326,8 +323,6 @@ public class MarkerFactory {
         map.put(IMarker.LOCATION, selection.getStartLine());
         map.put(IMarker.SOURCE_ID, MarkerFactory.generateId());
         map.put(MarkUtilities.MARKER_TYPE, null);
-        map.put(MarkUtilities.START_OFFSET, start);
-        map.put(MarkUtilities.END_OFFSET, end);
         MarkerUtilities.createMarker(resource, map, MarkerFactory.MARKER_MARKING);
 
         createdMarker = MarkerFactory.findMarkerWithAbsolutePosition(resource, start, end);
@@ -722,52 +717,14 @@ public class MarkerFactory {
 
   public static String generateId() {
     final String base = "0000";
-    // int nextId;
-    final Path path = new Path(MarkerUpdater.getLocation());
-    if (path.toFile().exists()) {
+    final DocumentRoot documentRoot = MarkerUpdater.getDocumentRoot();
+    int nextId = documentRoot.getAlloy().getRepository().getNextId();
 
-      final DocumentRoot documentRoot = MarkerUpdater.getDocumentRoot();
-      nextId = documentRoot.getAlloy().getRepository().getNextId();
-
-      documentRoot.getAlloy().getRepository().setNextId(++nextId);
-      MarkerUpdater.writeDocumentRoot(documentRoot);
-
-    } else {
-      if (nextId == -1) {
-        // ArrayList<IMarker> markers =
-        // findMarkersAsArrayList(ResourcesPlugin.getWorkspace().getRoot());
-        IMarker[] markers, mappedMarkers;
-        int id = 0;
-        try {
-          markers = ResourcesPlugin.getWorkspace().getRoot()
-              .findMarkers(MarkerFactory.MARKER_MARKING, true, IResource.DEPTH_INFINITE);
-          mappedMarkers = ResourcesPlugin.getWorkspace().getRoot()
-              .findMarkers(MarkerFactory.MARKER_MARKING, true, IResource.DEPTH_INFINITE);
-
-          for (IMarker iMarker : markers) {
-            int tempId = Integer.parseInt(MarkUtilities.getSourceId(iMarker));
-            if (tempId > id)
-              id = tempId;
-          }
-
-          for (IMarker iMarker : mappedMarkers) {
-            int tempId = Integer.parseInt(MarkUtilities.getSourceId(iMarker));
-            if (tempId > id)
-              id = tempId;
-          }
-
-        } catch (CoreException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-        nextId = id + 1;
-      } else {
-        nextId++;
-      }
-
-    }
     String id = base + nextId;
     id = id.substring(id.length() - 5);
+
+    documentRoot.getAlloy().getRepository().setNextId(++nextId);
+    MarkerUpdater.writeDocumentRoot(documentRoot);
 
     return id;
   }

@@ -50,7 +50,6 @@ import org.eclipse.ui.views.markers.internal.MarkerSupportRegistry;
 
 import eu.modelwriter.configuration.internal.AlloyUtilities;
 import eu.modelwriter.marker.internal.AnnotationFactory;
-import eu.modelwriter.marker.internal.MappingUtilities;
 import eu.modelwriter.marker.internal.MarkUtilities;
 import eu.modelwriter.marker.internal.MarkerFactory;
 import eu.modelwriter.marker.ui.Activator;
@@ -160,33 +159,29 @@ public class MasterView extends ViewPart {
             viewPart = page.showView(TargetView.ID);
           }
           if (viewPart instanceof TargetView) {
-            // if (MarkUtilities.getType(selected) != null) {
-            // final Map<IMarker, String> targets =
-            // AlloyUtilities.getRelationsOfFirstSideMarker(selected);
-            // TargetView.setColumns(targets.keySet());
-            // } else {
-            // final ArrayList<IMarker> targets =
-            // AlloyUtilities.getTargetsOfMarkerAtRelations(selected);
-            // TargetView.setColumns(targets);
-            // }
-            ArrayList<IMarker> targets = MappingUtilities.getTargetsOfMarker(selected);
-            TargetView.setColumns(targets);
+            if (MarkUtilities.getType(selected) != null) {
+              final Map<IMarker, String> targets =
+                  AlloyUtilities.getRelationsOfFirstSideMarker(selected);
+              TargetView.setColumns(targets.keySet());
+            } else {
+              final ArrayList<IMarker> targets =
+                  AlloyUtilities.getTargetsOfMarkerAtRelations(selected);
+              TargetView.setColumns(targets);
+            }
           }
           viewPart = page.findView(SourceView.ID);
           if (viewPart == null) {
             viewPart = page.showView(SourceView.ID);
           }
           if (viewPart instanceof SourceView) {
-            // if (MarkUtilities.getType(selected) != null) {
-            // final ArrayList<IMarker> sources = AlloyUtilities.getSumSources(selected);
-            // SourceView.setColumns(sources);
-            // } else {
-            // final ArrayList<IMarker> sources =
-            // AlloyUtilities.getSourcesOfMarkerAtRelations(selected);
-            // SourceView.setColumns(sources);
-            // }
-            ArrayList<IMarker> sources = MappingUtilities.getSourcesOfMarker(selected);
-            SourceView.setColumns(sources);
+            if (MarkUtilities.getType(selected) != null) {
+              final ArrayList<IMarker> sources = AlloyUtilities.getSumSources(selected);
+              SourceView.setColumns(sources);
+            } else {
+              final ArrayList<IMarker> sources =
+                  AlloyUtilities.getSourcesOfMarkerAtRelations(selected);
+              SourceView.setColumns(sources);
+            }
           }
         } catch (final PartInitException e) {
           e.printStackTrace();

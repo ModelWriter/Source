@@ -23,7 +23,6 @@ import org.eclipse.jface.wizard.Wizard;
 import eu.modelwriter.configuration.internal.AlloyUtilities;
 import eu.modelwriter.configuration.internal.CreateMarkerWithType;
 import eu.modelwriter.marker.MarkerActivator;
-import eu.modelwriter.marker.internal.MappingUtilities;
 import eu.modelwriter.marker.internal.MarkUtilities;
 import eu.modelwriter.marker.internal.MarkerFactory;
 import eu.modelwriter.marker.ui.internal.wizards.mappingwizard.MappingWizard;
@@ -128,10 +127,6 @@ public class MarkerWizard extends Wizard {
                 MarkerPage.markTreeViewer.getTree().getSelection()[0].getText());
             AlloyUtilities.addTypeToMarker(this.selectedMarker);
             AlloyUtilities.addMarkerToRepository(this.selectedMarker);
-
-
-            MappingUtilities.changeTypeOfLocation(this.selectedMarker,
-                MarkerPage.markTreeViewer.getTree().getSelection()[0].getText());
           }
 
           // MessageDialog dialog = new MessageDialog(MarkerActivator.getShell(),

@@ -357,7 +357,6 @@ public class MarkerUpdater implements IMarkerUpdater {
   @Override
   public boolean updateMarker(final IMarker marker, final IDocument doc, final Position position) {
     try {
-      MappingUtilities.updateTextLocation(marker, position);
       this.markerType = marker.getType();
       final int start = position.getOffset();
       final int end = position.getOffset() + position.getLength();
@@ -387,10 +386,8 @@ public class MarkerUpdater implements IMarkerUpdater {
       MarkUtilities.setEnd(marker, end);
       MarkUtilities.setLinenumber(marker, doc.getLineOfOffset(start));
       MarkUtilities.setText(marker, doc.get(start, position.getLength()));
-      MarkUtilities.setStartOffset(marker, start);
-      MarkUtilities.setEndOffset(marker, end);
 
-      // MarkerUpdater.update(marker);
+      MarkerUpdater.update(marker);
       // TODO When the update action completed, you must trigger the Visualization.showViz method
       // for refreshing the view.
 

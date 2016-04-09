@@ -17,7 +17,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.presentation.EcoreEditor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.ITextSelection;
@@ -29,7 +28,6 @@ import org.eclipse.ui.PlatformUI;
 import eu.modelwriter.configuration.internal.AlloyUtilities;
 import eu.modelwriter.marker.MarkerActivator;
 import eu.modelwriter.marker.internal.AnnotationFactory;
-import eu.modelwriter.marker.internal.MappingUtilities;
 import eu.modelwriter.marker.internal.MarkUtilities;
 import eu.modelwriter.marker.internal.MarkerFactory;
 
@@ -59,7 +57,6 @@ public class MarkHandler extends AbstractHandler {
       if (beAdded != null && beAdded.exists()) {
         text = ((ITextSelection) this.selection).getText();
         AnnotationFactory.addAnnotation(beAdded, AnnotationFactory.ANNOTATION_MARKING);
-        MappingUtilities.addTextLocation(beAdded, null);
       }
     } else if (this.selection instanceof ITreeSelection) {
       if (this.editor instanceof EcoreEditor) {
@@ -70,15 +67,11 @@ public class MarkHandler extends AbstractHandler {
           } else {
             text = MarkUtilities.getText(beAdded);
           }
-          MappingUtilities.addEObjectLocation(beAdded, (EObject) treeSelection.getFirstElement(),
-              null);
         }
       }
     }
-    if (AlloyUtilities.isExists())
-      this.addToAlloyXML(beAdded);
 
-
+    this.addToAlloyXML(beAdded);
 
     // MessageDialog dialog = new MessageDialog(MarkerActivator.getShell(), "Mark Information",
     // null,
@@ -89,15 +82,15 @@ public class MarkHandler extends AbstractHandler {
 
   @Override
   public Object execute(final ExecutionEvent event) throws ExecutionException {
-    // if (AlloyUtilities.isExists()) {
-    this.createMarker();
-    this.refresh();
-    // } else {
-    // final MessageDialog infoDialog = new MessageDialog(MarkerActivator.getShell(),
-    // "System Information", null, "You dont have any registered alloy file to system.",
-    // MessageDialog.INFORMATION, new String[] {"OK"}, 0);
-    // infoDialog.open();
-    // }
+    if (AlloyUtilities.isExists()) {
+      this.createMarker();
+      this.refresh();
+    } else {
+      final MessageDialog infoDialog = new MessageDialog(MarkerActivator.getShell(),
+          "System Information", null, "You dont have any registered alloy file to system.",
+          MessageDialog.INFORMATION, new String[] {"OK"}, 0);
+      infoDialog.open();
+    }
     return null;
   }
 

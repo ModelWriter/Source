@@ -28,7 +28,6 @@ import org.eclipse.ui.texteditor.MarkerUtilities;
 
 import eu.modelwriter.configuration.internal.AlloyUtilities;
 import eu.modelwriter.marker.internal.AnnotationFactory;
-import eu.modelwriter.marker.internal.MappingUtilities;
 import eu.modelwriter.marker.internal.MarkUtilities;
 import eu.modelwriter.marker.internal.MarkerFactory;
 import eu.modelwriter.marker.ui.internal.views.mappingview.TargetView;
@@ -93,13 +92,11 @@ public class MappingWizard extends Wizard {
   }
 
   public static int findTargetCount(final IMarker marker) {
-    // final Map<IMarker, String> fieldsTargets =
-    // AlloyUtilities.getRelationsOfFirstSideMarker(marker);
-    // final ArrayList<IMarker> relationsTargets =
-    // AlloyUtilities.getTargetsOfMarkerAtRelations(marker);
-    //
-    // return fieldsTargets.size() + relationsTargets.size();
-    return MappingUtilities.getTargetsOfMarker(marker).size();
+    final Map<IMarker, String> fieldsTargets = AlloyUtilities.getRelationsOfFirstSideMarker(marker);
+    final ArrayList<IMarker> relationsTargets =
+        AlloyUtilities.getTargetsOfMarkerAtRelations(marker);
+
+    return fieldsTargets.size() + relationsTargets.size();
   }
 
   public IMarker selectedMarker;
@@ -129,19 +126,11 @@ public class MappingWizard extends Wizard {
   private void addRelationsOfNewCheckeds(final ArrayList<IMarker> newCheckeds) {
     for (final IMarker checkedMarker : newCheckeds) {
       if (this.isIndirect) {
-        if (AlloyUtilities.isExists())
-          AlloyUtilities.addRelation2Markers(this.selectedMarker, checkedMarker,
-              RelationsWizardPage.selectedRelation.substring(0,
-                  RelationsWizardPage.selectedRelation.indexOf(" ")));
-
-        MappingUtilities.addLinkToLocation(this.selectedMarker, checkedMarker,
+        AlloyUtilities.addRelation2Markers(this.selectedMarker, checkedMarker,
             RelationsWizardPage.selectedRelation.substring(0,
                 RelationsWizardPage.selectedRelation.indexOf(" ")));
       } else {
-        if (AlloyUtilities.isExists())
-          AlloyUtilities.addMapping2RelationType(this.selectedMarker, checkedMarker);
-
-        MappingUtilities.addLinkToLocation(this.selectedMarker, checkedMarker, null);
+        AlloyUtilities.addMapping2RelationType(this.selectedMarker, checkedMarker);
       }
     }
   }
@@ -230,14 +219,14 @@ public class MappingWizard extends Wizard {
           PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
       final IViewPart targetView = page.findView(TargetView.ID);
       if (this.isIndirect) {
-        // final Map<IMarker, String> targets =
-        // AlloyUtilities.getRelationsOfFirstSideMarker(this.selectedMarker);
+        final Map<IMarker, String> targets =
+            AlloyUtilities.getRelationsOfFirstSideMarker(this.selectedMarker);
         if (targetView != null) {
-          TargetView.setColumns(MappingUtilities.getTargetsOfMarker(selectedMarker));
+          TargetView.setColumns(targets);
         }
       } else {
-        final ArrayList<IMarker> targets = MappingUtilities.getTargetsOfMarker(selectedMarker);
-        // AlloyUtilities.getTargetsOfMarkerAtRelations(this.selectedMarker);
+        final ArrayList<IMarker> targets =
+            AlloyUtilities.getTargetsOfMarkerAtRelations(this.selectedMarker);
         page.showView(TargetView.ID);
         TargetView.setColumns(targets);
       }
@@ -250,15 +239,12 @@ public class MappingWizard extends Wizard {
   private void removeRelationsOfUncheckeds(final ArrayList<IMarker> unCheckeds) {
     for (final IMarker unCheckedMarker : unCheckeds) {
       if (this.isIndirect) {
-        if (AlloyUtilities.isExists())
-          AlloyUtilities.removeFieldOfMarkers(this.selectedMarker, unCheckedMarker,
-              RelationsWizardPage.selectedRelation.substring(0,
-                  RelationsWizardPage.selectedRelation.indexOf(" ")));
+        AlloyUtilities.removeFieldOfMarkers(this.selectedMarker, unCheckedMarker,
+            RelationsWizardPage.selectedRelation.substring(0,
+                RelationsWizardPage.selectedRelation.indexOf(" ")));
       } else {
-        if (AlloyUtilities.isExists())
-          AlloyUtilities.removeMappingFromRelationType(this.selectedMarker, unCheckedMarker);
+        AlloyUtilities.removeMappingFromRelationType(this.selectedMarker, unCheckedMarker);
       }
-      MappingUtilities.removeLink(this.selectedMarker, unCheckedMarker);
     }
   }
 }
