@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+    Copyright (c) 2015 UNIT Information Technologies R&D Ltd
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Ferhat Erata - initial API and implementation
+        H. Emre Kirmizi - initial API and implementation
+        Serhat Celik - initial API and implementation
+        U. Anil Ozturk - initial API and implementation
+ -->
+
+<plugin>
+
+<extension point="org.eclipse.core.expressions.definitions">
+<!-- to mark all and delete all -->
+	<definition
+	      id="when.ecoreEditor.is.notActive.or.not.on.masterView">
+	      <and>
+	      <reference
+             definitionId="activeEditor.is.not.instanceOf.EcoreEditor">
+	      </reference>
+		  <reference
+			    definitionId="activePart.is.not.MasterView">
+	      </reference>
+	      <reference
+             definitionId="activePart.instanceOf.IEditorPart">
+	      </reference>
+	        <reference
+               definitionId="when.not.on.ProjectExplorer.or.PackageExplorer">
+	        </reference>
+	      </and>
+	</definition>
+
+<!-- to create reqif from markdown command -->
+	<definition
+	      id="when.markdownEditor.isActive">
+	      <and>
+	        <with
+	              variable="activeEditorId">
+	              <equals
+	                    value="org.eclipse.mylyn.wikitext.ui.editor.markupEditor">
+	              </equals>
+	        </with>
+	        <reference
+               definitionId="activePart.instanceOf.IEditorPart">
+	        </reference>
+	        <reference
+               definitionId="when.not.on.ProjectExplorer.or.PackageExplorer">
+	        </reference>
+	      </and>
+	</definition>
+
+<!-- to count markers in File/Resource -->
+	<definition
+	      id="when.on.project.explorer">
+	      <with
+	            variable="activePartId">
+	            <equals
+	                  value="org.eclipse.ui.navigator.ProjectExplorer">
+	            </equals>
+	      </with>
+	</definition>
+	
+	<definition
+       id="when.on.package.explorer">
+	      <with
+	            variable="activePartId">
+	            <equals
+	                  value="org.eclipse.jdt.ui.PackageExplorer">
+	            </equals>
+	      </with>
+	</definition>
+	
+	<definition
+       id="when.on.ProjectExplorer.or.PackageExplorer">
+     	<or>
+             <reference
+                   definitionId="when.on.project.explorer">
+             </reference>
+             <reference
+                   definitionId="when.on.package.explorer">
+             </reference>
+     	</or>
+	</definition>
+	
+	<definition
+       id="when.not.on.ProjectExplorer.or.PackageExplorer">
+        <not>
+			<reference
+   				definitionId="when.on.ProjectExplorer.or.PackageExplorer">
+			</reference>
+        </not>
+	</definition>
+	
+	<definition
+       id="selection.is.file">
+       <with
+         variable="selection">
+         	<iterate ifEmpty="false" operator="and">
+         		<adapt
+                 type="org.eclipse.core.resources.IFile">
+         		</adapt>
+         	</iterate>
+       </with>
+	</definition>
+	
+	<definition
+       id="when.on.ProjectExplorer.or.PackageExplorer.and.selection.is.file">
+       <and>
+	       <reference
+	             definitionId="when.on.ProjectExplorer.or.PackageExplorer">
+	       </reference>
+	       <reference
+              definitionId="selection.is.file">
+	       </reference>
+       </and>
+	</definition>
+	
+	<definition
+       id="activeEditor.is.instanceOf.EcoreEditor">
+       <with
+             variable="activeEditor">
+             <instanceof
+                   value="org.eclipse.emf.ecore.presentation.EcoreEditor">
+             </instanceof>
+       </with>
+	</definition>
+	
+	<definition
+       id="activeEditor.is.not.instanceOf.EcoreEditor">
+       <not>
+	       	<reference
+	              definitionId="activeEditor.is.instanceOf.EcoreEditor">
+	       	</reference>
+       </not>
+	</definition>
+	
+	<definition
+       id="activePart.instanceOf.IEditorPart">
+        <with
+              variable="activePart">
+              <instanceof
+                    value="org.eclipse.ui.IEditorPart">
+              </instanceof>
+        </with>
+	</definition>
+	
+	<definition
+		id="activePart.is.MasterView">
+		<with
+			variable="activePartId">
+			<equals
+	         	value="eu.modelwriter.marker.ui.views.masterview">
+			</equals>
+		</with>
+	</definition>
+	
+	<definition
+       id="activePart.is.not.MasterView">
+       <not>
+       		<reference
+               definitionId="activePart.is.MasterView">
+       		</reference>
+       </not>
+	</definition>
+	
+	<definition
+       id="when.selection.is.marker">
+	   <with variable="selection">
+	         <iterate ifEmpty="false" operator="and">
+	             <adapt 
+	             	type="org.eclipse.core.resources.IMarker">
+	             </adapt>
+	         </iterate>
+	    </with>
+	</definition>
+	
+	<definition
+       id="when.selection.is.marker.and.activePart.is.MasterView">
+       <and>
+       	<reference
+              definitionId="activePart.is.MasterView">
+       	</reference>
+       	<reference
+              definitionId="when.selection.is.marker">
+       	</reference>
+       </and>
+	</definition>
+	
+	<definition
+       id="when.activePart.is.MasterView.or.IEditorPart">
+       <or>
+       <reference
+             definitionId="activePart.instanceOf.IEditorPart">
+       </reference>
+       <reference
+             definitionId="when.selection.is.marker.and.activePart.is.MasterView">
+       </reference>
+       </or>
+	</definition>
+ </extension>
+
+  <!-- binding keys for ModelWriter actions -->
+ <extension
+       point="org.eclipse.ui.bindings">
+    <key
+          commandId="eu.modelwriter.marker.command.mark"
+          contextId="org.eclipse.ui.contexts.window"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+8">
+    </key>
+    <key
+          commandId="eu.modelwriter.marker.command.markall"
+          contextId="org.eclipse.ui.contexts.window"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+9">
+    </key>
+    <key
+          commandId="eu.modelwriter.marker.command.map"
+          contextId="org.eclipse.ui.contexts.window"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+0">
+    </key>
+    <key
+          commandId="eu.modelwriter.marker.command.delete"
+          contextId="org.eclipse.ui.contexts.window"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+4">
+    </key>
+    <key
+          commandId="eu.modelwriter.marker.command.deleteall"
+          contextId="org.eclipse.ui.contexts.window"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+5">
+    </key>
+<!--<key
+          commandId="eu.modelwriter.marker.command.countforfile"
+          contextId="org.eclipse.ui.contexts.window"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+6">
+    </key>-->
+ </extension>
+  
+<!-- test menu for key bindings -->
+ <extension
+       point="org.eclipse.ui.menus">
+    <menuContribution
+          allPopups="false"
+          locationURI="popup:org.eclipse.ui.popup.any">
+          <menu
+               label="ModelWriter"
+               icon="platform:/plugin/eu.modelwriter.marker/icons/Menu.gif"
+               id="eu.modelwriter.marker.command.popupmenu">
+             <command
+                   commandId="eu.modelwriter.marker.command.mark"
+                   label="Mark"
+                   icon="platform:/plugin/eu.modelwriter.marker/icons/Black.gif"
+                   style="push"
+                   tooltip="Marks selected item">
+                   <visibleWhen>
+                   <reference
+                         definitionId="activePart.instanceOf.IEditorPart">
+                   </reference>
+                   </visibleWhen>
+             </command>
+              <command
+                   commandId="eu.modelwriter.marker.command.addremovetype"
+                   label="Add/Remove Type"
+                   style="push"
+                   tooltip="Adding type to/Removing type from selected marker">
+                   <visibleWhen>
+                         <reference
+                               definitionId="when.activePart.is.MasterView.or.IEditorPart">
+                         </reference>
+                   </visibleWhen>
+             </command>
+             <command
+                   commandId="eu.modelwriter.marker.command.markwithtype"
+                   label="Mark with Type"
+                   style="push"
+                   tooltip="Marks with type selected item">
+                   <visibleWhen>
+                   <reference
+                         definitionId="activePart.instanceOf.IEditorPart">
+                   </reference>
+                   </visibleWhen>
+             </command>
+             <command
+                   commandId="eu.modelwriter.marker.command.markall"
+                   label="Mark All"
+                   style="push"
+                   tooltip="Marks selected item for all same text">
+			    <visibleWhen>
+			     <reference definitionId="when.ecoreEditor.is.notActive.or.not.on.masterView"/>
+			    </visibleWhen>
+             </command>
+             <command
+                   commandId="eu.modelwriter.marker.command.map"
+                   icon="platform:/plugin/eu.modelwriter.marker/icons/Red.gif"
+                   label="Map Marker"
+                   style="push"
+                   tooltip="Maps selected marker with other markers">
+                   <visibleWhen>
+                         <reference
+                               definitionId="when.activePart.is.MasterView.or.IEditorPart">
+                         </reference>
+                   </visibleWhen>
+             </command>
+             <command
+                   commandId="eu.modelwriter.marker.command.delete"
+                   label="Delete Marker"
+                   style="push"
+                   tooltip="Deletes selected item">
+                   <visibleWhen>
+                         <reference
+                               definitionId="when.activePart.is.MasterView.or.IEditorPart">
+                         </reference>
+                   </visibleWhen>
+             </command>
+             <command
+                   commandId="eu.modelwriter.marker.command.deleteall"
+                   label="Delete All Markers"
+                   style="push"
+                   tooltip="Deletes selected item for all same text">
+			    <visibleWhen>
+			     <reference definitionId="when.ecoreEditor.is.notActive.or.not.on.masterView"/>
+			    </visibleWhen>
+             </command>
+             <command
+                   commandId="eu.modelwriter.marker.command.countforresource"
+                   label="Count Markers in Resource"
+                   tooltip="Counts all markers in the resource">
+                   <visibleWhen>
+                   <reference
+                         definitionId="when.on.ProjectExplorer.or.PackageExplorer">
+                   </reference>
+                   </visibleWhen>
+             </command>
+             <command
+                   commandId="eu.modelwriter.marker.command.countforfile"
+                   label="Count Markers in File"
+                   tooltip="Counts all markers in the file">
+                   <visibleWhen>
+                   <reference
+                         definitionId="when.on.ProjectExplorer.or.PackageExplorer.and.selection.is.file">
+                   </reference>
+                   </visibleWhen>
+             </command>
+             <command
+                   commandId="eu.modelwriter.marker.command.markallinworkspace"
+                   label="Mark All in Workspace"
+                   style="push">
+			    <visibleWhen>
+			     <reference definitionId="when.ecoreEditor.is.notActive.or.not.on.masterView"/>
+			    </visibleWhen>
+             </command>
+             <command 
+             	commandId="eu.modelwriter.writer.markers.createreqifspecfrommarkdown"
+			    label="Creating ReqIf Spec From Selected MarkDown Text" style="push">
+			    <visibleWhen>
+			     	<reference definitionId="when.markdownEditor.isActive"/>
+			    </visibleWhen>
+			 </command>
+          </menu>
+    </menuContribution>
+    <menuContribution
+          allPopups="false"
+          locationURI="menu:org.eclipse.ui.main.menu">
+       <!--<toolbar
+             id="eu.modelwriter.marker.command.alloytoolbarmenu"
+             label="Add Alloy">
+          <command
+                commandId="eu.modelwriter.marker.command.parsealloy"
+                icon="platform:/plugin/eu.modelwriter.marker/icons/alloylogo.gif"
+                style="push">
+          </command>
+       </toolbar>-->
+       <menu
+             id="eu.modelwriter.marker.main.menu"
+             label="ModelWriter">
+          <command
+                commandId="eu.modelwriter.marker.command.parsealloy"
+                icon="platform:/plugin/eu.modelwriter.marker/icons/alloylogo.gif"
+                label="Load Specification"
+                style="push">
+          </command>
+          <command
+                commandId="eu.modelwriter.marker.command.markervisibility"
+                style="push">
+          </command>
+          <command
+                commandId="org.eclipse.ui.window.preferences"
+                label="Preferences"
+                style="push">
+             <parameter
+                   name="preferencePageId"
+                   value="eu.modelwriter.marker.ui.internal.preferences.markertype">
+             </parameter>
+          </command>
+       </menu>
+    </menuContribution>
+
+    <menuContribution
+		locationURI="toolbar:eu.modelwriter.marker.ui.views.targetview">
+		<command 
+			commandId="eu.modelwriter.marker.command.targetviewrefresh"
+			icon="platform:/plugin/eu.modelwriter.marker/icons/refresh.gif"
+			style="push">
+		</command>
+	</menuContribution>
+	
+	<menuContribution
+		locationURI="toolbar:eu.modelwriter.marker.ui.views.sourceview">
+		<command 
+			commandId="eu.modelwriter.marker.command.sourceviewrefresh"
+			icon="platform:/plugin/eu.modelwriter.marker/icons/refresh.gif"
+			style="push">
+		</command>
+	</menuContribution>
+	
+	<menuContribution
+		locationURI="toolbar:eu.modelwriter.marker.ui.views.masterview">
+		<command 
+			commandId="eu.modelwriter.marker.command.masterviewrefresh"
+			icon="platform:/plugin/eu.modelwriter.marker/icons/refresh.gif"
+			style="push">
+		</command>
+	</menuContribution>
+
+ </extension>
+ 
+ <!--  handlers for key bindings --> 
+ <extension
+       point="org.eclipse.ui.handlers">
+    <handler
+          class="eu.modelwriter.marker.command.MarkHandler"
+          commandId="eu.modelwriter.marker.command.mark">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.AddRemoveTypeHandler"
+          commandId="eu.modelwriter.marker.command.addremovetype">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.MarkWithTypeHandler"
+          commandId="eu.modelwriter.marker.command.markwithtype">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.MarkAllHandler"
+          commandId="eu.modelwriter.marker.command.markall">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.MappingHandler"
+          commandId="eu.modelwriter.marker.command.map">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.DeleteHandler"
+          commandId="eu.modelwriter.marker.command.delete">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.DeleteAllHandler"
+          commandId="eu.modelwriter.marker.command.deleteall">
+    </handler>
+    <handler
+	      class="eu.modelwriter.marker.command.CountMarkersInFileHandler"
+          commandId="eu.modelwriter.marker.command.countforfile">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.CountMarkersInResourceHandler"
+          commandId="eu.modelwriter.marker.command.countforresource">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.MarkAllInWorkspaceHandler"
+          commandId="eu.modelwriter.marker.command.markallinworkspace">
+    </handler>
+    <handler
+    	  class="eu.modelwriter.marker.command.CreateReqifSpecFromMarkdownHandler"
+          commandId="eu.modelwriter.writer.markers.createreqifspecfrommarkdown">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.AlloyParseHandler"
+          commandId="eu.modelwriter.marker.command.parsealloy">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.MarkerVisibilityHandler"
+          commandId="eu.modelwriter.marker.command.markervisibility">
+    </handler>
+    <handler
+    	  class="eu.modelwriter.marker.command.TargetViewRefreshHandler"
+    	  commandId="eu.modelwriter.marker.command.targetviewrefresh">
+    </handler>
+	<handler
+    	  class="eu.modelwriter.marker.command.SourceViewRefreshHandler"
+    	  commandId="eu.modelwriter.marker.command.sourceviewrefresh">
+    </handler>
+    <handler
+    	  class="eu.modelwriter.marker.command.MasterViewRefreshHandler"
+    	  commandId="eu.modelwriter.marker.command.masterviewrefresh">
+    </handler>
+    <handler
+          class="eu.modelwriter.marker.command.visualization.UpdateChangeAndImpactHandler"
+          commandId="eu.modelwriter.marker.command.updatechangeandimpact">
+    </handler>
+ </extension>
+ 
+ <!-- commands for binding keys -->
+ <extension
+       point="org.eclipse.ui.commands">
+    <command
+          id="eu.modelwriter.marker.command.mark"
+          name="Mark">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.addremovetype"
+          name="Add/Remove Type">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.markwithtype"
+          name="Mark with Type">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.markall"
+          name="Mark All">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.map"
+          name="Map Marker">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.delete"
+          name="Delete Marker">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.deleteall"
+          name="Delete All Markers">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.countforfile"
+          name="Count Markers in File">
+    </command>
+    <command
+          description="Counts all markers in the resource"
+          id="eu.modelwriter.marker.command.countforresource"
+          name="Count Markers in Resource">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.markallinworkspace"
+          name="Mark All in Workspace">
+    </command>
+    <command
+		  description="Creating ReqIf Spec From Selected MarkDown Text"
+		  id="eu.modelwriter.writer.markers.createreqifspecfrommarkdown"
+		  name="Create Reqif Spec From Selected Markdown Text">
+	</command>
+    <command
+          description="Parses &apos;*.als&apos; files"
+          id="eu.modelwriter.marker.command.parsealloy"
+          name="Load Specification">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.markervisibility"
+          name="Set Marker Visibility">
+    </command>
+    <command
+    	  id="eu.modelwriter.marker.command.targetviewrefresh"
+    	  name="Target View Refresh">
+    </command>
+	<command
+    	  id="eu.modelwriter.marker.command.sourceviewrefresh"
+    	  name="Source View Refresh">
+    </command>
+    <command
+    	  id="eu.modelwriter.marker.command.masterviewrefresh"
+    	  name="Master View Refresh">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.updatechangeandimpact"
+          name="Update Change And Impact">
+    </command>
+    <command
+          id="eu.modelwriter.marker.command.resolve"
+          name="Resolve">
+    </command>
+    	
+ </extension> 
+</plugin>
