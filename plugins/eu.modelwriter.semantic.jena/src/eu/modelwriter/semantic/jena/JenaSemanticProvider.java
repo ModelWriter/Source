@@ -49,7 +49,9 @@ public class JenaSemanticProvider implements ISemanticProvider {
 			final Resource resource = (Resource)concept;
 
 			labels.addAll(JenaUtils.getLabelsForProperty(resource, RDFS.label));
-			labels.add(resource.getLocalName());
+			if (resource.getLocalName() != null) {
+				labels.add(resource.getLocalName());
+			}
 
 			if (labels.isEmpty()) {
 				res = null;

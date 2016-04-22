@@ -1,6 +1,6 @@
 target "ModelWriter Mars Target Platform"
 
-include "../common/apache-jena.tpd"
+include "../common/common.tpd"
 
 with source requirements
 
@@ -9,5 +9,12 @@ location "http://download.eclipse.org/releases/mars" {
 	org.eclipse.emf.sdk.feature.group lazy
 	
 	org.junit [4.0.0,5.0.0)
+
+	org.eclipse.mylyn.wikitext.core lazy
+	org.eclipse.mylyn.wikitext.markdown.core lazy
+	org.eclipse.mylyn.wikitext.tests lazy
+	
+	org.slf4j.api lazy
+	org.apache.xerces lazy
 }
 

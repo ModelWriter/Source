@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.eclipse.mylyn.docs.intent.mapping" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+   <feature id="org.eclipse.mylyn.docs.intent.mapping.source" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+
+   <feature id="eu.modelwriter.semantic" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+   <feature id="eu.modelwriter.semantic.source" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+
+   <feature id="eu.modelwriter.semantic.emf" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+   <feature id="eu.modelwriter.semantic.emf.source" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+
+   <feature id="eu.modelwriter.semantic.jena" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+   <feature id="eu.modelwriter.semantic.jena.source" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+
+   <feature id="eu.modelwriter.marker" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+   <feature id="eu.modelwriter.marker.source" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+
+   <feature id="eu.modelwriter.other" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+   <feature id="eu.modelwriter.other.source" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+
+   <category-def name="eu.modelwriter" label="ModelWriter">
+      <description>
+         [Enter Catergory Description here.]
+      </description>
+   </category-def>
+</site>

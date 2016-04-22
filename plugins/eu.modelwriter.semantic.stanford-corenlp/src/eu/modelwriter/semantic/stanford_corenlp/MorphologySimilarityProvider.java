@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package eu.modelwriter.semantic;
+package eu.modelwriter.semantic.stanford_corenlp;
 
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
@@ -17,6 +17,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import eu.modelwriter.semantic.ISemanticSimilarityProvider;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;

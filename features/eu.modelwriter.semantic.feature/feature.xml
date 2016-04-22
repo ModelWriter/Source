@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="eu.modelwriter.semantic"
-      label="Mapping feature"
+      label="Semantic feature"
       version="1.0.0.qualifier">
 
    <description url="http://www.example.com/description">
@@ -18,20 +18,6 @@
 
    <plugin
          id="eu.modelwriter.semantic"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="eu.modelwriter.semantic.emf"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="eu.modelwriter.semantic.jena"
          download-size="0"
          install-size="0"
          version="0.0.0"

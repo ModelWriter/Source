@@ -9,9 +9,9 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package eu.modelwriter.semantic.tests;
+package eu.modelwriter.semantic.stanford_corenlp.tests;
 
-import eu.modelwriter.semantic.MorphologySimilarityProvider;
+import eu.modelwriter.semantic.stanford_corenlp.MorphologySimilarityProvider;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;

@@ -14,11 +14,11 @@ package eu.modelwriter.semantic.tests;
 import eu.modelwriter.semantic.ISemanticProvider;
 import eu.modelwriter.semantic.ISemanticSimilarityProvider;
 import eu.modelwriter.semantic.IdentitySimilarityProvider;
-import eu.modelwriter.semantic.MorphologySimilarityProvider;
 import eu.modelwriter.semantic.StringSemanticProvider;
 import eu.modelwriter.semantic.internal.SemanticAnnotator;
 
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +35,39 @@ import static org.junit.Assert.assertEquals;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class SemanticAnnotatorTests {
+
+	/**
+	 * Test {@link ISemanticSimilarityProvider} that given "book" when receive "books" or "book".
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class BookSimilarityProvider implements ISemanticSimilarityProvider {
+
+		/**
+		 * Book similarity type.
+		 */
+		public static final Object TYPE = new Object();
+
+		public Object getType() {
+			return TYPE;
+		}
+
+		public Map<String, Set<Object>> getSemanticSimilarities(Map<String, Set<Object>> labels) {
+			final Map<String, Set<Object>> res;
+
+			if (labels.containsKey("books")) {
+				res = new LinkedHashMap<String, Set<Object>>();
+				res.put("book", labels.get("books"));
+			} else if (labels.containsKey("book")) {
+				res = new LinkedHashMap<String, Set<Object>>();
+				res.put("book", labels.get("book"));
+			} else {
+				res = null;
+			}
+
+			return res;
+		}
+	}
 
 	/**
 	 * A Test implementation.
@@ -322,7 +355,7 @@ public class SemanticAnnotatorTests {
 
 		annotator.addSemanticProvider(semanticProvider);
 
-		annotator.addSemanticSimilarityProvider(new MorphologySimilarityProvider());
+		annotator.addSemanticSimilarityProvider(new BookSimilarityProvider());
 
 		final Set<Object> concepts = new LinkedHashSet<Object>();
 		concepts.add("book");
@@ -331,7 +364,7 @@ public class SemanticAnnotatorTests {
 				"our books are on the shelfs", concepts);
 
 		assertEquals(1, annotations.size());
-		Set<int[]> bAnnotations = annotations.get("book").get(MorphologySimilarityProvider.TYPE);
+		Set<int[]> bAnnotations = annotations.get("book").get(BookSimilarityProvider.TYPE);
 
 		assertEquals(1, bAnnotations.size());
 
@@ -347,7 +380,7 @@ public class SemanticAnnotatorTests {
 
 		annotator.addSemanticProvider(semanticProvider);
 
-		annotator.addSemanticSimilarityProvider(new MorphologySimilarityProvider());
+		annotator.addSemanticSimilarityProvider(new BookSimilarityProvider());
 
 		final Set<Object> concepts = new LinkedHashSet<Object>();
 		concepts.add("books");
@@ -356,7 +389,7 @@ public class SemanticAnnotatorTests {
 				"our book is on the top shelf", concepts);
 
 		assertEquals(1, annotations.size());
-		Set<int[]> bAnnotations = annotations.get("books").get(MorphologySimilarityProvider.TYPE);
+		Set<int[]> bAnnotations = annotations.get("books").get(BookSimilarityProvider.TYPE);
 
 		assertEquals(1, bAnnotations.size());
 

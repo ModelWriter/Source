@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="ModelWriter Luna Target Platform" sequenceNumber="1447336973">
+<target name="ModelWriter Luna Target Platform" sequenceNumber="1461330843">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.jena.feature.feature.group" version="0.0.0"/>
       <repository id="Apache-Jena" location="http://ghillairet.github.com/p2"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.rmf.reqif10" version="0.0.0"/>
+      <repository id="RMF" location="http://download.eclipse.org/rmf/updates/releases"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.sdk" version="0.0.0"/>
+      <unit id="org.eclipse.core.runtime" version="0.0.0"/>
       <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
       <unit id="org.junit" version="4.11.0.v201303080030"/>
+      <unit id="org.eclipse.mylyn.wikitext.core" version="0.0.0"/>
+      <unit id="org.eclipse.mylyn.wikitext.markdown.core" version="0.0.0"/>
+      <unit id="org.eclipse.mylyn.wikitext.tests" version="0.0.0"/>
+      <unit id="org.slf4j.api" version="0.0.0"/>
+      <unit id="org.apache.xerces" version="0.0.0"/>
       <repository id="Eclipse" location="http://download.eclipse.org/releases/luna"/>
     </location>
   </locations>

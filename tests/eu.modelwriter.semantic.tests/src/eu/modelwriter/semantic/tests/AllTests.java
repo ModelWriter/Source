@@ -16,13 +16,13 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * Aggregates tests for the org.eclipse.mylyn.docs.intent.mapping plug-in.
+ * Aggregates tests for the eu.modelwriter.semantic plug-in.
  * 
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {IdentitySimilarityProviderTests.class, MorphologySimilarityProviderTests.class,
-		SemanticAnnotatorTests.class, StringSemanticProviderTests.class, })
+@SuiteClasses(value = {IdentitySimilarityProviderTests.class, SemanticAnnotatorTests.class,
+		StringSemanticProviderTests.class, })
 public class AllTests {
 
 }

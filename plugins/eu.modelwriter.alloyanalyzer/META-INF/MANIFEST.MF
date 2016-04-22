@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Alloyanalyzer
 Bundle-SymbolicName: eu.modelwriter.alloyanalyzer
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: alloyanalyzer.jar,
+Bundle-ClassPath: .,
  lib/alloy4.2.jar
 Export-Package: LICENSES,
  apple.awt,

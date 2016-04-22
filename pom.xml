@@ -43,16 +43,23 @@
 
     <resource-encoding>UTF-8</resource-encoding>
     <maven-resources-version>2.6</maven-resources-version>
+    <tycho.scmUrl>scm:git:git://github.com/ModelWriter/Source.git</tycho.scmUrl>
   </properties>
+
+  <scm>
+    <developerConnection>scm:git:git://github.com/ModelWriter/Source.git</developerConnection>
+  </scm>
 
   <modules>
     <module>releng/eu.modelwriter.targetplatforms/mars</module>
     <module>releng/eu.modelwriter.targetplatforms/luna</module>
+    <module>releng/eu.modelwriter.targetplatforms/neon</module>
+<!--
     <module>releng/eu.modelwriter.targetplatforms/kepler</module>
     <module>releng/eu.modelwriter.targetplatforms/juno</module>
     <module>releng/eu.modelwriter.targetplatforms/indigo</module>
     <module>releng/eu.modelwriter.targetplatforms/helios</module>
-
+-->
     <module>features/org.eclipse.mylyn.docs.intent.mapping.feature</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide</module>
@@ -66,9 +73,35 @@
     <module>features/eu.modelwriter.semantic.feature</module>
     <module>plugins/eu.modelwriter.semantic</module>
     <module>plugins/dk.brics.automaton</module>
-    <module>plugins/eu.modelwriter.semantic.emf</module>
-    <module>plugins/eu.modelwriter.semantic.jena</module>
     <module>tests/eu.modelwriter.semantic.tests</module>
+
+    <module>features/eu.modelwriter.semantic.stanford-corenlp.feature</module>
+    <module>plugins/eu.modelwriter.semantic.stanford-corenlp</module>
+    <module>tests/eu.modelwriter.semantic.stanford-corenlp.tests</module>
+
+    <module>features/eu.modelwriter.semantic.emf.feature</module>
+    <module>plugins/eu.modelwriter.semantic.emf</module>
+    <module>tests/eu.modelwriter.semantic.emf.tests</module>
+
+    <module>features/eu.modelwriter.semantic.jena.feature</module>
+    <module>plugins/eu.modelwriter.semantic.jena</module>
+    <module>tests/eu.modelwriter.semantic.jena.tests</module>
+
+    <module>features/eu.modelwriter.marker.feature</module>
+    <module>plugins/eu.modelwriter.marker</module>
+    <module>plugins/eu.modelwriter.marker.command</module>
+    <module>plugins/eu.modelwriter.marker.startup</module>
+    <module>plugins/eu.modelwriter.marker.ui</module>
+
+    <module>features/eu.modelwriter.other.feature</module>
+    <module>plugins/eu.modelwriter.alloyanalyzer</module>
+    <module>plugins/eu.modelwriter.configuration</module>
+    <module>plugins/eu.modelwriter.specification.editor</module>
+    <module>plugins/eu.modelwriter.traceability.core.persistence</module>
+    
+    <module>releng/eu.modelwriter.updatesite</module>
+
+    <module>releng/eu.modelwriter.gpl.updatesite</module>
   </modules>
 
   <build>
@@ -128,15 +161,25 @@
         </executions>
       </plugin>
       <plugin>
-          <groupId>org.eclipse.tycho</groupId>
-          <artifactId>tycho-packaging-plugin</artifactId>
-          <version>${tycho-version}</version>
-          <configuration>
-            <archive>
-              <addMavenDescriptor>false</addMavenDescriptor>
-            </archive>
-          </configuration>
-        </plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-packaging-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+          </archive>
+          <sourceReferences>
+            <generate>true</generate>
+          </sourceReferences>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.eclipse.tycho.extras</groupId>
+            <artifactId>tycho-sourceref-jgit</artifactId>
+            <version>${tycho-extras-version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -181,8 +224,8 @@
           <version>${tycho-version}</version>
           <configuration>
             <encoding>UTF-8</encoding>
-            <source>1.6</source>
-            <target>1.6</target>
+            <source>1.8</source>
+            <target>1.8</target>
           </configuration>
         </plugin>
         <plugin>
@@ -221,7 +264,7 @@
           <configuration>
             <sourceEncoding>utf-8</sourceEncoding>
             <minimumTokens>100</minimumTokens>
-            <targetJdk>1.5</targetJdk>
+            <targetJdk>1.8</targetJdk>
             <format>xml</format>
             <failOnViolation>false</failOnViolation>
           </configuration>
@@ -255,6 +298,33 @@
   </build>
 
   <profiles>
+    <profile>
+      <id>platform-neon</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+        <property>
+          <name>platform-version-name</name>
+          <value>neon</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>target-platform-configuration</artifactId>
+            <configuration>
+              <target>
+                <artifact>
+                  <groupId>eu.modelwriter</groupId>
+                  <artifactId>modelwriter-neon</artifactId>
+                  <version>1.0.0-SNAPSHOT</version>
+                </artifact>
+              </target>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>platform-mars</id>
       <activation>
