@@ -6,7 +6,7 @@ jdk:
   - oraclejdk8
 sudo: false
 script:
-- mvn clean package -e -f
+- mvn clean package -e
 - chmod a+x prepare-deploy-local-dir.sh
 - "./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/nightly"
 after_script:
