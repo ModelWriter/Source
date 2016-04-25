@@ -1,9 +1,9 @@
 language: java
 env:
   global:
-      - MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx2048m -Xms1024m"  
+  - MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx2048m -Xms1024m"
 jdk:
-  - oraclejdk8
+- oraclejdk8
 sudo: false
 script:
 - mvn clean package -e
@@ -11,19 +11,18 @@ script:
 - "./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/nightly"
 after_script:
 - chmod a+x travis-promote.sh
-- ./travis-promote.sh
-deploy:  
-  - provider: s3
-    access_key_id: AKIAI7GYGSUKTIBLAI6Q
-    secret_access_key:
-      secure: AkQHXay2Qful1BTGlS8EqR5uardszIoZVoxuYykNSQt34FtK43jL5nt/uaKckwDUjoHP4EhFpM/AW6bE6NSm0XVFSC3i3COsPxF4TjWj3cCcMZ8HwyIhm9gl6nb8mZnRWmhRbgoRxxpHkpBAk2bTIdBpKFPQxCNR0m8nrEGWD78=
-    bucket: obeo-networkaggregation-releases
-    local-dir: "${TRAVIS_BUILD_DIR}/nightly"
-    acl: public_read
-    skip_cleanup: true
-    region: eu-west-1
-    upload-dir: ModelWriter/${TRAVIS_BRANCH}
-    on:
-      all_branches: true
-      repo: ModelWriter/Source
-
+- "./travis-promote.sh"
+deploy:
+- provider: s3
+  access_key_id: AKIAJFIXOUR3SFD7OGMA
+  secret_access_key:
+    secure: AkQHXay2Qful1BTGlS8EqR5uardszIoZVoxuYykNSQt34FtK43jL5ntcqBN1I0bWqlCJQtPZy/W6Yd+R+MYLsEu+Lj1I93k7zNTNXM5o0K2iOb/QrYBqQO+DiJZor36MBG8xXR+keGZ2B0x/vRAo2jAW847YgrXEcX3lOTdvWWJ99KsZ14NSY0g73KaRXNMy5BpeXREFuF1sdRpmHe5nqSUXK3zM9/SWcDu34CwmCWk6K1dBhpHuTf8sp33c755zCtz4KSLTX11/1kKFw2Y8jrCtw9aICy0EuwJbKw2YX4iTEjcLY/hKaCIoZUa5YCBcOpC/+s/K4lGLOMYIi+0fE8pubbASSNNqbzHPUlicDY5hSBUS4RAdbqMbh/ZI5dxqtQCVZxEa9BcsqyY91gONvmXY23cvTQAOOVhNQQb2VsAa5xhafuvcSAImqvkvjzEjPwA3WiAE9X0z9JidxuWAOG3EaK+lE+ctETq5slLUcF8Mqzk3HMohSb1luulZRYS8nC/ex59XRk9RhQdCAJqK3uniryOFZ5sl6qLgx2ppR8GdhID0cNs80nmfD935A6wOpG0/GIW9dFpCVgalR7KZBjjUgxERqPNJVr4d+fzhG831mTA0S/wSvxVMDb+27iwLShaLVdk/tDDrZo6qz4JViibU//6sz6aBaCzJQfPUPp8tK/YgGbbtLYC3uZmwkaBNrl3/55WnCLr1Opca5VuzogScelKsxvfhvc=
+  bucket: obeo-networkaggregation-releases
+  local-dir: "${TRAVIS_BUILD_DIR}/nightly"
+  acl: public_read
+  skip_cleanup: true
+  region: eu-west-1
+  upload-dir: ModelWriter/${TRAVIS_BRANCH}
+  on:
+    all_branches: true
+    repo: ModelWriter/Source
