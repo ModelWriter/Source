@@ -51,9 +51,9 @@
   </scm>
 
   <modules>
+    <module>releng/eu.modelwriter.targetplatforms/neon</module>
     <module>releng/eu.modelwriter.targetplatforms/mars</module>
     <module>releng/eu.modelwriter.targetplatforms/luna</module>
-    <module>releng/eu.modelwriter.targetplatforms/neon</module>
 <!--
     <module>releng/eu.modelwriter.targetplatforms/kepler</module>
     <module>releng/eu.modelwriter.targetplatforms/juno</module>
