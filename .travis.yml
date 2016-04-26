@@ -13,16 +13,16 @@ after_script:
 - chmod a+x travis-promote.sh
 - "./travis-promote.sh"
 deploy:
-    provider: s3
-    access_key_id: AKIAJFIXOUR3SFD7OGMA
-    secret_access_key:
-      secure: FcT7vbnyhjqiQHpl9wJKjZzjDzr7/NtgYmfeL0XoulTDfxjF+Xz4zUD0AyOv/QFUcUeqipi9Iz3kTAInO25svCWILd1lf6yGNZVdamXv6/ORskrmeRCkNGoQQ0AuvCxEwbv1OjoWQcAbtAYlh+t/riy5MlrxhpwjFbYRRLYM4MkguPPIXUgagLduQuvKb/4v0XLVy7k7xu5wr/CLCEVBSzWc3LDTEtSaFrX/yx33SLxiFgLf+kudP5wGll+ZlbPoWWHCTm4c1hEm0/qfGnuXjjVYQu8yNyvp9bBE72OZCGU7dfxRI/ZkMVMXtZg4PP7bbdCa756nYbhBi8GC4yFdTeIkKA5XVMkMO0GJLbHAx2Y0hlyGMUdQnYlA3vDjKDquZy1ABVRHUUzK/Zgfs1aD5gW6pjzqnGUFM844ZQ45n4yYEidZSNu3+hyIxIY/wbDyTLH1PkciC8snsv4gb6u3ylzILITKL+vtPuI71ZEMKVco5T6MGcwcLPdvyUD+cAKeV6fBW8YDSR733W+3JrvbarxuLPyeIxolTI3yEKzjoTN2LK3R2YEEDulHAqyNy6Q9+JrYodjv9crobbaShg7yZRlHv+IIqh6Xu7X5yR8cu6d297uGo8fXI0dNLLnK9Ksj/JE02964x9IlAqfp4A4WmSJKJyZKFiBA1Hu7PDvhtAo=
-    bucket: obeo-networkaggregation-releases
-    local-dir: "${TRAVIS_BUILD_DIR}/nightly"
-    acl: public_read
-    skip_cleanup: true
-    region: eu-west-1
-    upload-dir: ModelWriter/${TRAVIS_BRANCH}
-    on:
-      all_branches: true
-      repo: ModelWriter/Source
+  provider: s3
+  access_key_id: AKIAJFIXOUR3SFD7OGMA
+  secret_access_key:
+    secure: FcT7vbnyhjqiQHpl9wJKjZzjDzr7/NtgYmfeL0XoulTDfxjF+Xz4zUD0AyOv/QFUcUeqipi9Iz3kTAInO25svCWILd1lf6yGNZVdamXv6/ORskrmeRCkNGoQQ0AuvCxEwbv1OjoWQcAbtAYlh+t/riy5MlrxhpwjFbYRRLYM4MkguPPIXUgagLduQuvKb/4v0XLVy7k7xu5wr/CLCEVBSzWc3LDTEtSaFrX/yx33SLxiFgLf+kudP5wGll+ZlbPoWWHCTm4c1hEm0/qfGnuXjjVYQu8yNyvp9bBE72OZCGU7dfxRI/ZkMVMXtZg4PP7bbdCa756nYbhBi8GC4yFdTeIkKA5XVMkMO0GJLbHAx2Y0hlyGMUdQnYlA3vDjKDquZy1ABVRHUUzK/Zgfs1aD5gW6pjzqnGUFM844ZQ45n4yYEidZSNu3+hyIxIY/wbDyTLH1PkciC8snsv4gb6u3ylzILITKL+vtPuI71ZEMKVco5T6MGcwcLPdvyUD+cAKeV6fBW8YDSR733W+3JrvbarxuLPyeIxolTI3yEKzjoTN2LK3R2YEEDulHAqyNy6Q9+JrYodjv9crobbaShg7yZRlHv+IIqh6Xu7X5yR8cu6d297uGo8fXI0dNLLnK9Ksj/JE02964x9IlAqfp4A4WmSJKJyZKFiBA1Hu7PDvhtAo=
+  bucket: modelwriter-nightly
+  local-dir: "${TRAVIS_BUILD_DIR}/nightly"
+  acl: public_read
+  skip_cleanup: true
+  region: eu-west-1
+  upload-dir: ${TRAVIS_BRANCH}
+  on:
+    all_branches: true
+    repo: ModelWriter/Source

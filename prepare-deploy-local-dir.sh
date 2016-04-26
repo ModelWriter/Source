@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 UPDATE_SITE_DIR=releng/eu.modelwriter.updatesite/target/repository
-UPDATE_SITE_GPL_DIR=releng/eu.modelwriter.updatesite/target/repository
+UPDATE_SITE_GPL_DIR=releng/eu.modelwriter.gpl.updatesite/target/repository
 DEPLOY_LOCAL_DIR=$1/repository
 DEPLOY_GPL_LOCAL_DIR=$1/repository_gpl
 echo "Prepare deploy local dir = ${DEPLOY_LOCAL_DIR}"
