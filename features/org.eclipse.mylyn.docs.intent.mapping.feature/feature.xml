@@ -24,6 +24,13 @@
          unpack="false"/>
 
    <plugin
+         id="org.eclipse.mylyn.docs.intent.mapping.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.eclipse.mylyn.docs.intent.mapping.emf"
          download-size="0"
          install-size="0"
@@ -31,7 +38,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.mylyn.docs.intent.mapping.ide"
+         id="org.eclipse.mylyn.docs.intent.mapping.emf.ide"
          download-size="0"
          install-size="0"
          version="0.0.0"
