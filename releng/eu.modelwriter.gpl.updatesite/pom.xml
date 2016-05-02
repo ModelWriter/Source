@@ -43,9 +43,9 @@
         <version>${tycho-version}</version>
         <configuration>
           <createArtifactRepository>true</createArtifactRepository>
-          <finalName>${project.groupId}-${unqualifiedVersion}.${buildQualifier}</finalName>
+          <finalName>repository/${project.artifactId}</finalName>
           <compress>true</compress>
-          <repositoryName>ModelWriter ${unqualifiedVersion}.${buildQualifier}</repositoryName>
+          <repositoryName>ModelWriter GPL ${unqualifiedVersion}.${buildQualifier}</repositoryName>
         </configuration>
       </plugin>
       <plugin>
