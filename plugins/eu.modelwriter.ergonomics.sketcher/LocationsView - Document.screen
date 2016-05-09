@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="1" x="72" y="48" width="905" height="409" text="Locations View" measuredWidth="905" measuredHeight="409" verticalScrollbar="true" minimizeButton="true" maximizeButton="true"/>
+  <widgets xsi:type="model:Tabs" id="2" x="88" y="112" width="857" text="Selection,Document" measuredWidth="857" measuredHeight="27" selection="1">
+    <items link="LocationsView%20-%20Selection.screen" x="1" y="0" width="74" height="27" text="Selection"/>
+    <items x="75" y="0" width="82" height="27" text="Document"/>
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:SearchField" id="3" x="88" y="144" width="864" text="Filter" measuredWidth="864" measuredHeight="24">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="10" x="885" y="77" width="67" text="Scope" measuredWidth="67" measuredHeight="25">
+    <font size="12px"/>
+  </widgets>
+  <widgets xsi:type="model:Popup" id="12" x="621" y="304" text="mark as changed&#xA;mark as deleted&#xA;---&#xA;describe" measuredWidth="124" measuredHeight="84">
+    <items x="0" y="2" width="124" height="23" text="mark as changed"/>
+    <items x="0" y="25" width="124" height="23" text="mark as deleted"/>
+    <items x="0" y="48" width="124" height="11" text="---"/>
+    <items x="0" y="59" width="124" height="23" text="describe"/>
+  </widgets>
+  <widgets xsi:type="model:Table" id="13" x="88" y="176" width="425" height="271" text="Source,Target&#xA;[-] Location1&#xA;  [+] source location 11,target location in document 11&#xA;  [+] source location 12,target location in document 12&#xA;[-] Location2&#xA;  [+] source location 21,target location in document 21&#xA;  [+] source location 22,target location in document 22&#xA;  " measuredWidth="425" measuredHeight="271" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Table" id="14" x="528" y="176" width="425" height="271" text="Source,Target&#xA;[-] Location1&#xA;  [+] source location in document 11,target location 11&#xA;  [+] source location in document 12,target location 12&#xA;[-] Location2&#xA;  [+] source location in document 21,target location 21&#xA;  [+] source location in document 22,target location  22&#xA;  " measuredWidth="425" measuredHeight="271" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="15" x="392" y="368" text="navigation to the location on a double click&#xA;highlight the selected location in the document if any" measuredWidth="322" measuredHeight="44">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Combo" id="16" x="88" y="78" text="Knowledge base 1" measuredWidth="128" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Popup" id="17" x="728" y="320" text="mark as changed&#xA;mark as deleted&#xA;---&#xA;describe link" measuredWidth="124" measuredHeight="84">
+    <items x="0" y="2" width="124" height="23" text="mark as changed"/>
+    <items x="0" y="25" width="124" height="23" text="mark as deleted"/>
+    <items x="0" y="48" width="124" height="11" text="---"/>
+    <items x="0" y="59" width="124" height="23" text="describe link"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

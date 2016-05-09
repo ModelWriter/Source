@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="16" x="120" y="128" width="305" height="265" text="Select Location" measuredWidth="305" measuredHeight="265" minimizeButton="true" maximizeButton="true"/>
+  <widgets xsi:type="model:Button" id="21" x="318" y="358" text="Next" measuredWidth="48" measuredHeight="25" state="disabled">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="22" x="368" y="358" width="47" text="Finish" measuredWidth="47" measuredHeight="25" link="LocationsView%20-%20Selection.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Tree" id="26" x="130" y="199" width="285" height="153" text="[-] Location 1&#xA;-[+] location 11&#xA;-[+] location 12&#xA;[-] Location 2&#xA;-[+] location 21&#xA;-[+] location 22&#xA;" measuredWidth="285" measuredHeight="153">
+    <items x="0" y="5" width="285" height="21" text="[-] Location 1"/>
+    <items x="0" y="26" width="285" height="21" text="-[+] location 11"/>
+    <items x="0" y="47" width="285" height="21" text="-[+] location 12"/>
+    <items x="0" y="68" width="285" height="21" text="[-] Location 2"/>
+    <items x="0" y="89" width="285" height="21" text="-[+] location 21"/>
+    <items x="0" y="110" width="285" height="21" text="-[+] location 22"/>
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="30" x="248" y="358" text="Previous" measuredWidth="67" measuredHeight="25" link="ScopeWindow.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:SearchField" id="31" x="130" y="168" width="285" text="Filter" measuredWidth="285" measuredHeight="24">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

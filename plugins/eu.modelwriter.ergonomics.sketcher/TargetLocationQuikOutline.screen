@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="16" x="104" y="16" width="305" height="393" text="Select Target Location" measuredWidth="305" measuredHeight="393" minimizeButton="true" maximizeButton="true"/>
+  <widgets xsi:type="model:Tree" id="26" x="114" y="87" width="285" height="312" text="[-] Location 1&#xA;-[+] proposed location 11&#xA;-[+] proposed location 12&#xA;[-] Location 2&#xA;-[+] proposed location 21&#xA;-[+] proposed location 22&#xA;[_] ______________________&#xA;[-] Location 1&#xA;-[+] location in scope matching filter 11&#xA;-[+] location in scope matching filter 12&#xA;[-] Location 2&#xA;-[+] location in scope matching filter 21&#xA;-[+] location in scope matching filter 22&#xA;" measuredWidth="285" measuredHeight="312">
+    <items x="0" y="5" width="285" height="21" text="[-] Location 1"/>
+    <items x="0" y="26" width="285" height="21" text="-[+] proposed location 11"/>
+    <items x="0" y="47" width="285" height="21" text="-[+] proposed location 12"/>
+    <items x="0" y="68" width="285" height="21" text="[-] Location 2"/>
+    <items x="0" y="89" width="285" height="21" text="-[+] proposed location 21"/>
+    <items x="0" y="110" width="285" height="21" text="-[+] proposed location 22"/>
+    <items x="0" y="131" width="285" height="21" text="[_] ______________________"/>
+    <items x="0" y="152" width="285" height="21" text="[-] Location 1"/>
+    <items x="0" y="173" width="285" height="21" text="-[+] location in scope matching filter 11"/>
+    <items x="0" y="194" width="285" height="21" text="-[+] location in scope matching filter 12"/>
+    <items x="0" y="215" width="285" height="21" text="[-] Location 2"/>
+    <items x="0" y="236" width="285" height="21" text="-[+] location in scope matching filter 21"/>
+    <items x="0" y="257" width="285" height="21" text="-[+] location in scope matching filter 22"/>
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:SearchField" id="31" x="114" y="56" width="285" text="Filter" measuredWidth="285" measuredHeight="24" link="TextDocumentEditor.screen">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

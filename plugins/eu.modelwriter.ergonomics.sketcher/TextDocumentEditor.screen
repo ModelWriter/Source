@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="1" x="80" y="48" width="617" height="537" text="ModelWriter Editor" measuredWidth="617" measuredHeight="537" value="25" alpha="249" minimizeButton="true" maximizeButton="true"/>
+  <widgets xsi:type="model:TextArea" id="57" x="90" y="80" width="597" height="489" text="*Architectural Design*&#xA;&#xA;This document (ADD for Architectural Design Document) is about the Architectural Design of ModelWriter. It provides the communication scenarios between each ModelWriter component and specifies resulting impacts in term of each component’s architecture.&#xA;The described architecture defines basic structure and organization for the next research and development  Work Packages.  It defines also the interactions between:&#xA;- “Model” Side &#xA;-- WP6.1 - Selection and enhancements to modeling tools&#xA;-- WP3 - storing and retrieving models from the knowledge base M2M strategies&#xA;- “Writer” side&#xA;-- WP6.2 - selection and enhancements to word processor(s)&#xA;-- WP2.1 - storing text meaning in the knowledge base&#xA;-- WP2.2 - generating text out of the knowledge base&#xA;- “Knowledge Base” side&#xA;-- WP4 - the repository containing links between text and models including all needed services (ie. semantic/syntactic comparison, consistency checkers, etc.) and all other information defining the knowledge.&#xA;&#xA;As the knowledge base is the starting point of communications between the ModelWriter components, the architecture central composite  is  dedicated to this knowledge base.&#xA;&#xA;Before illustrating the architectural design details, let us review the objectives of each relevant work package.&#xA;" measuredWidth="597" measuredHeight="489" verticalScrollbar="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="64" x="168" y="168" width="97" height="25" text="Work Packages" measuredWidth="97" measuredHeight="25" link="TargetLocationQuikOutline.screen">
+    <font size="11px"/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="65" x="168" y="456" text="- highlight according to semantic annotation&#xA;-  propose a quick fixe per recommended target to create the link ?&#xA;- synchronization issues marker" measuredWidth="410" measuredHeight="59">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Popup" id="67" x="454" y="336" text="mark as changed&#xA;mark as deleted&#xA;---&#xA;sources,>&#xA;targets,>" measuredWidth="132" measuredHeight="107">
+    <items x="0" y="2" width="132" height="23" text="mark as changed"/>
+    <items x="0" y="25" width="132" height="23" text="mark as deleted"/>
+    <items x="0" y="48" width="132" height="11" text="---"/>
+    <items x="0" y="59" width="132" height="23" text="sources,>"/>
+    <items x="0" y="82" width="132" height="23" text="targets,>"/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="68" x="336" y="320" width="129" height="25" text="consistency checkers" measuredWidth="129" measuredHeight="25">
+    <font size="11px"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>
