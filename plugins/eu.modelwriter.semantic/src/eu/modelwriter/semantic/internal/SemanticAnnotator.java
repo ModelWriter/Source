@@ -124,9 +124,36 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 		final Map<String, Map<Object, Set<Object>>> similarities = getSimilarities(labels);
 
 		// concept -> similarity type -> positions
-		final Map<Object, Map<Object, Set<int[]>>> res = doSimilaritiesToTextAnnotation(text, similarities);
+		final Map<Object, Map<Object, Set<int[]>>> conceptToText = doSimilaritiesToTextAnnotation(text,
+				similarities);
 
-		res.putAll(doTextToSimilarityAnnotation(text, similarities));
+		final Map<Object, Map<Object, Set<int[]>>> textToConcept = doTextToSimilarityAnnotation(text,
+				similarities);
+
+		return mergePositions(conceptToText, textToConcept);
+	}
+
+	private Map<Object, Map<Object, Set<int[]>>> mergePositions(
+			Map<Object, Map<Object, Set<int[]>>> conceptToText,
+			Map<Object, Map<Object, Set<int[]>>> textToConcept) {
+		final Map<Object, Map<Object, Set<int[]>>> res = new LinkedHashMap<Object, Map<Object, Set<int[]>>>(
+				conceptToText);
+
+		for (Entry<Object, Map<Object, Set<int[]>>> conceptEntry : textToConcept.entrySet()) {
+			final Map<Object, Set<int[]>> similarityMap = res.get(conceptEntry.getKey());
+			if (similarityMap == null) {
+				res.put(conceptEntry.getKey(), conceptEntry.getValue());
+			} else {
+				for (Entry<Object, Set<int[]>> similarityEntry : conceptEntry.getValue().entrySet()) {
+					final Set<int[]> positions = similarityMap.get(similarityEntry.getKey());
+					if (positions == null) {
+						similarityMap.put(similarityEntry.getKey(), similarityEntry.getValue());
+					} else {
+						positions.addAll(similarityEntry.getValue());
+					}
+				}
+			}
+		}
 
 		return res;
 	}
