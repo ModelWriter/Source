@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.EList;
 
 import eu.modelwriter.configuration.internal.AlloyUtilities;
 import eu.modelwriter.traceability.core.persistence.AlloyType;
-import eu.modelwriter.traceability.core.persistence.AtomType;
 import eu.modelwriter.traceability.core.persistence.DocumentRoot;
 import eu.modelwriter.traceability.core.persistence.FieldType;
 import eu.modelwriter.traceability.core.persistence.SigType;
@@ -23,7 +23,7 @@ import eu.modelwriter.traceability.core.persistence.TupleType;
 public class InstanceTranslator {
 
   protected String baseFileDirectory =
-      "C:\\Users\\3\\runtime-New_configuration22\\" + ".modelwriter\\.validation\\";
+      ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/.modelwriter\\validation\\";
 
   private StringBuilder builder;
 
