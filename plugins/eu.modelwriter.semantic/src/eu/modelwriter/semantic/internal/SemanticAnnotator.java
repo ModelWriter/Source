@@ -133,6 +133,15 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 		return mergePositions(conceptToText, textToConcept);
 	}
 
+	/**
+	 * Merges positions maps.
+	 * 
+	 * @param conceptToText
+	 *            the concept to text position mapping
+	 * @param textToConcept
+	 *            the text to concept position mapping
+	 * @return the merged position mapping
+	 */
 	private Map<Object, Map<Object, Set<int[]>>> mergePositions(
 			Map<Object, Map<Object, Set<int[]>>> conceptToText,
 			Map<Object, Map<Object, Set<int[]>>> textToConcept) {
@@ -273,24 +282,50 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 		final RunAutomaton runAutomaton = new RunAutomaton(automaton);
 		final AutomatonMatcher matcher = runAutomaton.newMatcher(text);
 		while (matcher.find()) {
-			final String foundWord = text.substring(matcher.start(), matcher.end());
-			final Map<Object, Set<Object>> similarityMap = similarities.get(foundWord);
-			for (Entry<Object, Set<Object>> entry : similarityMap.entrySet()) {
-				final Object similarityType = entry.getKey();
-				for (Object concept : entry.getValue()) {
-					Map<Object, Set<int[]>> resMap = res.get(concept);
-					if (resMap == null) {
-						resMap = new LinkedHashMap<Object, Set<int[]>>();
-						res.put(concept, resMap);
+			if (isFullWord(text, matcher.start(), matcher.end())) {
+				final String foundWord = text.substring(matcher.start(), matcher.end());
+				final Map<Object, Set<Object>> similarityMap = similarities.get(foundWord);
+				for (Entry<Object, Set<Object>> entry : similarityMap.entrySet()) {
+					final Object similarityType = entry.getKey();
+					for (Object concept : entry.getValue()) {
+						Map<Object, Set<int[]>> resMap = res.get(concept);
+						if (resMap == null) {
+							resMap = new LinkedHashMap<Object, Set<int[]>>();
+							res.put(concept, resMap);
+						}
+						Set<int[]> positions = resMap.get(similarityType);
+						if (positions == null) {
+							positions = new LinkedHashSet<int[]>();
+							resMap.put(similarityType, positions);
+						}
+						positions.add(new int[] {matcher.start(), matcher.end() });
 					}
-					Set<int[]> positions = resMap.get(similarityType);
-					if (positions == null) {
-						positions = new LinkedHashSet<int[]>();
-						resMap.put(similarityType, positions);
-					}
-					positions.add(new int[] {matcher.start(), matcher.end() });
 				}
 			}
+		}
+
+		return res;
+	}
+
+	/**
+	 * Tells if the given positions represent a complet word in the given text.
+	 * 
+	 * @param text
+	 *            the text
+	 * @param start
+	 *            the start index
+	 * @param end
+	 *            the end index
+	 * @return <code>true</code> if the given positions represent a complet word in the given text,
+	 *         <code>false</code> otherwise
+	 */
+	private boolean isFullWord(String text, int start, int end) {
+		final boolean res;
+
+		if (start <= 0 || !Character.isAlphabetic(text.codePointAt(start - 1))) {
+			res = end >= text.length() || !Character.isAlphabetic(text.codePointAt(end));
+		} else {
+			res = false;
 		}
 
 		return res;
