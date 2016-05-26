@@ -9,9 +9,9 @@
   <widgets xsi:type="model:SearchField" id="3" x="88" y="144" width="864" text="Filter" measuredWidth="864" measuredHeight="24">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Tree" id="4" x="528" y="176" width="424" height="273" text="[-] Location 1&#xA;-[+] target location 11&#xA;-[+] target location 12&#xA;[-] Location 2&#xA;-[+] target location 21&#xA;-[+] target location 22&#xA;[-] Location 3&#xA;-[+] target location 31&#xA;-[+] target location 32&#xA;" measuredWidth="424" measuredHeight="273">
+  <widgets xsi:type="model:Tree" id="4" x="528" y="176" width="424" height="273" text="[-] Location 1&#xA;-[+] c&#xA;-[+] target location 12&#xA;[-] Location 2&#xA;-[+] target location 21&#xA;-[+] target location 22&#xA;[-] Location 3&#xA;-[+] target location 31&#xA;-[+] target location 32&#xA;" measuredWidth="424" measuredHeight="273">
     <items x="0" y="5" width="424" height="21" text="[-] Location 1"/>
-    <items x="0" y="26" width="424" height="21" text="-[+] target location 11"/>
+    <items x="0" y="26" width="424" height="21" text="-[+] c"/>
     <items x="0" y="47" width="424" height="21" text="-[+] target location 12"/>
     <items x="0" y="68" width="424" height="21" text="[-] Location 2"/>
     <items x="0" y="89" width="424" height="21" text="-[+] target location 21"/>
@@ -24,9 +24,9 @@
   <widgets xsi:type="model:Button" id="10" x="885" y="77" width="67" text="Scope" measuredWidth="67" measuredHeight="25" link="ScopeWindow.screen">
     <font size="12px"/>
   </widgets>
-  <widgets xsi:type="model:Tree" id="11" x="88" y="176" width="424" height="273" text="[-] Location 1&#xA;-[+] source location 11&#xA;-[+] source location 12&#xA;[-] Location 2&#xA;-[+] source location 21&#xA;-[+] source location 22&#xA;[-] Location 3&#xA;-[+] source location 31&#xA;-[+] source location 32&#xA;" measuredWidth="424" measuredHeight="273">
+  <widgets xsi:type="model:Tree" id="11" x="88" y="176" width="424" height="273" text="[-] Location 1&#xA;-[+] a&#xA;-[+] source location 12&#xA;[-] Location 2&#xA;-[+] source location 21&#xA;-[+] source location 22&#xA;[-] Location 3&#xA;-[+] source location 31&#xA;-[+] source location 32&#xA;" measuredWidth="424" measuredHeight="273">
     <items x="0" y="5" width="424" height="21" text="[-] Location 1"/>
-    <items x="0" y="26" width="424" height="21" text="-[+] source location 11"/>
+    <items x="0" y="26" width="424" height="21" text="-[+] a"/>
     <items x="0" y="47" width="424" height="21" text="-[+] source location 12"/>
     <items x="0" y="68" width="424" height="21" text="[-] Location 2"/>
     <items x="0" y="89" width="424" height="21" text="-[+] source location 21"/>
@@ -36,13 +36,15 @@
     <items x="0" y="173" width="424" height="21" text="-[+] source location 32"/>
     <font/>
   </widgets>
-  <widgets xsi:type="model:Popup" id="12" x="621" y="304" text="mark as changed&#xA;mark as deleted&#xA;---&#xA;describe link" measuredWidth="124" measuredHeight="84">
-    <items x="0" y="2" width="124" height="23" text="mark as changed"/>
-    <items x="0" y="25" width="124" height="23" text="mark as deleted"/>
-    <items x="0" y="48" width="124" height="11" text="---"/>
-    <items x="0" y="59" width="124" height="23" text="describe link"/>
+  <widgets xsi:type="model:Popup" id="12" x="656" y="304" text="mark as valide&#xA;mark as changed&#xA;mark as deleted&#xA;---&#xA;describe link&#xA;add type ?" measuredWidth="124" measuredHeight="130">
+    <items x="0" y="2" width="124" height="23" text="mark as valide"/>
+    <items x="0" y="25" width="124" height="23" text="mark as changed"/>
+    <items x="0" y="48" width="124" height="23" text="mark as deleted"/>
+    <items x="0" y="71" width="124" height="11" text="---"/>
+    <items x="0" y="82" width="124" height="23" text="describe link"/>
+    <items x="0" y="105" width="124" height="23" text="add type ?"/>
   </widgets>
-  <widgets xsi:type="model:Note" id="13" x="408" y="408" text="navigation to the location on a double click" measuredWidth="258" measuredHeight="29">
+  <widgets xsi:type="model:Note" id="13" x="344" y="405" text="navigation to the location on a double click" measuredWidth="258" measuredHeight="29">
     <font/>
   </widgets>
   <widgets xsi:type="model:Combo" id="14" x="88" y="78" text="Knowledge base 1" measuredWidth="128" measuredHeight="23">
