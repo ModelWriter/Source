@@ -20,6 +20,12 @@
   <widgets xsi:type="model:SearchField" id="31" x="114" y="56" width="285" text="Filter" measuredWidth="285" measuredHeight="24" link="TextDocumentEditor.screen">
     <font/>
   </widgets>
+  <widgets xsi:type="model:TextArea" id="32" x="408" y="87" width="281" height="233" text="Ontology concept blah blah...&#xA;&#xA;Some description blah lbah&#xA;blah lbah&#xA;blah lbah&#xA;blah lbah&#xA;blah lbah&#xA;blah lbah&#xA;blah lbah&#xA;blah lbah&#xA;blah lbah&#xA;" measuredWidth="281" measuredHeight="233">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="34" x="728" y="128" text="Provide a description from a location&#xA;for to quick outline" measuredWidth="224" measuredHeight="44">
+    <font/>
+  </widgets>
   <hRuler/>
   <vRuler/>
   <font size="12px"/>

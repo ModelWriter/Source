@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="22" x="256" y="120" width="545" height="353" text="Select Concepts Model" measuredWidth="545" measuredHeight="353"/>
+  <widgets xsi:type="model:Tree" id="23" x="266" y="149" width="525" height="276" text="Project 1&#xA;-Folder 1&#xA;  - File 1&#xA;Project 2&#xA;-Folder 2&#xA;  - File 2&#xA;Project 3&#xA;-Folder 3&#xA;" measuredWidth="525" measuredHeight="276">
+    <items x="0" y="5" width="525" height="21" text="Project 1"/>
+    <items x="0" y="26" width="525" height="21" text="-Folder 1"/>
+    <items x="0" y="47" width="525" height="21" text="  - File 1"/>
+    <items x="0" y="68" width="525" height="21" text="Project 2"/>
+    <items x="0" y="89" width="525" height="21" text="-Folder 2"/>
+    <items x="0" y="110" width="525" height="21" text="  - File 2"/>
+    <items x="0" y="131" width="525" height="21" text="Project 3"/>
+    <items x="0" y="152" width="525" height="21" text="-Folder 3"/>
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="26" x="740" y="438" text="Finisk" measuredWidth="51" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="27" x="824" y="168" width="262" height="97" text="Rely on existing wizard for look and feel&#xA;&#xA;Later on define the scope of the selection of the concepts model" measuredWidth="262" measuredHeight="97">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>
