@@ -90,7 +90,10 @@ public class MorphologySimilarityProvider implements ISemanticSimilarityProvider
 						lemmaSet = new LinkedHashSet<Object>();
 						res.put(lemma, lemmaSet);
 					}
-					lemmaSet.addAll(labels.get(label));
+					final Set<Object> concepts = labels.get(label);
+					if (concepts != null) {
+						lemmaSet.addAll(concepts);
+					}
 				}
 			}
 		}
