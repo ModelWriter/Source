@@ -24,6 +24,9 @@
   <widgets xsi:type="model:Note" id="72" x="736" y="240" width="225" height="81" text="Here we present a text editor but everything presened here is also present for other forms of editors (tree, diagram, ...)" measuredWidth="225" measuredHeight="81">
     <font/>
   </widgets>
+  <widgets xsi:type="model:Note" id="73" x="152" y="616" text="Command to create a location from a shortcut" measuredWidth="283" measuredHeight="29">
+    <font/>
+  </widgets>
   <hRuler/>
   <vRuler/>
   <font size="12px"/>
