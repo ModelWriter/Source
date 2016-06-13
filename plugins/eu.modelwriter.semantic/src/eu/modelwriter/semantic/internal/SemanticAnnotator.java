@@ -285,20 +285,22 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 			if (isFullWord(text, matcher.start(), matcher.end())) {
 				final String foundWord = text.substring(matcher.start(), matcher.end());
 				final Map<Object, Set<Object>> similarityMap = similarities.get(foundWord);
-				for (Entry<Object, Set<Object>> entry : similarityMap.entrySet()) {
-					final Object similarityType = entry.getKey();
-					for (Object concept : entry.getValue()) {
-						Map<Object, Set<int[]>> resMap = res.get(concept);
-						if (resMap == null) {
-							resMap = new LinkedHashMap<Object, Set<int[]>>();
-							res.put(concept, resMap);
+				if (similarityMap != null) {
+					for (Entry<Object, Set<Object>> entry : similarityMap.entrySet()) {
+						final Object similarityType = entry.getKey();
+						for (Object concept : entry.getValue()) {
+							Map<Object, Set<int[]>> resMap = res.get(concept);
+							if (resMap == null) {
+								resMap = new LinkedHashMap<Object, Set<int[]>>();
+								res.put(concept, resMap);
+							}
+							Set<int[]> positions = resMap.get(similarityType);
+							if (positions == null) {
+								positions = new LinkedHashSet<int[]>();
+								resMap.put(similarityType, positions);
+							}
+							positions.add(new int[] {matcher.start(), matcher.end() });
 						}
-						Set<int[]> positions = resMap.get(similarityType);
-						if (positions == null) {
-							positions = new LinkedHashSet<int[]>();
-							resMap.put(similarityType, positions);
-						}
-						positions.add(new int[] {matcher.start(), matcher.end() });
 					}
 				}
 			}
