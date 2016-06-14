@@ -7,18 +7,25 @@
   <widgets xsi:type="model:Note" id="64" x="168" y="168" width="97" height="25" text="Work Packages" measuredWidth="97" measuredHeight="25" link="TargetLocationQuikOutline.screen">
     <font size="11px"/>
   </widgets>
-  <widgets xsi:type="model:Note" id="65" x="168" y="456" text="- highlight according to semantic annotation&#xA;-  propose a quick fixe per recommended target to create the link ?&#xA;- synchronization issues marker" measuredWidth="410" measuredHeight="59">
+  <widgets xsi:type="model:Note" id="65" x="136" y="480" text="- highlight according to semantic annotation&#xA;-  propose a quick fixe per recommended target to create the link or popup menu ?&#xA;- synchronization issues marker" measuredWidth="498" measuredHeight="59">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Popup" id="67" x="454" y="336" text="mark as changed&#xA;mark as deleted&#xA;---&#xA;sources,>&#xA;targets,>" measuredWidth="132" measuredHeight="107">
-    <items x="0" y="2" width="132" height="23" text="mark as changed"/>
-    <items x="0" y="25" width="132" height="23" text="mark as deleted"/>
-    <items x="0" y="48" width="132" height="11" text="---"/>
-    <items x="0" y="59" width="132" height="23" text="sources,>"/>
-    <items x="0" y="82" width="132" height="23" text="targets,>"/>
+  <widgets xsi:type="model:Popup" id="67" x="454" y="336" text="mark as valide&#xA;mark as changed&#xA;mark as deleted&#xA;---&#xA;sources,>&#xA;targets,>" measuredWidth="132" measuredHeight="130">
+    <items x="0" y="2" width="132" height="23" text="mark as valide"/>
+    <items x="0" y="25" width="132" height="23" text="mark as changed"/>
+    <items x="0" y="48" width="132" height="23" text="mark as deleted"/>
+    <items x="0" y="71" width="132" height="11" text="---"/>
+    <items x="0" y="82" width="132" height="23" text="sources,>"/>
+    <items x="0" y="105" width="132" height="23" text="targets,>"/>
   </widgets>
   <widgets xsi:type="model:Note" id="68" x="336" y="320" width="129" height="25" text="consistency checkers" measuredWidth="129" measuredHeight="25">
     <font size="11px"/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="72" x="736" y="240" width="225" height="81" text="Here we present a text editor but everything presened here is also present for other forms of editors (tree, diagram, ...)" measuredWidth="225" measuredHeight="81">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="73" x="152" y="616" text="Command to create a location from a shortcut" measuredWidth="283" measuredHeight="29">
+    <font/>
   </widgets>
   <hRuler/>
   <vRuler/>

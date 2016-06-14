@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="22" x="16" y="8" width="1049" height="537" text="ModelWriter" measuredWidth="1049" measuredHeight="537"/>
+  <widgets xsi:type="model:Menu" id="28" x="16" y="27" width="1049" text="&amp;File,&amp;Edit,&amp;View,~&amp;Window~,&amp;Help" measuredWidth="1049" measuredHeight="27">
+    <items x="5" y="0" width="30" height="27" text="&amp;File"/>
+    <items x="35" y="0" width="34" height="27" text="&amp;Edit"/>
+    <items x="69" y="0" width="37" height="27" text="&amp;View"/>
+    <items x="106" y="0" width="55" height="27" text="~&amp;Window~"/>
+    <items x="161" y="0" width="36" height="27" text="&amp;Help"/>
+  </widgets>
+  <widgets xsi:type="model:Tree" id="29" x="16" y="53" height="492" text="Folder One&#xA;-Folder Two&#xA;--File One&#xA;--File Two&#xA;v Collapse Arrow&#xA;-[>] Closed Folder&#xA;-[v] Open Folder&#xA;> Expand Arrow&#xA;[-] Collapse&#xA;-[+] Expand&#xA;" measuredWidth="129" measuredHeight="492">
+    <items x="0" y="5" width="129" height="21" text="Folder One"/>
+    <items x="0" y="26" width="129" height="21" text="-Folder Two"/>
+    <items x="0" y="47" width="129" height="21" text="--File One"/>
+    <items x="0" y="68" width="129" height="21" text="--File Two"/>
+    <items x="0" y="89" width="129" height="21" text="v Collapse Arrow"/>
+    <items x="0" y="110" width="129" height="21" text="-[>] Closed Folder"/>
+    <items x="0" y="131" width="129" height="21" text="-[v] Open Folder"/>
+    <items x="0" y="152" width="129" height="21" text="> Expand Arrow"/>
+    <items x="0" y="173" width="129" height="21" text="[-] Collapse"/>
+    <items x="0" y="194" width="129" height="21" text="-[+] Expand"/>
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Tabs" id="30" x="144" y="53" width="921" text="Text Editor, Model Editor, Code Editor" measuredWidth="921" measuredHeight="27" selection="0">
+    <items x="1" y="0" width="84" height="27" text="Text Editor"/>
+    <items x="85" y="0" width="94" height="27" text="Model Editor"/>
+    <items x="179" y="0" width="88" height="27" text="Code Editor"/>
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Window" id="31" x="144" y="328" width="921" height="217" text="Location View" measuredWidth="921" measuredHeight="217"/>
+  <widgets xsi:type="model:Panel" id="32" x="144" y="79" width="921" height="250" measuredWidth="921" measuredHeight="250" link="TextDocumentEditor.screen"/>
+  <widgets xsi:type="model:Panel" id="33" x="144" y="347" width="921" height="198" measuredWidth="921" measuredHeight="198" link="LocationsView%20-%20Selection.screen"/>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>
