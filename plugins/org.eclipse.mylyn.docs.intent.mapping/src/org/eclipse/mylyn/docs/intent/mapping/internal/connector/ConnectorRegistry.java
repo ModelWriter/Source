@@ -39,7 +39,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocation, java.lang.Object)
 	 */
 	public ILocation createLocation(IBase base, ILocation container, Object element)
-			throws InstantiationException, IllegalAccessException {
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		ILocation res = null;
 
 		for (IConnector connector : getConnectors()) {

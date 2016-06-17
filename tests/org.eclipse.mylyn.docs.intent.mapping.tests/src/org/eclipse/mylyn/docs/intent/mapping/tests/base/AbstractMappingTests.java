@@ -318,15 +318,18 @@ public abstract class AbstractMappingTests {
 		return base;
 	}
 
-	protected ILink createLink() throws InstantiationException, IllegalAccessException {
+	protected ILink createLink() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		return getBase().getFactory().createElement(ILink.class);
 	}
 
-	protected IScope createScope() throws InstantiationException, IllegalAccessException {
+	protected IScope createScope() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		return getBase().getFactory().createElement(IScope.class);
 	}
 
-	protected ILocation createLocation() throws InstantiationException, IllegalAccessException {
+	protected ILocation createLocation() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		return getBase().getFactory().createElement(ITextLocation.class);
 	}
 

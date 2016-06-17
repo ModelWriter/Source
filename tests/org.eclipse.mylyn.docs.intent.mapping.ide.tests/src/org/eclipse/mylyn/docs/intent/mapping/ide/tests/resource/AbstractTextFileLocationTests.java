@@ -36,12 +36,13 @@ public abstract class AbstractTextFileLocationTests extends AbstractResourceLoca
 		MappingUtils.getBaseRegistry().unregister(base);
 	}
 
-	protected ITextFileLocation createLocation() throws InstantiationException, IllegalAccessException {
+	protected ITextFileLocation createLocation() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		return getBase().getFactory().createElement(ITextFileLocation.class);
 	}
 
 	@Test
-	public void setTextNull() throws InstantiationException, IllegalAccessException {
+	public void setTextNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		ITextFileLocation location = createLocation();
 
 		location.setText(null);
@@ -50,7 +51,7 @@ public abstract class AbstractTextFileLocationTests extends AbstractResourceLoca
 	}
 
 	@Test
-	public void setText() throws InstantiationException, IllegalAccessException {
+	public void setText() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		ITextFileLocation location = createLocation();
 
 		location.setText("test text");
@@ -59,7 +60,8 @@ public abstract class AbstractTextFileLocationTests extends AbstractResourceLoca
 	}
 
 	@Test
-	public void getTextDefault() throws InstantiationException, IllegalAccessException {
+	public void getTextDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		ITextFileLocation location = createLocation();
 
 		assertEquals(null, location.getText());

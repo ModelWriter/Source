@@ -41,9 +41,11 @@ public interface IConnectorRegistry {
 	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
 	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
 	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
 	 */
 	ILocation createLocation(IBase base, ILocation container, Object element) throws InstantiationException,
-			IllegalAccessException;
+			IllegalAccessException, ClassNotFoundException;
 
 	/**
 	 * Registers the given {@link IConnector}.

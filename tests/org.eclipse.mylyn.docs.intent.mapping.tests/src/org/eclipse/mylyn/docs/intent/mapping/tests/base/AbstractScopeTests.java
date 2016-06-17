@@ -29,7 +29,7 @@ import static org.junit.Assert.assertNull;
 public abstract class AbstractScopeTests extends AbstractMappingTests {
 
 	@Test
-	public void setHolderNull() throws InstantiationException, IllegalAccessException {
+	public void setHolderNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestScopeListener listener = new TestScopeListener();
 		final TestScopeListener removedListener = new TestScopeListener();
 
@@ -46,7 +46,7 @@ public abstract class AbstractScopeTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setHolder() throws InstantiationException, IllegalAccessException {
+	public void setHolder() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestScopeListener listener = new TestScopeListener();
 		final TestScopeListener removedListener = new TestScopeListener();
 
@@ -65,14 +65,15 @@ public abstract class AbstractScopeTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void getHoldereDefault() throws InstantiationException, IllegalAccessException {
+	public void getHoldereDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final IScope scope = createScope();
 
 		assertNull(scope.getHolder());
 	}
 
 	@Test
-	public void addLocations() throws InstantiationException, IllegalAccessException {
+	public void addLocations() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestScopeListener listener = new TestScopeListener();
 		final TestScopeListener removedListener = new TestScopeListener();
 
@@ -92,7 +93,8 @@ public abstract class AbstractScopeTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addManyLocations() throws InstantiationException, IllegalAccessException {
+	public void addManyLocations() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestScopeListener listener = new TestScopeListener();
 		final TestScopeListener removedListener = new TestScopeListener();
 
@@ -117,7 +119,8 @@ public abstract class AbstractScopeTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeLocations() throws InstantiationException, IllegalAccessException {
+	public void removeLocations() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestScopeListener listener = new TestScopeListener();
 		final TestScopeListener removedListener = new TestScopeListener();
 
@@ -141,7 +144,8 @@ public abstract class AbstractScopeTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeManyLocations() throws InstantiationException, IllegalAccessException {
+	public void removeManyLocations() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestScopeListener listener = new TestScopeListener();
 		final TestScopeListener removedListener = new TestScopeListener();
 

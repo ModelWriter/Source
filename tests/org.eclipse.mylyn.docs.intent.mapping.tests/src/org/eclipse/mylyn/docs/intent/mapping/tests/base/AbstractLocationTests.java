@@ -31,7 +31,8 @@ import static org.junit.Assert.assertNull;
 public abstract class AbstractLocationTests extends AbstractMappingTests {
 
 	@Test
-	public void addSourceLinks() throws InstantiationException, IllegalAccessException {
+	public void addSourceLinks() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -51,7 +52,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addManySourceLinks() throws InstantiationException, IllegalAccessException {
+	public void addManySourceLinks() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -76,7 +78,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeSourceLinks() throws InstantiationException, IllegalAccessException {
+	public void removeSourceLinks() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -100,7 +103,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeManySourceLinks() throws InstantiationException, IllegalAccessException {
+	public void removeManySourceLinks() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -129,7 +133,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeSourceLinksDeleted() throws InstantiationException, IllegalAccessException {
+	public void removeSourceLinksDeleted() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -156,7 +161,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeManySourceLinksDeleted() throws InstantiationException, IllegalAccessException {
+	public void removeManySourceLinksDeleted() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -188,7 +194,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addTargetLinks() throws InstantiationException, IllegalAccessException {
+	public void addTargetLinks() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -208,7 +215,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addManyTargetLinks() throws InstantiationException, IllegalAccessException {
+	public void addManyTargetLinks() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -233,7 +241,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeTargetLinks() throws InstantiationException, IllegalAccessException {
+	public void removeTargetLinks() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -257,7 +266,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeManyTargetLinks() throws InstantiationException, IllegalAccessException {
+	public void removeManyTargetLinks() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -286,7 +296,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeTargetLinksDeleted() throws InstantiationException, IllegalAccessException {
+	public void removeTargetLinksDeleted() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -313,7 +324,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeManyTargetLinksDeleted() throws InstantiationException, IllegalAccessException {
+	public void removeManyTargetLinksDeleted() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -345,7 +357,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setScopeNull() throws InstantiationException, IllegalAccessException {
+	public void setScopeNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -362,7 +374,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setScope() throws InstantiationException, IllegalAccessException {
+	public void setScope() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -381,14 +393,15 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void getScopeDefault() throws InstantiationException, IllegalAccessException {
+	public void getScopeDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final ILocation location = createLocation();
 
 		assertNull(location.getScope());
 	}
 
 	@Test
-	public void addContents() throws InstantiationException, IllegalAccessException {
+	public void addContents() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -408,7 +421,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addManyContents() throws InstantiationException, IllegalAccessException {
+	public void addManyContents() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -433,7 +447,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeContents() throws InstantiationException, IllegalAccessException {
+	public void removeContents() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -457,7 +472,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeManyContents() throws InstantiationException, IllegalAccessException {
+	public void removeManyContents() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -486,7 +502,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addReferencingScopes() throws InstantiationException, IllegalAccessException {
+	public void addReferencingScopes() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -506,7 +523,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addManyReferencingScopes() throws InstantiationException, IllegalAccessException {
+	public void addManyReferencingScopes() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -531,7 +549,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeReferencingScopes() throws InstantiationException, IllegalAccessException {
+	public void removeReferencingScopes() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -555,7 +574,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeManyReferencingScopes() throws InstantiationException, IllegalAccessException {
+	public void removeManyReferencingScopes() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLocationListener listener = new TestLocationListener();
 		final TestLocationListener removedListener = new TestLocationListener();
 
@@ -584,14 +604,15 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void getTypeDefault() throws InstantiationException, IllegalAccessException {
+	public void getTypeDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final ILocation location = createLocation();
 
 		assertEquals(null, location.getType());
 	}
 
 	@Test
-	public void setType() throws InstantiationException, IllegalAccessException {
+	public void setType() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final ILocation location = createLocation();
 		final String type = "Type";
 
@@ -601,7 +622,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setTypeNull() throws InstantiationException, IllegalAccessException {
+	public void setTypeNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final ILocation location = createLocation();
 
 		location.setType(null);
@@ -610,7 +631,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void markAsChanged() throws InstantiationException, IllegalAccessException {
+	public void markAsChanged() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final ILocation a = createLocation();
 		final ILocation b = createLocation();
 		final ILocation c = createLocation();
@@ -645,7 +666,7 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void markAsDeleted() throws InstantiationException, IllegalAccessException {
+	public void markAsDeleted() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final ILocation a = createLocation();
 		final ILocation b = createLocation();
 		final ILocation c = createLocation();

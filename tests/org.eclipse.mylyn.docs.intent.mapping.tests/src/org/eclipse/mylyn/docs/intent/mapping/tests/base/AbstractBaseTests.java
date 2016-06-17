@@ -72,7 +72,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addRootLocation() throws InstantiationException, IllegalAccessException {
+	public void addRootLocation() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestBaseListener listener = new TestBaseListener();
 		final TestBaseListener removedListener = new TestBaseListener();
 
@@ -92,7 +93,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void addManyRootLocations() throws InstantiationException, IllegalAccessException {
+	public void addManyRootLocations() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestBaseListener listener = new TestBaseListener();
 		final TestBaseListener removedListener = new TestBaseListener();
 
@@ -117,7 +119,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeRootLocation() throws InstantiationException, IllegalAccessException {
+	public void removeRootLocation() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestBaseListener listener = new TestBaseListener();
 		final TestBaseListener removedListener = new TestBaseListener();
 
@@ -141,7 +144,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void removeManyRootLocations() throws InstantiationException, IllegalAccessException {
+	public void removeManyRootLocations() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestBaseListener listener = new TestBaseListener();
 		final TestBaseListener removedListener = new TestBaseListener();
 

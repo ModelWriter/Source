@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.osgi.framework.Bundle;
@@ -67,6 +68,49 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	 * The {@link ILocation} extension point base attribute.
 	 */
 	public static final String FILE_CONNECTOR_DELEGATE_ATTRIBUTE_CLASS = "class";
+
+	/**
+	 * An {@link IFactoryDescriptor} for an extension point.
+	 * 
+	 * @param <T>
+	 *            the kind of {@link ILocation}
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class ExtensionFactoryDescriptor<T extends ILocation> implements IFactoryDescriptor<T> {
+
+		/**
+		 * The {@link IConfigurationElement}.
+		 */
+		private final IConfigurationElement element;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param element
+		 *            the {@link IConfigurationElement}
+		 */
+		public ExtensionFactoryDescriptor(IConfigurationElement element) {
+			this.element = element;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDescriptor#createElement()
+		 */
+		@SuppressWarnings("unchecked")
+		public T createElement() throws InstantiationException, IllegalAccessException,
+				ClassNotFoundException {
+			try {
+				return (T)element.createExecutableExtension(LOCATION_ATTRIBUTE_IMPLEMENTATION);
+			} catch (CoreException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			}
+			return null;
+		}
+
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -182,14 +226,10 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 					for (IConfigurationElement locationElem : elem.getChildren(LOCATION_TAG_EXTENSION)) {
 						final String interfaceClassName = locationElem
 								.getAttribute(LOCATION_ATTRIBUTE_INTERFACE);
-						final String implementationClassName = locationElem
-								.getAttribute(LOCATION_ATTRIBUTE_IMPLEMENTATION);
 						Class<ILocation> interfaceClass = (Class<ILocation>)contributor
 								.loadClass(interfaceClassName);
-						Class<ILocation> implementationClass = (Class<ILocation>)contributor
-								.loadClass(implementationClassName);
 						MappingUtils.registerLocationImplementation(baseClass, interfaceClass,
-								implementationClass);
+								new ExtensionFactoryDescriptor<ILocation>(locationElem));
 					}
 				} catch (ClassNotFoundException e) {
 					Activator.getDefault().getLog().log(

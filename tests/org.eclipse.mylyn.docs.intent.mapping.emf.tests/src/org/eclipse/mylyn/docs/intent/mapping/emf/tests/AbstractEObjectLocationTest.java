@@ -26,12 +26,14 @@ import static org.junit.Assert.assertEquals;
 public abstract class AbstractEObjectLocationTest extends AbstractLocationTests {
 
 	@Override
-	protected IEObjectLocation createLocation() throws InstantiationException, IllegalAccessException {
+	protected IEObjectLocation createLocation() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		return getBase().getFactory().createElement(IEObjectLocation.class);
 	}
 
 	@Test
-	public void setEObjectNull() throws InstantiationException, IllegalAccessException {
+	public void setEObjectNull() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
 		location.setEObject(null);
@@ -40,7 +42,7 @@ public abstract class AbstractEObjectLocationTest extends AbstractLocationTests 
 	}
 
 	@Test
-	public void setEObject() throws InstantiationException, IllegalAccessException {
+	public void setEObject() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
 		location.setEObject(EcorePackage.eINSTANCE);
@@ -49,14 +51,16 @@ public abstract class AbstractEObjectLocationTest extends AbstractLocationTests 
 	}
 
 	@Test
-	public void getEObjectDefault() throws InstantiationException, IllegalAccessException {
+	public void getEObjectDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
 		assertEquals(null, location.getEObject());
 	}
 
 	@Test
-	public void setEStructuralFeatureNull() throws InstantiationException, IllegalAccessException {
+	public void setEStructuralFeatureNull() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
 		location.setEStructuralFeature(null);
@@ -65,7 +69,8 @@ public abstract class AbstractEObjectLocationTest extends AbstractLocationTests 
 	}
 
 	@Test
-	public void setEStructuralFeature() throws InstantiationException, IllegalAccessException {
+	public void setEStructuralFeature() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
 		location.setEStructuralFeature(EcorePackage.eINSTANCE.getEClass_Interface());
@@ -74,14 +79,15 @@ public abstract class AbstractEObjectLocationTest extends AbstractLocationTests 
 	}
 
 	@Test
-	public void getEStructuralFeatureDefault() throws InstantiationException, IllegalAccessException {
+	public void getEStructuralFeatureDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
 		assertEquals(null, location.getEStructuralFeature());
 	}
 
 	@Test
-	public void setValueNull() throws InstantiationException, IllegalAccessException {
+	public void setValueNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
 		location.setValue(null);
@@ -90,7 +96,7 @@ public abstract class AbstractEObjectLocationTest extends AbstractLocationTests 
 	}
 
 	@Test
-	public void setValue() throws InstantiationException, IllegalAccessException {
+	public void setValue() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
 		location.setValue(this);
@@ -99,7 +105,8 @@ public abstract class AbstractEObjectLocationTest extends AbstractLocationTests 
 	}
 
 	@Test
-	public void getValueDefault() throws InstantiationException, IllegalAccessException {
+	public void getValueDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
 		assertEquals(null, location.getValue());

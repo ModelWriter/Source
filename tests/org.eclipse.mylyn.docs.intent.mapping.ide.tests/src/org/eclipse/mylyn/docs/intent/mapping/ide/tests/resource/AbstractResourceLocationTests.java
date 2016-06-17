@@ -37,12 +37,14 @@ public abstract class AbstractResourceLocationTests extends AbstractLocationTest
 		MappingUtils.getBaseRegistry().unregister(base);
 	}
 
-	protected IResourceLocation createLocation() throws InstantiationException, IllegalAccessException {
+	protected IResourceLocation createLocation() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		return getBase().getFactory().createElement(IResourceLocation.class);
 	}
 
 	@Test
-	public void setFullPathNull() throws InstantiationException, IllegalAccessException {
+	public void setFullPathNull() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		IResourceLocation location = createLocation();
 
 		location.setFullPath(null);
@@ -51,7 +53,7 @@ public abstract class AbstractResourceLocationTests extends AbstractLocationTest
 	}
 
 	@Test
-	public void setFullPath() throws InstantiationException, IllegalAccessException {
+	public void setFullPath() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		IResourceLocation location = createLocation();
 
 		location.setFullPath("test text");
@@ -60,7 +62,8 @@ public abstract class AbstractResourceLocationTests extends AbstractLocationTest
 	}
 
 	@Test
-	public void getFullPathDefault() throws InstantiationException, IllegalAccessException {
+	public void getFullPathDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		IResourceLocation location = createLocation();
 
 		assertEquals(null, location.getFullPath());

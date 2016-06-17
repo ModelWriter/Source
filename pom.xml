@@ -63,6 +63,7 @@
     <module>features/org.eclipse.mylyn.docs.intent.mapping.feature</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide</module>
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide.ui</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.tests</module>

@@ -29,12 +29,14 @@ import static org.junit.Assert.assertTrue;
  */
 public abstract class AbstractEObjectFileLocationTests extends AbstractResourceLocationTests {
 
-	protected IEObjectFileLocation createLocation() throws InstantiationException, IllegalAccessException {
+	protected IEObjectFileLocation createLocation() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		return getBase().getFactory().createElement(IEObjectFileLocation.class);
 	}
 
 	@Test
-	public void setEObjectsNull() throws InstantiationException, IllegalAccessException {
+	public void setEObjectsNull() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final IEObjectFileLocation location = createLocation();
 
 		location.setEObjects(null);
@@ -43,7 +45,7 @@ public abstract class AbstractEObjectFileLocationTests extends AbstractResourceL
 	}
 
 	@Test
-	public void setEObjects() throws InstantiationException, IllegalAccessException {
+	public void setEObjects() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final IEObjectFileLocation location = createLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>();
 
@@ -53,7 +55,8 @@ public abstract class AbstractEObjectFileLocationTests extends AbstractResourceL
 	}
 
 	@Test
-	public void getEObjectsDefault() throws InstantiationException, IllegalAccessException {
+	public void getEObjectsDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final IEObjectFileLocation location = createLocation();
 
 		location.getEObjects();

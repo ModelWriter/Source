@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
@@ -124,10 +125,11 @@ public class LocationFactoryTests {
 	}
 
 	@Test
-	public void addClassInstance() throws InstantiationException, IllegalAccessException {
+	public void addClassInstance() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final BaseElementFactory factory = new BaseElementFactory();
 
-		factory.addClassInstance(ITestLocation.class, TestLocation.class);
+		factory.addDescriptor(ITestLocation.class, new FactoryDescriptor<TestLocation>(TestLocation.class));
 
 		final ITestLocation location = factory.createElement(ITestLocation.class);
 
@@ -135,11 +137,12 @@ public class LocationFactoryTests {
 	}
 
 	@Test
-	public void removeClassInstance() throws InstantiationException, IllegalAccessException {
+	public void removeClassInstance() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final BaseElementFactory factory = new BaseElementFactory();
 
-		factory.addClassInstance(ITestLocation.class, TestLocation.class);
-		factory.removeClassInstance(ITestLocation.class);
+		factory.addDescriptor(ITestLocation.class, new FactoryDescriptor<TestLocation>(TestLocation.class));
+		factory.removeDescriptor(ITestLocation.class);
 
 		final ITestLocation location = factory.createElement(ITestLocation.class);
 

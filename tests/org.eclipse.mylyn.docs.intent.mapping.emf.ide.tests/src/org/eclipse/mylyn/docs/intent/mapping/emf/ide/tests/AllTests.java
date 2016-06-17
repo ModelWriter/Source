@@ -26,7 +26,8 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses(value = {EMFResourceLocationTests.class, EMFTextFileLocationTests.class,
-		EMFEObjectFileLocationTests.class, EObjectFileConnectorDelegateTests.class, })
+		EMFEObjectFileLocationTests.class, EObjectFileConnectorDelegateTests.class,
+		MappingBaseListenerTests.class, })
 public class AllTests {
 
 }

@@ -27,7 +27,8 @@ import static org.junit.Assert.assertNull;
 public abstract class AbstractLinkTests extends AbstractMappingTests {
 
 	@Test
-	public void setDescriptionNull() throws InstantiationException, IllegalAccessException {
+	public void setDescriptionNull() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLinkListener listener = new TestLinkListener();
 		final TestLinkListener removedListener = new TestLinkListener();
 
@@ -44,7 +45,8 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setDescription() throws InstantiationException, IllegalAccessException {
+	public void setDescription() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLinkListener listener = new TestLinkListener();
 		final TestLinkListener removedListener = new TestLinkListener();
 
@@ -61,14 +63,15 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void getDescriptionDefault() throws InstantiationException, IllegalAccessException {
+	public void getDescriptionDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final ILink link = createLink();
 
 		assertNull(link.getDescription());
 	}
 
 	@Test
-	public void markAsValid() throws InstantiationException, IllegalAccessException {
+	public void markAsValid() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestLinkListener listener = new TestLinkListener();
 		final TestLinkListener removedListener = new TestLinkListener();
 
@@ -85,14 +88,15 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void getLinkStatusDefault() throws InstantiationException, IllegalAccessException {
+	public void getLinkStatusDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final ILink link = createLink();
 
 		assertEquals(LinkStatus.VALID, link.getLinkStatus());
 	}
 
 	@Test
-	public void setSourceNull() throws InstantiationException, IllegalAccessException {
+	public void setSourceNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestLinkListener listener = new TestLinkListener();
 		final TestLinkListener removedListener = new TestLinkListener();
 
@@ -109,7 +113,7 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setSource() throws InstantiationException, IllegalAccessException {
+	public void setSource() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestLinkListener listener = new TestLinkListener();
 		final TestLinkListener removedListener = new TestLinkListener();
 
@@ -128,14 +132,15 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void getSourceDefault() throws InstantiationException, IllegalAccessException {
+	public void getSourceDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final ILink link = createLink();
 
 		assertNull(link.getSource());
 	}
 
 	@Test
-	public void setTargetNull() throws InstantiationException, IllegalAccessException {
+	public void setTargetNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestLinkListener listener = new TestLinkListener();
 		final TestLinkListener removedListener = new TestLinkListener();
 
@@ -152,7 +157,7 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setTarget() throws InstantiationException, IllegalAccessException {
+	public void setTarget() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestLinkListener listener = new TestLinkListener();
 		final TestLinkListener removedListener = new TestLinkListener();
 
@@ -171,21 +176,23 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void getTargetDefault() throws InstantiationException, IllegalAccessException {
+	public void getTargetDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final ILink link = createLink();
 
 		assertNull(link.getTarget());
 	}
 
 	@Test
-	public void getTypeDefault() throws InstantiationException, IllegalAccessException {
+	public void getTypeDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final ILink link = createLink();
 
 		assertEquals(null, link.getType());
 	}
 
 	@Test
-	public void setType() throws InstantiationException, IllegalAccessException {
+	public void setType() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final ILink link = createLink();
 		final String type = "Type";
 
@@ -195,7 +202,7 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setTypeNull() throws InstantiationException, IllegalAccessException {
+	public void setTypeNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final ILink link = createLink();
 
 		link.setType(null);

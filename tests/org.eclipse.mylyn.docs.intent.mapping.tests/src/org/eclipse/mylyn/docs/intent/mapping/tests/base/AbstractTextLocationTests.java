@@ -24,12 +24,14 @@ import static org.junit.Assert.assertEquals;
 public abstract class AbstractTextLocationTests extends AbstractLocationTests {
 
 	@Override
-	protected ITextLocation createLocation() throws InstantiationException, IllegalAccessException {
+	protected ITextLocation createLocation() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		return getBase().getFactory().createElement(ITextLocation.class);
 	}
 
 	@Test
-	public void setStartOffset() throws InstantiationException, IllegalAccessException {
+	public void setStartOffset() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		ITextLocation location = createLocation();
 
 		location.setStartOffset(50);
@@ -38,14 +40,15 @@ public abstract class AbstractTextLocationTests extends AbstractLocationTests {
 	}
 
 	@Test
-	public void getStartOffsetDefault() throws InstantiationException, IllegalAccessException {
+	public void getStartOffsetDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		ITextLocation location = createLocation();
 
 		assertEquals(-1, location.getStartOffset());
 	}
 
 	@Test
-	public void setEndOffset() throws InstantiationException, IllegalAccessException {
+	public void setEndOffset() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		ITextLocation location = createLocation();
 
 		location.setEndOffset(50);
@@ -54,7 +57,8 @@ public abstract class AbstractTextLocationTests extends AbstractLocationTests {
 	}
 
 	@Test
-	public void getEndOffsetDefault() throws InstantiationException, IllegalAccessException {
+	public void getEndOffsetDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		ITextLocation location = createLocation();
 
 		assertEquals(-1, location.getEndOffset());

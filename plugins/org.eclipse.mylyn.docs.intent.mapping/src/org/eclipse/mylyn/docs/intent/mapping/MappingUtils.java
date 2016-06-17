@@ -19,6 +19,7 @@ import java.util.Map.Entry;
 import name.fraser.neil.plaintext.diff_match_patch;
 import name.fraser.neil.plaintext.diff_match_patch.Diff;
 
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
@@ -116,7 +117,7 @@ public final class MappingUtils {
 	/**
 	 * {@link IBase} kind to {@link ILocation} interface/implementation mapping.
 	 */
-	private static final Map<Class<? extends IBase>, Map<Class<? extends ILocation>, Class<? extends ILocation>>> LOCATION_IMPLEMENTATIONS = new HashMap<Class<? extends IBase>, Map<Class<? extends ILocation>, Class<? extends ILocation>>>();
+	private static final Map<Class<? extends IBase>, Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>>> LOCATION_IMPLEMENTATIONS = new HashMap<Class<? extends IBase>, Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>>>();
 
 	/**
 	 * Diff match patch instance.
@@ -142,13 +143,13 @@ public final class MappingUtils {
 
 			@SuppressWarnings("unchecked")
 			public void baseRegistred(IBase base) {
-				for (Entry<Class<? extends IBase>, Map<Class<? extends ILocation>, Class<? extends ILocation>>> entry : LOCATION_IMPLEMENTATIONS
+				for (Entry<Class<? extends IBase>, Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>>> entry : LOCATION_IMPLEMENTATIONS
 						.entrySet()) {
 					if (entry.getKey().isAssignableFrom(base.getClass())) {
-						for (Entry<Class<? extends ILocation>, Class<? extends ILocation>> locationEntry : entry
+						for (Entry<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>> locationEntry : entry
 								.getValue().entrySet()) {
-							base.getFactory().addClassInstance((Class<ILocation>)locationEntry.getKey(),
-									(Class<ILocation>)locationEntry.getValue());
+							base.getFactory().addDescriptor((Class<ILocation>)locationEntry.getKey(),
+									locationEntry.getValue());
 						}
 					}
 				}
@@ -193,24 +194,24 @@ public final class MappingUtils {
 	 *            the {@link IBase} kind
 	 * @param locationInterface
 	 *            the {@link ILocation} interface
-	 * @param locationClass
+	 * @param descriptor
 	 *            the {@link ILocation} implementation for the {@link IBase} kind
 	 * @param <L>
 	 *            the {@link ILocation} interface kind
 	 */
 	public static <L extends ILocation> void registerLocationImplementation(Class<? extends IBase> baseClass,
-			Class<L> locationInterface, Class<? extends L> locationClass) {
+			Class<L> locationInterface, IFactoryDescriptor<? extends L> descriptor) {
 		synchronized(getBaseRegistry()) {
-			Map<Class<? extends ILocation>, Class<? extends ILocation>> implementations = LOCATION_IMPLEMENTATIONS
+			Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>> implementations = LOCATION_IMPLEMENTATIONS
 					.get(baseClass);
 			if (implementations == null) {
-				implementations = new HashMap<Class<? extends ILocation>, Class<? extends ILocation>>();
+				implementations = new HashMap<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>>();
 				LOCATION_IMPLEMENTATIONS.put(baseClass, implementations);
 			}
-			implementations.put(locationInterface, locationClass);
+			implementations.put(locationInterface, descriptor);
 			for (IBase base : getBaseRegistry().getBases()) {
 				if (baseClass.isAssignableFrom(base.getClass())) {
-					base.getFactory().addClassInstance(locationInterface, locationClass);
+					base.getFactory().addDescriptor(locationInterface, descriptor);
 				}
 			}
 		}
@@ -227,14 +228,14 @@ public final class MappingUtils {
 	public static void unregisterLocationImplementation(Class<? extends IBase> baseClass,
 			Class<? extends ILocation> locationInterface) {
 		synchronized(getBaseRegistry()) {
-			Map<Class<? extends ILocation>, Class<? extends ILocation>> implementations = LOCATION_IMPLEMENTATIONS
+			Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>> implementations = LOCATION_IMPLEMENTATIONS
 					.get(baseClass);
 			if (implementations != null) {
 				implementations.remove(locationInterface);
 			}
 			for (IBase base : getBaseRegistry().getBases()) {
 				if (baseClass.isAssignableFrom(base.getClass())) {
-					base.getFactory().removeClassInstance(locationInterface);
+					base.getFactory().removeDescriptor(locationInterface);
 				}
 			}
 		}

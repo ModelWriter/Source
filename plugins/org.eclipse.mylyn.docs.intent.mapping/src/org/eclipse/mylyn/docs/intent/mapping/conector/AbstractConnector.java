@@ -28,7 +28,7 @@ public abstract class AbstractConnector implements IConnector {
 	 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocation, java.lang.Object)
 	 */
 	public ILocation createLocation(IBase base, ILocation container, Object element)
-			throws InstantiationException, IllegalAccessException {
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final ILocation res;
 
 		final Class<? extends ILocation> locationType = getLocationType(getContainerType(container), element);
