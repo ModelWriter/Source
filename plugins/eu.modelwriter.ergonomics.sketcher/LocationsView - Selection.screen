@@ -38,8 +38,8 @@
     <items x="0" y="173" width="424" height="21" text="-[+] source location 32"/>
     <font/>
   </widgets>
-  <widgets xsi:type="model:Popup" id="12" x="656" y="304" text="mark as valide&#xA;mark as changed&#xA;mark as deleted&#xA;---&#xA;describe link&#xA;add type ?" measuredWidth="124" measuredHeight="130">
-    <items x="0" y="2" width="124" height="23" text="mark as valide"/>
+  <widgets xsi:type="model:Popup" id="12" x="656" y="304" text="mark as valid&#xA;mark as changed&#xA;mark as deleted&#xA;---&#xA;describe link&#xA;add type ?" measuredWidth="124" measuredHeight="130">
+    <items x="0" y="2" width="124" height="23" text="mark as valid"/>
     <items x="0" y="25" width="124" height="23" text="mark as changed"/>
     <items x="0" y="48" width="124" height="23" text="mark as deleted"/>
     <items x="0" y="71" width="124" height="11" text="---"/>
@@ -53,6 +53,9 @@
     <font/>
   </widgets>
   <widgets xsi:type="model:Combo" id="15" x="224" y="78" text="Concept Model 1" measuredWidth="124" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="16" x="192" y="488" text="In case of multiple selection use a tree like in document tab" measuredWidth="356" measuredHeight="29">
     <font/>
   </widgets>
   <hRuler/>

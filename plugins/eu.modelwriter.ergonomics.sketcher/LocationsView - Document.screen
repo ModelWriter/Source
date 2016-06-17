@@ -26,8 +26,8 @@
   <widgets xsi:type="model:Note" id="20" x="384" y="360" text="navigation to the location on a double click&#xA;highlight the selected location in the document if any&#xA;&#xA;Tooltip with the location description" measuredWidth="322" measuredHeight="74">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Popup" id="21" x="728" y="320" text="mark as valide&#xA;mark as changed&#xA;mark as deleted&#xA;---&#xA;describe link" measuredWidth="124" measuredHeight="107">
-    <items x="0" y="2" width="124" height="23" text="mark as valide"/>
+  <widgets xsi:type="model:Popup" id="21" x="728" y="320" text="mark as valid&#xA;mark as changed&#xA;mark as deleted&#xA;---&#xA;describe link" measuredWidth="124" measuredHeight="107">
+    <items x="0" y="2" width="124" height="23" text="mark as valid"/>
     <items x="0" y="25" width="124" height="23" text="mark as changed"/>
     <items x="0" y="48" width="124" height="23" text="mark as deleted"/>
     <items x="0" y="71" width="124" height="11" text="---"/>
