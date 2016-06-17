@@ -66,6 +66,6 @@ public interface ISemanticAnnotator {
 	 *         -> positions
 	 */
 	// TODO change the return type... its ugly.
-	Map<Object, Map<Object, Set<int[]>>> getSemanticAnnotations(String text, Set<Object> concepts);
+	Map<Object, Map<Object, Set<int[]>>> getSemanticAnnotations(String text, Set<?> concepts);
 
 }

@@ -116,7 +116,7 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	 *
 	 * @see eu.modelwriter.semantic.ISemanticAnnotator#getSemanticAnnotations(java.lang.String, java.util.Set)
 	 */
-	public Map<Object, Map<Object, Set<int[]>>> getSemanticAnnotations(String text, Set<Object> concepts) {
+	public Map<Object, Map<Object, Set<int[]>>> getSemanticAnnotations(String text, Set<?> concepts) {
 		// label to concepts mapping
 		final Map<String, Set<Object>> labels = getLabelToConcepts(concepts);
 
@@ -372,7 +372,7 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	 *            the {@link Set} of {@link Object concepts}
 	 * @return the mapping from label to the given {@link Object concepts}
 	 */
-	private Map<String, Set<Object>> getLabelToConcepts(Set<Object> concepts) {
+	private Map<String, Set<Object>> getLabelToConcepts(Set<?> concepts) {
 		final Map<String, Set<Object>> res = new HashMap<String, Set<Object>>();
 
 		for (Object concept : concepts) {
@@ -394,4 +394,5 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 
 		return res;
 	}
+
 }
