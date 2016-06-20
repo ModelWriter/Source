@@ -112,7 +112,7 @@ public final class MappingUtils {
 	/**
 	 * The {@link IBaseRegistry}.
 	 */
-	private static final BaseRegistry BASE_REGISTRY = intBaseRegistry();
+	private static final BaseRegistry BASE_REGISTRY = initBaseRegistry();
 
 	/**
 	 * {@link IBase} kind to {@link ILocation} interface/implementation mapping.
@@ -136,7 +136,7 @@ public final class MappingUtils {
 	 * 
 	 * @return the {@link BaseRegistry}
 	 */
-	private static BaseRegistry intBaseRegistry() {
+	private static BaseRegistry initBaseRegistry() {
 		final BaseRegistry res = new BaseRegistry();
 
 		res.addListener(new IBaseRegistryListener() {

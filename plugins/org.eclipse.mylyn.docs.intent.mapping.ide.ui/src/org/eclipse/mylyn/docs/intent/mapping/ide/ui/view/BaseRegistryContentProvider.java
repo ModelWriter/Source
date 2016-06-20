@@ -14,6 +14,7 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
@@ -27,6 +28,12 @@ import org.eclipse.swt.widgets.Display;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class BaseRegistryContentProvider implements IStructuredContentProvider {
+
+	// Force the start of org.eclipse.intent.mapping.ide
+	// TODO we should find a better way to do that
+	{
+		IdeMappingUtils.getFileConectorDelegateRegistry();
+	}
 
 	/**
 	 * An {@link IBaseRegistryListener} that update a {@link Viewer}.

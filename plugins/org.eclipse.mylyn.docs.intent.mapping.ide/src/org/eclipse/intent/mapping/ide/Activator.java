@@ -37,6 +37,7 @@ public class Activator extends Plugin {
 		registry.addListener(registryListener, IdeMappingRegistryListener.LOCATION_EXTENSION_POINT);
 		registry.addListener(registryListener,
 				IdeMappingRegistryListener.FILE_CONNECTOR_DELEGATE_EXTENSION_POINT);
+		registry.addListener(registryListener, IdeMappingRegistryListener.BASE_PROVIDER_EXTENSION_POINT);
 		registryListener.parseInitialContributions();
 	}
 

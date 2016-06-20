@@ -3,10 +3,10 @@
 <schema targetNamespace="org.eclipse.mylyn.docs.intent.mapping.ide" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.eclipse.mylyn.docs.intent.mapping.ide" id="org.eclipse.mylyn.docs.intent.mapping.ide.fileconnectordelegate" name="FileLocationDelegate"/>
+         <meta.schema plugin="org.eclipse.mylyn.docs.intent.mapping.ide" id="org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider" name="Base Provider"/>
       </appinfo>
       <documentation>
-         Defines a file delegate for a content type.
+         This extension point give a change to any plugin providing IBase to get started.
       </documentation>
    </annotation>
 
@@ -17,9 +17,6 @@
          </appinfo>
       </annotation>
       <complexType>
-         <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="fileConnectorDelegate"/>
-         </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
@@ -47,21 +44,6 @@
       </complexType>
    </element>
 
-   <element name="fileConnectorDelegate">
-      <complexType>
-         <attribute name="class" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
    <annotation>
       <appinfo>
          <meta.section type="since"/>
@@ -77,22 +59,11 @@
       </appinfo>
       <documentation>
          &lt;extension
-  point=&quot;org.eclipse.mylyn.docs.intent.mapping.ide.fileConnectorDelegate&quot;&gt;
-  &lt;fileConnectorDelegate
-    class=&quot;org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.EObjectFileConnectorDelegate&quot;&gt;
-  &lt;/fileConnectorDelegate&gt;
+  point=&quot;org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider&quot;&gt;
 &lt;/extension&gt;
       </documentation>
    </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="apiinfo"/>
-      </appinfo>
-      <documentation>
-         org.eclipse.intent.mapping.ide.connector.IFileDelegateRegistry.register(IFileConnectorDelegate delegate)
-      </documentation>
-   </annotation>
 
 
    <annotation>
@@ -100,7 +71,7 @@
          <meta.section type="copyright"/>
       </appinfo>
       <documentation>
-         Copyright (c) 2015 Obeo.
+         Copyright (c) 2016 Obeo.
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v1.0
 which accompanies this distribution, and is available at

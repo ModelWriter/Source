@@ -15,6 +15,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDes
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleException;
 
 /**
  * This listener will allow us to be aware of contribution changes against the {@link ILocation} and
@@ -70,6 +71,11 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	public static final String FILE_CONNECTOR_DELEGATE_ATTRIBUTE_CLASS = "class";
 
 	/**
+	 * {@link IFileConnectorDelegate} extension point to parse for extensions.
+	 */
+	public static final String BASE_PROVIDER_EXTENSION_POINT = "org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider";
+
+	/**
 	 * An {@link IFactoryDescriptor} for an extension point.
 	 * 
 	 * @param <T>
@@ -123,6 +129,8 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 				parseLocationExtension(extension);
 			} else if (FILE_CONNECTOR_DELEGATE_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
 				parseFileConnectorDelegateExtension(extension);
+			} else if (BASE_PROVIDER_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
+				parseBaseProviderExtension(extension);
 			}
 		}
 	}
@@ -149,6 +157,9 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 		for (IExtension extension : registry.getExtensionPoint(FILE_CONNECTOR_DELEGATE_EXTENSION_POINT)
 				.getExtensions()) {
 			parseFileConnectorDelegateExtension(extension);
+		}
+		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT).getExtensions()) {
+			parseBaseProviderExtension(extension);
 		}
 	}
 
@@ -258,6 +269,23 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 				}
 			}
+		}
+	}
+
+	/**
+	 * Parses a single {@link IFileConnectorDelegate} extension contribution.
+	 * 
+	 * @param extension
+	 *            Parses the given extension and adds its contribution to the registry.
+	 */
+	private void parseBaseProviderExtension(IExtension extension) {
+		final String bundleName = extension.getContributor().getName();
+		final Bundle bundle = Platform.getBundle(bundleName);
+		try {
+			bundle.start();
+		} catch (BundleException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		}
 	}
 

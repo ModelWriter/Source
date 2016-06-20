@@ -47,5 +47,8 @@
             class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.EObjectFileConnectorDelegate">
       </fileConnectorDelegate>
    </extension>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider">
+   </extension>
 
 </plugin>
