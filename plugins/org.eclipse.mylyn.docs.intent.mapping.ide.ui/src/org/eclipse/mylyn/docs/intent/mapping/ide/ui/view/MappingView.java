@@ -10,11 +10,9 @@ import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.dialogs.FilteredTree;
@@ -46,15 +44,12 @@ public class MappingView extends ViewPart {
 		composite.setLayout(new GridLayout(1, false));
 
 		Composite headerComposite = new Composite(composite, SWT.NONE);
-		headerComposite.setLayout(new RowLayout(SWT.HORIZONTAL));
+		headerComposite.setLayout(new GridLayout(2, false));
 		headerComposite.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false, 1, 1));
 
 		addMappingCombo(headerComposite);
 
 		addConceptCombo(headerComposite);
-
-		Button scopeButton = new Button(headerComposite, SWT.CENTER);
-		scopeButton.setText("Scope");
 
 		TabFolder bodyTabFolder = new TabFolder(composite, SWT.NONE);
 		bodyTabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -76,13 +71,17 @@ public class MappingView extends ViewPart {
 	 *            the header {@link Composite}
 	 */
 	private void addMappingCombo(Composite headerComposite) {
+
+		Label selectMappingBaseLabel = new Label(headerComposite, SWT.NONE);
+		selectMappingBaseLabel.setToolTipText("Select a mapping base.");
+		selectMappingBaseLabel.setText("Mapping base:");
 		final ComboViewer mappingCombo = new ComboViewer(headerComposite, SWT.READ_ONLY);
 		Combo combo = mappingCombo.getCombo();
-		combo.setLayoutData(new RowData(100, SWT.DEFAULT));
-		mappingCombo.setContentProvider(new BaseRegistryContentProvider());
-		mappingCombo.setLabelProvider(new BaseLabelProvider());
+		combo.setToolTipText("Select the mapping base to use.");
+		mappingCombo.setContentProvider(new MappingBaseRegistryContentProvider());
+		mappingCombo.setLabelProvider(new MappingBaseLabelProvider());
 		mappingCombo.setComparator(new ViewerComparator());
-		mappingCombo.setInput(MappingUtils.getBaseRegistry());
+		mappingCombo.setInput(MappingUtils.getMappingRegistry());
 	}
 
 	/**
@@ -92,9 +91,6 @@ public class MappingView extends ViewPart {
 	 *            the header {@link Composite}
 	 */
 	private void addConceptCombo(Composite headerComposite) {
-		final ComboViewer conceptCombo = new ComboViewer(headerComposite, SWT.READ_ONLY);
-		Combo combo = conceptCombo.getCombo();
-		combo.setLayoutData(new RowData(100, SWT.DEFAULT));
 	}
 
 	/**

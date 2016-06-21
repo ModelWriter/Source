@@ -11,6 +11,12 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.tests;
 
+import eu.modelwriter.semantic.ISemanticProvider;
+import eu.modelwriter.semantic.ISemanticSimilarityProvider;
+import eu.modelwriter.semantic.IdentitySimilarityProvider;
+import eu.modelwriter.semantic.StringSemanticProvider;
+import eu.modelwriter.semantic.internal.SemanticAnnotator;
+
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -22,12 +28,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-
-import eu.modelwriter.semantic.ISemanticProvider;
-import eu.modelwriter.semantic.ISemanticSimilarityProvider;
-import eu.modelwriter.semantic.IdentitySimilarityProvider;
-import eu.modelwriter.semantic.StringSemanticProvider;
-import eu.modelwriter.semantic.internal.SemanticAnnotator;
 
 /**
  * Tests for {@link SemanticAnnotator}.

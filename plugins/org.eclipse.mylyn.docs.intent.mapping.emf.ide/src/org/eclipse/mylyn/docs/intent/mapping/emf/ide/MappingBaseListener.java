@@ -257,7 +257,7 @@ public class MappingBaseListener implements IResourceChangeListener {
 		final Base base = getBaseFromFile(file);
 		if (base != null) {
 			resourceToBase.put(file, base);
-			MappingUtils.getBaseRegistry().register(base);
+			MappingUtils.getMappingRegistry().register(base);
 		}
 	}
 
@@ -315,7 +315,7 @@ public class MappingBaseListener implements IResourceChangeListener {
 	private void unregister(IFile file) {
 		final Base base = resourceToBase.remove(file);
 		if (base != null) {
-			MappingUtils.getBaseRegistry().unregister(base);
+			MappingUtils.getMappingRegistry().unregister(base);
 		}
 	}
 

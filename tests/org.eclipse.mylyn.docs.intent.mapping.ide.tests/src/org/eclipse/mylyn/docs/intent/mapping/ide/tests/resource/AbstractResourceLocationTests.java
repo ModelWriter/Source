@@ -29,12 +29,12 @@ public abstract class AbstractResourceLocationTests extends AbstractLocationTest
 	@Override
 	public void before() {
 		super.before();
-		MappingUtils.getBaseRegistry().register(base);
+		MappingUtils.getMappingRegistry().register(base);
 	}
 
 	@After
 	public void after() {
-		MappingUtils.getBaseRegistry().unregister(base);
+		MappingUtils.getMappingRegistry().unregister(base);
 	}
 
 	protected IResourceLocation createLocation() throws InstantiationException, IllegalAccessException,

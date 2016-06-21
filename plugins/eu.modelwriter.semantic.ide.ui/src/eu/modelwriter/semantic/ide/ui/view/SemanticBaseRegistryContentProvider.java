@@ -9,17 +9,18 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
+package eu.modelwriter.semantic.ide.ui.view;
+
+import eu.modelwriter.semantic.IBase;
+import eu.modelwriter.semantic.IBaseRegistry;
+import eu.modelwriter.semantic.IBaseRegistryListener;
+import eu.modelwriter.semantic.ide.Activator;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.intent.mapping.ide.IdeMappingUtils;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
-import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry;
-import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -27,12 +28,12 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class BaseRegistryContentProvider implements IStructuredContentProvider {
+public class SemanticBaseRegistryContentProvider implements ITreeContentProvider {
 
-	// Force the start of org.eclipse.intent.mapping.ide
+	// Force the start of eu.modelwriter.semantic.ide
 	// TODO we should find a better way to do that
 	{
-		IdeMappingUtils.getFileConectorDelegateRegistry();
+		Activator.getDefault();
 	}
 
 	/**
@@ -141,6 +142,33 @@ public class BaseRegistryContentProvider implements IStructuredContentProvider {
 		}
 
 		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
+	 */
+	public Object[] getChildren(Object parentElement) {
+		return new Object[0];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
+	 */
+	public Object getParent(Object element) {
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
+	 */
+	public boolean hasChildren(Object element) {
+		return false;
 	}
 
 }

@@ -22,7 +22,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses(value = {IdentitySimilarityProviderTests.class, SemanticAnnotatorTests.class,
-		StringSemanticProviderTests.class, })
+		StringSemanticProviderTests.class, BaseRegistryTests.class, })
 public class AllTests {
 
 }

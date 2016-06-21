@@ -24,6 +24,20 @@
          unpack="false"/>
 
    <plugin
+         id="eu.modelwriter.semantic.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.modelwriter.semantic.ide.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="dk.brics.automaton"
          download-size="0"
          install-size="0"

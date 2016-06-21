@@ -43,7 +43,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
- * Tests {@link org.eclipse.mylyn.docs.intent.mapping.emf.ide.MappingBaseListener MappingBaseListener}.
+ * Tests {@link MappingBaseListener}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
@@ -187,7 +187,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -198,7 +198,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -207,7 +207,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -220,7 +220,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -229,7 +229,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -242,7 +242,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -251,7 +251,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final Base base = MappingPackage.eINSTANCE.getMappingFactory().createBase();
 			base.setName("test");
@@ -267,7 +267,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -276,7 +276,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -289,7 +289,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -298,7 +298,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -313,7 +313,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -322,7 +322,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -337,7 +337,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -346,7 +346,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final Base base = MappingPackage.eINSTANCE.getMappingFactory().createBase();
 			base.setName("test");
@@ -364,7 +364,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -373,7 +373,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -388,7 +388,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -397,7 +397,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -414,7 +414,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -423,7 +423,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -440,7 +440,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -449,7 +449,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final Base base = MappingPackage.eINSTANCE.getMappingFactory().createBase();
 			base.setName("test");
@@ -470,7 +470,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -479,7 +479,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final Base base = MappingPackage.eINSTANCE.getMappingFactory().createBase();
 			base.setName("test");
@@ -505,7 +505,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -514,7 +514,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -531,7 +531,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -540,7 +540,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -559,7 +559,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -568,7 +568,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -587,7 +587,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -596,7 +596,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final Base base = MappingPackage.eINSTANCE.getMappingFactory().createBase();
 			base.setName("test");
@@ -617,7 +617,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -626,7 +626,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -639,7 +639,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -648,7 +648,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -663,7 +663,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -672,7 +672,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -687,7 +687,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -696,7 +696,7 @@ public class MappingBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			MappingUtils.getBaseRegistry().addListener(registeryListener);
+			MappingUtils.getMappingRegistry().addListener(registeryListener);
 
 			final Base base = MappingPackage.eINSTANCE.getMappingFactory().createBase();
 			base.setName("test");
@@ -713,7 +713,7 @@ public class MappingBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			MappingUtils.getBaseRegistry().removeListener(registeryListener);
+			MappingUtils.getMappingRegistry().removeListener(registeryListener);
 		}
 	}
 

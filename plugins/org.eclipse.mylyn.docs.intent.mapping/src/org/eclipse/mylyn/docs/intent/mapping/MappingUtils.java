@@ -182,7 +182,7 @@ public final class MappingUtils {
 	 * 
 	 * @return the {@link IBaseRegistry}
 	 */
-	public static IBaseRegistry getBaseRegistry() {
+	public static IBaseRegistry getMappingRegistry() {
 		return BASE_REGISTRY;
 	}
 
@@ -201,7 +201,7 @@ public final class MappingUtils {
 	 */
 	public static <L extends ILocation> void registerLocationImplementation(Class<? extends IBase> baseClass,
 			Class<L> locationInterface, IFactoryDescriptor<? extends L> descriptor) {
-		synchronized(getBaseRegistry()) {
+		synchronized(getMappingRegistry()) {
 			Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>> implementations = LOCATION_IMPLEMENTATIONS
 					.get(baseClass);
 			if (implementations == null) {
@@ -209,7 +209,7 @@ public final class MappingUtils {
 				LOCATION_IMPLEMENTATIONS.put(baseClass, implementations);
 			}
 			implementations.put(locationInterface, descriptor);
-			for (IBase base : getBaseRegistry().getBases()) {
+			for (IBase base : getMappingRegistry().getBases()) {
 				if (baseClass.isAssignableFrom(base.getClass())) {
 					base.getFactory().addDescriptor(locationInterface, descriptor);
 				}
@@ -227,13 +227,13 @@ public final class MappingUtils {
 	 */
 	public static void unregisterLocationImplementation(Class<? extends IBase> baseClass,
 			Class<? extends ILocation> locationInterface) {
-		synchronized(getBaseRegistry()) {
+		synchronized(getMappingRegistry()) {
 			Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>> implementations = LOCATION_IMPLEMENTATIONS
 					.get(baseClass);
 			if (implementations != null) {
 				implementations.remove(locationInterface);
 			}
-			for (IBase base : getBaseRegistry().getBases()) {
+			for (IBase base : getMappingRegistry().getBases()) {
 				if (baseClass.isAssignableFrom(base.getClass())) {
 					base.getFactory().removeDescriptor(locationInterface);
 				}

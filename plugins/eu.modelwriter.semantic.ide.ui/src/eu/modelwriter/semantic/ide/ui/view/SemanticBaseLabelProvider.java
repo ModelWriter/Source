@@ -9,10 +9,12 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
+package eu.modelwriter.semantic.ide.ui.view;
 
+import eu.modelwriter.semantic.IBase;
+
+import org.eclipse.jface.viewers.BaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -20,7 +22,7 @@ import org.eclipse.swt.graphics.Image;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class BaseLabelProvider extends org.eclipse.jface.viewers.BaseLabelProvider implements ILabelProvider {
+public class SemanticBaseLabelProvider extends BaseLabelProvider implements ILabelProvider {
 
 	/**
 	 * {@inheritDoc}

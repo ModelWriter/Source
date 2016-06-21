@@ -61,32 +61,60 @@
     <module>releng/eu.modelwriter.targetplatforms/helios</module>
 -->
     <module>features/org.eclipse.mylyn.docs.intent.mapping.feature</module>
+
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping</module>
-    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide</module>
-    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide.ui</module>
-    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf</module>
-    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.tests</module>
-    <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.tests</module>
+
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.ide.tests</module>
+
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide.ui</module>
+    <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.ide.ui.tests</module> -->
+
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf</module>
+    <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.tests</module>
+
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests</module>
 
+
     <module>features/eu.modelwriter.semantic.feature</module>
+
     <module>plugins/eu.modelwriter.semantic</module>
-    <module>plugins/dk.brics.automaton</module>
     <module>tests/eu.modelwriter.semantic.tests</module>
 
+    <module>plugins/eu.modelwriter.semantic.ide</module>
+    <!-- TODO <module>tests/eu.modelwriter.semantic.ide.tests</module> -->
+
+    <module>plugins/eu.modelwriter.semantic.ide.ui</module>
+    <!-- TODO <module>tests/eu.modelwriter.semantic.ide.ui.tests</module> -->
+
+    <module>plugins/dk.brics.automaton</module>
+    <!-- <module>plugins/dk.brics.automaton.tests</module> -->
+
+
     <module>features/eu.modelwriter.semantic.stanford-corenlp.feature</module>
+
     <module>plugins/eu.modelwriter.semantic.stanford-corenlp</module>
     <module>tests/eu.modelwriter.semantic.stanford-corenlp.tests</module>
 
+
     <module>features/eu.modelwriter.semantic.emf.feature</module>
+
     <module>plugins/eu.modelwriter.semantic.emf</module>
     <module>tests/eu.modelwriter.semantic.emf.tests</module>
 
+    <!-- <module>plugins/eu.modelwriter.semantic.emf.ide</module> -->
+    <!-- <module>tests/eu.modelwriter.semantic.emf.ide.tests</module> -->
+
+
     <module>features/eu.modelwriter.semantic.jena.feature</module>
+
     <module>plugins/eu.modelwriter.semantic.jena</module>
     <module>tests/eu.modelwriter.semantic.jena.tests</module>
+
+    <module>plugins/eu.modelwriter.semantic.jena.ide</module>
+    <module>tests/eu.modelwriter.semantic.jena.ide.tests</module>
 
     <module>features/eu.modelwriter.marker.feature</module>
     <module>plugins/eu.modelwriter.marker</module>

@@ -28,12 +28,12 @@ public abstract class AbstractTextFileLocationTests extends AbstractResourceLoca
 	@Override
 	public void before() {
 		super.before();
-		MappingUtils.getBaseRegistry().register(base);
+		MappingUtils.getMappingRegistry().register(base);
 	}
 
 	@After
 	public void after() {
-		MappingUtils.getBaseRegistry().unregister(base);
+		MappingUtils.getMappingRegistry().unregister(base);
 	}
 
 	protected ITextFileLocation createLocation() throws InstantiationException, IllegalAccessException,
