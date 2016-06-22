@@ -96,7 +96,9 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 		final String bundleName = extension.getContributor().getName();
 		final Bundle bundle = Platform.getBundle(bundleName);
 		try {
-			bundle.start();
+			if (bundle.getState() != Bundle.STARTING && bundle.getState() != Bundle.ACTIVE) {
+				bundle.start();
+			}
 		} catch (BundleException e) {
 			Activator.getDefault().getLog().log(
 					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
