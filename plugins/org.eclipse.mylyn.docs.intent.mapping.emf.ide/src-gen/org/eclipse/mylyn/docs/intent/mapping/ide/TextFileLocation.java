@@ -12,7 +12,7 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.ide;
 
-import org.eclipse.intent.mapping.ide.resource.ITextFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Text File Location</b></em>'. <!--

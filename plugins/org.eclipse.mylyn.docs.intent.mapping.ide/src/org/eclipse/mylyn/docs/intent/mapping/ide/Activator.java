@@ -9,12 +9,12 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide;
+package org.eclipse.mylyn.docs.intent.mapping.ide;
 
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.intent.mapping.ide.connector.TextFileConnectorDelegate;
+import org.eclipse.mylyn.docs.intent.mapping.ide.connector.TextFileConnectorDelegate;
 import org.osgi.framework.BundleContext;
 
 /**

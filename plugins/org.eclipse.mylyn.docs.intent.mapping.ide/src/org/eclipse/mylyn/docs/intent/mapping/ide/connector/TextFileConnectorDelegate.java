@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide.connector;
+package org.eclipse.mylyn.docs.intent.mapping.ide.connector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,9 +23,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
-import org.eclipse.intent.mapping.ide.Activator;
-import org.eclipse.intent.mapping.ide.resource.IFileLocation;
-import org.eclipse.intent.mapping.ide.resource.ITextFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;
 
 /**
@@ -43,7 +43,7 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate#getContentType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getContentType()
 	 */
 	public IContentType getContentType() {
 		final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
@@ -54,7 +54,7 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate#getFileLocationType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getFileLocationType()
 	 */
 	public Class<? extends IFileLocation> getFileLocationType() {
 		return ITextFileLocation.class;
@@ -63,7 +63,7 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate#initLocation(org.eclipse.intent.mapping.ide.resource.IFileLocation,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#initLocation(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation,
 	 *      org.eclipse.core.resources.IFile)
 	 */
 	public void initLocation(IFileLocation location, IFile element) {

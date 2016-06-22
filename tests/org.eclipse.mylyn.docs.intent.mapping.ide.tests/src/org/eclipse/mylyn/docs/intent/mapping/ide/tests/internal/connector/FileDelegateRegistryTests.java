@@ -15,9 +15,9 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
-import org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate;
-import org.eclipse.intent.mapping.ide.internal.connector.FileDelegateRegistry;
-import org.eclipse.intent.mapping.ide.resource.IFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
+import org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector.FileDelegateRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.junit.Before;
 import org.junit.Test;
 

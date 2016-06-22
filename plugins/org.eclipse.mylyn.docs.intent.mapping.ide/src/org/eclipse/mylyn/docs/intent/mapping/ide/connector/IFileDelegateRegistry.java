@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide.connector;
+package org.eclipse.mylyn.docs.intent.mapping.ide.connector;
 
 import java.util.List;
 

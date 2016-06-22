@@ -9,10 +9,10 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide;
+package org.eclipse.mylyn.docs.intent.mapping.ide;
 
-import org.eclipse.intent.mapping.ide.connector.IFileDelegateRegistry;
-import org.eclipse.intent.mapping.ide.internal.connector.FileDelegateRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector.FileDelegateRegistry;
 
 /**
  * Ide mapping utilities.

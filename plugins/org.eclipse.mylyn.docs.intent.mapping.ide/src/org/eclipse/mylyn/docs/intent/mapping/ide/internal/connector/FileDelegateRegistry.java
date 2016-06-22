@@ -9,14 +9,14 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide.internal.connector;
+package org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate;
-import org.eclipse.intent.mapping.ide.connector.IFileDelegateRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
+import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry;
 
 /**
  * The default implementation of {@link IFileDelegateRegistry}.
@@ -35,7 +35,7 @@ public class FileDelegateRegistry implements IFileDelegateRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.intent.mapping.ide.connector.IFileDelegateRegistry#register(org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry#register(org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate)
 	 */
 	public void register(IFileConnectorDelegate delegate) {
 		if (delegate != null) {
@@ -63,7 +63,7 @@ public class FileDelegateRegistry implements IFileDelegateRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.intent.mapping.ide.connector.IFileDelegateRegistry#unregister(org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry#unregister(org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate)
 	 */
 	public void unregister(IFileConnectorDelegate delegate) {
 		connectorDelegates.remove(delegate);
@@ -72,7 +72,7 @@ public class FileDelegateRegistry implements IFileDelegateRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.intent.mapping.ide.connector.IFileDelegateRegistry#getConnectorDelegates()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry#getConnectorDelegates()
 	 */
 	public List<IFileConnectorDelegate> getConnectorDelegates() {
 		synchronized(connectorDelegates) {

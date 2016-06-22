@@ -9,11 +9,11 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide.connector;
+package org.eclipse.mylyn.docs.intent.mapping.ide.connector;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.content.IContentType;
-import org.eclipse.intent.mapping.ide.resource.IFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 
 /**
  * {@link org.eclipse.core.resources.IFile IFile} connector delegate used by {@link ResourceConnector}.

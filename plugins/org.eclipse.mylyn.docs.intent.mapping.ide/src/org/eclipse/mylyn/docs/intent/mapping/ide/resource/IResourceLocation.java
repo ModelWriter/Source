@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide.resource;
+package org.eclipse.mylyn.docs.intent.mapping.ide.resource;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 

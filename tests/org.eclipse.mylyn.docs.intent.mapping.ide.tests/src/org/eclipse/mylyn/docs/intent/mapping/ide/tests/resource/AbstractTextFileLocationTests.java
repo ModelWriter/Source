@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.tests.resource;
 
-import org.eclipse.intent.mapping.ide.resource.ITextFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
 import org.junit.After;
 import org.junit.Test;
 

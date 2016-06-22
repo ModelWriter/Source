@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide.connector;
+package org.eclipse.mylyn.docs.intent.mapping.ide.connector;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,12 +21,12 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
-import org.eclipse.intent.mapping.ide.Activator;
-import org.eclipse.intent.mapping.ide.IdeMappingUtils;
-import org.eclipse.intent.mapping.ide.resource.IFileLocation;
-import org.eclipse.intent.mapping.ide.resource.IResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
+import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
+import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IResourceLocation;
 
 /**
  * An {@link IResource} {@link org.eclipse.mylyn.docs.intent.mapping.conector.IConnector IConnector}.

@@ -9,15 +9,14 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide.resource;
-
-import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
+package org.eclipse.mylyn.docs.intent.mapping.ide.resource;
 
 /**
- * Text {@link IFileLocation}.
- * 
+ * An {@link org.eclipse.core.resources.IFile IFile}
+ * {@link org.eclipse.mylyn.docs.intent.mapping.base.ILocation ILocation}.
+ *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface ITextFileLocation extends IFileLocation, ITextContainer {
+public interface IFileLocation extends IResourceLocation {
 
 }

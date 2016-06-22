@@ -19,11 +19,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate;
-import org.eclipse.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 
 /**
  * {@link IEObjectFileLocation} delegate.
@@ -35,7 +35,7 @@ public class EObjectFileConnectorDelegate implements IFileConnectorDelegate {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate#getContentType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getContentType()
 	 */
 	public IContentType getContentType() {
 		final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
@@ -46,7 +46,7 @@ public class EObjectFileConnectorDelegate implements IFileConnectorDelegate {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate#getFileLocationType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getFileLocationType()
 	 */
 	public Class<? extends IFileLocation> getFileLocationType() {
 		return IEObjectFileLocation.class;
@@ -55,7 +55,7 @@ public class EObjectFileConnectorDelegate implements IFileConnectorDelegate {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate#initLocation(org.eclipse.intent.mapping.ide.resource.IFileLocation,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#initLocation(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation,
 	 *      org.eclipse.core.resources.IFile)
 	 */
 	public void initLocation(IFileLocation location, IFile element) {

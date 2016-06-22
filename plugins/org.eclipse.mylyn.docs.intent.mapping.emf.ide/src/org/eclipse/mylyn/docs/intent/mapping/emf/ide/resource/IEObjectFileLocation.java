@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource;
 
-import org.eclipse.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 
 /**
  * {@link org.eclipse.emf.ecore.EObject EObject} {@link IFileLocation}.

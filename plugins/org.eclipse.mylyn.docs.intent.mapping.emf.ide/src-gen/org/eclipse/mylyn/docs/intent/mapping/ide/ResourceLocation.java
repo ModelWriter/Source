@@ -12,8 +12,8 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.ide;
 
-import org.eclipse.intent.mapping.ide.resource.IResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IResourceLocation;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Resource Location</b></em>'. <!--

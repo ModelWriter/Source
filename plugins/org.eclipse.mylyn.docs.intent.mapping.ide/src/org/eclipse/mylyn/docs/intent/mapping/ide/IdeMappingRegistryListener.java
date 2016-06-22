@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.intent.mapping.ide;
+package org.eclipse.mylyn.docs.intent.mapping.ide;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -20,11 +20,11 @@ import org.eclipse.core.runtime.IRegistryEventListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 
