@@ -50,5 +50,11 @@
    <extension
          point="org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider">
    </extension>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.connector">
+      <connector
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.IdeEObjectConnector">
+      </connector>
+   </extension>
 
 </plugin>

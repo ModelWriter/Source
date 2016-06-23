@@ -24,7 +24,9 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.base.BaseRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.internal.connector.ConnectorRegistry;
 
 /**
  * Mapping utility class.
@@ -115,6 +117,11 @@ public final class MappingUtils {
 	private static final BaseRegistry BASE_REGISTRY = initBaseRegistry();
 
 	/**
+	 * The {@link IConnectorRegistry}.
+	 */
+	private static final ConnectorRegistry CONNECTOR_REGISTRY = new ConnectorRegistry();
+
+	/**
 	 * {@link IBase} kind to {@link ILocation} interface/implementation mapping.
 	 */
 	private static final Map<Class<? extends IBase>, Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>>> LOCATION_IMPLEMENTATIONS = new HashMap<Class<? extends IBase>, Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>>>();
@@ -184,6 +191,15 @@ public final class MappingUtils {
 	 */
 	public static IBaseRegistry getMappingRegistry() {
 		return BASE_REGISTRY;
+	}
+
+	/**
+	 * Gets the {@link IConnectorRegistry}.
+	 * 
+	 * @return the {@link IConnectorRegistry}
+	 */
+	public static IConnectorRegistry getConnectorRegistry() {
+		return CONNECTOR_REGISTRY;
 	}
 
 	/**

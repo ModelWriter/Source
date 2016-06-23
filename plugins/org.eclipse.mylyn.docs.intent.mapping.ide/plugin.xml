@@ -4,5 +4,15 @@
    <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.fileConnectorDelegate" name="FileConnectorDelegate" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.fileConnectorDelegate.exsd"/>
    <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.location" name="Location" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.location.exsd"/>
    <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider" name="Base Provider" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider.exsd"/>
+   <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.connector" name="Mapping Connector" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.connector.exsd"/>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.connector">
+      <connector
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.connector.IdeTextConnector">
+      </connector>
+      <connector
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.connector.ResourceConnector">
+      </connector>
+   </extension>
 
 </plugin>

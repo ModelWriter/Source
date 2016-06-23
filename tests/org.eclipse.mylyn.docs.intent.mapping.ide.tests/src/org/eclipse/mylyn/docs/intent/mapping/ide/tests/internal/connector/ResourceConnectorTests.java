@@ -20,7 +20,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.ResourceConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
@@ -36,6 +38,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for {@link ResourceConnector} class.
@@ -267,6 +270,19 @@ public class ResourceConnectorTests {
 		connector.initLocation(location, fileC);
 
 		assertEquals("/TestProject/TestFolder/TestFile.ccc", location.getFullPath());
+	}
+
+	@Test
+	public void isRegistred() {
+		boolean found = false;
+		for (IConnector connect : MappingUtils.getConnectorRegistry().getConnectors()) {
+			if (connect instanceof ResourceConnector) {
+				found = true;
+				break;
+			}
+		}
+
+		assertTrue(found);
 	}
 
 }

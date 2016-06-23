@@ -24,6 +24,7 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -35,6 +36,11 @@ import org.osgi.framework.BundleException;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class IdeMappingRegistryListener implements IRegistryEventListener {
+
+	/**
+	 * The class constant.
+	 */
+	public static final String CLASS = "class";
 
 	/**
 	 * {@link ILocation} extension point to parse for extensions.
@@ -49,7 +55,7 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	/**
 	 * The {@link ILocation} extension point base attribute.
 	 */
-	public static final String BASE_ATTRIBUTE_CLASS = "class";
+	public static final String BASE_ATTRIBUTE_CLASS = CLASS;
 
 	/**
 	 * {@link ILocation} tag.
@@ -79,12 +85,27 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	/**
 	 * The {@link ILocation} extension point base attribute.
 	 */
-	public static final String FILE_CONNECTOR_DELEGATE_ATTRIBUTE_CLASS = "class";
+	public static final String FILE_CONNECTOR_DELEGATE_ATTRIBUTE_CLASS = CLASS;
 
 	/**
 	 * Plugin providing {@link IBase} extension point to parse for extensions.
 	 */
 	public static final String BASE_PROVIDER_EXTENSION_POINT = "org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider";
+
+	/**
+	 * Plugin providing {@link IConnector} extension point to parse for extensions.
+	 */
+	public static final String CONNECTOR_EXTENSION_POINT = "org.eclipse.mylyn.docs.intent.mapping.ide.connector";
+
+	/**
+	 * {@link IConnector} tag.
+	 */
+	public static final String CONNECTOR_TAG_EXTENSION = "connector";
+
+	/**
+	 * The {@link ILocation} extension point connector attribute.
+	 */
+	public static final String CONNECTOR_ATTRIBUTE_CLASS = CLASS;
 
 	/**
 	 * An {@link IFactoryDescriptor} for an extension point.
@@ -142,6 +163,8 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 				parseFileConnectorDelegateExtension(extension);
 			} else if (BASE_PROVIDER_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
 				parseBaseProviderExtension(extension);
+			} else if (CONNECTOR_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
+				parseConnectorProviderExtension(extension);
 			}
 		}
 	}
@@ -171,6 +194,9 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 		}
 		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT).getExtensions()) {
 			parseBaseProviderExtension(extension);
+		}
+		for (IExtension extension : registry.getExtensionPoint(CONNECTOR_EXTENSION_POINT).getExtensions()) {
+			parseConnectorProviderExtension(extension);
 		}
 	}
 
@@ -299,6 +325,28 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 		} catch (BundleException e) {
 			Activator.getDefault().getLog().log(
 					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		}
+	}
+
+	/**
+	 * Parses a single {@link IConnector} extension contribution.
+	 * 
+	 * @param extension
+	 *            Parses the given extension and adds its contribution to the registry.
+	 */
+	private void parseConnectorProviderExtension(IExtension extension) {
+		final IConfigurationElement[] configElements = extension.getConfigurationElements();
+		for (IConfigurationElement elem : configElements) {
+			if (CONNECTOR_TAG_EXTENSION.equals(elem.getName())) {
+				try {
+					final IConnector connector = (IConnector)elem
+							.createExecutableExtension(CONNECTOR_ATTRIBUTE_CLASS);
+					MappingUtils.getConnectorRegistry().register(connector);
+				} catch (CoreException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				}
+			}
 		}
 	}
 
