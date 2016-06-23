@@ -24,9 +24,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.mylyn.docs.intent.mapping.emf.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter;
+import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
 
 /**
  * {@link ITextAdapter} implementation.

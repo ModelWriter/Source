@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.emf.tests;
+package org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +18,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.tests.EObjectConnectorParametrizedTests.TestEObjectContainerLocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.tests.EObjectConnectorParametrizedTests.TestEObjectLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
+import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedTests.TestEObjectContainerLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedTests.TestEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.LocationFactoryTests.ITestLocation;
 import org.junit.Test;
 

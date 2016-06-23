@@ -15,4 +15,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.docs.intent.mapping
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.mylyn.docs.intent.mapping.emf.tests,
- org.eclipse.mylyn.docs.intent.mapping.emf.tests.base
+ org.eclipse.mylyn.docs.intent.mapping.emf.tests.base,
+ org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector

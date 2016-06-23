@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.emf;
+package org.eclipse.mylyn.docs.intent.mapping.emf.connector;
 
 import java.util.List;
 
@@ -21,6 +21,9 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils.DiffMatch;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
+import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
+import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter;
 import org.eclipse.mylyn.docs.intent.mapping.emf.internal.TextAdapter;
 
 /**
@@ -30,12 +33,7 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.internal.TextAdapter;
  */
 public class EObjectConnector extends AbstractConnector {
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
-	 *      java.lang.Object)
-	 */
+	@Override
 	public Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType, Object element) {
 		final Class<? extends ILocation> res;
 

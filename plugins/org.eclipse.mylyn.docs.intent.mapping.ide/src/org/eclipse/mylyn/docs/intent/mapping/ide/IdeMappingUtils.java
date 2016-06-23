@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector.FileDelegateRegistry;
 
@@ -40,6 +42,34 @@ public final class IdeMappingUtils {
 	 */
 	public static IFileDelegateRegistry getFileConectorDelegateRegistry() {
 		return REGISTRY;
+	}
+
+	/**
+	 * Adapts the given {@link Object element} into an {@link Object} of the given {@link Class}.
+	 * 
+	 * @param element
+	 *            the {@link Object element}
+	 * @param cls
+	 *            the {@link Class}
+	 * @return the {@link Object} of the given {@link Class} if any, <code>null</code> otherwise
+	 */
+	public static Object adapt(Object element, Class<?> cls) {
+		final Object res;
+
+		if (cls.isInstance(element)) {
+			res = element;
+		} else if (element instanceof IAdaptable) {
+			final Object adaptedElement = ((IAdaptable)element).getAdapter(cls);
+			if (adaptedElement != null) {
+				res = adaptedElement;
+			} else {
+				res = Platform.getAdapterManager().getAdapter(element, cls);
+			}
+		} else {
+			res = Platform.getAdapterManager().getAdapter(element, cls);
+		}
+
+		return res;
 	}
 
 }

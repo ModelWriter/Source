@@ -23,12 +23,7 @@ import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
  */
 public class TextConnector extends AbstractConnector {
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
-	 *      java.lang.Object)
-	 */
+	@Override
 	public Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType, Object element) {
 		final Class<? extends ILocation> res;
 

@@ -31,13 +31,15 @@ public abstract class AbstractConnector implements IConnector {
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final ILocation res;
 
-		final Class<? extends ILocation> locationType = getLocationType(getContainerType(container), element);
+		final Object adaptedElement = adapt(element);
+		final Class<? extends ILocation> locationType = getLocationType(getContainerType(container),
+				adaptedElement);
 		if (locationType != null) {
 			final ILocation location = base.getFactory().createElement(locationType);
 			if (location == null) {
 				throw new IllegalArgumentException("The base can't create " + locationType.getSimpleName());
 			} else {
-				initLocation(location, element);
+				initLocation(location, adaptedElement);
 				location.setContainer(container);
 				res = location;
 			}
@@ -65,6 +67,17 @@ public abstract class AbstractConnector implements IConnector {
 		}
 
 		return res;
+	}
+
+	/**
+	 * Adapts the given {@link Object element} in order to create a location.
+	 * 
+	 * @param element
+	 *            the {@link Object element}
+	 * @return the {@link Object adapted element}
+	 */
+	protected Object adapt(Object element) {
+		return element;
 	}
 
 	/**
