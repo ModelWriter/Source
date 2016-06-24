@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.content.IContentTypeManager;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
-import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;
 
 /**
  * {@link ITextFileLocation} delegate.
@@ -76,7 +75,7 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 				text.append(line);
 				line = reader.readLine();
 			}
-			final TextConnector connector = new TextConnector();
+			final IdeTextConnector connector = new IdeTextConnector();
 			connector.update((ITextFileLocation)location, text.toString());
 		} catch (UnsupportedEncodingException e) {
 			Activator.getDefault().getLog().log(
