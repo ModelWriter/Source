@@ -39,9 +39,19 @@ public class TextConnector extends AbstractConnector {
 	@Override
 	protected void initLocation(ILocation location, Object element) {
 		final ITextLocation toInit = (ITextLocation)location;
+		final TextRegion region = (TextRegion)element;
 
-		toInit.setStartOffset(((TextRegion)element).getStartOffset());
-		toInit.setEndOffset(((TextRegion)element).getEndOffset());
+		toInit.setStartOffset(region.getStartOffset());
+		toInit.setEndOffset(region.getEndOffset());
+	}
+
+	@Override
+	protected boolean match(ILocation location, Object element) {
+		final ITextLocation textLocation = (ITextLocation)location;
+		final TextRegion region = (TextRegion)element;
+
+		return textLocation.getStartOffset() == region.getStartOffset()
+				&& textLocation.getEndOffset() == region.getEndOffset();
 	}
 
 	/**

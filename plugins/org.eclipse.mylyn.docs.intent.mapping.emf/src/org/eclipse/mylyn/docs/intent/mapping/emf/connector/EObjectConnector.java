@@ -86,6 +86,25 @@ public class EObjectConnector extends AbstractConnector {
 		toInit.setEndOffset(textStartOffset + text.length());
 	}
 
+	@Override
+	protected boolean match(ILocation location, Object element) {
+		final boolean res;
+
+		final IEObjectLocation eObjectLocation = (IEObjectLocation)location;
+		if (element instanceof Setting) {
+			final Setting setting = (Setting)element;
+			res = eObjectLocation.isSetting()
+					&& eObjectLocation.getEStructuralFeature() == setting.getEStructuralFeature()
+					&& EcoreUtil.getURI(eObjectLocation.getEObject()).equals(
+							EcoreUtil.getURI(setting.getEObject()));
+		} else {
+			final EObject eObject = (EObject)element;
+			res = !eObjectLocation.isSetting()
+					&& EcoreUtil.getURI(eObjectLocation.getEObject()).equals(EcoreUtil.getURI(eObject));
+		}
+		return res;
+	}
+
 	/**
 	 * Updates the given {@link IEObjectContainer} with the given {@link IEObjectContainer#getEObjects()
 	 * EObject list}.

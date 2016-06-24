@@ -44,4 +44,16 @@ public interface IConnector {
 	ILocation createLocation(IBase base, ILocation container, Object element) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException;
 
+	/**
+	 * Gets the {@link ILocation} according to the given container and an element to locate.
+	 * 
+	 * @param container
+	 *            the type of the containing {@link ILocation} can be <code>null</code> if not contained
+	 * @param element
+	 *            the Element object to locate
+	 * @return the {@link ILocation} according to the given container and an element to locate if any is
+	 *         handled by this {@link IConnector} and found, <code>null</code> otherwise
+	 */
+	ILocation getLocation(ILocation container, Object element);
+
 }

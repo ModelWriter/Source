@@ -285,4 +285,42 @@ public class ResourceConnectorTests {
 		assertTrue(found);
 	}
 
+	@Test
+	public void getLocationIProject() {
+		final TestLocation container = new TestLocation();
+		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("TestProject");
+		TestResourceLocation location = new TestResourceLocation();
+		container.getContents().add(location);
+
+		connector.initLocation(location, project);
+
+		assertEquals(location, connector.getLocation(container, project));
+	}
+
+	@Test
+	public void getLocationIFolder() {
+		final TestLocation container = new TestLocation();
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
+				new Path("TestProject/TestFolder"));
+		TestResourceLocation location = new TestResourceLocation();
+		container.getContents().add(location);
+
+		connector.initLocation(location, folder);
+
+		assertEquals(location, connector.getLocation(container, folder));
+	}
+
+	@Test
+	public void getLocationIFileB() {
+		final TestLocation container = new TestLocation();
+		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(
+				new Path("TestProject/TestFolder/TestFile.bbb"));
+		TestResourceLocation location = new TestResourceLocation();
+		container.getContents().add(location);
+
+		connector.initLocation(location, fileB);
+
+		assertEquals(location, connector.getLocation(container, fileB));
+	}
+
 }

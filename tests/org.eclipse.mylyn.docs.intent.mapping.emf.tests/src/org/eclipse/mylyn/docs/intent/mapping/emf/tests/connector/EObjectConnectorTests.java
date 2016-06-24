@@ -53,7 +53,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void getLocation() {
+	public void getLocationType() {
 		final Class<? extends ILocation> type = getLocationType(TestEObjectContainerLocation.class,
 				EcorePackage.eINSTANCE);
 
@@ -259,6 +259,39 @@ public class EObjectConnectorTests extends EObjectConnector {
 
 		assertTrue(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name(), startOffset,
 				endOffset));
+	}
+
+	@Test
+	public void getLocationEObject() {
+		final IEObjectContainer container = new TestEObjectContainerLocation();
+		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
+		update(container, eObjects);
+		final IEObjectLocation location = new TestEObjectLocation();
+		location.setContainer(container);
+		container.getContents().add(location);
+
+		super.initLocation(location, EcorePackage.eINSTANCE.getEClass());
+
+		assertEquals(location, super.getLocation(container, EcorePackage.eINSTANCE.getEClass()));
+		assertEquals(null, super.getLocation(container, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
+				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name())));
+	}
+
+	@Test
+	public void getLocationSetting() {
+		final IEObjectContainer container = new TestEObjectContainerLocation();
+		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
+		update(container, eObjects);
+		final IEObjectLocation location = new TestEObjectLocation();
+		location.setContainer(container);
+		container.getContents().add(location);
+
+		super.initLocation(location, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
+				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name()));
+
+		assertEquals(null, super.getLocation(container, EcorePackage.eINSTANCE.getEClass()));
+		assertEquals(location, super.getLocation(container, ((InternalEObject)EcorePackage.eINSTANCE
+				.getEClass()).eSetting(EcorePackage.eINSTANCE.getENamedElement_Name())));
 	}
 
 }

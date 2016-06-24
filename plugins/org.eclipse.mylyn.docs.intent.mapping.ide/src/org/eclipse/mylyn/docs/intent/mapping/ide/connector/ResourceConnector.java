@@ -121,4 +121,13 @@ public class ResourceConnector extends AbstractConnector {
 			}
 		}
 	}
+
+	@Override
+	protected boolean match(ILocation location, Object element) {
+		final IResourceLocation resourceLocation = (IResourceLocation)location;
+		final IResource resource = (IResource)element;
+
+		return resourceLocation.getFullPath().equals(resource.getFullPath().toString());
+	}
+
 }

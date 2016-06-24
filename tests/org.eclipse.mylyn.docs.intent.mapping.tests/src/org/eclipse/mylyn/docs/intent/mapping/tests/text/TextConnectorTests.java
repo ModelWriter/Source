@@ -46,7 +46,7 @@ public class TextConnectorTests extends TextConnector {
 	}
 
 	@Test
-	public void getLocation() {
+	public void getLocationType() {
 		final Class<? extends ILocation> type = getLocationType(TestTextContainerLocation.class,
 				new TextRegion(0, 0));
 
@@ -64,6 +64,19 @@ public class TextConnectorTests extends TextConnector {
 
 		assertEquals(2, location.getStartOffset());
 		assertEquals(4, location.getEndOffset());
+	}
+
+	@Test
+	public void getLocation() {
+		final ITextContainer container = new TestTextContainerLocation();
+		container.setText("abcdefgh");
+		final ITextLocation location = new TestTextLocation();
+		location.setContainer(container);
+		container.getContents().add(location);
+
+		super.initLocation(location, new TextRegion(2, 4));
+
+		assertEquals(location, super.getLocation(container, new TextRegion(2, 4)));
 	}
 
 }

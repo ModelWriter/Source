@@ -85,6 +85,11 @@ public class ConnectorRegistryTests {
 			((ITestLocation1)location).setObject(element);
 		}
 
+		@Override
+		protected boolean match(ILocation location, Object element) {
+			return ((ITestLocation1)location).getObject() == element;
+		}
+
 	}
 
 	/**
@@ -146,6 +151,11 @@ public class ConnectorRegistryTests {
 		@Override
 		protected void initLocation(ILocation location, Object element) {
 			((ITestLocation2)location).setObject(element);
+		}
+
+		@Override
+		protected boolean match(ILocation location, Object element) {
+			return ((ITestLocation2)location).getObject() == element;
 		}
 
 	}
@@ -306,6 +316,67 @@ public class ConnectorRegistryTests {
 
 		assertTrue(location instanceof ITestLocation2);
 		assertEquals(element, ((ITestLocation2)location).getObject());
+	}
+
+	@Test
+	public void getLocationNoConnectors() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final ILocation container = new TestLocation1();
+		final Object element = new Object();
+
+		final ILocation location = connectorRegistery.getLocation(container, element);
+
+		assertEquals(null, location);
+	}
+
+	@Test
+	public void getLocationFirstConnector() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final IBase base = new ConnectorRegistryTestBase();
+		final ILocation container = new TestLocation1();
+		final TestConnector1 connector1 = new TestConnector1();
+		final TestConnector2 connector2 = new TestConnector2();
+		final Object element = new Object();
+
+		base.getFactory().addDescriptor(ITestLocation1.class,
+				new FactoryDescriptor<TestLocation1>(TestLocation1.class));
+		base.getFactory().addDescriptor(ITestLocation2.class,
+				new FactoryDescriptor<TestLocation2>(TestLocation2.class));
+
+		connectorRegistery.register(connector1);
+		connectorRegistery.register(connector2);
+
+		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation found = connectorRegistery.getLocation(container, element);
+
+		assertTrue(location instanceof ITestLocation1);
+		assertEquals(element, ((ITestLocation1)location).getObject());
+		assertEquals(location, found);
+	}
+
+	@Test
+	public void getLocationSecondConnector() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final IBase base = new ConnectorRegistryTestBase();
+		final ILocation container = new TestLocation2();
+		final TestConnector1 connector1 = new TestConnector1();
+		final TestConnector2 connector2 = new TestConnector2();
+		final Object element = new Object();
+
+		base.getFactory().addDescriptor(ITestLocation1.class,
+				new FactoryDescriptor<TestLocation1>(TestLocation1.class));
+		base.getFactory().addDescriptor(ITestLocation2.class,
+				new FactoryDescriptor<TestLocation2>(TestLocation2.class));
+
+		connectorRegistery.register(connector1);
+		connectorRegistery.register(connector2);
+
+		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation found = connectorRegistery.getLocation(container, element);
+
+		assertTrue(location instanceof ITestLocation2);
+		assertEquals(element, ((ITestLocation2)location).getObject());
+		assertEquals(location, found);
 	}
 
 }

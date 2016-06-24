@@ -12,6 +12,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.tests.base;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
@@ -49,6 +50,11 @@ public class LocationFactoryTests {
 	 */
 	public static class TestLocation implements ITestLocation {
 
+		/**
+		 * The contents.
+		 */
+		private final List<ILocation> contents = new ArrayList<ILocation>();
+
 		public String getName() {
 			// nothing to do here
 			return null;
@@ -82,7 +88,7 @@ public class LocationFactoryTests {
 		}
 
 		public void setContainer(ILocationContainer container) {
-			// nothing to do here
+			container.getContents().add(this);
 		}
 
 		public ILocationContainer getContainer() {
@@ -91,13 +97,7 @@ public class LocationFactoryTests {
 		}
 
 		public List<ILocation> getContents() {
-			// nothing to do here
-			return null;
-		}
-
-		public ILocation getContentLocation(String name) {
-			// nothing to do here
-			return null;
+			return contents;
 		}
 
 		public List<IScope> getReferencingScopes() {

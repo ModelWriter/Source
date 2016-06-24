@@ -40,16 +40,31 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 */
 	public ILocation createLocation(IBase base, ILocation container, Object element)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		ILocation res = null;
-
 		for (IConnector connector : getConnectors()) {
-			res = connector.createLocation(base, container, element);
-			if (res != null) {
-				return res;
+			final ILocation location = connector.createLocation(base, container, element);
+			if (location != null) {
+				return location;
 			}
 		}
 
-		return res;
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
+	 *      java.lang.Object)
+	 */
+	public ILocation getLocation(ILocation container, Object element) {
+		for (IConnector connector : getConnectors()) {
+			final ILocation location = connector.getLocation(container, element);
+			if (location != null) {
+				return location;
+			}
+		}
+
+		return null;
 	}
 
 	/**
