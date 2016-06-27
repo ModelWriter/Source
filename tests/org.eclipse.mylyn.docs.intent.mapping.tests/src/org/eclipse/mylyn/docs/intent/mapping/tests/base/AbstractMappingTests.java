@@ -105,19 +105,19 @@ public abstract class AbstractMappingTests {
 		 */
 		private int descriptionChanged;
 
-		public void descriptionChanged(String description) {
+		public void descriptionChanged(String oldDescription, String newDescription) {
 			descriptionChanged++;
 		}
 
-		public void statusChanged(LinkStatus status) {
+		public void statusChanged(LinkStatus oldStatus, LinkStatus newStatus) {
 			statusChanged++;
 		}
 
-		public void sourceChanged(ILocation source) {
+		public void sourceChanged(ILocation oldSource, ILocation newSource) {
 			sourceChanged++;
 		}
 
-		public void targetChanged(ILocation target) {
+		public void targetChanged(ILocation oldTarget, ILocation newTarget) {
 			targetChanged++;
 		}
 	}

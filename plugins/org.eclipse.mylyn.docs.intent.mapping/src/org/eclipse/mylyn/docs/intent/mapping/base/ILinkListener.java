@@ -30,36 +30,40 @@ public interface ILinkListener {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#descriptionChanged(java.lang.String)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#descriptionChanged(java.lang.String,
+		 *      java.lang.String)
 		 */
-		public void descriptionChanged(String description) {
+		public void descriptionChanged(String oldDescription, String newDescription) {
 			// nothing to do here
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#statusChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#statusChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus,
+		 *      org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus)
 		 */
-		public void statusChanged(LinkStatus status) {
+		public void statusChanged(LinkStatus oldStatus, LinkStatus newStatus) {
 			// nothing to do here
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#sourceChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#sourceChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
+		 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 		 */
-		public void sourceChanged(ILocation source) {
+		public void sourceChanged(ILocation oldSource, ILocation newSource) {
 			// nothing to do here
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#targetChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#targetChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
+		 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 		 */
-		public void targetChanged(ILocation target) {
+		public void targetChanged(ILocation oldTarget, ILocation newTarget) {
 			// nothing to do here
 		}
 
@@ -68,33 +72,41 @@ public interface ILinkListener {
 	/**
 	 * Notifies when the {@link ILink#getDescription() description} is changed.
 	 * 
-	 * @param description
+	 * @param oldDescription
+	 *            the old {@link ILink#getDescription() description}
+	 * @param newDescription
 	 *            the new {@link ILink#getDescription() description}
 	 */
-	void descriptionChanged(String description);
+	void descriptionChanged(String oldDescription, String newDescription);
 
 	/**
 	 * Notifies when the {@link ILink#getStatus() status} is changed.
 	 * 
-	 * @param status
+	 * @param oldStatus
+	 *            the old {@link ILink#getStatus() status}
+	 * @param newStatus
 	 *            the new {@link ILink#getStatus() status}
 	 */
-	void statusChanged(LinkStatus status);
+	void statusChanged(LinkStatus oldStatus, LinkStatus newStatus);
 
 	/**
 	 * Notifies when the {@link ILink#getSource() source} is changed.
 	 * 
-	 * @param source
+	 * @param oldSource
+	 *            the old {@link ILink#getSource() source}
+	 * @param newSource
 	 *            the new {@link ILink#getSource() source}
 	 */
-	void sourceChanged(ILocation source);
+	void sourceChanged(ILocation oldSource, ILocation newSource);
 
 	/**
 	 * Notifies when the {@link ILink#getTarget() target} is changed.
 	 * 
-	 * @param target
+	 * @param oldTarget
+	 *            the old {@link ILink#getTarget() target}
+	 * @param newTarget
 	 *            the new {@link ILink#getTarget() target}
 	 */
-	void targetChanged(ILocation target);
+	void targetChanged(ILocation oldTarget, ILocation newTarget);
 
 }

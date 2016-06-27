@@ -583,7 +583,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				case MappingPackage.LINK__DESCRIPTION:
 					for (Adapter adapter : eAdapters()) {
 						if (adapter instanceof LinkAdapter) {
-							((LinkAdapter)adapter).listener.descriptionChanged((String)msg.getNewValue());
+							((LinkAdapter)adapter).listener.descriptionChanged((String)msg.getOldValue(),
+									(String)msg.getNewValue());
 						}
 					}
 					break;
@@ -591,21 +592,23 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 					for (Adapter adapter : eAdapters()) {
 						if (adapter instanceof LinkAdapter) {
 							((LinkAdapter)adapter).listener.statusChanged(getLinkStatus((Status)msg
-									.getNewValue()));
+									.getOldValue()), getLinkStatus((Status)msg.getNewValue()));
 						}
 					}
 					break;
 				case MappingPackage.LINK__SOURCE:
 					for (Adapter adapter : eAdapters()) {
 						if (adapter instanceof LinkAdapter) {
-							((LinkAdapter)adapter).listener.sourceChanged((Location)msg.getNewValue());
+							((LinkAdapter)adapter).listener.sourceChanged((Location)msg.getOldValue(),
+									(Location)msg.getNewValue());
 						}
 					}
 					break;
 				case MappingPackage.LINK__TARGET:
 					for (Adapter adapter : eAdapters()) {
 						if (adapter instanceof LinkAdapter) {
-							((LinkAdapter)adapter).listener.targetChanged((Location)msg.getNewValue());
+							((LinkAdapter)adapter).listener.targetChanged((Location)msg.getOldValue(),
+									(Location)msg.getNewValue());
 						}
 					}
 					break;
