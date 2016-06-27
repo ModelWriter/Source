@@ -27,10 +27,12 @@ public interface IBaseListener {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#nameChanged(java.lang.String)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#nameChanged(java.lang.String,
+		 *      java.lang.String)
 		 */
-		public void nameChanged(String name) {
+		public void nameChanged(String oldName, String newName) {
 			// nothing to do here
+
 		}
 
 		/**
@@ -56,10 +58,12 @@ public interface IBaseListener {
 	/**
 	 * Notifies when the {@link IBase#getName() name} has been changed.
 	 * 
-	 * @param name
+	 * @param oldName
+	 *            the old {@link IBase#getName() name}
+	 * @param newName
 	 *            the new {@link IBase#getName() name}
 	 */
-	void nameChanged(String name);
+	void nameChanged(String oldName, String newName);
 
 	/**
 	 * Notifies when the {@link IBase#getContents() contents} {@link ILocation} is added.

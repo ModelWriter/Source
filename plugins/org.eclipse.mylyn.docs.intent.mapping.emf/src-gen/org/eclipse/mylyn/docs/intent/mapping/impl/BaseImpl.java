@@ -319,7 +319,8 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 				case MappingPackage.BASE__NAME:
 					for (Adapter adapter : eAdapters()) {
 						if (adapter instanceof BaseAdapter) {
-							((BaseAdapter)adapter).listener.nameChanged((String)msg.getNewValue());
+							((BaseAdapter)adapter).listener.nameChanged((String)msg.getOldValue(),
+									(String)msg.getNewValue());
 						}
 					}
 					break;
@@ -402,8 +403,8 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 
 		res.addDescriptor(ILink.class, new FactoryDescriptor<LinkImpl>(LinkImpl.class));
 		res.addDescriptor(IScope.class, new FactoryDescriptor<ScopeImpl>(ScopeImpl.class));
-		res.addDescriptor(ITextLocation.class, new FactoryDescriptor<TextLocationImpl>(
-				TextLocationImpl.class));
+		res.addDescriptor(ITextLocation.class,
+				new FactoryDescriptor<TextLocationImpl>(TextLocationImpl.class));
 		res.addDescriptor(IEObjectLocation.class, new FactoryDescriptor<EObjectLocationImpl>(
 				EObjectLocationImpl.class));
 

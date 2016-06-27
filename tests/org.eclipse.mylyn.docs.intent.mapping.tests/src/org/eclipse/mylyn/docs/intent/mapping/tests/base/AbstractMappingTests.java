@@ -54,7 +54,7 @@ public abstract class AbstractMappingTests {
 		 */
 		private int rootLocationRemoved;
 
-		public void nameChanged(String name) {
+		public void nameChanged(String oldName, String newName) {
 			nameChanged++;
 		}
 
