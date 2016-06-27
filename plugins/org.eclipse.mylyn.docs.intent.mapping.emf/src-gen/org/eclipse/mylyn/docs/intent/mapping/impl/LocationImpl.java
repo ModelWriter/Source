@@ -807,7 +807,14 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							break;
 					}
 					break;
-
+				case MappingPackage.LOCATION__CONTAINER:
+					for (Adapter adapter : eAdapters()) {
+						if (adapter instanceof LocationAdapter) {
+							((LocationAdapter)adapter).listener.containerChanged((ILocationContainer)msg
+									.getOldValue(), (ILocationContainer)msg.getNewValue());
+						}
+					}
+					break;
 			}
 		}
 	}

@@ -17,6 +17,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
 import org.eclipse.mylyn.docs.intent.mapping.base.IScopeListener;
@@ -165,11 +166,6 @@ public abstract class AbstractMappingTests {
 		private int sourceLinkAdded;
 
 		/**
-		 * Number of time {@link TestLocationListener#nameChanged(String)} has been called.
-		 */
-		private int nameChanged;
-
-		/**
 		 * Number of time {@link TestLocationListener#referencingScopeRemoved(IScope)} has been called.
 		 */
 		private int referencingScopeRemoved;
@@ -179,9 +175,12 @@ public abstract class AbstractMappingTests {
 		 */
 		private int referencingScopeAdded;
 
-		public void nameChanged(String name) {
-			nameChanged++;
-		}
+		/**
+		 * Number of time
+		 * {@link TestLocationListener#containerChanged(ILocationContainer, ILocationContainer)} has been
+		 * called.
+		 */
+		private int containerChanged;
 
 		public void sourceLinkAdded(ILink link) {
 			sourceLinkAdded++;
@@ -217,6 +216,10 @@ public abstract class AbstractMappingTests {
 
 		public void referencingScopeRemoved(IScope scope) {
 			referencingScopeRemoved++;
+		}
+
+		public void containerChanged(ILocationContainer oldContainer, ILocationContainer newContainer) {
+			containerChanged++;
 		}
 
 	}
@@ -292,9 +295,8 @@ public abstract class AbstractMappingTests {
 	// CHECKSTYLE:OFF
 	protected void assertTestLocationListener(TestLocationListener listener, int contentLocationRemoved,
 			int contentLocationAdded, int scopeChanged, int targetLinkRemoved, int targetLinkAdded,
-			int sourceLinkRemoved, int sourceLinkAdded, int nameChanged, int referencingScopeRemoved,
-			int referencingScopeAdded) {
-		assertEquals(nameChanged, listener.nameChanged);
+			int sourceLinkRemoved, int sourceLinkAdded, int referencingScopeRemoved,
+			int referencingScopeAdded, int containerChanged) {
 		assertEquals(contentLocationRemoved, listener.contentLocationRemoved);
 		assertEquals(contentLocationAdded, listener.contentLocationAdded);
 		assertEquals(scopeChanged, listener.scopeChanged);
@@ -304,6 +306,7 @@ public abstract class AbstractMappingTests {
 		assertEquals(sourceLinkAdded, listener.sourceLinkAdded);
 		assertEquals(referencingScopeRemoved, listener.referencingScopeRemoved);
 		assertEquals(referencingScopeAdded, listener.referencingScopeAdded);
+		assertEquals(containerChanged, listener.containerChanged);
 	}
 
 	// CHECKSTYLE:ON

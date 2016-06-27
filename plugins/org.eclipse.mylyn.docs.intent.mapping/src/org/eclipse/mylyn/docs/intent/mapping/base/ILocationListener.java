@@ -106,6 +106,16 @@ public interface ILocationListener {
 			// nothing to do here
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#containerChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+		 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer)
+		 */
+		public void containerChanged(ILocationContainer oldContainer, ILocationContainer newContainer) {
+			// nothing to do here
+		}
+
 	}
 
 	/**
@@ -179,5 +189,15 @@ public interface ILocationListener {
 	 *            the removed {@link ILocation#getReferencingScopes() referencing} {@link IScope}
 	 */
 	void referencingScopeRemoved(IScope scope);
+
+	/**
+	 * Notifies when the {@link ILocation#getContainer() container} {@link IScope} has changed.
+	 * 
+	 * @param oldContainer
+	 *            the old {@link ILocationContainer}
+	 * @param newContainer
+	 *            the new {@link ILocationContainer}
+	 */
+	void containerChanged(ILocationContainer oldContainer, ILocationContainer newContainer);
 
 }
