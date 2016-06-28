@@ -13,6 +13,7 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 
 import org.eclipse.jface.viewers.BaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.swt.graphics.Image;
 
@@ -39,8 +40,7 @@ public class LocationLabelProvider extends BaseLabelProvider implements ILabelPr
 	 * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
 	 */
 	public String getText(Object element) {
-		// TODO Auto-generated method stub
-		return ((ILocation)element).toString();
+		return MappingUtils.getConnectorRegistry().getName((ILocation)element);
 	}
 
 }

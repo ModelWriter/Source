@@ -53,9 +53,18 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void getLocationType() {
+	public void getLocationTypeEObject() {
 		final Class<? extends ILocation> type = getLocationType(TestEObjectContainerLocation.class,
 				EcorePackage.eINSTANCE);
+
+		assertEquals(IEObjectLocation.class, type);
+	}
+
+	@Test
+	public void getLocationTypeESetting() {
+		final Class<? extends ILocation> type = getLocationType(TestEObjectContainerLocation.class,
+				((InternalEObject)EcorePackage.eINSTANCE.getEClass()).eSetting(EcorePackage.eINSTANCE
+						.getENamedElement_Name()));
 
 		assertEquals(IEObjectLocation.class, type);
 	}

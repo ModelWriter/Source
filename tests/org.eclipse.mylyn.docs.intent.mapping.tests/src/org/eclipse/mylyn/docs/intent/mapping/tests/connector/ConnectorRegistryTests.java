@@ -90,6 +90,10 @@ public class ConnectorRegistryTests {
 			return ((ITestLocation1)location).getObject() == element;
 		}
 
+		public String getName(ILocation location) {
+			return "TestLocation1 " + ((TestLocation1)location).getObject().toString();
+		}
+
 	}
 
 	/**
@@ -156,6 +160,10 @@ public class ConnectorRegistryTests {
 		@Override
 		protected boolean match(ILocation location, Object element) {
 			return ((ITestLocation2)location).getObject() == element;
+		}
+
+		public String getName(ILocation location) {
+			return "TestLocation2 " + ((TestLocation2)location).getObject().toString();
 		}
 
 	}

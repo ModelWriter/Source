@@ -70,6 +70,22 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public String getName(ILocation location) {
+		for (IConnector connector : getConnectors()) {
+			final String name = connector.getName(location);
+			if (name != null) {
+				return name;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#register(org.eclipse.mylyn.docs.intent.mapping.conector.IConnector)
 	 */
 	public void register(IConnector connector) {

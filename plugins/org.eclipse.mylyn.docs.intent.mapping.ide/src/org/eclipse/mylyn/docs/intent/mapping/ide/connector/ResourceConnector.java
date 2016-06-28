@@ -130,4 +130,21 @@ public class ResourceConnector extends AbstractConnector {
 		return resourceLocation.getFullPath().equals(resource.getFullPath().toString());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public String getName(ILocation location) {
+		final String res;
+
+		if (location instanceof IResourceLocation) {
+			res = ((IResourceLocation)location).getFullPath();
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
+
 }

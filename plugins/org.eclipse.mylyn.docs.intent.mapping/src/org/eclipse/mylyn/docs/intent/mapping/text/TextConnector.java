@@ -79,4 +79,22 @@ public class TextConnector extends AbstractConnector {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public String getName(ILocation location) {
+		final String res;
+
+		if (location instanceof ITextLocation) {
+			res = ((ITextContainer)location.getContainer()).getText().substring(
+					((ITextLocation)location).getStartOffset(), ((ITextLocation)location).getEndOffset());
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
+
 }

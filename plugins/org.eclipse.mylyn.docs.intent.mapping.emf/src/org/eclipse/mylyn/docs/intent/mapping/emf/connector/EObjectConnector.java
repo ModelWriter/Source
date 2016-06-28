@@ -234,4 +234,27 @@ public class EObjectConnector extends AbstractConnector {
 
 		return res;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public String getName(ILocation location) {
+		final String res;
+		if (location instanceof IEObjectLocation) {
+			final IEObjectLocation eObjLocation = (IEObjectLocation)location;
+
+			if (eObjLocation.isSetting()) {
+				res = eObjLocation.getEObject().toString() + " "
+						+ eObjLocation.getEStructuralFeature().getName();
+			} else {
+				res = eObjLocation.getEObject().toString();
+			}
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
 }

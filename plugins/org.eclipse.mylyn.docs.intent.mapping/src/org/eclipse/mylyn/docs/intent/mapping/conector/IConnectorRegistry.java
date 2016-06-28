@@ -55,9 +55,21 @@ public interface IConnectorRegistry {
 	 * @param element
 	 *            the Element object to locate
 	 * @return the {@link ILocation} according to the given container and an element to locate if any is
-	 *         handled by this {@link IConnector} and found, <code>null</code> otherwise
+	 *         handled by a {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector},
+	 *         <code>null</code> otherwise
 	 */
 	ILocation getLocation(ILocation container, Object element);
+
+	/**
+	 * Gets a human readable name for the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @return a human readable name for the given {@link ILocation} if any is handled by a
+	 *         {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector},
+	 *         <code>null</code> otherwise
+	 */
+	String getName(ILocation location);
 
 	/**
 	 * Registers the given {@link IConnector}.

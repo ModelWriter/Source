@@ -56,4 +56,13 @@ public interface IConnector {
 	 */
 	ILocation getLocation(ILocation container, Object element);
 
+	/**
+	 * Gets a human readable name for the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @return a human readable name for the given {@link ILocation} if any, <code>null</code> otherwise
+	 */
+	String getName(ILocation location);
+
 }
