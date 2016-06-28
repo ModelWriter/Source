@@ -26,7 +26,7 @@ public class IdeTextConnector extends TextConnector {
 	protected Object adapt(Object element) {
 		final Object res;
 
-		final Object adaptedElement = IdeMappingUtils.adapt(element, IResource.class);
+		final IResource adaptedElement = IdeMappingUtils.adapt(element, IResource.class);
 		if (adaptedElement != null) {
 			res = adaptedElement;
 		} else {

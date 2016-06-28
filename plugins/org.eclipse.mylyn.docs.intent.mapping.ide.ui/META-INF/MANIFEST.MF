@@ -8,3 +8,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.mylyn.docs.intent.mapping,
  org.eclipse.mylyn.docs.intent.mapping.ide
+Export-Package: org.eclipse.mylyn.docs.intent.mapping.ide.ui.adapter,
+ org.eclipse.mylyn.docs.intent.mapping.ide.ui.view
+Bundle-ActivationPolicy: lazy

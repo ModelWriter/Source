@@ -14,12 +14,15 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
@@ -32,6 +35,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.part.ViewPart;
@@ -58,6 +63,11 @@ public class MappingView extends ViewPart {
 	 * .
 	 */
 	private final SelectionProviderIntermediate selectionProvider = new SelectionProviderIntermediate();
+
+	/**
+	 * The {@link ISelectionListener} updating selection tree viewer input.
+	 */
+	private ISelectionListener selectionListener;
 
 	/**
 	 * Constructor.
@@ -147,6 +157,9 @@ public class MappingView extends ViewPart {
 
 		final FilteredTree referencingTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(),
 				false);
+		referencingTree.getViewer().setContentProvider(
+				new LinkedLocationContentProvider(LinkedLocationContentProvider.SOURCE));
+		referencingTree.getViewer().setLabelProvider(new LocationLabelProvider());
 		referencingTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
@@ -159,6 +172,9 @@ public class MappingView extends ViewPart {
 		});
 
 		final FilteredTree referencedTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(), false);
+		referencedTree.getViewer().setContentProvider(
+				new LinkedLocationContentProvider(LinkedLocationContentProvider.TARGET));
+		referencedTree.getViewer().setLabelProvider(new LocationLabelProvider());
 		referencedTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
@@ -169,6 +185,21 @@ public class MappingView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(referencedTree.getViewer());
 			}
 		});
+
+		selectionListener = new ISelectionListener() {
+
+			public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+				if (part != MappingView.this) {
+					final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
+					if (location != null && selectedBase != null
+							&& selectedBase.getName().equals(MappingUtils.getBase(location).getName())) {
+						referencingTree.getViewer().setInput(location);
+						referencedTree.getViewer().setInput(location);
+					}
+				}
+			}
+		};
+		getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(selectionListener);
 
 		sashForm.setWeights(new int[] {1, 1 });
 	}
@@ -304,6 +335,15 @@ public class MappingView extends ViewPart {
 	 */
 	public IBase getBase() {
 		return selectedBase;
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		if (selectionListener != null) {
+			getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(selectionListener);
+			selectionListener = null;
+		}
 	}
 
 }

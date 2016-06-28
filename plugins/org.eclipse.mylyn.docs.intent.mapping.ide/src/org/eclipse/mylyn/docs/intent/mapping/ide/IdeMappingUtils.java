@@ -52,21 +52,24 @@ public final class IdeMappingUtils {
 	 * @param cls
 	 *            the {@link Class}
 	 * @return the {@link Object} of the given {@link Class} if any, <code>null</code> otherwise
+	 * @param <T>
+	 *            the kind of result
 	 */
-	public static Object adapt(Object element, Class<?> cls) {
-		final Object res;
+	@SuppressWarnings("unchecked")
+	public static <T> T adapt(Object element, Class<T> cls) {
+		final T res;
 
 		if (cls.isInstance(element)) {
-			res = element;
+			res = (T)element;
 		} else if (element instanceof IAdaptable) {
-			final Object adaptedElement = ((IAdaptable)element).getAdapter(cls);
+			final T adaptedElement = (T)((IAdaptable)element).getAdapter(cls);
 			if (adaptedElement != null) {
 				res = adaptedElement;
 			} else {
-				res = Platform.getAdapterManager().getAdapter(element, cls);
+				res = (T)Platform.getAdapterManager().getAdapter(element, cls);
 			}
 		} else {
-			res = Platform.getAdapterManager().getAdapter(element, cls);
+			res = (T)Platform.getAdapterManager().getAdapter(element, cls);
 		}
 
 		return res;

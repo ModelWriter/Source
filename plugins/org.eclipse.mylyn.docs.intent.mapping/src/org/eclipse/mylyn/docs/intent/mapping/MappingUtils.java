@@ -24,6 +24,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.base.BaseRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.connector.ConnectorRegistry;
@@ -255,6 +256,31 @@ public final class MappingUtils {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Gets the {@link IBase} containing the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @return the {@link IBase} containing the given {@link ILocation} if nay, <code>null</code> otherwise
+	 */
+	public static IBase getBase(ILocation location) {
+		IBase res = null;
+
+		ILocationContainer conainer = location.getContainer();
+		while (conainer != null) {
+			if (conainer instanceof IBase) {
+				res = (IBase)conainer;
+				break;
+			} else if (conainer instanceof ILocation) {
+				conainer = ((ILocation)conainer).getContainer();
+			} else {
+				break;
+			}
+		}
+
+		return res;
 	}
 
 }
