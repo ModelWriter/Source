@@ -841,6 +841,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 			final Adapter adapter = it.next();
 			if (adapter instanceof LocationAdapter && ((LocationAdapter)adapter).listener == listener) {
 				it.remove();
+				break;
 			}
 		}
 	}

@@ -349,6 +349,7 @@ public class ScopeImpl extends MinimalEObjectImpl.Container implements Scope {
 			final Adapter adapter = it.next();
 			if (adapter instanceof ScopeAdapter && ((ScopeAdapter)adapter).listener == listener) {
 				it.remove();
+				break;
 			}
 		}
 	}

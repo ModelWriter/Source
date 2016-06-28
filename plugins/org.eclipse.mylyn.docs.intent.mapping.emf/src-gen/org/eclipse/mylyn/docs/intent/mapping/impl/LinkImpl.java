@@ -672,6 +672,7 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 			final Adapter adapter = it.next();
 			if (adapter instanceof LinkAdapter && ((LinkAdapter)adapter).listener == listener) {
 				it.remove();
+				break;
 			}
 		}
 	}

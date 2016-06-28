@@ -387,6 +387,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 			final Adapter adapter = it.next();
 			if (adapter instanceof BaseAdapter && ((BaseAdapter)adapter).listener == listener) {
 				it.remove();
+				break;
 			}
 		}
 	}
