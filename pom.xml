@@ -74,6 +74,9 @@
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.tests</module>
 
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.edit</module>
+    <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.edit.tests</module> -->
+
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests</module>
 
