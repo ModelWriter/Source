@@ -14,10 +14,12 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
@@ -54,6 +56,11 @@ public class MappingView extends ViewPart {
 	public static final String ID = "org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.MappingView"; //$NON-NLS-1$
 
 	/**
+	 * Default width.
+	 */
+	private static final int WIDTH = 300;
+
+	/**
 	 * The current selected {@link IBase}.
 	 */
 	private IBase selectedBase;
@@ -68,6 +75,11 @@ public class MappingView extends ViewPart {
 	 * The {@link ISelectionListener} updating selection tree viewer input.
 	 */
 	private ISelectionListener selectionListener;
+
+	/**
+	 * TODO remove test purpose only.
+	 */
+	private ISelectionListener selectionListener2;
 
 	/**
 	 * Constructor.
@@ -119,7 +131,7 @@ public class MappingView extends ViewPart {
 		Combo combo = mappingCombo.getCombo();
 		combo.setToolTipText("Select the mapping base to use.");
 		mappingCombo.setContentProvider(new MappingBaseRegistryContentProvider());
-		mappingCombo.setLabelProvider(new MappingBaseLabelProvider());
+		mappingCombo.setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
 		mappingCombo.setComparator(new ViewerComparator());
 		mappingCombo.setInput(MappingUtils.getMappingRegistry());
 		mappingCombo.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -158,8 +170,8 @@ public class MappingView extends ViewPart {
 		final FilteredTree referencingTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(),
 				false);
 		referencingTree.getViewer().setContentProvider(
-				new LinkedLocationContentProvider(LinkedLocationContentProvider.SOURCE));
-		referencingTree.getViewer().setLabelProvider(new LocationLabelProvider());
+				new LinkedLocationContentProvider(false, LinkedLocationContentProvider.SOURCE, false));
+		referencingTree.getViewer().setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
 		referencingTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
@@ -173,8 +185,8 @@ public class MappingView extends ViewPart {
 
 		final FilteredTree referencedTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(), false);
 		referencedTree.getViewer().setContentProvider(
-				new LinkedLocationContentProvider(LinkedLocationContentProvider.TARGET));
-		referencedTree.getViewer().setLabelProvider(new LocationLabelProvider());
+				new LinkedLocationContentProvider(false, LinkedLocationContentProvider.TARGET, false));
+		referencedTree.getViewer().setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
 		referencedTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
@@ -222,6 +234,26 @@ public class MappingView extends ViewPart {
 
 		final FilteredTree referencingTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(),
 				false);
+		referencingTree.getViewer().setContentProvider(
+				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.SOURCE, true));
+
+		referencingTree.getViewer().getTree().setHeaderVisible(true);
+		TreeViewerColumn referencingTreeSourceColumn = new TreeViewerColumn(referencingTree.getViewer(),
+				SWT.NONE);
+		referencingTreeSourceColumn.getColumn().setResizable(true);
+		referencingTreeSourceColumn.getColumn().setText("Source");
+		referencingTreeSourceColumn.getColumn().setWidth(WIDTH);
+		referencingTreeSourceColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
+				new MappingLabelProvider(MappingLabelProvider.SOURCE)));
+
+		TreeViewerColumn referencingTreeTargetColumn = new TreeViewerColumn(referencingTree.getViewer(),
+				SWT.NONE);
+		referencingTreeTargetColumn.getColumn().setResizable(true);
+		referencingTreeTargetColumn.getColumn().setText("Target");
+		referencingTreeTargetColumn.getColumn().setWidth(WIDTH);
+		referencingTreeTargetColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
+				new MappingLabelProvider(MappingLabelProvider.TARGET)));
+
 		referencingTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
@@ -234,6 +266,26 @@ public class MappingView extends ViewPart {
 		});
 
 		final FilteredTree referencedTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(), false);
+		referencedTree.getViewer().setContentProvider(
+				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.TARGET, true));
+
+		referencedTree.getViewer().getTree().setHeaderVisible(true);
+		TreeViewerColumn referencedTreeSourceColumn = new TreeViewerColumn(referencedTree.getViewer(),
+				SWT.NONE);
+		referencedTreeSourceColumn.getColumn().setResizable(true);
+		referencedTreeSourceColumn.getColumn().setText("Source");
+		referencedTreeSourceColumn.getColumn().setWidth(WIDTH);
+		referencedTreeSourceColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
+				new MappingLabelProvider(MappingLabelProvider.SOURCE)));
+
+		TreeViewerColumn referencedTreeTargetColumn = new TreeViewerColumn(referencedTree.getViewer(),
+				SWT.NONE);
+		referencedTreeTargetColumn.getColumn().setResizable(true);
+		referencedTreeTargetColumn.getColumn().setText("Target");
+		referencedTreeTargetColumn.getColumn().setWidth(WIDTH);
+		referencedTreeTargetColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
+				new MappingLabelProvider(MappingLabelProvider.TARGET)));
+
 		referencedTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
@@ -244,6 +296,22 @@ public class MappingView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(referencedTree.getViewer());
 			}
 		});
+
+		// TODO remove this test purpose only
+		selectionListener2 = new ISelectionListener() {
+
+			public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+				if (part != MappingView.this) {
+					final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
+					if (location != null && selectedBase != null
+							&& selectedBase.getName().equals(MappingUtils.getBase(location).getName())) {
+						referencingTree.getViewer().setInput(location);
+						referencedTree.getViewer().setInput(location);
+					}
+				}
+			}
+		};
+		getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(selectionListener2);
 
 		sashForm.setWeights(new int[] {1, 1 });
 	}
@@ -343,6 +411,10 @@ public class MappingView extends ViewPart {
 		if (selectionListener != null) {
 			getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(selectionListener);
 			selectionListener = null;
+		}
+		if (selectionListener2 != null) {
+			getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(selectionListener2);
+			selectionListener2 = null;
 		}
 	}
 
