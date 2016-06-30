@@ -53,7 +53,7 @@ public class LinkItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	public LinkItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
@@ -179,6 +179,7 @@ public class LinkItemProvider extends ItemProviderAdapter implements IEditingDom
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Link.class)) {
+			case MappingPackage.LINK__SOURCE:
 			case MappingPackage.LINK__TARGET:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false,
 						true));
