@@ -57,21 +57,6 @@ public interface ILocation extends IMappingElement, ILocationContainer, IBaseEle
 	List<ILink> getTargetLinks();
 
 	/**
-	 * Sets the {@link IScope} of the {@link ILocation}.
-	 * 
-	 * @param scope
-	 *            the {@link IScope} of the {@link ILocation}
-	 */
-	void setScope(IScope scope);
-
-	/**
-	 * Gets the {@link IScope} of the {@link ILocation}.
-	 * 
-	 * @return the {@link IScope} of the {@link ILocation} if any, <code>null</code> otherwise
-	 */
-	IScope getScope();
-
-	/**
 	 * Sets the containing {@link ILocation}.
 	 * 
 	 * @param container
@@ -85,15 +70,6 @@ public interface ILocation extends IMappingElement, ILocationContainer, IBaseEle
 	 * @return the containing {@link ILocationContainer} if any, <code>null</code> otherwise
 	 */
 	ILocationContainer getContainer();
-
-	/**
-	 * Gets the {@link List} of {@link IScope} {@link IScope#getLocations() referencing} this
-	 * {@link ILocation}.
-	 * 
-	 * @return the {@link List} of {@link IScope} {@link IScope#getLocations() referencing} this
-	 *         {@link ILocation}
-	 */
-	List<IScope> getReferencingScopes();
 
 	/**
 	 * Adds a {@link ILocationListener}.

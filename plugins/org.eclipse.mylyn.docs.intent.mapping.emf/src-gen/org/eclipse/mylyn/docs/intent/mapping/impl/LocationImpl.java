@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.preferences.IScope;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -34,13 +35,11 @@ import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
-import org.eclipse.mylyn.docs.intent.mapping.Scope;
 import org.eclipse.mylyn.docs.intent.mapping.Status;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
-import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Location</b></em>'. <!-- end-user-doc
@@ -71,16 +70,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected EList<ILocation> contents;
-
-	/**
-	 * The cached value of the '{@link #getScope() <em>Scope</em>}' containment reference. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
-	 * @see #getScope()
-	 * @generated
-	 * @ordered
-	 */
-	protected Scope scope;
 
 	/**
 	 * The cached value of the '{@link #getSourceLinks() <em>Source Links</em>}' reference list. <!--
@@ -149,56 +138,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	protected EClass eStaticClass() {
 		return MappingPackage.Literals.LOCATION;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Scope getScope() {
-		return scope;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public NotificationChain basicSetScope(Scope newScope, NotificationChain msgs) {
-		Scope oldScope = scope;
-		scope = newScope;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					MappingPackage.LOCATION__SCOPE, oldScope, newScope);
-			if (msgs == null)
-				msgs = notification;
-			else
-				msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setScope(Scope newScope) {
-		if (newScope != scope) {
-			NotificationChain msgs = null;
-			if (scope != null)
-				msgs = ((InternalEObject)scope).eInverseRemove(this, MappingPackage.SCOPE__HOLDER,
-						Scope.class, msgs);
-			if (newScope != null)
-				msgs = ((InternalEObject)newScope).eInverseAdd(this, MappingPackage.SCOPE__HOLDER,
-						Scope.class, msgs);
-			msgs = basicSetScope(newScope, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.LOCATION__SCOPE, newScope,
-					newScope));
 	}
 
 	/**
@@ -299,19 +238,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated NOT
-	 */
-	public EList<IScope> getReferencingScopes() {
-		if (referencingScopes == null) {
-			referencingScopes = new EObjectWithInverseResolvingEList.ManyInverse<IScope>(Scope.class, this,
-					MappingPackage.LOCATION__REFERENCING_SCOPES, MappingPackage.SCOPE__LOCATIONS);
-		}
-		return referencingScopes;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Serializable getType() {
@@ -343,11 +269,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 			case MappingPackage.LOCATION__CONTENTS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getContents()).basicAdd(otherEnd,
 						msgs);
-			case MappingPackage.LOCATION__SCOPE:
-				if (scope != null)
-					msgs = ((InternalEObject)scope).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-							- MappingPackage.LOCATION__SCOPE, null, msgs);
-				return basicSetScope((Scope)otherEnd, msgs);
 			case MappingPackage.LOCATION__SOURCE_LINKS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSourceLinks()).basicAdd(
 						otherEnd, msgs);
@@ -358,9 +279,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetContainer((LocationContainer)otherEnd, msgs);
-			case MappingPackage.LOCATION__REFERENCING_SCOPES:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getReferencingScopes()).basicAdd(
-						otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -375,16 +293,12 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		switch (featureID) {
 			case MappingPackage.LOCATION__CONTENTS:
 				return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
-			case MappingPackage.LOCATION__SCOPE:
-				return basicSetScope(null, msgs);
 			case MappingPackage.LOCATION__SOURCE_LINKS:
 				return ((InternalEList<?>)getSourceLinks()).basicRemove(otherEnd, msgs);
 			case MappingPackage.LOCATION__TARGET_LINKS:
 				return ((InternalEList<?>)getTargetLinks()).basicRemove(otherEnd, msgs);
 			case MappingPackage.LOCATION__CONTAINER:
 				return basicSetContainer(null, msgs);
-			case MappingPackage.LOCATION__REFERENCING_SCOPES:
-				return ((InternalEList<?>)getReferencingScopes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -414,16 +328,12 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		switch (featureID) {
 			case MappingPackage.LOCATION__CONTENTS:
 				return getContents();
-			case MappingPackage.LOCATION__SCOPE:
-				return getScope();
 			case MappingPackage.LOCATION__SOURCE_LINKS:
 				return getSourceLinks();
 			case MappingPackage.LOCATION__TARGET_LINKS:
 				return getTargetLinks();
 			case MappingPackage.LOCATION__CONTAINER:
 				return getContainer();
-			case MappingPackage.LOCATION__REFERENCING_SCOPES:
-				return getReferencingScopes();
 			case MappingPackage.LOCATION__TYPE:
 				return getType();
 		}
@@ -443,9 +353,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				getContents().clear();
 				getContents().addAll((Collection<? extends Location>)newValue);
 				return;
-			case MappingPackage.LOCATION__SCOPE:
-				setScope((Scope)newValue);
-				return;
 			case MappingPackage.LOCATION__SOURCE_LINKS:
 				getSourceLinks().clear();
 				getSourceLinks().addAll((Collection<? extends Link>)newValue);
@@ -456,10 +363,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				return;
 			case MappingPackage.LOCATION__CONTAINER:
 				setContainer((LocationContainer)newValue);
-				return;
-			case MappingPackage.LOCATION__REFERENCING_SCOPES:
-				getReferencingScopes().clear();
-				getReferencingScopes().addAll((Collection<? extends Scope>)newValue);
 				return;
 			case MappingPackage.LOCATION__TYPE:
 				setType((Serializable)newValue);
@@ -479,9 +382,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 			case MappingPackage.LOCATION__CONTENTS:
 				getContents().clear();
 				return;
-			case MappingPackage.LOCATION__SCOPE:
-				setScope((Scope)null);
-				return;
 			case MappingPackage.LOCATION__SOURCE_LINKS:
 				getSourceLinks().clear();
 				return;
@@ -490,9 +390,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				return;
 			case MappingPackage.LOCATION__CONTAINER:
 				setContainer((LocationContainer)null);
-				return;
-			case MappingPackage.LOCATION__REFERENCING_SCOPES:
-				getReferencingScopes().clear();
 				return;
 			case MappingPackage.LOCATION__TYPE:
 				setType(TYPE_EDEFAULT);
@@ -511,16 +408,12 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		switch (featureID) {
 			case MappingPackage.LOCATION__CONTENTS:
 				return contents != null && !contents.isEmpty();
-			case MappingPackage.LOCATION__SCOPE:
-				return scope != null;
 			case MappingPackage.LOCATION__SOURCE_LINKS:
 				return sourceLinks != null && !sourceLinks.isEmpty();
 			case MappingPackage.LOCATION__TARGET_LINKS:
 				return targetLinks != null && !targetLinks.isEmpty();
 			case MappingPackage.LOCATION__CONTAINER:
 				return getContainer() != null;
-			case MappingPackage.LOCATION__REFERENCING_SCOPES:
-				return referencingScopes != null && !referencingScopes.isEmpty();
 			case MappingPackage.LOCATION__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		}
@@ -611,17 +504,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	}
 
 	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#setScope(org.eclipse.mylyn.docs.intent.mapping.base.IScope)
-	 * @generated NOT
-	 */
-	public void setScope(IScope scope) {
-		assert scope instanceof Scope;
-		setScope((Scope)scope);
-	}
-
-	/**
 	 * {@link ILocation} adapter.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
@@ -647,13 +529,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		@Override
 		public void notifyChanged(Notification msg) {
 			switch (msg.getFeatureID(Location.class)) {
-				case MappingPackage.LOCATION__SCOPE:
-					for (Adapter adapter : eAdapters()) {
-						if (adapter instanceof LocationAdapter) {
-							((LocationAdapter)adapter).listener.scopeChanged((Scope)msg.getNewValue());
-						}
-					}
-					break;
 				case MappingPackage.LOCATION__SOURCE_LINKS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
@@ -762,45 +637,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 								if (adapter instanceof LocationAdapter) {
 									for (ILocation location : (List<ILocation>)msg.getOldValue()) {
 										((LocationAdapter)adapter).listener.contentLocationRemoved(location);
-									}
-								}
-							}
-							break;
-					}
-					break;
-
-				case MappingPackage.LOCATION__REFERENCING_SCOPES:
-					switch (msg.getEventType()) {
-						case Notification.ADD:
-							for (Adapter adapter : eAdapters()) {
-								if (adapter instanceof LocationAdapter) {
-									((LocationAdapter)adapter).listener.referencingScopeAdded((IScope)msg
-											.getNewValue());
-								}
-							}
-							break;
-						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters()) {
-								if (adapter instanceof LocationAdapter) {
-									for (IScope scope : (List<IScope>)msg.getNewValue()) {
-										((LocationAdapter)adapter).listener.referencingScopeAdded(scope);
-									}
-								}
-							}
-							break;
-						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters()) {
-								if (adapter instanceof LocationAdapter) {
-									((LocationAdapter)adapter).listener.referencingScopeRemoved((IScope)msg
-											.getOldValue());
-								}
-							}
-							break;
-						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters()) {
-								if (adapter instanceof LocationAdapter) {
-									for (IScope scope : (List<IScope>)msg.getOldValue()) {
-										((LocationAdapter)adapter).listener.referencingScopeRemoved(scope);
 									}
 								}
 							}

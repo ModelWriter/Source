@@ -25,7 +25,6 @@ import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.MappingFactory;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
-import org.eclipse.mylyn.docs.intent.mapping.Scope;
 import org.eclipse.mylyn.docs.intent.mapping.Status;
 import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
 
@@ -70,8 +69,6 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case MappingPackage.SCOPE:
-				return createScope();
 			case MappingPackage.LINK:
 				return createLink();
 			case MappingPackage.BASE:
@@ -120,16 +117,6 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName()
 						+ "' is not a valid classifier");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Scope createScope() {
-		ScopeImpl scope = new ScopeImpl();
-		return scope;
 	}
 
 	/**

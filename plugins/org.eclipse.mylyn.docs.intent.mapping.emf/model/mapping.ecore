@@ -2,23 +2,13 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="mapping" nsURI="http://www.modelwriter.eu/mapping" nsPrefix="mapping">
   <eClassifiers xsi:type="ecore:EClass" name="Location" abstract="true" eSuperTypes="#//IEMFBaseElement #//LocationContainer">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="scope" eType="#//Scope"
-        containment="true" eOpposite="#//Scope/holder"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceLinks" upperBound="-1"
         eType="#//Link" eOpposite="#//Link/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetLinks" upperBound="-1"
         eType="#//Link" containment="true" eOpposite="#//Link/source"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" eType="#//LocationContainer"
         eOpposite="#//LocationContainer/contents"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referencingScopes" upperBound="-1"
-        eType="#//Scope" eOpposite="#//Scope/locations"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//Type"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Scope" eSuperTypes="#//IEMFBaseElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="locations" lowerBound="1"
-        upperBound="-1" eType="#//Location" eOpposite="#//Location/referencingScopes"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="holder" lowerBound="1"
-        eType="#//Location" eOpposite="#//Location/scope"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="#//IEMFBaseElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"

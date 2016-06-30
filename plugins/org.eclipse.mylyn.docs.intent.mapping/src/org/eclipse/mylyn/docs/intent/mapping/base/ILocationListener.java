@@ -64,15 +64,6 @@ public interface ILocationListener {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#scopeChanged(org.eclipse.mylyn.docs.intent.mapping.base.IScope)
-		 */
-		public void scopeChanged(IScope scope) {
-			// nothing to do here
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
 		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#contentLocationAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 		 */
 		public void contentLocationAdded(ILocation location) {
@@ -85,24 +76,6 @@ public interface ILocationListener {
 		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#contentLocationRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 		 */
 		public void contentLocationRemoved(ILocation location) {
-			// nothing to do here
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#referencingScopeAdded(org.eclipse.mylyn.docs.intent.mapping.base.IScope)
-		 */
-		public void referencingScopeAdded(IScope scope) {
-			// nothing to do here
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#referencingScopeRemoved(org.eclipse.mylyn.docs.intent.mapping.base.IScope)
-		 */
-		public void referencingScopeRemoved(IScope scope) {
 			// nothing to do here
 		}
 
@@ -151,14 +124,6 @@ public interface ILocationListener {
 	void targetLinkRemoved(ILink link);
 
 	/**
-	 * Notifies when the {@link ILocation#getScope() scope} is changed.
-	 * 
-	 * @param scope
-	 *            the new {@link ILocation#getScope() scope}
-	 */
-	void scopeChanged(IScope scope);
-
-	/**
 	 * Notifies when the {@link ILocation#getContents() content} {@link ILocation} is added.
 	 * 
 	 * @param location
@@ -173,22 +138,6 @@ public interface ILocationListener {
 	 *            the removed {@link ILocation#getContents() content} {@link ILocation}
 	 */
 	void contentLocationRemoved(ILocation location);
-
-	/**
-	 * Notifies when the {@link ILocation#getReferencingScopes() referencing} {@link IScope} is added.
-	 * 
-	 * @param scope
-	 *            the added {@link ILocation#getReferencingScopes() referencing} {@link IScope}
-	 */
-	void referencingScopeAdded(IScope scope);
-
-	/**
-	 * Notifies when the {@link ILocation#getReferencingScopes() referencing} {@link IScope} is removed.
-	 * 
-	 * @param scope
-	 *            the removed {@link ILocation#getReferencingScopes() referencing} {@link IScope}
-	 */
-	void referencingScopeRemoved(IScope scope);
 
 	/**
 	 * Notifies when the {@link ILocation#getContainer() container} {@link IScope} has changed.

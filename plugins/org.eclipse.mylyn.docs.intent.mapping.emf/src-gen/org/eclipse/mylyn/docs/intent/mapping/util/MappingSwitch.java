@@ -22,7 +22,6 @@ import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
-import org.eclipse.mylyn.docs.intent.mapping.Scope;
 import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
 
 /**
@@ -82,15 +81,6 @@ public class MappingSwitch<T> extends Switch<T> {
 					result = caseIEMFBaseElement(location);
 				if (result == null)
 					result = caseLocationContainer(location);
-				if (result == null)
-					result = defaultCase(theEObject);
-				return result;
-			}
-			case MappingPackage.SCOPE: {
-				Scope scope = (Scope)theEObject;
-				T result = caseScope(scope);
-				if (result == null)
-					result = caseIEMFBaseElement(scope);
 				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -174,21 +164,6 @@ public class MappingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLocation(Location object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Scope</em>'. <!-- begin-user-doc
-	 * --> This implementation returns null; returning a non-null result will terminate the switch. <!--
-	 * end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Scope</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseScope(Scope object) {
 		return null;
 	}
 

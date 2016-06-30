@@ -21,7 +21,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
-import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;
@@ -78,15 +77,6 @@ public class LocationFactoryTests {
 			return null;
 		}
 
-		public void setScope(IScope scope) {
-			// nothing to do here
-		}
-
-		public IScope getScope() {
-			// nothing to do here
-			return null;
-		}
-
 		public void setContainer(ILocationContainer container) {
 			container.getContents().add(this);
 		}
@@ -98,11 +88,6 @@ public class LocationFactoryTests {
 
 		public List<ILocation> getContents() {
 			return contents;
-		}
-
-		public List<IScope> getReferencingScopes() {
-			// nothing to do here
-			return null;
 		}
 
 		public void addListener(ILocationListener listener) {

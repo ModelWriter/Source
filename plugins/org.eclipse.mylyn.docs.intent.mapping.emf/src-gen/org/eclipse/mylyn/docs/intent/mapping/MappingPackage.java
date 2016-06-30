@@ -72,7 +72,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getIEMFBaseElement()
 	 * @generated
 	 */
-	int IEMF_BASE_ELEMENT = 4;
+	int IEMF_BASE_ELEMENT = 3;
 
 	/**
 	 * The number of structural features of the '<em>IEMF Base Element</em>' class. <!-- begin-user-doc -->
@@ -112,22 +112,13 @@ public interface MappingPackage extends EPackage {
 	int LOCATION__CONTENTS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int LOCATION__SCOPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__SOURCE_LINKS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 2;
+	int LOCATION__SOURCE_LINKS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
@@ -136,7 +127,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__TARGET_LINKS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 3;
+	int LOCATION__TARGET_LINKS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
@@ -145,16 +136,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__CONTAINER = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Referencing Scopes</b></em>' reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int LOCATION__REFERENCING_SCOPES = IEMF_BASE_ELEMENT_FEATURE_COUNT + 5;
+	int LOCATION__CONTAINER = IEMF_BASE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -162,7 +144,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__TYPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 6;
+	int LOCATION__TYPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Location</em>' class. <!-- begin-user-doc --> <!--
@@ -171,7 +153,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 7;
+	int LOCATION_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Location</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
@@ -183,51 +165,6 @@ public interface MappingPackage extends EPackage {
 	int LOCATION_OPERATION_COUNT = IEMF_BASE_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.ScopeImpl <em>Scope</em>}
-	 * ' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.ScopeImpl
-	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getScope()
-	 * @generated
-	 */
-	int SCOPE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Locations</b></em>' reference list. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int SCOPE__LOCATIONS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Holder</b></em>' container reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int SCOPE__HOLDER = IEMF_BASE_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Scope</em>' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int SCOPE_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>Scope</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int SCOPE_OPERATION_COUNT = IEMF_BASE_ELEMENT_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl <em>Link</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -235,7 +172,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getLink()
 	 * @generated
 	 */
-	int LINK = 2;
+	int LINK = 1;
 
 	/**
 	 * The feature id for the '<em><b>Status</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -306,7 +243,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getBase()
 	 * @generated
 	 */
-	int BASE = 3;
+	int BASE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -350,7 +287,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getTextLocation()
 	 * @generated
 	 */
-	int TEXT_LOCATION = 5;
+	int TEXT_LOCATION = 4;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -360,15 +297,6 @@ public interface MappingPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_LOCATION__CONTENTS = LOCATION__CONTENTS;
-
-	/**
-	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_LOCATION__SCOPE = LOCATION__SCOPE;
 
 	/**
 	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
@@ -396,15 +324,6 @@ public interface MappingPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_LOCATION__CONTAINER = LOCATION__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Referencing Scopes</b></em>' reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_LOCATION__REFERENCING_SCOPES = LOCATION__REFERENCING_SCOPES;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -458,7 +377,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getEObjectLocation()
 	 * @generated
 	 */
-	int EOBJECT_LOCATION = 6;
+	int EOBJECT_LOCATION = 5;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -468,15 +387,6 @@ public interface MappingPackage extends EPackage {
 	 * @ordered
 	 */
 	int EOBJECT_LOCATION__CONTENTS = TEXT_LOCATION__CONTENTS;
-
-	/**
-	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EOBJECT_LOCATION__SCOPE = TEXT_LOCATION__SCOPE;
 
 	/**
 	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
@@ -504,15 +414,6 @@ public interface MappingPackage extends EPackage {
 	 * @ordered
 	 */
 	int EOBJECT_LOCATION__CONTAINER = TEXT_LOCATION__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Referencing Scopes</b></em>' reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EOBJECT_LOCATION__REFERENCING_SCOPES = TEXT_LOCATION__REFERENCING_SCOPES;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -575,7 +476,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getLocationContainer()
 	 * @generated
 	 */
-	int LOCATION_CONTAINER = 7;
+	int LOCATION_CONTAINER = 6;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -612,7 +513,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getStatus()
 	 * @generated
 	 */
-	int STATUS = 8;
+	int STATUS = 7;
 
 	/**
 	 * The meta object id for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -621,7 +522,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 9;
+	int TYPE = 8;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Location
@@ -632,18 +533,6 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getLocation();
-
-	/**
-	 * Returns the meta object for the containment reference '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Location#getScope <em>Scope</em>}'. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference '<em>Scope</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Location#getScope()
-	 * @see #getLocation()
-	 * @generated
-	 */
-	EReference getLocation_Scope();
 
 	/**
 	 * Returns the meta object for the reference list '
@@ -682,18 +571,6 @@ public interface MappingPackage extends EPackage {
 	EReference getLocation_Container();
 
 	/**
-	 * Returns the meta object for the reference list '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Location#getReferencingScopes <em>Referencing Scopes</em>}
-	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the reference list '<em>Referencing Scopes</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Location#getReferencingScopes()
-	 * @see #getLocation()
-	 * @generated
-	 */
-	EReference getLocation_ReferencingScopes();
-
-	/**
 	 * Returns the meta object for the attribute '
 	 * {@link org.eclipse.mylyn.docs.intent.mapping.Location#getType <em>Type</em>}'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -704,40 +581,6 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLocation_Type();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Scope <em>Scope</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for class '<em>Scope</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Scope
-	 * @generated
-	 */
-	EClass getScope();
-
-	/**
-	 * Returns the meta object for the reference list '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Scope#getLocations <em>Locations</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the reference list '<em>Locations</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Scope#getLocations()
-	 * @see #getScope()
-	 * @generated
-	 */
-	EReference getScope_Locations();
-
-	/**
-	 * Returns the meta object for the container reference '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Scope#getHolder <em>Holder</em>}'. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the container reference '<em>Holder</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Scope#getHolder()
-	 * @see #getScope()
-	 * @generated
-	 */
-	EReference getScope_Holder();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Link <em>Link</em>}'.
@@ -970,14 +813,6 @@ public interface MappingPackage extends EPackage {
 		EClass LOCATION = eINSTANCE.getLocation();
 
 		/**
-		 * The meta object literal for the '<em><b>Scope</b></em>' containment reference feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference LOCATION__SCOPE = eINSTANCE.getLocation_Scope();
-
-		/**
 		 * The meta object literal for the '<em><b>Source Links</b></em>' reference list feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
@@ -1002,46 +837,12 @@ public interface MappingPackage extends EPackage {
 		EReference LOCATION__CONTAINER = eINSTANCE.getLocation_Container();
 
 		/**
-		 * The meta object literal for the '<em><b>Referencing Scopes</b></em>' reference list feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference LOCATION__REFERENCING_SCOPES = eINSTANCE.getLocation_ReferencingScopes();
-
-		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature. <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute LOCATION__TYPE = eINSTANCE.getLocation_Type();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.ScopeImpl
-		 * <em>Scope</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.ScopeImpl
-		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getScope()
-		 * @generated
-		 */
-		EClass SCOPE = eINSTANCE.getScope();
-
-		/**
-		 * The meta object literal for the '<em><b>Locations</b></em>' reference list feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference SCOPE__LOCATIONS = eINSTANCE.getScope_Locations();
-
-		/**
-		 * The meta object literal for the '<em><b>Holder</b></em>' container reference feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference SCOPE__HOLDER = eINSTANCE.getScope_Holder();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl

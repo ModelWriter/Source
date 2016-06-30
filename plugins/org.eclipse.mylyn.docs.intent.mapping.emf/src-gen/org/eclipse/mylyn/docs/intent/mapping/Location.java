@@ -15,7 +15,6 @@ package org.eclipse.mylyn.docs.intent.mapping;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
-import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Location</b></em>'. <!-- end-user-doc
@@ -39,35 +38,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
  * @generated NOT
  */
 public interface Location extends IEMFBaseElement, LocationContainer, ILocation {
-	/**
-	 * Returns the value of the '<em><b>Scope</b></em>' containment reference. It is bidirectional and its
-	 * opposite is '{@link org.eclipse.mylyn.docs.intent.mapping.Scope#getHolder <em>Holder</em>}'. <!--
-	 * begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Scope</em>' containment reference isn't clear, there really should be more
-	 * of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Scope</em>' containment reference.
-	 * @see #setScope(Scope)
-	 * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getLocation_Scope()
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Scope#getHolder
-	 * @model opposite="holder" containment="true"
-	 * @generated
-	 */
-	Scope getScope();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.Location#getScope <em>Scope</em>}'
-	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Scope</em>' containment reference.
-	 * @see #getScope()
-	 * @generated
-	 */
-	void setScope(Scope value);
 
 	/**
 	 * Returns the value of the '<em><b>Source Links</b></em>' reference list. The list contents are of type
@@ -153,24 +123,5 @@ public interface Location extends IEMFBaseElement, LocationContainer, ILocation 
 	 * @generated
 	 */
 	void setContainer(LocationContainer value);
-
-	/**
-	 * Returns the value of the '<em><b>Referencing Scopes</b></em>' reference list. The list contents are of
-	 * type {@link org.eclipse.mylyn.docs.intent.mapping.Scope}. It is bidirectional and its opposite is '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Scope#getLocations <em>Locations</em>}'. <!--
-	 * begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Referencing Scopes</em>' reference list isn't clear, there really should be
-	 * more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Referencing Scopes</em>' reference list.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getLocation_ReferencingScopes()
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Scope#getLocations
-	 * @model opposite="locations"
-	 * @generated NOT
-	 */
-	EList<IScope> getReferencingScopes();
 
 } // Location

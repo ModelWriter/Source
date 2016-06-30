@@ -37,7 +37,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
-import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 
@@ -403,7 +402,6 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 		BaseElementFactory res = new BaseElementFactory();
 
 		res.addDescriptor(ILink.class, new FactoryDescriptor<LinkImpl>(LinkImpl.class));
-		res.addDescriptor(IScope.class, new FactoryDescriptor<ScopeImpl>(ScopeImpl.class));
 		res.addDescriptor(ITextLocation.class,
 				new FactoryDescriptor<TextLocationImpl>(TextLocationImpl.class));
 		res.addDescriptor(IEObjectLocation.class, new FactoryDescriptor<EObjectLocationImpl>(

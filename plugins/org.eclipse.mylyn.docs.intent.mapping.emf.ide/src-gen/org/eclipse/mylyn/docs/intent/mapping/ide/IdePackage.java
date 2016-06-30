@@ -83,15 +83,6 @@ public interface IdePackage extends EPackage {
 	int RESOURCE_LOCATION__CONTENTS = MappingPackage.LOCATION__CONTENTS;
 
 	/**
-	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int RESOURCE_LOCATION__SCOPE = MappingPackage.LOCATION__SCOPE;
-
-	/**
 	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
@@ -117,15 +108,6 @@ public interface IdePackage extends EPackage {
 	 * @ordered
 	 */
 	int RESOURCE_LOCATION__CONTAINER = MappingPackage.LOCATION__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Referencing Scopes</b></em>' reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int RESOURCE_LOCATION__REFERENCING_SCOPES = MappingPackage.LOCATION__REFERENCING_SCOPES;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -182,15 +164,6 @@ public interface IdePackage extends EPackage {
 	int FILE_LOCATION__CONTENTS = RESOURCE_LOCATION__CONTENTS;
 
 	/**
-	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_LOCATION__SCOPE = RESOURCE_LOCATION__SCOPE;
-
-	/**
 	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
@@ -216,15 +189,6 @@ public interface IdePackage extends EPackage {
 	 * @ordered
 	 */
 	int FILE_LOCATION__CONTAINER = RESOURCE_LOCATION__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Referencing Scopes</b></em>' reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_LOCATION__REFERENCING_SCOPES = RESOURCE_LOCATION__REFERENCING_SCOPES;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -281,15 +245,6 @@ public interface IdePackage extends EPackage {
 	int TEXT_FILE_LOCATION__CONTENTS = FILE_LOCATION__CONTENTS;
 
 	/**
-	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_FILE_LOCATION__SCOPE = FILE_LOCATION__SCOPE;
-
-	/**
 	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
@@ -315,15 +270,6 @@ public interface IdePackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_FILE_LOCATION__CONTAINER = FILE_LOCATION__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Referencing Scopes</b></em>' reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_FILE_LOCATION__REFERENCING_SCOPES = FILE_LOCATION__REFERENCING_SCOPES;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -389,15 +335,6 @@ public interface IdePackage extends EPackage {
 	int EOBJECT_FILE_LOCATION__CONTENTS = TEXT_FILE_LOCATION__CONTENTS;
 
 	/**
-	 * The feature id for the '<em><b>Scope</b></em>' containment reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EOBJECT_FILE_LOCATION__SCOPE = TEXT_FILE_LOCATION__SCOPE;
-
-	/**
 	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
@@ -423,15 +360,6 @@ public interface IdePackage extends EPackage {
 	 * @ordered
 	 */
 	int EOBJECT_FILE_LOCATION__CONTAINER = TEXT_FILE_LOCATION__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Referencing Scopes</b></em>' reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EOBJECT_FILE_LOCATION__REFERENCING_SCOPES = TEXT_FILE_LOCATION__REFERENCING_SCOPES;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->

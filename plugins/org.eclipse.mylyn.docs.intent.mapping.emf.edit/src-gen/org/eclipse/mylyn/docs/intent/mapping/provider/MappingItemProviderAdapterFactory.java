@@ -78,29 +78,6 @@ public class MappingItemProviderAdapterFactory extends MappingAdapterFactory imp
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.mylyn.docs.intent.mapping.Scope}
-	 * instances. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected ScopeItemProvider scopeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.mylyn.docs.intent.mapping.Scope}. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public Adapter createScopeAdapter() {
-		if (scopeItemProvider == null) {
-			scopeItemProvider = new ScopeItemProvider(this);
-		}
-
-		return scopeItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.mylyn.docs.intent.mapping.Link}
 	 * instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -291,8 +268,6 @@ public class MappingItemProviderAdapterFactory extends MappingAdapterFactory imp
 	 * @generated
 	 */
 	public void dispose() {
-		if (scopeItemProvider != null)
-			scopeItemProvider.dispose();
 		if (linkItemProvider != null)
 			linkItemProvider.dispose();
 		if (baseItemProvider != null)

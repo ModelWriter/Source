@@ -19,8 +19,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
-import org.eclipse.mylyn.docs.intent.mapping.base.IScope;
-import org.eclipse.mylyn.docs.intent.mapping.base.IScopeListener;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.junit.Before;
 
@@ -141,11 +139,6 @@ public abstract class AbstractMappingTests {
 		private int contentLocationAdded;
 
 		/**
-		 * Number of time {@link TestLocationListener#scopeChanged(IScope)} has been called.
-		 */
-		private int scopeChanged;
-
-		/**
 		 * Number of time {@link TestLocationListener#targetLinkRemoved(ILink)} has been called.
 		 */
 		private int targetLinkRemoved;
@@ -164,16 +157,6 @@ public abstract class AbstractMappingTests {
 		 * Number of time {@link TestLocationListener#sourceLinkAdded(ILink)} has been called.
 		 */
 		private int sourceLinkAdded;
-
-		/**
-		 * Number of time {@link TestLocationListener#referencingScopeRemoved(IScope)} has been called.
-		 */
-		private int referencingScopeRemoved;
-
-		/**
-		 * Number of time {@link TestLocationListener#referencingScopeAdded(IScope)} has been called.
-		 */
-		private int referencingScopeAdded;
 
 		/**
 		 * Number of time
@@ -198,10 +181,6 @@ public abstract class AbstractMappingTests {
 			targetLinkRemoved++;
 		}
 
-		public void scopeChanged(IScope scope) {
-			scopeChanged++;
-		}
-
 		public void contentLocationAdded(ILocation location) {
 			contentLocationAdded++;
 		}
@@ -210,52 +189,8 @@ public abstract class AbstractMappingTests {
 			contentLocationRemoved++;
 		}
 
-		public void referencingScopeAdded(IScope scope) {
-			referencingScopeAdded++;
-		}
-
-		public void referencingScopeRemoved(IScope scope) {
-			referencingScopeRemoved++;
-		}
-
 		public void containerChanged(ILocationContainer oldContainer, ILocationContainer newContainer) {
 			containerChanged++;
-		}
-
-	}
-
-	/**
-	 * Test {@link IScopeListener}.
-	 *
-	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
-	 */
-	protected final class TestScopeListener implements IScopeListener {
-
-		/**
-		 * Number of time {@link TestScopeListener#locationRemoved(ILocation)} has been called.
-		 */
-		private int contentLocationRemoved;
-
-		/**
-		 * Number of time {@link TestScopeListener#locationAdded(ILocation)} has been called.
-		 */
-		private int contentLocationAdded;
-
-		/**
-		 * Number of time {@link TestScopeListener#holderChanged(ILocation)} has been called.
-		 */
-		private int holderChanged;
-
-		public void holderChanged(ILocation location) {
-			holderChanged++;
-		}
-
-		public void locationAdded(ILocation location) {
-			contentLocationAdded++;
-		}
-
-		public void locationRemoved(ILocation location) {
-			contentLocationRemoved++;
 		}
 
 	}
@@ -294,28 +229,18 @@ public abstract class AbstractMappingTests {
 
 	// CHECKSTYLE:OFF
 	protected void assertTestLocationListener(TestLocationListener listener, int contentLocationRemoved,
-			int contentLocationAdded, int scopeChanged, int targetLinkRemoved, int targetLinkAdded,
-			int sourceLinkRemoved, int sourceLinkAdded, int referencingScopeRemoved,
-			int referencingScopeAdded, int containerChanged) {
+			int contentLocationAdded, int targetLinkRemoved, int targetLinkAdded, int sourceLinkRemoved,
+			int sourceLinkAdded, int containerChanged) {
 		assertEquals(contentLocationRemoved, listener.contentLocationRemoved);
 		assertEquals(contentLocationAdded, listener.contentLocationAdded);
-		assertEquals(scopeChanged, listener.scopeChanged);
 		assertEquals(targetLinkRemoved, listener.targetLinkRemoved);
 		assertEquals(targetLinkAdded, listener.targetLinkAdded);
 		assertEquals(sourceLinkRemoved, listener.sourceLinkRemoved);
 		assertEquals(sourceLinkAdded, listener.sourceLinkAdded);
-		assertEquals(referencingScopeRemoved, listener.referencingScopeRemoved);
-		assertEquals(referencingScopeAdded, listener.referencingScopeAdded);
 		assertEquals(containerChanged, listener.containerChanged);
 	}
 
 	// CHECKSTYLE:ON
-	protected void assertTestScopeListener(TestScopeListener listener, int holderChanged,
-			int contentLocationAdded, int contentLocationRemoved) {
-		assertEquals(holderChanged, listener.holderChanged);
-		assertEquals(contentLocationAdded, listener.contentLocationAdded);
-		assertEquals(contentLocationRemoved, listener.contentLocationRemoved);
-	}
 
 	protected IBase getBase() {
 		return base;
@@ -324,11 +249,6 @@ public abstract class AbstractMappingTests {
 	protected ILink createLink() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		return getBase().getFactory().createElement(ILink.class);
-	}
-
-	protected IScope createScope() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		return getBase().getFactory().createElement(IScope.class);
 	}
 
 	protected ILocation createLocation() throws InstantiationException, IllegalAccessException,

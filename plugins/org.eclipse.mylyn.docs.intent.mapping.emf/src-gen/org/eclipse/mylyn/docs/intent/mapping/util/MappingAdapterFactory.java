@@ -23,7 +23,6 @@ import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
-import org.eclipse.mylyn.docs.intent.mapping.Scope;
 import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
 
 /**
@@ -81,11 +80,6 @@ public class MappingAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseLocation(Location object) {
 			return createLocationAdapter();
-		}
-
-		@Override
-		public Adapter caseScope(Scope object) {
-			return createScopeAdapter();
 		}
 
 		@Override
@@ -148,20 +142,6 @@ public class MappingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLocationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.mylyn.docs.intent.mapping.Scope
-	 * <em>Scope</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the new adapter.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Scope
-	 * @generated
-	 */
-	public Adapter createScopeAdapter() {
 		return null;
 	}
 

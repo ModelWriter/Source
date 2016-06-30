@@ -30,14 +30,6 @@ public interface MappingFactory extends EFactory {
 	MappingFactory eINSTANCE = org.eclipse.mylyn.docs.intent.mapping.impl.MappingFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Scope</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Scope</em>'.
-	 * @generated
-	 */
-	Scope createScope();
-
-	/**
 	 * Returns a new object of class '<em>Link</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return a new object of class '<em>Link</em>'.

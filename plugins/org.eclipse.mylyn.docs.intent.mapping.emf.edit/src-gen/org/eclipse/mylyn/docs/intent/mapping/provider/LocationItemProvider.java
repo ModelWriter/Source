@@ -63,7 +63,6 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 			super.getPropertyDescriptors(object);
 
 			addSourceLinksPropertyDescriptor(object);
-			addReferencingScopesPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -82,21 +81,6 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 						"_UI_PropertyDescriptor_description", "_UI_Location_sourceLinks_feature",
 						"_UI_Location_type"), MappingPackage.Literals.LOCATION__SOURCE_LINKS, true, false,
 				true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Referencing Scopes feature. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected void addReferencingScopesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Location_referencingScopes_feature"), getString(
-						"_UI_PropertyDescriptor_description", "_UI_Location_referencingScopes_feature",
-						"_UI_Location_type"), MappingPackage.Literals.LOCATION__REFERENCING_SCOPES, true,
-				false, true, null, null, null));
 	}
 
 	/**
@@ -125,7 +109,6 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS);
-			childrenFeatures.add(MappingPackage.Literals.LOCATION__SCOPE);
 			childrenFeatures.add(MappingPackage.Literals.LOCATION__TARGET_LINKS);
 		}
 		return childrenFeatures;
@@ -174,7 +157,6 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 						true));
 				return;
 			case MappingPackage.LOCATION__CONTENTS:
-			case MappingPackage.LOCATION__SCOPE:
 			case MappingPackage.LOCATION__TARGET_LINKS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true,
 						false));
@@ -198,9 +180,6 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 
 		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS,
 				MappingFactory.eINSTANCE.createEObjectLocation()));
-
-		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.LOCATION__SCOPE,
-				MappingFactory.eINSTANCE.createScope()));
 
 		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.LOCATION__TARGET_LINKS,
 				MappingFactory.eINSTANCE.createLink()));

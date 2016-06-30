@@ -13,7 +13,6 @@ package org.eclipse.mylyn.docs.intent.mapping.emf.tests;
 
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.base.EMFBaseTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.base.EMFLinkTests;
-import org.eclipse.mylyn.docs.intent.mapping.emf.tests.base.EMFScopeTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorTests;
 import org.junit.runner.RunWith;
@@ -27,8 +26,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses(value = {EMFBaseTests.class, EMFLinkTests.class, EMFTextLocationTests.class,
-		EMFScopeTests.class, EMFEObjectLocationTests.class, EObjectConnectorTests.class,
-		EObjectConnectorParametrizedTests.class, })
+		EMFEObjectLocationTests.class, EObjectConnectorTests.class, EObjectConnectorParametrizedTests.class, })
 public class AllTests {
 
 }
