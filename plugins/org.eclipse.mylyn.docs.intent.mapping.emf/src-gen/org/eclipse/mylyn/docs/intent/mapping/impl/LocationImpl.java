@@ -35,7 +35,6 @@ import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
-import org.eclipse.mylyn.docs.intent.mapping.Status;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
@@ -471,36 +470,6 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		result.append(type);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#markAsChanged()
-	 * @generated NOT
-	 */
-	public void markAsChanged() {
-		for (ILink link : getSourceLinks()) {
-			((Link)link).setStatus(Status.CHANGED_TARGET);
-		}
-		for (ILink link : getTargetLinks()) {
-			((Link)link).setStatus(Status.CHANGED_SOURCE);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#markAsDeleted()
-	 * @generated NOT
-	 */
-	public void markAsDeleted() {
-		for (ILink link : getSourceLinks()) {
-			((Link)link).setStatus(Status.DELETED_TARGET);
-		}
-		for (ILink link : getTargetLinks()) {
-			((Link)link).setStatus(Status.DELETED_SOURCE);
-		}
 	}
 
 	/**

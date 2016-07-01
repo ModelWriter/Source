@@ -61,6 +61,16 @@ public class MappingView extends ViewPart {
 	private static final int WIDTH = 300;
 
 	/**
+	 * Source column label.
+	 */
+	private static final String SOURCE_LABEL = "Source";
+
+	/**
+	 * Target column label.
+	 */
+	private static final String TARGET_LABEL = "Target";
+
+	/**
 	 * The current selected {@link IBase}.
 	 */
 	private IBase selectedBase;
@@ -97,17 +107,14 @@ public class MappingView extends ViewPart {
 		headerComposite.setLayout(new GridLayout(2, false));
 		headerComposite.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false, 1, 1));
 
-		addMappingCombo(headerComposite);
-
-		addConceptCombo(headerComposite);
+		final ComboViewer mappingBaseCombo = addMappingBaseCombo(headerComposite);
 
 		TabFolder bodyTabFolder = new TabFolder(composite, SWT.NONE);
 		bodyTabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
-		addSelectionTabItem(bodyTabFolder);
-		addDocumentTabItem(bodyTabFolder);
-		addSynchronizationTabItem(bodyTabFolder);
-		addValidationTabItem(bodyTabFolder);
+		addSelectionTabItem(bodyTabFolder, mappingBaseCombo);
+		addDocumentTabItem(bodyTabFolder, mappingBaseCombo);
+		addReportTabItem(bodyTabFolder, mappingBaseCombo);
 
 		getSite().setSelectionProvider(selectionProvider);
 
@@ -117,12 +124,13 @@ public class MappingView extends ViewPart {
 	}
 
 	/**
-	 * Add the mapping {@link ComboViewer} to the given header {@link Composite}.
+	 * Add the mapping base {@link ComboViewer} to the given header {@link Composite}.
 	 * 
 	 * @param headerComposite
 	 *            the header {@link Composite}
+	 * @return the mapping base {@link ComboViewer}
 	 */
-	private void addMappingCombo(Composite headerComposite) {
+	private ComboViewer addMappingBaseCombo(Composite headerComposite) {
 
 		Label selectMappingBaseLabel = new Label(headerComposite, SWT.NONE);
 		selectMappingBaseLabel.setToolTipText("Select a mapping base.");
@@ -140,15 +148,8 @@ public class MappingView extends ViewPart {
 				selectedBase = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
 			}
 		});
-	}
 
-	/**
-	 * Add the concept {@link ComboViewer} to the given header {@link Composite}.
-	 * 
-	 * @param headerComposite
-	 *            the header {@link Composite}
-	 */
-	private void addConceptCombo(Composite headerComposite) {
+		return mappingCombo;
 	}
 
 	/**
@@ -156,8 +157,10 @@ public class MappingView extends ViewPart {
 	 * 
 	 * @param bodyTabFolder
 	 *            the body {@link TabFolder}
+	 * @param mappingBaseCombo
+	 *            the mapping base {@link ComboViewer}
 	 */
-	private void addSelectionTabItem(TabFolder bodyTabFolder) {
+	private void addSelectionTabItem(TabFolder bodyTabFolder, ComboViewer mappingBaseCombo) {
 		TabItem selectionTabItem = new TabItem(bodyTabFolder, SWT.NONE);
 		selectionTabItem.setText("Selection");
 
@@ -198,13 +201,25 @@ public class MappingView extends ViewPart {
 			}
 		});
 
+		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
+
+			public void selectionChanged(SelectionChangedEvent event) {
+				final IBase base = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
+				final ILocation location = (ILocation)referencedTree.getViewer().getInput();
+				if (location != null && areSameBase(MappingUtils.getBase(location), base)) {
+					referencingTree.getViewer().setInput(null);
+					referencedTree.getViewer().setInput(null);
+				}
+			}
+		});
+
 		selectionListener = new ISelectionListener() {
 
 			public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 				if (part != MappingView.this) {
 					final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
 					if (location != null && selectedBase != null
-							&& selectedBase.getName().equals(MappingUtils.getBase(location).getName())) {
+							&& areSameBase(selectedBase, MappingUtils.getBase(location))) {
 						referencingTree.getViewer().setInput(location);
 						referencedTree.getViewer().setInput(location);
 					}
@@ -221,8 +236,10 @@ public class MappingView extends ViewPart {
 	 * 
 	 * @param bodyTabFolder
 	 *            the body {@link TabFolder}
+	 * @param mappingBaseCombo
+	 *            the mapping base {@link ComboViewer}
 	 */
-	private void addDocumentTabItem(TabFolder bodyTabFolder) {
+	private void addDocumentTabItem(TabFolder bodyTabFolder, ComboViewer mappingBaseCombo) {
 		TabItem selectionTabItem = new TabItem(bodyTabFolder, SWT.NONE);
 		selectionTabItem.setText("Document");
 
@@ -241,7 +258,7 @@ public class MappingView extends ViewPart {
 		TreeViewerColumn referencingTreeSourceColumn = new TreeViewerColumn(referencingTree.getViewer(),
 				SWT.NONE);
 		referencingTreeSourceColumn.getColumn().setResizable(true);
-		referencingTreeSourceColumn.getColumn().setText("Source");
+		referencingTreeSourceColumn.getColumn().setText(SOURCE_LABEL);
 		referencingTreeSourceColumn.getColumn().setWidth(WIDTH);
 		referencingTreeSourceColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
 				new MappingLabelProvider(MappingLabelProvider.SOURCE)));
@@ -249,7 +266,7 @@ public class MappingView extends ViewPart {
 		TreeViewerColumn referencingTreeTargetColumn = new TreeViewerColumn(referencingTree.getViewer(),
 				SWT.NONE);
 		referencingTreeTargetColumn.getColumn().setResizable(true);
-		referencingTreeTargetColumn.getColumn().setText("Target");
+		referencingTreeTargetColumn.getColumn().setText(TARGET_LABEL);
 		referencingTreeTargetColumn.getColumn().setWidth(WIDTH);
 		referencingTreeTargetColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
 				new MappingLabelProvider(MappingLabelProvider.TARGET)));
@@ -273,7 +290,7 @@ public class MappingView extends ViewPart {
 		TreeViewerColumn referencedTreeSourceColumn = new TreeViewerColumn(referencedTree.getViewer(),
 				SWT.NONE);
 		referencedTreeSourceColumn.getColumn().setResizable(true);
-		referencedTreeSourceColumn.getColumn().setText("Source");
+		referencedTreeSourceColumn.getColumn().setText(SOURCE_LABEL);
 		referencedTreeSourceColumn.getColumn().setWidth(WIDTH);
 		referencedTreeSourceColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
 				new MappingLabelProvider(MappingLabelProvider.SOURCE)));
@@ -281,7 +298,7 @@ public class MappingView extends ViewPart {
 		TreeViewerColumn referencedTreeTargetColumn = new TreeViewerColumn(referencedTree.getViewer(),
 				SWT.NONE);
 		referencedTreeTargetColumn.getColumn().setResizable(true);
-		referencedTreeTargetColumn.getColumn().setText("Target");
+		referencedTreeTargetColumn.getColumn().setText(TARGET_LABEL);
 		referencedTreeTargetColumn.getColumn().setWidth(WIDTH);
 		referencedTreeTargetColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
 				new MappingLabelProvider(MappingLabelProvider.TARGET)));
@@ -297,14 +314,26 @@ public class MappingView extends ViewPart {
 			}
 		});
 
-		// TODO remove this test purpose only
+		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
+
+			public void selectionChanged(SelectionChangedEvent event) {
+				final IBase base = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
+				final ILocation location = (ILocation)referencedTree.getViewer().getInput();
+				if (location != null && areSameBase(MappingUtils.getBase(location), base)) {
+					referencingTree.getViewer().setInput(null);
+					referencedTree.getViewer().setInput(null);
+				}
+			}
+		});
+
+		// TODO remove this test purpose only use the current Editor input instead
 		selectionListener2 = new ISelectionListener() {
 
 			public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 				if (part != MappingView.this) {
 					final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
 					if (location != null && selectedBase != null
-							&& selectedBase.getName().equals(MappingUtils.getBase(location).getName())) {
+							&& areSameBase(selectedBase, MappingUtils.getBase(location))) {
 						referencingTree.getViewer().setInput(location);
 						referencedTree.getViewer().setInput(location);
 					}
@@ -317,20 +346,39 @@ public class MappingView extends ViewPart {
 	}
 
 	/**
-	 * Adds the synchronization {@link TabItem} to the given body {@link TabFolder}.
+	 * Adds the report {@link TabItem} to the given body {@link TabFolder}.
 	 * 
 	 * @param bodyTabFolder
 	 *            the body {@link TabFolder}
+	 * @param mappingBaseCombo
+	 *            the mapping base {@link ComboViewer}
 	 */
-	private void addSynchronizationTabItem(TabFolder bodyTabFolder) {
+	private void addReportTabItem(TabFolder bodyTabFolder, ComboViewer mappingBaseCombo) {
 		TabItem selectionTabItem = new TabItem(bodyTabFolder, SWT.NONE);
-		selectionTabItem.setText("Synchronization");
+		selectionTabItem.setText("Report");
 
 		Composite treeComposite = new Composite(bodyTabFolder, SWT.NONE);
 		selectionTabItem.setControl(treeComposite);
 		treeComposite.setLayout(new FillLayout(SWT.HORIZONTAL));
 
 		final FilteredTree linkTree = new FilteredTree(treeComposite, SWT.BORDER, new PatternFilter(), false);
+		linkTree.getViewer().setContentProvider(new SyncronizationLocationContentProvider());
+
+		linkTree.getViewer().getTree().setHeaderVisible(true);
+		TreeViewerColumn linkTreeSourceColumn = new TreeViewerColumn(linkTree.getViewer(), SWT.NONE);
+		linkTreeSourceColumn.getColumn().setResizable(true);
+		linkTreeSourceColumn.getColumn().setText(SOURCE_LABEL);
+		linkTreeSourceColumn.getColumn().setWidth(WIDTH);
+		linkTreeSourceColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(new MappingLabelProvider(
+				MappingLabelProvider.SOURCE)));
+
+		TreeViewerColumn linkTreeTargetColumn = new TreeViewerColumn(linkTree.getViewer(), SWT.NONE);
+		linkTreeTargetColumn.getColumn().setResizable(true);
+		linkTreeTargetColumn.getColumn().setText(TARGET_LABEL);
+		linkTreeTargetColumn.getColumn().setWidth(WIDTH);
+		linkTreeTargetColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(new MappingLabelProvider(
+				MappingLabelProvider.TARGET)));
+
 		linkTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
@@ -341,33 +389,15 @@ public class MappingView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(linkTree.getViewer());
 			}
 		});
-	}
 
-	/**
-	 * Adds the validation {@link TabItem} to the given body {@link TabFolder}.
-	 * 
-	 * @param bodyTabFolder
-	 *            the body {@link TabFolder}
-	 */
-	private void addValidationTabItem(TabFolder bodyTabFolder) {
-		TabItem selectionTabItem = new TabItem(bodyTabFolder, SWT.NONE);
-		selectionTabItem.setText("Validation");
+		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
-		Composite treeComposite = new Composite(bodyTabFolder, SWT.NONE);
-		selectionTabItem.setControl(treeComposite);
-		treeComposite.setLayout(new FillLayout(SWT.HORIZONTAL));
-
-		final FilteredTree linkTree = new FilteredTree(treeComposite, SWT.BORDER, new PatternFilter(), false);
-		linkTree.getViewer().getControl().addFocusListener(new FocusListener() {
-
-			public void focusLost(FocusEvent e) {
-				selectionProvider.setSelectionProviderDelegate(null);
-			}
-
-			public void focusGained(FocusEvent e) {
-				selectionProvider.setSelectionProviderDelegate(linkTree.getViewer());
+			public void selectionChanged(SelectionChangedEvent event) {
+				final IBase base = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
+				linkTree.getViewer().setInput(base);
 			}
 		});
+
 	}
 
 	/**
@@ -416,6 +446,20 @@ public class MappingView extends ViewPart {
 			getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(selectionListener2);
 			selectionListener2 = null;
 		}
+	}
+
+	/**
+	 * Tells if the two givnen {@link IBase} are the same.
+	 * 
+	 * @param firstBase
+	 *            the first {@link IBase}
+	 * @param secondBase
+	 *            the second {@link IBase}
+	 * @return <code>true</code> if the two givnen {@link IBase} are the same, <code>false</code> otherwise
+	 */
+	private boolean areSameBase(IBase firstBase, IBase secondBase) {
+		// TODO change this when we work on same instances of IBase
+		return firstBase.getName().equals(secondBase.getName());
 	}
 
 }

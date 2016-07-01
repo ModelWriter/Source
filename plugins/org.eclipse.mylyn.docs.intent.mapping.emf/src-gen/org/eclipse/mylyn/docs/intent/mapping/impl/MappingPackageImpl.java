@@ -17,7 +17,6 @@ import java.io.Serializable;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
@@ -29,7 +28,7 @@ import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingFactory;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
-import org.eclipse.mylyn.docs.intent.mapping.Status;
+import org.eclipse.mylyn.docs.intent.mapping.Report;
 import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
 
 /**
@@ -92,7 +91,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	private EEnum statusEEnum = null;
+	private EClass reportEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -222,7 +221,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	public EAttribute getLink_Status() {
+	public EAttribute getLink_Description() {
 		return (EAttribute)linkEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -231,17 +230,8 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	public EAttribute getLink_Description() {
-		return (EAttribute)linkEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public EReference getLink_Source() {
-		return (EReference)linkEClass.getEStructuralFeatures().get(2);
+		return (EReference)linkEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -250,7 +240,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * @generated
 	 */
 	public EReference getLink_Target() {
-		return (EReference)linkEClass.getEStructuralFeatures().get(3);
+		return (EReference)linkEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -259,7 +249,16 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * @generated
 	 */
 	public EAttribute getLink_Type() {
-		return (EAttribute)linkEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)linkEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getLink_Reports() {
+		return (EReference)linkEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -278,6 +277,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 */
 	public EAttribute getBase_Name() {
 		return (EAttribute)baseEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getBase_Reports() {
+		return (EReference)baseEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -357,8 +365,26 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	public EEnum getStatus() {
-		return statusEEnum;
+	public EClass getReport() {
+		return reportEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getReport_Description() {
+		return (EAttribute)reportEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getReport_Link() {
+		return (EReference)reportEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -405,14 +431,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		createEAttribute(locationEClass, LOCATION__TYPE);
 
 		linkEClass = createEClass(LINK);
-		createEAttribute(linkEClass, LINK__STATUS);
 		createEAttribute(linkEClass, LINK__DESCRIPTION);
 		createEReference(linkEClass, LINK__SOURCE);
 		createEReference(linkEClass, LINK__TARGET);
 		createEAttribute(linkEClass, LINK__TYPE);
+		createEReference(linkEClass, LINK__REPORTS);
 
 		baseEClass = createEClass(BASE);
 		createEAttribute(baseEClass, BASE__NAME);
+		createEReference(baseEClass, BASE__REPORTS);
 
 		iemfBaseElementEClass = createEClass(IEMF_BASE_ELEMENT);
 
@@ -426,8 +453,9 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		locationContainerEClass = createEClass(LOCATION_CONTAINER);
 		createEReference(locationContainerEClass, LOCATION_CONTAINER__CONTENTS);
 
-		// Create enums
-		statusEEnum = createEEnum(STATUS);
+		reportEClass = createEClass(REPORT);
+		createEAttribute(reportEClass, REPORT__DESCRIPTION);
+		createEReference(reportEClass, REPORT__LINK);
 
 		// Create data types
 		typeEDataType = createEDataType(TYPE);
@@ -468,6 +496,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		baseEClass.getESuperTypes().add(this.getLocationContainer());
 		textLocationEClass.getESuperTypes().add(this.getLocation());
 		eObjectLocationEClass.getESuperTypes().add(this.getTextLocation());
+		reportEClass.getESuperTypes().add(this.getIEMFBaseElement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(locationEClass, Location.class, "Location", IS_ABSTRACT, !IS_INTERFACE,
@@ -486,9 +515,6 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(linkEClass, Link.class, "Link", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLink_Status(), this.getStatus(), "status", "VALID", 1, 1, Link.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
 		initEAttribute(getLink_Description(), ecorePackage.getEString(), "description", null, 1, 1,
 				Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
@@ -500,11 +526,17 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLink_Type(), this.getType(), "type", null, 0, 1, Link.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLink_Reports(), this.getReport(), this.getReport_Link(), "reports", null, 0, -1,
+				Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(baseEClass, Base.class, "Base", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBase_Name(), ecorePackage.getEString(), "name", null, 1, 1, Base.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
+		initEReference(getBase_Reports(), this.getReport(), null, "reports", null, 0, -1, Base.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(iemfBaseElementEClass, IEMFBaseElement.class, "IEMFBaseElement", IS_ABSTRACT,
 				IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -530,13 +562,14 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 				"contents", null, 0, -1, LocationContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		// Initialize enums and add enum literals
-		initEEnum(statusEEnum, Status.class, "Status");
-		addEEnumLiteral(statusEEnum, Status.VALID);
-		addEEnumLiteral(statusEEnum, Status.CHANGED_SOURCE);
-		addEEnumLiteral(statusEEnum, Status.CHANGED_TARGET);
-		addEEnumLiteral(statusEEnum, Status.DELETED_SOURCE);
-		addEEnumLiteral(statusEEnum, Status.DELETED_TARGET);
+		initEClass(reportEClass, Report.class, "Report", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReport_Description(), ecorePackage.getEString(), "description", null, 1, 1,
+				Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEReference(getReport_Link(), this.getLink(), this.getLink_Reports(), "link", null, 1, 1,
+				Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize data types
 		initEDataType(typeEDataType, Serializable.class, "Type", IS_SERIALIZABLE,

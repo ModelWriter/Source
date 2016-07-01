@@ -11,7 +11,6 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
-import org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus;
 
 /**
  * Listen to {@link ILink} changes.
@@ -40,16 +39,6 @@ public interface ILinkListener {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#statusChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus,
-		 *      org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus)
-		 */
-		public void statusChanged(LinkStatus oldStatus, LinkStatus newStatus) {
-			// nothing to do here
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
 		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#sourceChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
 		 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 		 */
@@ -67,6 +56,23 @@ public interface ILinkListener {
 			// nothing to do here
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#reportAdded(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportAdded(IReport report) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener#reportRemoved(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportRemoved(IReport report) {
+			// nothing to do here
+		}
 	}
 
 	/**
@@ -78,16 +84,6 @@ public interface ILinkListener {
 	 *            the new {@link ILink#getDescription() description}
 	 */
 	void descriptionChanged(String oldDescription, String newDescription);
-
-	/**
-	 * Notifies when the {@link ILink#getStatus() status} is changed.
-	 * 
-	 * @param oldStatus
-	 *            the old {@link ILink#getStatus() status}
-	 * @param newStatus
-	 *            the new {@link ILink#getStatus() status}
-	 */
-	void statusChanged(LinkStatus oldStatus, LinkStatus newStatus);
 
 	/**
 	 * Notifies when the {@link ILink#getSource() source} is changed.
@@ -108,5 +104,21 @@ public interface ILinkListener {
 	 *            the new {@link ILink#getTarget() target}
 	 */
 	void targetChanged(ILocation oldTarget, ILocation newTarget);
+
+	/**
+	 * Notifies when the {@link ILink#getReports() reports} {@link IReport} is added.
+	 * 
+	 * @param report
+	 *            the added {@link ILink#getReports() reports} {@link IReport}
+	 */
+	void reportAdded(IReport report);
+
+	/**
+	 * Notifies when the {@link ILink#getReports() reports} {@link IReport} is removed.
+	 * 
+	 * @param report
+	 *            the removed {@link ILink#getReports() reports} {@link IReport}
+	 */
+	void reportRemoved(IReport report);
 
 }

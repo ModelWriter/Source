@@ -11,6 +11,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Connect two {@link ILocation}.
@@ -18,39 +19,6 @@ import java.io.Serializable;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public interface ILink extends IMappingElement, IBaseElement {
-
-	/**
-	 * Status a {@link ILink} can {@link ILink#getStatus() have}.
-	 * 
-	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
-	 */
-	public static enum LinkStatus {
-
-		/**
-		 * The {@link ILink} is valid.
-		 */
-		VALID,
-
-		/**
-		 * The {@link ILink} {@link ILink#getSource() source} has been changed.
-		 */
-		CHANGED_SOURCE,
-
-		/**
-		 * The {@link ILink} {@link ILink#getTarget() target} has been changed.
-		 */
-		CHANGED_TARGET,
-
-		/**
-		 * The {@link ILink} {@link ILink#getSource() source} has been deleted.
-		 */
-		DELETED_SOURCE,
-
-		/**
-		 * The {@link ILink} {@link ILink#getTarget() target} has been deleted.
-		 */
-		DELETED_TARGET
-	}
 
 	/**
 	 * Sets the {@link ILink#getDescription(String) description} of the {@link ILink}.
@@ -66,13 +34,6 @@ public interface ILink extends IMappingElement, IBaseElement {
 	 * @return the description of the {@link ILink}
 	 */
 	String getDescription();
-
-	/**
-	 * Gets the {@link LinkStatus} of the {@link ILink}.
-	 * 
-	 * @return the {@link LinkStatus} of the {@link ILink}
-	 */
-	LinkStatus getLinkStatus();
 
 	/**
 	 * Sets the {@link ILink#getSource() source} {@link ILocation} of the {@link ILink}.
@@ -105,11 +66,6 @@ public interface ILink extends IMappingElement, IBaseElement {
 	ILocation getTarget();
 
 	/**
-	 * {@link ILink#getStatus() Marks} the {@link ILink} as {@link LinkStatus#VALID valid}.
-	 */
-	void markAsValid();
-
-	/**
 	 * Adds a {@link ILinkListener}.
 	 * 
 	 * @param listener
@@ -139,5 +95,12 @@ public interface ILink extends IMappingElement, IBaseElement {
 	 *            the type
 	 */
 	void setType(Serializable type);
+
+	/**
+	 * Gets the {@link List} of {@link IReport} for this {@link ILink}.
+	 * 
+	 * @return the {@link List} of {@link IReport} for this {@link ILink}
+	 */
+	List<IReport> getReports();
 
 }

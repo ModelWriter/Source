@@ -19,6 +19,7 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -76,6 +77,8 @@ public class MappingLabelProvider extends BaseLabelProvider implements ILabelPro
 				res = MappingUtils.getConnectorRegistry().getName((ILocation)element);
 			} else if (element instanceof ILink) {
 				res = MappingUtils.getConnectorRegistry().getName(((ILink)element).getSource());
+			} else if (element instanceof IReport) {
+				res = ((IReport)element).getDescription();
 			} else if (element instanceof IBase) {
 				res = ((IBase)element).getName();
 			} else {

@@ -25,7 +25,7 @@ import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.MappingFactory;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
-import org.eclipse.mylyn.docs.intent.mapping.Status;
+import org.eclipse.mylyn.docs.intent.mapping.Report;
 import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
 
 /**
@@ -77,6 +77,8 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 				return createTextLocation();
 			case MappingPackage.EOBJECT_LOCATION:
 				return createEObjectLocation();
+			case MappingPackage.REPORT:
+				return createReport();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName()
 						+ "' is not a valid classifier");
@@ -91,8 +93,6 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case MappingPackage.STATUS:
-				return createStatusFromString(eDataType, initialValue);
 			case MappingPackage.TYPE:
 				return createTypeFromString(eDataType, initialValue);
 			default:
@@ -109,8 +109,6 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case MappingPackage.STATUS:
-				return convertStatusToString(eDataType, instanceValue);
 			case MappingPackage.TYPE:
 				return convertTypeToString(eDataType, instanceValue);
 			default:
@@ -164,21 +162,9 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 	 * 
 	 * @generated
 	 */
-	public Status createStatusFromString(EDataType eDataType, String initialValue) {
-		Status result = Status.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public String convertStatusToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
+	public Report createReport() {
+		ReportImpl report = new ReportImpl();
+		return report;
 	}
 
 	/**

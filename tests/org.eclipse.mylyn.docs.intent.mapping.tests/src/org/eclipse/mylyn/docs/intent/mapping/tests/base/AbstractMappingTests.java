@@ -14,11 +14,12 @@ package org.eclipse.mylyn.docs.intent.mapping.tests.base;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReportListener;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.junit.Before;
 
@@ -53,6 +54,16 @@ public abstract class AbstractMappingTests {
 		 */
 		private int rootLocationRemoved;
 
+		/**
+		 * Number of time {@link TestBaseListener#reportAdded(IReport)} has been called.
+		 */
+		private int reportAdded;
+
+		/**
+		 * Number of time {@link TestBaseListener#reportRemoved(IReport)} has been called.
+		 */
+		private int reportRemoved;
+
 		public void nameChanged(String oldName, String newName) {
 			nameChanged++;
 		}
@@ -75,6 +86,24 @@ public abstract class AbstractMappingTests {
 			rootLocationRemoved++;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#reportAdded(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportAdded(IReport report) {
+			reportAdded++;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#reportRemoved(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportRemoved(IReport report) {
+			reportRemoved++;
+		}
+
 	}
 
 	/**
@@ -95,21 +124,22 @@ public abstract class AbstractMappingTests {
 		private int sourceChanged;
 
 		/**
-		 * Number of time {@link TestLinkListener#statusChanged(LinkStatus)} has been called.
-		 */
-		private int statusChanged;
-
-		/**
 		 * Number of time {@link TestLinkListener#descriptionChanged(String)} has been called.
 		 */
 		private int descriptionChanged;
 
+		/**
+		 * Number of time {@link TestLinkListener#reportAdded(IReport)} has been called.
+		 */
+		private int reportAdded;
+
+		/**
+		 * Number of time {@link TestLinkListener#reportRemoved(IReport)} has been called.
+		 */
+		private int reportRemoved;
+
 		public void descriptionChanged(String oldDescription, String newDescription) {
 			descriptionChanged++;
-		}
-
-		public void statusChanged(LinkStatus oldStatus, LinkStatus newStatus) {
-			statusChanged++;
 		}
 
 		public void sourceChanged(ILocation oldSource, ILocation newSource) {
@@ -118,6 +148,40 @@ public abstract class AbstractMappingTests {
 
 		public void targetChanged(ILocation oldTarget, ILocation newTarget) {
 			targetChanged++;
+		}
+
+		public void reportAdded(IReport report) {
+			reportAdded++;
+		}
+
+		public void reportRemoved(IReport report) {
+			reportRemoved++;
+		}
+	}
+
+	/**
+	 * Test {@link IReportListener}.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	protected final class TestReportListener implements IReportListener {
+
+		/**
+		 * Number of time {@link TestReportListener#descriptionChanged(String)} has been called.
+		 */
+		private int descriptionChanged;
+
+		/**
+		 * Number of time {@link TestReportListener#linkChanged(ILink, ILink)} has been called.
+		 */
+		private int linkChanged;
+
+		public void descriptionChanged(String oldDescription, String newDescription) {
+			descriptionChanged++;
+		}
+
+		public void linkChanged(ILink oldLink, ILink newLink) {
+			linkChanged++;
 		}
 	}
 
@@ -213,18 +277,27 @@ public abstract class AbstractMappingTests {
 	protected abstract IBaseFactory getFactory();
 
 	protected void assertTestBaseListener(TestBaseListener listener, int nameChanged, int rootLocationAdded,
-			int rootLocationRemoved) {
+			int rootLocationRemoved, int reportAdded, int reportRemoved) {
 		assertEquals(nameChanged, listener.nameChanged);
 		assertEquals(rootLocationAdded, listener.rootLocationAdded);
 		assertEquals(rootLocationRemoved, listener.rootLocationRemoved);
+		assertEquals(reportAdded, listener.reportAdded);
+		assertEquals(reportRemoved, listener.reportRemoved);
 	}
 
 	protected void assertTestLinkListener(TestLinkListener listener, int descriptionChanged,
-			int statusChanged, int sourceChanged, int targetChanged) {
+			int sourceChanged, int targetChanged, int reportAdded, int reportRemoved) {
 		assertEquals(descriptionChanged, listener.descriptionChanged);
-		assertEquals(statusChanged, listener.statusChanged);
 		assertEquals(sourceChanged, listener.sourceChanged);
 		assertEquals(targetChanged, listener.targetChanged);
+		assertEquals(reportAdded, listener.reportAdded);
+		assertEquals(reportRemoved, listener.reportRemoved);
+	}
+
+	protected void assertTestReportListener(TestReportListener listener, int descriptionChanged,
+			int linkChanged) {
+		assertEquals(descriptionChanged, listener.descriptionChanged);
+		assertEquals(linkChanged, listener.linkChanged);
 	}
 
 	// CHECKSTYLE:OFF
@@ -254,6 +327,11 @@ public abstract class AbstractMappingTests {
 	protected ILocation createLocation() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		return getBase().getFactory().createElement(ITextLocation.class);
+	}
+
+	protected IReport createReport() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		return getBase().getFactory().createElement(IReport.class);
 	}
 
 }

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.junit.Test;
 
@@ -149,7 +148,6 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(link, location.getSourceLinks().get(0));
 
 		getBase().getContents().add(location);
-		location.markAsDeleted();
 		location.getSourceLinks().remove(link);
 
 		assertEquals(0, location.getSourceLinks().size());
@@ -182,7 +180,6 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(link2, location.getSourceLinks().get(1));
 
 		getBase().getContents().add(location);
-		location.markAsDeleted();
 		location.getSourceLinks().removeAll(links);
 
 		assertEquals(0, location.getSourceLinks().size());
@@ -312,7 +309,6 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(link, location.getTargetLinks().get(0));
 
 		getBase().getContents().add(location);
-		location.markAsDeleted();
 		location.getTargetLinks().remove(link);
 
 		assertEquals(0, location.getTargetLinks().size());
@@ -345,7 +341,6 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(link2, location.getTargetLinks().get(1));
 
 		getBase().getContents().add(location);
-		location.markAsDeleted();
 		location.getTargetLinks().removeAll(links);
 
 		assertEquals(0, location.getTargetLinks().size());
@@ -525,76 +520,6 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		location.setType(null);
 
 		assertEquals(null, location.getType());
-	}
-
-	@Test
-	public void markAsChanged() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		final ILocation a = createLocation();
-		final ILocation b = createLocation();
-		final ILocation c = createLocation();
-		final ILink ab = createLink();
-		final ILink bc = createLink();
-		ab.setSource(a);
-		ab.setTarget(b);
-		bc.setSource(b);
-		bc.setTarget(c);
-
-		final TestLinkListener listenerAB = new TestLinkListener();
-		final TestLinkListener removedListenerAB = new TestLinkListener();
-		final TestLinkListener listenerBC = new TestLinkListener();
-		final TestLinkListener removedListenerBC = new TestLinkListener();
-
-		ab.addListener(listenerAB);
-		ab.addListener(removedListenerAB);
-		ab.removeListener(removedListenerAB);
-		bc.addListener(listenerBC);
-		bc.addListener(removedListenerBC);
-		bc.removeListener(removedListenerBC);
-
-		b.markAsChanged();
-
-		assertEquals(LinkStatus.CHANGED_TARGET, ab.getLinkStatus());
-		assertEquals(LinkStatus.CHANGED_SOURCE, bc.getLinkStatus());
-
-		assertTestLinkListener(listenerAB, 0, 1, 0, 0);
-		assertTestLinkListener(removedListenerAB, 0, 0, 0, 0);
-		assertTestLinkListener(listenerBC, 0, 1, 0, 0);
-		assertTestLinkListener(removedListenerBC, 0, 0, 0, 0);
-	}
-
-	@Test
-	public void markAsDeleted() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		final ILocation a = createLocation();
-		final ILocation b = createLocation();
-		final ILocation c = createLocation();
-		final ILink ab = createLink();
-		final ILink bc = createLink();
-		ab.setSource(a);
-		ab.setTarget(b);
-		bc.setSource(b);
-		bc.setTarget(c);
-
-		final TestLinkListener listenerAB = new TestLinkListener();
-		final TestLinkListener removedListenerAB = new TestLinkListener();
-		final TestLinkListener listenerBC = new TestLinkListener();
-		final TestLinkListener removedListenerBC = new TestLinkListener();
-
-		ab.addListener(listenerAB);
-		ab.addListener(removedListenerAB);
-		ab.removeListener(removedListenerAB);
-		bc.addListener(listenerBC);
-		bc.addListener(removedListenerBC);
-		bc.removeListener(removedListenerBC);
-
-		b.markAsDeleted();
-
-		assertEquals(LinkStatus.DELETED_TARGET, ab.getLinkStatus());
-		assertEquals(LinkStatus.DELETED_SOURCE, bc.getLinkStatus());
-
-		assertTestLinkListener(listenerAB, 0, 1, 0, 0);
-		assertTestLinkListener(removedListenerAB, 0, 0, 0, 0);
-		assertTestLinkListener(listenerBC, 0, 1, 0, 0);
-		assertTestLinkListener(removedListenerBC, 0, 0, 0, 0);
 	}
 
 }

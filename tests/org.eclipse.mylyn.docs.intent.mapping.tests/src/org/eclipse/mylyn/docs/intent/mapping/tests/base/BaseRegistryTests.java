@@ -19,6 +19,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.internal.base.BaseRegistry;
 import org.junit.After;
 import org.junit.Before;
@@ -91,6 +92,11 @@ public class BaseRegistryTests {
 		}
 
 		public BaseElementFactory getFactory() {
+			return null;
+		}
+
+		public List<IReport> getReports() {
+			// nothing to do here
 			return null;
 		}
 

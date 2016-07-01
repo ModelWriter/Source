@@ -15,7 +15,6 @@ package org.eclipse.mylyn.docs.intent.mapping;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -175,22 +174,13 @@ public interface MappingPackage extends EPackage {
 	int LINK = 1;
 
 	/**
-	 * The feature id for the '<em><b>Status</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int LINK__STATUS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__DESCRIPTION = IEMF_BASE_ELEMENT_FEATURE_COUNT + 1;
+	int LINK__DESCRIPTION = IEMF_BASE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' container reference. <!-- begin-user-doc --> <!--
@@ -199,7 +189,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__SOURCE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 2;
+	int LINK__SOURCE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc
@@ -208,7 +198,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__TARGET = IEMF_BASE_ELEMENT_FEATURE_COUNT + 3;
+	int LINK__TARGET = IEMF_BASE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -216,7 +206,16 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__TYPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
+	int LINK__TYPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Reports</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__REPORTS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Link</em>' class. <!-- begin-user-doc --> <!--
@@ -263,13 +262,22 @@ public interface MappingPackage extends EPackage {
 	int BASE__NAME = IEMF_BASE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Reports</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int BASE__REPORTS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Base</em>' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int BASE_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 2;
+	int BASE_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Base</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -506,14 +514,48 @@ public interface MappingPackage extends EPackage {
 	int LOCATION_CONTAINER_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.Status <em>Status</em>}' enum.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.ReportImpl
+	 * <em>Report</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Status
-	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getStatus()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.ReportImpl
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getReport()
 	 * @generated
 	 */
-	int STATUS = 7;
+	int REPORT = 7;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT__DESCRIPTION = IEMF_BASE_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Link</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT__LINK = IEMF_BASE_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Report</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Report</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT_OPERATION_COUNT = IEMF_BASE_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -593,17 +635,6 @@ public interface MappingPackage extends EPackage {
 	EClass getLink();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.mylyn.docs.intent.mapping.Link#getStatus
-	 * <em>Status</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the attribute '<em>Status</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Link#getStatus()
-	 * @see #getLink()
-	 * @generated
-	 */
-	EAttribute getLink_Status();
-
-	/**
 	 * Returns the meta object for the attribute '
 	 * {@link org.eclipse.mylyn.docs.intent.mapping.Link#getDescription <em>Description</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
@@ -650,6 +681,18 @@ public interface MappingPackage extends EPackage {
 	EAttribute getLink_Type();
 
 	/**
+	 * Returns the meta object for the reference list '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.Link#getReports <em>Reports</em>}'. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the reference list '<em>Reports</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Link#getReports()
+	 * @see #getLink()
+	 * @generated
+	 */
+	EReference getLink_Reports();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Base <em>Base</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -669,6 +712,18 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBase_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.Base#getReports <em>Reports</em>}'. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '<em>Reports</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Base#getReports()
+	 * @see #getBase()
+	 * @generated
+	 */
+	EReference getBase_Reports();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement
@@ -759,14 +814,37 @@ public interface MappingPackage extends EPackage {
 	EReference getLocationContainer_Contents();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.mylyn.docs.intent.mapping.Status <em>Status</em>}
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Report <em>Report</em>}
 	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for enum '<em>Status</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Status
+	 * @return the meta object for class '<em>Report</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Report
 	 * @generated
 	 */
-	EEnum getStatus();
+	EClass getReport();
+
+	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.Report#getDescription <em>Description</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Report#getDescription()
+	 * @see #getReport()
+	 * @generated
+	 */
+	EAttribute getReport_Description();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.mylyn.docs.intent.mapping.Report#getLink
+	 * <em>Link</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the reference '<em>Link</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Report#getLink()
+	 * @see #getReport()
+	 * @generated
+	 */
+	EReference getReport_Link();
 
 	/**
 	 * Returns the meta object for data type '{@link java.io.Serializable <em>Type</em>}'. <!-- begin-user-doc
@@ -855,14 +933,6 @@ public interface MappingPackage extends EPackage {
 		EClass LINK = eINSTANCE.getLink();
 
 		/**
-		 * The meta object literal for the '<em><b>Status</b></em>' attribute feature. <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EAttribute LINK__STATUS = eINSTANCE.getLink_Status();
-
-		/**
 		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
@@ -895,6 +965,14 @@ public interface MappingPackage extends EPackage {
 		EAttribute LINK__TYPE = eINSTANCE.getLink_Type();
 
 		/**
+		 * The meta object literal for the '<em><b>Reports</b></em>' reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference LINK__REPORTS = eINSTANCE.getLink_Reports();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl
 		 * <em>Base</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
@@ -911,6 +989,14 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BASE__NAME = eINSTANCE.getBase_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Reports</b></em>' containment reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference BASE__REPORTS = eINSTANCE.getBase_Reports();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement
@@ -987,14 +1073,30 @@ public interface MappingPackage extends EPackage {
 		EReference LOCATION_CONTAINER__CONTENTS = eINSTANCE.getLocationContainer_Contents();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.Status
-		 * <em>Status</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.ReportImpl
+		 * <em>Report</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
-		 * @see org.eclipse.mylyn.docs.intent.mapping.Status
-		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getStatus()
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.ReportImpl
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getReport()
 		 * @generated
 		 */
-		EEnum STATUS = eINSTANCE.getStatus();
+		EClass REPORT = eINSTANCE.getReport();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute REPORT__DESCRIPTION = eINSTANCE.getReport_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Link</b></em>' reference feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference REPORT__LINK = eINSTANCE.getReport_Link();
 
 		/**
 		 * The meta object literal for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!--

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
+import java.util.List;
 
 /**
  * A base stores root {@link ILocation}.
@@ -57,5 +58,12 @@ public interface IBase extends IMappingElement, ILocationContainer {
 	 *         {@link IBase}
 	 */
 	BaseElementFactory getFactory();
+
+	/**
+	 * Gets the {@link List} of {@link IReport}.
+	 * 
+	 * @return the {@link List} of {@link IReport}
+	 */
+	List<IReport> getReports();
 
 }

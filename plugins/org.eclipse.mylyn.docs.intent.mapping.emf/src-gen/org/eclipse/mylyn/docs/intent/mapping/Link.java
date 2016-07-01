@@ -31,36 +31,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
  * @generated NOT
  */
 public interface Link extends IEMFBaseElement, ILink {
-	/**
-	 * Returns the value of the '<em><b>Status</b></em>' attribute. The default value is <code>"VALID"</code>.
-	 * The literals are from the enumeration {@link org.eclipse.mylyn.docs.intent.mapping.Status}. <!--
-	 * begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Status</em>' attribute isn't clear, there really should be more of a
-	 * description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Status</em>' attribute.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Status
-	 * @see #setStatus(Status)
-	 * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getLink_Status()
-	 * @model default="VALID" required="true"
-	 * @generated
-	 */
-	Status getStatus();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.Link#getStatus <em>Status</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Status</em>' attribute.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Status
-	 * @see #getStatus()
-	 * @generated
-	 */
-	void setStatus(Status value);
 
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute. <!-- begin-user-doc -->

@@ -53,6 +53,24 @@ public interface IBaseListener {
 			// nothing to do here
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#reportAdded(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportAdded(IReport report) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#reportRemoved(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportRemoved(IReport report) {
+			// nothing to do here
+		}
+
 	}
 
 	/**
@@ -80,5 +98,21 @@ public interface IBaseListener {
 	 *            the removed {@link IBase#getContents() contents} {@link ILocation}
 	 */
 	void contentsRemoved(ILocation location);
+
+	/**
+	 * Notifies when the {@link IBase#getReports() reports} {@link IReport} is added.
+	 * 
+	 * @param report
+	 *            the added {@link IBase#getReports() reports} {@link IReport}
+	 */
+	void reportAdded(IReport report);
+
+	/**
+	 * Notifies when the {@link IBase#getReports() reports} {@link IReport} is removed.
+	 * 
+	 * @param report
+	 *            the removed {@link IBase#getReports() reports} {@link IReport}
+	 */
+	void reportRemoved(IReport report);
 
 }

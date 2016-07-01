@@ -21,24 +21,6 @@ import java.util.List;
 public interface ILocation extends IMappingElement, ILocationContainer, IBaseElement {
 
 	/**
-	 * Marks the location as changed. All {@link ILocation#getSourceLinks() source} must be
-	 * {@link ILink#getStatus() marked} as
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus#CHANGED_TARGET CHANGED_TARGET} and
-	 * {@link ILocation#getTargetLinks() target} must be {@link ILink#getStatus() marked} as
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus#CHANGED_SOURCE CHANGED_SOURCE}
-	 */
-	void markAsChanged();
-
-	/**
-	 * Marks the location as deleted. All {@link ILocation#getSourceLinks() source} must be
-	 * {@link ILink#getStatus() marked} as
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus#DELETED_TARGET DELETED_TARGET} and
-	 * {@link ILocation#getTargetLinks() target} must be {@link ILink#getStatus() marked} as
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus#DELETED_SOURCE DELETED_SOURCE}
-	 */
-	void markAsDeleted();
-
-	/**
 	 * Gets the {@link List} of {@link ILink} that have this {@link ILocation} as {@link ILink#getTarget()
 	 * target}.
 	 * 

@@ -95,7 +95,7 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	 */
 	private void update(Viewer viewer, Object input) {
 		this.currentViewer = viewer;
-		this.currentInput = (ILocation)input;
+		this.currentInput = input;
 		update();
 	}
 

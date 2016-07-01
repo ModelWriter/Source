@@ -25,18 +25,21 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
+import org.eclipse.mylyn.docs.intent.mapping.Report;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 
@@ -47,6 +50,7 @@ import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
  * <ul>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getContents <em>Contents</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getReports <em>Reports</em>}</li>
  * </ul>
  * </p>
  *
@@ -82,6 +86,16 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getReports() <em>Reports</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see #getReports()
+	 * @generated NOT
+	 * @ordered
+	 */
+	protected EList<IReport> reports;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -139,6 +153,18 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
+	 * @generated NOT
+	 */
+	public List<IReport> getReports() {
+		if (reports == null) {
+			reports = new EObjectContainmentEList<IReport>(Report.class, this, MappingPackage.BASE__REPORTS);
+		}
+		return reports;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -162,6 +188,8 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 		switch (featureID) {
 			case MappingPackage.BASE__CONTENTS:
 				return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
+			case MappingPackage.BASE__REPORTS:
+				return ((InternalEList<?>)getReports()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -178,6 +206,8 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 				return getContents();
 			case MappingPackage.BASE__NAME:
 				return getName();
+			case MappingPackage.BASE__REPORTS:
+				return getReports();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -198,6 +228,10 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 			case MappingPackage.BASE__NAME:
 				setName((String)newValue);
 				return;
+			case MappingPackage.BASE__REPORTS:
+				getReports().clear();
+				getReports().addAll((Collection<? extends Report>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -216,6 +250,9 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 			case MappingPackage.BASE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case MappingPackage.BASE__REPORTS:
+				getReports().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -232,6 +269,8 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 				return contents != null && !contents.isEmpty();
 			case MappingPackage.BASE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case MappingPackage.BASE__REPORTS:
+				return reports != null && !reports.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -360,6 +399,42 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 							}
 							break;
 					}
+					break;
+				case MappingPackage.BASE__REPORTS:
+					switch (msg.getEventType()) {
+						case Notification.ADD:
+							for (Adapter adapter : eAdapters()) {
+								if (adapter instanceof BaseAdapter) {
+									((BaseAdapter)adapter).listener.reportAdded((IReport)msg.getNewValue());
+								}
+							}
+							break;
+						case Notification.ADD_MANY:
+							for (Adapter adapter : eAdapters()) {
+								if (adapter instanceof BaseAdapter) {
+									for (IReport report : (List<IReport>)msg.getNewValue()) {
+										((BaseAdapter)adapter).listener.reportAdded(report);
+									}
+								}
+							}
+							break;
+						case Notification.REMOVE:
+							for (Adapter adapter : eAdapters()) {
+								if (adapter instanceof BaseAdapter) {
+									((BaseAdapter)adapter).listener.reportRemoved((IReport)msg.getOldValue());
+								}
+							}
+							break;
+						case Notification.REMOVE_MANY:
+							for (Adapter adapter : eAdapters()) {
+								if (adapter instanceof BaseAdapter) {
+									for (IReport report : (List<IReport>)msg.getOldValue()) {
+										((BaseAdapter)adapter).listener.reportRemoved(report);
+									}
+								}
+							}
+					}
+					break;
 			}
 		}
 	}
@@ -396,12 +471,13 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	 * 
 	 * @generated NOT
 	 */
-	private final BaseElementFactory factory = initLocationFactory();
+	private final BaseElementFactory factory = initElementFactory();
 
-	private BaseElementFactory initLocationFactory() {
+	private BaseElementFactory initElementFactory() {
 		BaseElementFactory res = new BaseElementFactory();
 
 		res.addDescriptor(ILink.class, new FactoryDescriptor<LinkImpl>(LinkImpl.class));
+		res.addDescriptor(IReport.class, new FactoryDescriptor<ReportImpl>(ReportImpl.class));
 		res.addDescriptor(ITextLocation.class,
 				new FactoryDescriptor<TextLocationImpl>(TextLocationImpl.class));
 		res.addDescriptor(IEObjectLocation.class, new FactoryDescriptor<EObjectLocationImpl>(

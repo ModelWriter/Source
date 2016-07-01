@@ -85,25 +85,12 @@ public class LinkItemProvider extends ItemProviderAdapter implements IEditingDom
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addStatusPropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
 			addTargetPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
+			addReportsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Status feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected void addStatusPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Link_status_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Link_status_feature", "_UI_Link_type"),
-				MappingPackage.Literals.LINK__STATUS, true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -143,6 +130,18 @@ public class LinkItemProvider extends ItemProviderAdapter implements IEditingDom
 				getString("_UI_PropertyDescriptor_description", "_UI_Link_type_feature", "_UI_Link_type"),
 				MappingPackage.Literals.LINK__TYPE, true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Reports feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected void addReportsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Link_reports_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Link_reports_feature", "_UI_Link_type"),
+				MappingPackage.Literals.LINK__REPORTS, true, false, true, null, null, null));
 	}
 
 	/**

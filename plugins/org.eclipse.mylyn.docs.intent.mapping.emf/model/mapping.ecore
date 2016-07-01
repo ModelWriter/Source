@@ -11,8 +11,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//Type"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="#//IEMFBaseElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
-        eType="#//Status" defaultValueLiteral="VALID"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
@@ -20,17 +18,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
         eType="#//Location" eOpposite="#//Location/sourceLinks"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//Type"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Status">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel"/>
-    <eLiterals name="VALID"/>
-    <eLiterals name="CHANGED_SOURCE" value="1"/>
-    <eLiterals name="CHANGED_TARGET" value="2"/>
-    <eLiterals name="DELETED_SOURCE" value="3"/>
-    <eLiterals name="DELETED_TARGET" value="4"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reports" upperBound="-1"
+        eType="#//Report" eOpposite="#//Report/link"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Base" eSuperTypes="#//IEMFBaseElement #//LocationContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reports" upperBound="-1"
+        eType="#//Report" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IEMFBaseElement" abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="TextLocation" eSuperTypes="#//Location">
@@ -47,5 +41,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="LocationContainer" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contents" upperBound="-1"
         eType="#//Location" containment="true" eOpposite="#//Location/container"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Report" eSuperTypes="#//IEMFBaseElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="link" lowerBound="1" eType="#//Link"
+        eOpposite="#//Link/reports"/>
   </eClassifiers>
 </ecore:EPackage>

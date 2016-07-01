@@ -11,9 +11,12 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.base;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILink.LinkStatus;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -40,8 +43,8 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 
 		assertNull(link.getDescription());
 
-		assertTestLinkListener(listener, 1, 0, 0, 0);
-		assertTestLinkListener(removedListener, 0, 0, 0, 0);
+		assertTestLinkListener(listener, 1, 0, 0, 0, 0);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -58,8 +61,8 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 
 		assertEquals("description", link.getDescription());
 
-		assertTestLinkListener(listener, 1, 0, 0, 0);
-		assertTestLinkListener(removedListener, 0, 0, 0, 0);
+		assertTestLinkListener(listener, 1, 0, 0, 0, 0);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -68,31 +71,6 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 		final ILink link = createLink();
 
 		assertNull(link.getDescription());
-	}
-
-	@Test
-	public void markAsValid() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		final TestLinkListener listener = new TestLinkListener();
-		final TestLinkListener removedListener = new TestLinkListener();
-
-		final ILink link = createLink();
-		link.addListener(listener);
-		link.addListener(removedListener);
-		link.removeListener(removedListener);
-		link.markAsValid();
-
-		assertEquals(LinkStatus.VALID, link.getLinkStatus());
-
-		assertTestLinkListener(listener, 0, 1, 0, 0);
-		assertTestLinkListener(removedListener, 0, 0, 0, 0);
-	}
-
-	@Test
-	public void getLinkStatusDefault() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		final ILink link = createLink();
-
-		assertEquals(LinkStatus.VALID, link.getLinkStatus());
 	}
 
 	@Test
@@ -108,8 +86,8 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 
 		assertNull(link.getSource());
 
-		assertTestLinkListener(listener, 0, 0, 1, 0);
-		assertTestLinkListener(removedListener, 0, 0, 0, 0);
+		assertTestLinkListener(listener, 0, 1, 0, 0, 0);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -127,8 +105,8 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 
 		assertEquals(source, link.getSource());
 
-		assertTestLinkListener(listener, 0, 0, 1, 0);
-		assertTestLinkListener(removedListener, 0, 0, 0, 0);
+		assertTestLinkListener(listener, 0, 1, 0, 0, 0);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -152,8 +130,8 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 
 		assertNull(link.getTarget());
 
-		assertTestLinkListener(listener, 0, 0, 0, 1);
-		assertTestLinkListener(removedListener, 0, 0, 0, 0);
+		assertTestLinkListener(listener, 0, 0, 1, 0, 0);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -171,8 +149,8 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 
 		assertEquals(target, link.getTarget());
 
-		assertTestLinkListener(listener, 0, 0, 0, 1);
-		assertTestLinkListener(removedListener, 0, 0, 0, 0);
+		assertTestLinkListener(listener, 0, 0, 1, 0, 0);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -208,6 +186,106 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 		link.setType(null);
 
 		assertEquals(null, link.getType());
+	}
+
+	@Test
+	public void addReport() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		final TestLinkListener listener = new TestLinkListener();
+		final TestLinkListener removedListener = new TestLinkListener();
+
+		final ILink link = createLink();
+		link.addListener(listener);
+		link.addListener(removedListener);
+		link.removeListener(removedListener);
+		final IReport report = createReport();
+
+		link.getReports().add(report);
+
+		assertEquals(1, link.getReports().size());
+		assertEquals(report, link.getReports().get(0));
+
+		assertTestLinkListener(listener, 0, 0, 0, 1, 0);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
+	}
+
+	@Test
+	public void addManyReports() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final TestLinkListener listener = new TestLinkListener();
+		final TestLinkListener removedListener = new TestLinkListener();
+
+		final ILink link = createLink();
+		link.addListener(listener);
+		link.addListener(removedListener);
+		link.removeListener(removedListener);
+		final IReport report1 = createReport();
+		final IReport report2 = createReport();
+		final List<IReport> reports = new ArrayList<IReport>();
+		reports.add(report1);
+		reports.add(report2);
+
+		link.getReports().addAll(reports);
+
+		assertEquals(2, link.getReports().size());
+		assertEquals(report1, link.getReports().get(0));
+		assertEquals(report2, link.getReports().get(1));
+
+		assertTestLinkListener(listener, 0, 0, 0, 2, 0);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
+	}
+
+	@Test
+	public void removeReport() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		final TestLinkListener listener = new TestLinkListener();
+		final TestLinkListener removedListener = new TestLinkListener();
+
+		final ILink link = createLink();
+		link.addListener(listener);
+		link.addListener(removedListener);
+		link.removeListener(removedListener);
+		final IReport report = createReport();
+
+		link.getReports().add(report);
+
+		assertEquals(1, link.getReports().size());
+		assertEquals(report, link.getReports().get(0));
+
+		link.getReports().remove(report);
+
+		assertEquals(0, link.getReports().size());
+
+		assertTestLinkListener(listener, 0, 0, 0, 1, 1);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
+	}
+
+	@Test
+	public void removeManyReports() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final TestLinkListener listener = new TestLinkListener();
+		final TestLinkListener removedListener = new TestLinkListener();
+
+		final ILink link = createLink();
+		link.addListener(listener);
+		link.addListener(removedListener);
+		link.removeListener(removedListener);
+		final IReport report1 = createReport();
+		final IReport report2 = createReport();
+		final List<IReport> reports = new ArrayList<IReport>();
+		reports.add(report1);
+		reports.add(report2);
+
+		link.getReports().addAll(reports);
+
+		assertEquals(2, link.getReports().size());
+		assertEquals(report1, link.getReports().get(0));
+		assertEquals(report2, link.getReports().get(1));
+
+		link.getReports().removeAll(reports);
+
+		assertEquals(0, link.getReports().size());
+
+		assertTestLinkListener(listener, 0, 0, 0, 2, 2);
+		assertTestLinkListener(removedListener, 0, 0, 0, 0, 0);
 	}
 
 }

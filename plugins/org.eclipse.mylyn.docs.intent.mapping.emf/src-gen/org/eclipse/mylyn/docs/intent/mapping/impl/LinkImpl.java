@@ -13,62 +13,48 @@
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
-import org.eclipse.mylyn.docs.intent.mapping.Status;
+import org.eclipse.mylyn.docs.intent.mapping.Report;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Link</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getStatus <em>Status</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getDescription <em>Description</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getSource <em>Source</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getTarget <em>Target</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getType <em>Type</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl#getReports <em>Reports</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
-	/**
-	 * The default value of the '{@link #getStatus() <em>Status</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see #getStatus()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final Status STATUS_EDEFAULT = Status.VALID;
-
-	/**
-	 * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see #getStatus()
-	 * @generated
-	 * @ordered
-	 */
-	protected Status status = STATUS_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
@@ -120,6 +106,16 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	protected Serializable type = TYPE_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getReports() <em>Reports</em>}' reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @see #getReports()
+	 * @generated NOT
+	 * @ordered
+	 */
+	protected EList<IReport> reports;
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
@@ -136,28 +132,6 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	@Override
 	protected EClass eStaticClass() {
 		return MappingPackage.Literals.LINK;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Status getStatus() {
-		return status;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setStatus(Status newStatus) {
-		Status oldStatus = status;
-		status = newStatus == null ? STATUS_EDEFAULT : newStatus;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.LINK__STATUS, oldStatus,
-					status));
 	}
 
 	/**
@@ -203,7 +177,7 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 
 		msgs = eBasicSetContainer((InternalEObject)newSource, MappingPackage.LINK__SOURCE, msgs);
 
-		if (getLinkStatus() == LinkStatus.DELETED_SOURCE) {
+		if (oldSource != null) {
 			final ILocationContainer container = oldSource.getContainer();
 			if (container != null && oldSource.getTargetLinks().isEmpty()
 					&& oldSource.getSourceLinks().isEmpty()) {
@@ -283,7 +257,7 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				msgs.add(notification);
 		}
 
-		if (getLinkStatus() == LinkStatus.DELETED_TARGET) {
+		if (oldTarget != null) {
 			final ILocationContainer container = oldTarget.getContainer();
 			if (container != null && oldTarget.getSourceLinks().isEmpty()
 					&& oldTarget.getTargetLinks().isEmpty()) {
@@ -340,8 +314,22 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
+	 * @generated NOT
+	 */
+	public List<IReport> getReports() {
+		if (reports == null) {
+			reports = new EObjectWithInverseResolvingEList<IReport>(Report.class, this,
+					MappingPackage.LINK__REPORTS, MappingPackage.REPORT__LINK);
+		}
+		return reports;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -354,6 +342,9 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 					msgs = ((InternalEObject)target).eInverseRemove(this,
 							MappingPackage.LOCATION__SOURCE_LINKS, Location.class, msgs);
 				return basicSetTarget((Location)otherEnd, msgs);
+			case MappingPackage.LINK__REPORTS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getReports()).basicAdd(otherEnd,
+						msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -370,6 +361,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				return basicSetSource(null, msgs);
 			case MappingPackage.LINK__TARGET:
 				return basicSetTarget(null, msgs);
+			case MappingPackage.LINK__REPORTS:
+				return ((InternalEList<?>)getReports()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -397,8 +390,6 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case MappingPackage.LINK__STATUS:
-				return getStatus();
 			case MappingPackage.LINK__DESCRIPTION:
 				return getDescription();
 			case MappingPackage.LINK__SOURCE:
@@ -409,6 +400,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				return basicGetTarget();
 			case MappingPackage.LINK__TYPE:
 				return getType();
+			case MappingPackage.LINK__REPORTS:
+				return getReports();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -418,12 +411,10 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	 * 
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case MappingPackage.LINK__STATUS:
-				setStatus((Status)newValue);
-				return;
 			case MappingPackage.LINK__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -435,6 +426,10 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				return;
 			case MappingPackage.LINK__TYPE:
 				setType((Serializable)newValue);
+				return;
+			case MappingPackage.LINK__REPORTS:
+				getReports().clear();
+				getReports().addAll((Collection<? extends Report>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -448,9 +443,6 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case MappingPackage.LINK__STATUS:
-				setStatus(STATUS_EDEFAULT);
-				return;
 			case MappingPackage.LINK__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -462,6 +454,9 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				return;
 			case MappingPackage.LINK__TYPE:
 				setType(TYPE_EDEFAULT);
+				return;
+			case MappingPackage.LINK__REPORTS:
+				getReports().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -475,8 +470,6 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case MappingPackage.LINK__STATUS:
-				return status != STATUS_EDEFAULT;
 			case MappingPackage.LINK__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT
 						.equals(description);
@@ -486,6 +479,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				return target != null;
 			case MappingPackage.LINK__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case MappingPackage.LINK__REPORTS:
+				return reports != null && !reports.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -501,24 +496,12 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (status: ");
-		result.append(status);
-		result.append(", description: ");
+		result.append(" (description: ");
 		result.append(description);
 		result.append(", type: ");
 		result.append(type);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILink#getLinkStatus()
-	 * @generated NOT
-	 */
-	public LinkStatus getLinkStatus() {
-		return getLinkStatus(getStatus());
 	}
 
 	/**
@@ -546,16 +529,6 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILink#markAsValid()
-	 * @generated NOT
-	 */
-	public void markAsValid() {
-		setStatus(Status.VALID);
-	}
-
-	/**
 	 * {@link ILink} adapter.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
@@ -577,6 +550,7 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 			this.listener = listener;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void notifyChanged(Notification msg) {
 			switch (msg.getFeatureID(Link.class)) {
@@ -585,14 +559,6 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 						if (adapter instanceof LinkAdapter) {
 							((LinkAdapter)adapter).listener.descriptionChanged((String)msg.getOldValue(),
 									(String)msg.getNewValue());
-						}
-					}
-					break;
-				case MappingPackage.LINK__STATUS:
-					for (Adapter adapter : eAdapters()) {
-						if (adapter instanceof LinkAdapter) {
-							((LinkAdapter)adapter).listener.statusChanged(getLinkStatus((Status)msg
-									.getOldValue()), getLinkStatus((Status)msg.getNewValue()));
 						}
 					}
 					break;
@@ -612,42 +578,44 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 						}
 					}
 					break;
+				case MappingPackage.LINK__REPORTS:
+					switch (msg.getEventType()) {
+						case Notification.ADD:
+							for (Adapter adapter : eAdapters()) {
+								if (adapter instanceof LinkAdapter) {
+									((LinkAdapter)adapter).listener.reportAdded((IReport)msg.getNewValue());
+								}
+							}
+							break;
+						case Notification.ADD_MANY:
+							for (Adapter adapter : eAdapters()) {
+								if (adapter instanceof LinkAdapter) {
+									for (IReport report : (List<IReport>)msg.getNewValue()) {
+										((LinkAdapter)adapter).listener.reportAdded(report);
+									}
+								}
+							}
+							break;
+						case Notification.REMOVE:
+							for (Adapter adapter : eAdapters()) {
+								if (adapter instanceof LinkAdapter) {
+									((LinkAdapter)adapter).listener.reportRemoved((IReport)msg.getOldValue());
+								}
+							}
+							break;
+						case Notification.REMOVE_MANY:
+							for (Adapter adapter : eAdapters()) {
+								if (adapter instanceof LinkAdapter) {
+									for (IReport report : (List<IReport>)msg.getOldValue()) {
+										((LinkAdapter)adapter).listener.reportRemoved(report);
+									}
+								}
+							}
+					}
+					break;
 			}
 		}
 
-	}
-
-	/**
-	 * Gets the {@link LinkStatus} corresponding to the given {@link Status}.
-	 * 
-	 * @param status
-	 *            the {@link Status}
-	 * @return the {@link LinkStatus} corresponding to the given {@link Status}
-	 */
-	private LinkStatus getLinkStatus(Status status) {
-		final LinkStatus res;
-
-		switch (status) {
-			case CHANGED_SOURCE:
-				res = LinkStatus.CHANGED_SOURCE;
-				break;
-			case CHANGED_TARGET:
-				res = LinkStatus.CHANGED_TARGET;
-				break;
-			case DELETED_SOURCE:
-				res = LinkStatus.DELETED_SOURCE;
-				break;
-			case DELETED_TARGET:
-				res = LinkStatus.DELETED_TARGET;
-				break;
-			case VALID:
-				res = LinkStatus.VALID;
-				break;
-			default:
-				throw new IllegalStateException("missing case for " + status);
-		}
-
-		return res;
 	}
 
 	/**

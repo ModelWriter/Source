@@ -9,13 +9,6 @@
   <foreignModel>mapping.ecore</foreignModel>
   <genPackages prefix="Mapping" basePackage="org.eclipse.mylyn.docs.intent" disposableProviderFactory="true"
       ecorePackage="mapping.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="mapping.ecore#//Status">
-      <genEnumLiterals ecoreEnumLiteral="mapping.ecore#//Status/VALID"/>
-      <genEnumLiterals ecoreEnumLiteral="mapping.ecore#//Status/CHANGED_SOURCE"/>
-      <genEnumLiterals ecoreEnumLiteral="mapping.ecore#//Status/CHANGED_TARGET"/>
-      <genEnumLiterals ecoreEnumLiteral="mapping.ecore#//Status/DELETED_SOURCE"/>
-      <genEnumLiterals ecoreEnumLiteral="mapping.ecore#//Status/DELETED_TARGET"/>
-    </genEnums>
     <genDataTypes ecoreDataType="mapping.ecore#//Type"/>
     <genClasses image="false" ecoreClass="mapping.ecore#//Location">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mapping.ecore#//Location/sourceLinks"/>
@@ -24,14 +17,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Location/type"/>
     </genClasses>
     <genClasses ecoreClass="mapping.ecore#//Link">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Link/status"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Link/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference mapping.ecore#//Link/source"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mapping.ecore#//Link/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Link/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mapping.ecore#//Link/reports"/>
     </genClasses>
     <genClasses ecoreClass="mapping.ecore#//Base">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Base/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mapping.ecore#//Base/reports"/>
     </genClasses>
     <genClasses image="false" ecoreClass="mapping.ecore#//IEMFBaseElement"/>
     <genClasses ecoreClass="mapping.ecore#//TextLocation">
@@ -43,6 +37,10 @@
     </genClasses>
     <genClasses image="false" ecoreClass="mapping.ecore#//LocationContainer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mapping.ecore#//LocationContainer/contents"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="mapping.ecore#//Report">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Report/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mapping.ecore#//Report/link"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
