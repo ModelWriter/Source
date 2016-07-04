@@ -147,8 +147,9 @@ public final class MappingUtils {
 	private static BaseRegistry initBaseRegistry() {
 		final BaseRegistry res = new BaseRegistry();
 
-		res.addListener(new IBaseRegistryListener() {
+		res.addListener(new IBaseRegistryListener.Stub() {
 
+			@Override
 			@SuppressWarnings("unchecked")
 			public void baseRegistred(IBase base) {
 				for (Entry<Class<? extends IBase>, Map<Class<? extends ILocation>, IFactoryDescriptor<? extends ILocation>>> entry : LOCATION_IMPLEMENTATIONS
@@ -161,10 +162,6 @@ public final class MappingUtils {
 						}
 					}
 				}
-			}
-
-			public void baseUnregistred(IBase base) {
-				// nothing to do here
 			}
 
 		});

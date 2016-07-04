@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.base;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -69,6 +70,16 @@ public class BaseRegistryTests {
 	 */
 	public static class TestBase implements IBase {
 
+		/**
+		 * The {@link List} of contained {@link ILocation}.
+		 */
+		private final List<ILocation> contents = new ArrayList<ILocation>();
+
+		/**
+		 * The {@link BaseElementFactory}.
+		 */
+		private final BaseElementFactory factory = new BaseElementFactory();
+
 		public void setName(String name) {
 			// nothing to do here
 		}
@@ -79,8 +90,7 @@ public class BaseRegistryTests {
 		}
 
 		public List<ILocation> getContents() {
-			// nothing to do here
-			return null;
+			return contents;
 		}
 
 		public void addListener(IBaseListener l) {
@@ -92,7 +102,7 @@ public class BaseRegistryTests {
 		}
 
 		public BaseElementFactory getFactory() {
-			return null;
+			return factory;
 		}
 
 		public List<IReport> getReports() {

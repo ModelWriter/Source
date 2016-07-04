@@ -50,6 +50,11 @@ public class LocationFactoryTests {
 	public static class TestLocation implements ITestLocation {
 
 		/**
+		 * The {@link ILocationContainer}.
+		 */
+		private ILocationContainer container;
+
+		/**
 		 * The contents.
 		 */
 		private final List<ILocation> contents = new ArrayList<ILocation>();
@@ -79,11 +84,11 @@ public class LocationFactoryTests {
 
 		public void setContainer(ILocationContainer container) {
 			container.getContents().add(this);
+			this.container = container;
 		}
 
 		public ILocationContainer getContainer() {
-			// nothing to do here
-			return null;
+			return container;
 		}
 
 		public List<ILocation> getContents() {
