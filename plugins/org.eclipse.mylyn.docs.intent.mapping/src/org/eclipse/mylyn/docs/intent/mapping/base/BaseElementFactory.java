@@ -84,61 +84,6 @@ public class BaseElementFactory {
 	}
 
 	/**
-	 * Describe creation of an {@link IBaseElement}. Class loading is lazy.
-	 * 
-	 * @param <T>
-	 *            the kind of {@link IBaseElement} described.
-	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
-	 */
-	public static final class LazyFactoryDescriptor<T extends IBaseElement> implements IFactoryDescriptor<T> {
-
-		/**
-		 * The {@link ClassLoader} that will be use to load the {@link Class}.
-		 */
-		private ClassLoader classLoader;
-
-		/**
-		 * The {@link Class} name.
-		 */
-		private final String className;
-
-		/**
-		 * The loaded {@link Class}.
-		 */
-		private Class<T> clazz;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param classLoader
-		 *            the {@link ClassLoader}
-		 * @param className
-		 *            the {@link Class} name
-		 */
-		public LazyFactoryDescriptor(ClassLoader classLoader, String className) {
-			this.classLoader = classLoader;
-			this.className = className;
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDescriptor#createElement()
-		 */
-		@SuppressWarnings("unchecked")
-		public T createElement() throws InstantiationException, IllegalAccessException,
-				ClassNotFoundException {
-			if (clazz == null) {
-				clazz = (Class<T>)classLoader.loadClass(className);
-				classLoader = null;
-			}
-
-			return clazz.newInstance();
-		}
-
-	}
-
-	/**
 	 * Mapping from interfaces to instance classes.
 	 */
 	private final Map<Class<? extends IBaseElement>, IFactoryDescriptor<?>> descriptorMapping = new HashMap<Class<? extends IBaseElement>, IFactoryDescriptor<?>>();

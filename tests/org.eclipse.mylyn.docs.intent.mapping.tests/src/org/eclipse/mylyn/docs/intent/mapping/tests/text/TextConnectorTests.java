@@ -79,4 +79,16 @@ public class TextConnectorTests extends TextConnector {
 		assertEquals(location, super.getLocation(container, new TextRegion(2, 4)));
 	}
 
+	@Test
+	public void getName() {
+		final ITextContainer container = new TestTextContainerLocation();
+		container.setText("abcdefgh");
+		final ITextLocation location = new TestTextLocation();
+		location.setContainer(container);
+		container.getContents().add(location);
+
+		super.initLocation(location, new TextRegion(2, 4));
+
+		assertEquals("cd", super.getName(location));
+	}
 }
