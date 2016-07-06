@@ -30,6 +30,15 @@ public class JenaSemanticProvider implements ISemanticProvider {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see eu.modelwriter.semantic.ISemanticProvider#getName()
+	 */
+	public String getName() {
+		return "Jena";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see eu.modelwriter.semantic.ISemanticProvider#getConceptType()
 	 */
 	public Class<?> getConceptType() {

@@ -2,5 +2,46 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="eu.modelwriter.semantic.ide.baseProvider" name="Base Provider" schema="schema/eu.modelwriter.semantic.ide.baseProvider.exsd"/>
+   <extension-point id="eu.modelwriter.semantic.ide.semanticSimilarityProvider" name="Semantic Similarity Provider" schema="schema/eu.modelwriter.semantic.ide.semanticSimilarityProvider.exsd"/>
+   <extension-point id="eu.modelwriter.semantic.ide.semanticProvider" name="Semantic Provider" schema="schema/eu.modelwriter.semantic.ide.semanticProvider.exsd"/>
+   <extension
+         point="eu.modelwriter.semantic.ide.semanticProvider">
+      <provider
+            class="eu.modelwriter.semantic.StringSemanticProvider">
+      </provider>
+   </extension>
+   <extension
+         point="eu.modelwriter.semantic.ide.semanticSimilarityProvider">
+      <provider
+            class="eu.modelwriter.semantic.IdentitySimilarityProvider">
+      </provider>
+   </extension>
+   <extension
+         id="semanticAnnotation"
+         name="Semantic Annotation"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="false">
+      </persistent>
+      <attribute
+            name="semanticConcept">
+      </attribute>
+      <attribute
+            name="semanticSimilarity">
+      </attribute>
+   </extension>
+   <extension
+         id="textSemanticAnnotation"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="false">
+      </persistent>
+      <super
+            type="eu.modelwriter.semantic.ide.semanticAnnotation">
+      </super>
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
+   </extension>
 
 </plugin>

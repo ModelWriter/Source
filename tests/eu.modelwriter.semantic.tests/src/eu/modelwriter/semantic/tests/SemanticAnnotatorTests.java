@@ -48,6 +48,10 @@ public class SemanticAnnotatorTests {
 		 */
 		public static final Object TYPE = new Object();
 
+		public String getName() {
+			return "Book";
+		}
+
 		public Object getType() {
 			return TYPE;
 		}
@@ -120,6 +124,10 @@ public class SemanticAnnotatorTests {
 	 */
 	private static class SemanticProviderA implements ISemanticProvider {
 
+		public String getName() {
+			return "SemanticProviderA";
+		}
+
 		public Class<?> getConceptType() {
 			return ConceptA.class;
 		}
@@ -145,6 +153,10 @@ public class SemanticAnnotatorTests {
 	 */
 	private static class SemanticProviderB implements ISemanticProvider {
 
+		public String getName() {
+			return "SemanticProviderB";
+		}
+
 		public Class<?> getConceptType() {
 			return ConceptB.class;
 		}
@@ -169,6 +181,10 @@ public class SemanticAnnotatorTests {
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
 	private static class SemanticProviderC implements ISemanticProvider {
+
+		public String getName() {
+			return "SemanticProviderC";
+		}
 
 		public Class<?> getConceptType() {
 			return ConceptC.class;
@@ -272,6 +288,10 @@ public class SemanticAnnotatorTests {
 	public void addSemanticSimilarityProvider() {
 		ISemanticSimilarityProvider provider = new ISemanticSimilarityProvider() {
 
+			public String getName() {
+				return null;
+			}
+
 			public Object getType() {
 				return null;
 			}
@@ -297,6 +317,10 @@ public class SemanticAnnotatorTests {
 	@Test
 	public void removeSemanticSimilarityProvider() {
 		ISemanticSimilarityProvider provider = new ISemanticSimilarityProvider() {
+
+			public String getName() {
+				return null;
+			}
 
 			public Object getType() {
 				return null;

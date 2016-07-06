@@ -11,6 +11,12 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.ide;
 
+import eu.modelwriter.semantic.ISemanticProvider;
+import eu.modelwriter.semantic.ISemanticSimilarityProvider;
+import eu.modelwriter.semantic.SemanticUtils;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -35,6 +41,36 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 	public static final String BASE_PROVIDER_EXTENSION_POINT = "eu.modelwriter.semantic.ide.baseProvider";
 
 	/**
+	 * Plugin providing {@link ISemanticProvider} extension point to parse for extensions.
+	 */
+	public static final String SEMANTIC_PROVIDER_EXTENSION_POINT = "eu.modelwriter.semantic.ide.semanticProvider";
+
+	/**
+	 * {@link ISemanticProvider} tag.
+	 */
+	public static final String SEMANTIC_PROVIDER_TAG_EXTENSION = "provider";
+
+	/**
+	 * The {@link ISemanticProvider} extension point base attribute.
+	 */
+	public static final String SEMANTIC_PROVIDER_ATTRIBUTE_CLASS = "class";
+
+	/**
+	 * Plugin providing {@link ISemanticProvider} extension point to parse for extensions.
+	 */
+	public static final String SEMANTIC_SIMILARITY_PROVIDER_EXTENSION_POINT = "eu.modelwriter.semantic.ide.semanticSimilarityProvider";
+
+	/**
+	 * {@link ISemanticSimilarityProvider} tag.
+	 */
+	public static final String SEMANTIC_SIMILARITY_PROVIDER_TAG_EXTENSION = "provider";
+
+	/**
+	 * The {@link ISemanticSimilarityProvider} extension point base attribute.
+	 */
+	public static final String SEMANTIC_SIMILARITY_PROVIDER_ATTRIBUTE_CLASS = "class";
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @see org.eclipse.core.runtime.IRegistryEventListener#added(org.eclipse.core.runtime.IExtension[])
@@ -43,6 +79,12 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 		for (IExtension extension : extensions) {
 			if (BASE_PROVIDER_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
 				parseBaseProviderExtension(extension);
+			}
+			if (SEMANTIC_PROVIDER_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
+				parseSemanticProviderExtension(extension);
+			}
+			if (SEMANTIC_SIMILARITY_PROVIDER_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
+				parseSemanticSimilarityProviderExtension(extension);
 			}
 		}
 	}
@@ -53,7 +95,31 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 	 * @see org.eclipse.core.runtime.IRegistryEventListener#removed(org.eclipse.core.runtime.IExtension[])
 	 */
 	public void removed(IExtension[] extensions) {
-		// nothing to do here
+		for (IExtension extension : extensions) {
+			final IConfigurationElement[] configElements = extension.getConfigurationElements();
+			for (IConfigurationElement elem : configElements) {
+				if (SEMANTIC_PROVIDER_TAG_EXTENSION.equals(elem.getName())) {
+					final String delegateClassName = elem.getAttribute(SEMANTIC_PROVIDER_ATTRIBUTE_CLASS);
+					for (ISemanticProvider provider : SemanticUtils.getSemanticProviderRegistry()
+							.getProviders()) {
+						if (delegateClassName.equals(provider.getClass().getName())) {
+							SemanticUtils.getSemanticProviderRegistry().unregister(provider);
+							break;
+						}
+					}
+				} else if (SEMANTIC_SIMILARITY_PROVIDER_TAG_EXTENSION.equals(elem.getName())) {
+					final String delegateClassName = elem
+							.getAttribute(SEMANTIC_SIMILARITY_PROVIDER_ATTRIBUTE_CLASS);
+					for (ISemanticSimilarityProvider provider : SemanticUtils
+							.getSemanticSimilarityProviderRegistry().getProviders()) {
+						if (delegateClassName.equals(provider.getClass().getName())) {
+							SemanticUtils.getSemanticSimilarityProviderRegistry().unregister(provider);
+							break;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -84,6 +150,14 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT).getExtensions()) {
 			parseBaseProviderExtension(extension);
 		}
+		for (IExtension extension : registry.getExtensionPoint(SEMANTIC_PROVIDER_EXTENSION_POINT)
+				.getExtensions()) {
+			parseSemanticProviderExtension(extension);
+		}
+		for (IExtension extension : registry.getExtensionPoint(SEMANTIC_SIMILARITY_PROVIDER_EXTENSION_POINT)
+				.getExtensions()) {
+			parseSemanticSimilarityProviderExtension(extension);
+		}
 	}
 
 	/**
@@ -102,6 +176,50 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 		} catch (BundleException e) {
 			Activator.getDefault().getLog().log(
 					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		}
+	}
+
+	/**
+	 * Parses a single {@link ISemanticProvider} extension contribution.
+	 * 
+	 * @param extension
+	 *            Parses the given extension and adds its contribution to the registry.
+	 */
+	private void parseSemanticProviderExtension(IExtension extension) {
+		final IConfigurationElement[] configElements = extension.getConfigurationElements();
+		for (IConfigurationElement elem : configElements) {
+			if (SEMANTIC_PROVIDER_TAG_EXTENSION.equals(elem.getName())) {
+				try {
+					final ISemanticProvider provider = (ISemanticProvider)elem
+							.createExecutableExtension(SEMANTIC_PROVIDER_ATTRIBUTE_CLASS);
+					SemanticUtils.getSemanticProviderRegistry().register(provider);
+				} catch (CoreException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				}
+			}
+		}
+	}
+
+	/**
+	 * Parses a single {@link ISemanticSimilarityProvider} extension contribution.
+	 * 
+	 * @param extension
+	 *            Parses the given extension and adds its contribution to the registry.
+	 */
+	private void parseSemanticSimilarityProviderExtension(IExtension extension) {
+		final IConfigurationElement[] configElements = extension.getConfigurationElements();
+		for (IConfigurationElement elem : configElements) {
+			if (SEMANTIC_SIMILARITY_PROVIDER_TAG_EXTENSION.equals(elem.getName())) {
+				try {
+					final ISemanticSimilarityProvider provider = (ISemanticSimilarityProvider)elem
+							.createExecutableExtension(SEMANTIC_SIMILARITY_PROVIDER_ATTRIBUTE_CLASS);
+					SemanticUtils.getSemanticSimilarityProviderRegistry().register(provider);
+				} catch (CoreException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				}
+			}
 		}
 	}
 

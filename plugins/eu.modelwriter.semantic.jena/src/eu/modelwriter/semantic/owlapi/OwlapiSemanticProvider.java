@@ -11,14 +11,19 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.owlapi;
 
+import eu.modelwriter.semantic.ISemanticProvider;
+
 import java.util.Map;
 import java.util.Set;
-
-import eu.modelwriter.semantic.ISemanticProvider;
 
 // Look examples of JenaSemanticProvider and StringSemanticProvider
 
 public class OwlapiSemanticProvider implements ISemanticProvider {
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public Class<?> getConceptType() {
 		// TODO Auto-generated method stub

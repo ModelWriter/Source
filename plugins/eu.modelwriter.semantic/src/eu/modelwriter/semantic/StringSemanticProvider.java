@@ -25,6 +25,15 @@ public class StringSemanticProvider implements ISemanticProvider {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see eu.modelwriter.semantic.ISemanticProvider#getName()
+	 */
+	public String getName() {
+		return "String";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see eu.modelwriter.semantic.ISemanticProvider#getConceptType()
 	 */
 	public Class<?> getConceptType() {

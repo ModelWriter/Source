@@ -1,12 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Semantic Stanford Core NLP
-Bundle-SymbolicName: eu.modelwriter.semantic.stanford-corenlp
+Bundle-SymbolicName: eu.modelwriter.semantic.stanford-corenlp;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ClassPath: .,
  lib/stanford-corenlp-3.6.0-models.jar,
  lib/stanford-corenlp-3.6.0.jar
-Require-Bundle: eu.modelwriter.semantic;bundle-version="1.0.0",
- org.slf4j.api
+Require-Bundle: eu.modelwriter.semantic,
+ org.slf4j.api,
+ eu.modelwriter.semantic.ide
 Export-Package: eu.modelwriter.semantic.stanford_corenlp

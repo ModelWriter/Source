@@ -68,4 +68,19 @@ public interface ISemanticAnnotator {
 	// TODO change the return type... its ugly.
 	Map<Object, Map<Object, Set<int[]>>> getSemanticAnnotations(String text, Set<?> concepts);
 
+	/**
+	 * Gets the mapping {@link Object concept} -> {@link Object
+	 * ISemanticSimilarityProvider#getSemanticSimilatiry(Object, String) semantic similarity} -> positions
+	 * with the same concepts as the last call to
+	 * {@link ISemanticAnnotator#getSemanticAnnotations(String, Set)}.
+	 * 
+	 * @param text
+	 *            the text to annotate
+	 * @return the mapping {@link Object concept} ->
+	 *         {@link ISemanticSimilarityProvider#getSemanticSimilarities(Object, String) semantic similarity}
+	 *         -> positions
+	 */
+	// TODO change the return type... its ugly.
+	Map<Object, Map<Object, Set<int[]>>> getSemanticAnnotations(String text);
+
 }

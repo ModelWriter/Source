@@ -26,6 +26,15 @@ public class EcoreSemanticProvider extends AbstractEObjectSemanticProvider {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see eu.modelwriter.semantic.ISemanticProvider#getName()
+	 */
+	public String getName() {
+		return "Ecore";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see eu.modelwriter.semantic.emf.AbstractEObjectSemanticProvider#getConceptType()
 	 */
 	public Class<?> getConceptType() {

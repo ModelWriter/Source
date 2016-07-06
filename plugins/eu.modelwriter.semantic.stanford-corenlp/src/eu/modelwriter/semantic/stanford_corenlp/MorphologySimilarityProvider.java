@@ -35,12 +35,21 @@ public class MorphologySimilarityProvider implements ISemanticSimilarityProvider
 	/**
 	 * Morphology similarity type.
 	 */
-	public static final Object TYPE = new Object();
+	public static final Object TYPE = "Stanford Morphology";
 
 	/**
 	 * Standford pipeline.
 	 */
 	private static final StanfordCoreNLP PIPELINE = initPipeline("annotators", "tokenize, ssplit, pos, lemma");
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see eu.modelwriter.semantic.ISemanticSimilarityProvider#getName()
+	 */
+	public String getName() {
+		return "Stanford Morphology";
+	}
 
 	public Object getType() {
 		return TYPE;

@@ -22,6 +22,13 @@ import java.util.Set;
 public interface ISemanticSimilarityProvider {
 
 	/**
+	 * Gets the human readable name.
+	 * 
+	 * @return the human readable name
+	 */
+	String getName();
+
+	/**
 	 * Gets the provided type of {@link Object similarity}.
 	 * 
 	 * @return the provided type of {@link Object similarity}

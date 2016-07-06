@@ -260,7 +260,7 @@ public class SemanticBaseListener implements IResourceChangeListener {
 		final Base base = getBaseFromFile(file);
 		if (base != null) {
 			resourceToBase.put(file, base);
-			SemanticUtils.getSemanticRegistry().register(base);
+			SemanticUtils.getSemanticBaseRegistry().register(base);
 		}
 	}
 
@@ -303,7 +303,7 @@ public class SemanticBaseListener implements IResourceChangeListener {
 	private void unregister(IFile file) {
 		final Base base = resourceToBase.remove(file);
 		if (base != null) {
-			SemanticUtils.getSemanticRegistry().unregister(base);
+			SemanticUtils.getSemanticBaseRegistry().unregister(base);
 		}
 	}
 

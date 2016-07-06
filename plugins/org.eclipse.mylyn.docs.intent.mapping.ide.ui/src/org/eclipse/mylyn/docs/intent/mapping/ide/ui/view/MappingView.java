@@ -446,10 +446,11 @@ public class MappingView extends ViewPart {
 			getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(selectionListener2);
 			selectionListener2 = null;
 		}
+		getSite().setSelectionProvider(null);
 	}
 
 	/**
-	 * Tells if the two givnen {@link IBase} are the same.
+	 * Tells if the two given {@link IBase} are the same.
 	 * 
 	 * @param firstBase
 	 *            the first {@link IBase}

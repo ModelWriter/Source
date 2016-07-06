@@ -22,6 +22,13 @@ import java.util.Set;
 public interface ISemanticProvider {
 
 	/**
+	 * Gets the human readable name.
+	 * 
+	 * @return the human readable name
+	 */
+	String getName();
+
+	/**
 	 * Gets the handled concept {@link Class type}.
 	 * 
 	 * @return the handled concept {@link Class type}

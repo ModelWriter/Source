@@ -9,4 +9,45 @@
             name="Semantic View">
       </view>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors.annotationTypes">
+      <type
+            markerType="eu.modelwriter.semantic.ide.semanticAnnotation"
+            name="eu.modelwriter.semantic.ide.ui.semanticAnnotation">
+      </type>
+      <type
+            markerType="eu.modelwriter.semantic.ide.textSemanticAnnotation"
+            name="eu.modelwriter.semantic.ide.ui.textSemanticAnnotation"
+            super="eu.modelwriter.semantic.ide.ui.semanticAnnotation">
+      </type>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.markerAnnotationSpecification">
+      <specification
+            annotationType="eu.modelwriter.semantic.ide.ui.semanticAnnotation"
+            colorPreferenceKey="semanticAnnotationIndicationColor"
+            colorPreferenceValue="0,255,128"
+            contributesToHeader="true"
+            highlightPreferenceKey="semanticAnnotationIndicationHighlighting"
+            highlightPreferenceValue="false"
+            icon="$nl$/icons/semanticAnnotation.gif"
+            includeOnPreferencePage="true"
+            isGoToNextNavigationTarget="true"
+            isGoToNextNavigationTargetKey="isErrorGoToNextNavigationTarget"
+            isGoToPreviousNavigationTarget="true"
+            isGoToPreviousNavigationTargetKey="isErrorGoToPreviousNavigationTarget"
+            label="Semantic Annotation"
+            overviewRulerPreferenceKey="semanticAnnotationIndicationInOverviewRuler"
+            overviewRulerPreferenceValue="true"
+            presentationLayer="4"
+            showInNextPrevDropdownToolbarAction="true"
+            showInNextPrevDropdownToolbarActionKey="showErrorInNextPrevDropdownToolbarAction"
+            textPreferenceKey="semanticAnnotationIndication"
+            textPreferenceValue="true"
+            textStylePreferenceKey="semanticAnnotationTextStyle"
+            textStylePreferenceValue="PROBLEM_UNDERLINE"
+            verticalRulerPreferenceKey="semanticAnnotationIndicationInVerticalRuler"
+            verticalRulerPreferenceValue="true">
+      </specification>
+   </extension>
 </plugin>

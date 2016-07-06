@@ -51,6 +51,16 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	protected final List<ISemanticSimilarityProvider> similarityProviders = new ArrayList<ISemanticSimilarityProvider>();
 
 	/**
+	 * Cached {@link RunAutomaton}.
+	 */
+	private RunAutomaton cachedAutomaton;
+
+	/**
+	 * Cached similarities.
+	 */
+	private Map<String, Map<Object, Set<Object>>> cachedSimilarities;
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @see eu.modelwriter.semantic.ISemanticAnnotator#addSemanticProvider(eu.modelwriter.semantic.ISemanticProvider)
@@ -62,6 +72,7 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 			for (ISemanticProvider semanticProvider : semanticProviders) {
 				if (semanticProvider.getConceptType().isAssignableFrom(provider.getConceptType())) {
 					semanticProviders.add(index, provider);
+					clearCache();
 					added = true;
 					break;
 				} else {
@@ -70,10 +81,19 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 			}
 			if (!added) {
 				semanticProviders.add(index, provider);
+				clearCache();
 			}
 		} else {
 			throw new IllegalArgumentException("ISemanticProvider can't be null.");
 		}
+	}
+
+	/**
+	 * Clear cached elements.
+	 */
+	public void clearCache() {
+		cachedAutomaton = null;
+		cachedSimilarities = null;
 	}
 
 	/**
@@ -84,6 +104,7 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	public void removeSemanticProvider(ISemanticProvider provider) {
 		if (provider != null) {
 			semanticProviders.remove(provider);
+			clearCache();
 		}
 	}
 
@@ -95,6 +116,7 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	public void addSemanticSimilarityProvider(ISemanticSimilarityProvider provider) {
 		if (provider != null) {
 			similarityProviders.add(provider);
+			clearCache();
 		} else {
 			throw new IllegalArgumentException("ISemanticSimilarityProvider can't be null.");
 		}
@@ -108,6 +130,7 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	public void removeSemanticSimilarityProvider(ISemanticSimilarityProvider provider) {
 		if (provider != null) {
 			similarityProviders.remove(provider);
+			clearCache();
 		}
 	}
 
@@ -121,16 +144,37 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 		final Map<String, Set<Object>> labels = getLabelToConcepts(concepts);
 
 		// semantic similarity -> similarity type -> concepts
-		final Map<String, Map<Object, Set<Object>>> similarities = getSimilarities(labels);
+		cachedSimilarities = getSimilarities(labels);
 
 		// concept -> similarity type -> positions
+		cachedAutomaton = computeSimilarityAutomaton(cachedSimilarities);
 		final Map<Object, Map<Object, Set<int[]>>> conceptToText = doSimilaritiesToTextAnnotation(text,
-				similarities);
+				cachedAutomaton, cachedSimilarities);
 
 		final Map<Object, Map<Object, Set<int[]>>> textToConcept = doTextToSimilarityAnnotation(text,
-				similarities);
+				cachedSimilarities);
 
 		return mergePositions(conceptToText, textToConcept);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see eu.modelwriter.semantic.ISemanticAnnotator#getSemanticAnnotations(java.lang.String)
+	 */
+	public Map<Object, Map<Object, Set<int[]>>> getSemanticAnnotations(String text) {
+		if (cachedAutomaton == null || cachedSimilarities == null) {
+			throw new IllegalStateException(
+					"You should call getSemanticAnnotations(String text, Set<?> concepts)");
+		} else {
+			final Map<Object, Map<Object, Set<int[]>>> conceptToText = doSimilaritiesToTextAnnotation(text,
+					cachedAutomaton, cachedSimilarities);
+
+			final Map<Object, Map<Object, Set<int[]>>> textToConcept = doTextToSimilarityAnnotation(text,
+					cachedSimilarities);
+
+			return mergePositions(conceptToText, textToConcept);
+		}
 	}
 
 	/**
@@ -266,20 +310,16 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	 * 
 	 * @param text
 	 *            the text to annotate
+	 * @param runAutomaton
+	 *            the {@link RunAutomaton} computed from given similarities
 	 * @param similarities
 	 *            similarities mapping
 	 * @return the concept -> similarity type -> positions mapping
 	 */
 	private Map<Object, Map<Object, Set<int[]>>> doSimilaritiesToTextAnnotation(String text,
-			Map<String, Map<Object, Set<Object>>> similarities) {
+			RunAutomaton runAutomaton, Map<String, Map<Object, Set<Object>>> similarities) {
 		final Map<Object, Map<Object, Set<int[]>>> res = new HashMap<Object, Map<Object, Set<int[]>>>();
 
-		Automaton automaton = Automaton.makeEmpty();
-		for (String word : similarities.keySet()) {
-			automaton = automaton.union(Automaton.makeString(word, false));
-		}
-
-		final RunAutomaton runAutomaton = new RunAutomaton(automaton);
 		final AutomatonMatcher matcher = runAutomaton.newMatcher(text);
 		while (matcher.find()) {
 			if (isFullWord(text, matcher.start(), matcher.end())) {
@@ -307,6 +347,23 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 		}
 
 		return res;
+	}
+
+	/**
+	 * Computes the similatiry {@link RunAutomaton} from the given similarities.
+	 * 
+	 * @param similarities
+	 *            the mapping of similarities
+	 * @return the computed {@link RunAutomaton}
+	 */
+	private RunAutomaton computeSimilarityAutomaton(Map<String, Map<Object, Set<Object>>> similarities) {
+		Automaton automaton = Automaton.makeEmpty();
+		for (String word : similarities.keySet()) {
+			automaton = automaton.union(Automaton.makeString(word, false));
+		}
+
+		final RunAutomaton runAutomaton = new RunAutomaton(automaton);
+		return runAutomaton;
 	}
 
 	/**

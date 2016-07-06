@@ -11,10 +11,10 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.owlapi;
 
+import eu.modelwriter.semantic.ISemanticSimilarityProvider;
+
 import java.util.Map;
 import java.util.Set;
-
-import eu.modelwriter.semantic.ISemanticSimilarityProvider;
 
 // Look examples of JenaSynonymySimilarityProvider and 
 
@@ -23,6 +23,11 @@ import eu.modelwriter.semantic.ISemanticSimilarityProvider;
 // concept objects that are linked by THIS object.
 
 public class OwlapiSynonymySimilarityProvider implements ISemanticSimilarityProvider {
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public Object getType() {
 		// TODO Auto-generated method stub

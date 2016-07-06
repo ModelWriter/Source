@@ -13,6 +13,8 @@ package eu.modelwriter.semantic;
 
 import eu.modelwriter.semantic.internal.BaseRegistry;
 import eu.modelwriter.semantic.internal.SemanticAnnotator;
+import eu.modelwriter.semantic.internal.SemanticProviderRegistry;
+import eu.modelwriter.semantic.internal.SemanticSimilarityProviderRegistry;
 
 /**
  * Semantic utility class.
@@ -25,6 +27,16 @@ public final class SemanticUtils {
 	 * The {@link IBaseRegistry}.
 	 */
 	private static final BaseRegistry BASE_REGISTRY = new BaseRegistry();
+
+	/**
+	 * The {@link ISemanticProviderRegistry}.
+	 */
+	private static final ISemanticProviderRegistry SEMANTIC_PROVIDER_REGISTRY = new SemanticProviderRegistry();
+
+	/**
+	 * The {@link ISemanticSimilarityProviderRegistry}.
+	 */
+	private static final ISemanticSimilarityProviderRegistry SEMANTIC_SIMILARITY_PROVIDER_REGISTRY = new SemanticSimilarityProviderRegistry();
 
 	/**
 	 * Constructor.
@@ -47,8 +59,26 @@ public final class SemanticUtils {
 	 * 
 	 * @return the {@link IBaseRegistry}
 	 */
-	public static IBaseRegistry getSemanticRegistry() {
+	public static IBaseRegistry getSemanticBaseRegistry() {
 		return BASE_REGISTRY;
+	}
+
+	/**
+	 * Gets the {@link ISemanticProviderRegistry}.
+	 * 
+	 * @return the {@link ISemanticProviderRegistry}
+	 */
+	public static ISemanticProviderRegistry getSemanticProviderRegistry() {
+		return SEMANTIC_PROVIDER_REGISTRY;
+	}
+
+	/**
+	 * Gets the {@link ISemanticSimilarityProviderRegistry}.
+	 * 
+	 * @return the {@link ISemanticSimilarityProviderRegistry}
+	 */
+	public static ISemanticSimilarityProviderRegistry getSemanticSimilarityProviderRegistry() {
+		return SEMANTIC_SIMILARITY_PROVIDER_REGISTRY;
 	}
 
 }

@@ -4,5 +4,17 @@
    <extension
          point="eu.modelwriter.semantic.ide.baseProvider">
    </extension>
+   <extension
+         point="eu.modelwriter.semantic.ide.semanticProvider">
+      <provider
+            class="eu.modelwriter.semantic.jena.JenaSemanticProvider">
+      </provider>
+   </extension>
+   <extension
+         point="eu.modelwriter.semantic.ide.semanticSimilarityProvider">
+      <provider
+            class="eu.modelwriter.semantic.jena.JenaSynonymySimilarityProvider">
+      </provider>
+   </extension>
 
 </plugin>

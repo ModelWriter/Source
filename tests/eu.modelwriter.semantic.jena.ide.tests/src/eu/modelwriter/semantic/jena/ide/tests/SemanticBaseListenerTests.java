@@ -194,7 +194,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -205,7 +205,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -214,7 +214,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -227,7 +227,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -236,7 +236,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -249,7 +249,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -258,7 +258,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
@@ -276,7 +276,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -285,7 +285,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -298,7 +298,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -307,7 +307,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -322,7 +322,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -331,7 +331,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -346,7 +346,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -355,7 +355,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
@@ -375,7 +375,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -384,7 +384,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -399,7 +399,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -408,7 +408,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -425,7 +425,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -434,7 +434,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -451,7 +451,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -460,7 +460,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final Model model = ModelFactory.createOntologyModel();
 			final Base base = new Base(model);
@@ -481,7 +481,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -490,7 +490,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
@@ -518,7 +518,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -527,7 +527,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -544,7 +544,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -553,7 +553,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -572,7 +572,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -581,7 +581,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -600,7 +600,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -609,7 +609,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
@@ -632,7 +632,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -641,7 +641,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 
@@ -654,7 +654,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -663,7 +663,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createNotBaseFile(project);
@@ -678,7 +678,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -687,7 +687,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, null);
@@ -702,7 +702,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 
@@ -711,7 +711,7 @@ public class SemanticBaseListenerTests {
 
 		final TestBaseRegistryListener registeryListener = new TestBaseRegistryListener();
 		try {
-			SemanticUtils.getSemanticRegistry().addListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
@@ -730,7 +730,7 @@ public class SemanticBaseListenerTests {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} finally {
-			SemanticUtils.getSemanticRegistry().removeListener(registeryListener);
+			SemanticUtils.getSemanticBaseRegistry().removeListener(registeryListener);
 		}
 	}
 

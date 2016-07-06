@@ -32,12 +32,21 @@ public class JenaSynonymySimilarityProvider implements ISemanticSimilarityProvid
 	/**
 	 * Identity similarity type.
 	 */
-	public static final Object TYPE = new Object();
+	public static final Object TYPE = "Jena Synonymy";
 
 	/**
 	 * Default {@link Model}.
 	 */
 	private final Model model = ModelFactory.createDefaultModel();
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see eu.modelwriter.semantic.ISemanticSimilarityProvider#getName()
+	 */
+	public String getName() {
+		return "Jena Synonymy";
+	}
 
 	public Object getType() {
 		return TYPE;
