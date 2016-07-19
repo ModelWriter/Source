@@ -71,11 +71,6 @@ public class MappingView extends ViewPart {
 	private static final String TARGET_LABEL = "Target";
 
 	/**
-	 * The current selected {@link IBase}.
-	 */
-	private IBase selectedBase;
-
-	/**
 	 * The {@link SelectionProviderIntermediate} delegating to {@link org.eclipse.jface.viewers.Viewer Viewer}
 	 * .
 	 */
@@ -145,7 +140,8 @@ public class MappingView extends ViewPart {
 		mappingCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			public void selectionChanged(SelectionChangedEvent event) {
-				selectedBase = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
+				IdeMappingUtils.setCurrentBase((IBase)((IStructuredSelection)event.getSelection())
+						.getFirstElement());
 			}
 		});
 
@@ -218,8 +214,9 @@ public class MappingView extends ViewPart {
 			public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 				if (part != MappingView.this) {
 					final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
-					if (location != null && selectedBase != null
-							&& areSameBase(selectedBase, MappingUtils.getBase(location))) {
+					final IBase currentBase = IdeMappingUtils.getCurentBase();
+					if (location != null && currentBase != null
+							&& areSameBase(currentBase, MappingUtils.getBase(location))) {
 						referencingTree.getViewer().setInput(location);
 						referencedTree.getViewer().setInput(location);
 					}
@@ -332,8 +329,9 @@ public class MappingView extends ViewPart {
 			public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 				if (part != MappingView.this) {
 					final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
-					if (location != null && selectedBase != null
-							&& areSameBase(selectedBase, MappingUtils.getBase(location))) {
+					final IBase currentBase = IdeMappingUtils.getCurentBase();
+					if (location != null && currentBase != null
+							&& areSameBase(currentBase, MappingUtils.getBase(location))) {
 						referencingTree.getViewer().setInput(location);
 						referencedTree.getViewer().setInput(location);
 					}
@@ -424,15 +422,6 @@ public class MappingView extends ViewPart {
 	@Override
 	public void setFocus() {
 		// Set the focus
-	}
-
-	/**
-	 * Gets the selected {@link IBase}.
-	 * 
-	 * @return the selected {@link IBase}
-	 */
-	public IBase getBase() {
-		return selectedBase;
 	}
 
 	@Override

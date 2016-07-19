@@ -16,7 +16,7 @@ import eu.modelwriter.semantic.ISemanticAnnotator;
 import eu.modelwriter.semantic.ISemanticProvider;
 import eu.modelwriter.semantic.ISemanticSimilarityProvider;
 import eu.modelwriter.semantic.SemanticUtils;
-import eu.modelwriter.semantic.ide.ISEmanticAnnotationMarker;
+import eu.modelwriter.semantic.ide.ISemanticAnnotationMarker;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -488,15 +488,16 @@ public class SemanticView extends ViewPart {
 								final Object similarity = similarityEntry.getKey();
 								for (int[] positions : similarityEntry.getValue()) {
 									final IMarker marker = file
-											.createMarker(ISEmanticAnnotationMarker.TEXT_SEMANTIC_ANNOTATION_ID);
-									marker.setAttribute(ISEmanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE,
+											.createMarker(ISemanticAnnotationMarker.TEXT_SEMANTIC_ANNOTATION_ID);
+									marker.setAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE,
 											concept);
 									marker.setAttribute(
-											ISEmanticAnnotationMarker.SEMANTIC_SIMILARITY_ATTRIBUTE,
+											ISemanticAnnotationMarker.SEMANTIC_SIMILARITY_ATTRIBUTE,
 											similarity);
 									marker.setAttribute(IMarker.MESSAGE, concept + "\n" + similarity);
 									marker.setAttribute(IMarker.CHAR_START, positions[0]);
 									marker.setAttribute(IMarker.CHAR_END, positions[1]);
+									marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
 								}
 							}
 						}

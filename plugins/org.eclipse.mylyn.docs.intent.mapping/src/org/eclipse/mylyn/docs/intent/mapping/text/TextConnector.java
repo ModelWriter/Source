@@ -14,6 +14,7 @@ package org.eclipse.mylyn.docs.intent.mapping.text;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils.DiffMatch;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 
 /**
@@ -24,7 +25,8 @@ import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 public class TextConnector extends AbstractConnector {
 
 	@Override
-	public Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType, Object element) {
+	protected Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+			Object element) {
 		final Class<? extends ILocation> res;
 
 		if (ITextContainer.class.isAssignableFrom(containerType) && element instanceof TextRegion) {

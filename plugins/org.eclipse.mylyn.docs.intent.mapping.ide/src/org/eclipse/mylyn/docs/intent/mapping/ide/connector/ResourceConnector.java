@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
@@ -36,7 +37,7 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IResourceLocation;
 public class ResourceConnector extends AbstractConnector {
 
 	@Override
-	protected Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType,
+	protected Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
 			Object element) {
 		final Class<? extends ILocation> res;
 

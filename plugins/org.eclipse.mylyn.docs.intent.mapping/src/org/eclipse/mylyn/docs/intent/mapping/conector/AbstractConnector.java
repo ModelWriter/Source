@@ -11,8 +11,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.conector;
 
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 
 /**
  * An abstract implementation of {@link IConnector}.
@@ -24,10 +25,10 @@ public abstract class AbstractConnector implements IConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#createLocation(org.eclipse.mylyn.docs.intent.mapping.base.IBase,
-	 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocation, java.lang.Object)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#createLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 *      java.lang.Object)
 	 */
-	public ILocation createLocation(IBase base, ILocation container, Object element)
+	public ILocation createLocation(ILocationContainer container, Object element)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final ILocation res;
 
@@ -35,7 +36,8 @@ public abstract class AbstractConnector implements IConnector {
 		final Class<? extends ILocation> locationType = getLocationType(getContainerType(container),
 				adaptedElement);
 		if (locationType != null) {
-			final ILocation location = base.getFactory().createElement(locationType);
+			final ILocation location = MappingUtils.getBase(container).getFactory().createElement(
+					locationType);
 			if (location == null) {
 				throw new IllegalArgumentException("The base can't create " + locationType.getSimpleName());
 			} else {
@@ -53,12 +55,12 @@ public abstract class AbstractConnector implements IConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
 	 *      java.lang.Object)
 	 */
-	public ILocation getLocation(ILocation container, Object element) {
+	public ILocation getLocation(ILocationContainer container, Object element) {
 		final Object adaptedElement = adapt(element);
-		final Class<? extends ILocation> locationType = getLocationType(getContainerType(container),
+		final Class<? extends ILocationContainer> locationType = getLocationType(getContainerType(container),
 				adaptedElement);
 		if (locationType != null) {
 			for (ILocation location : container.getContents()) {
@@ -87,19 +89,11 @@ public abstract class AbstractConnector implements IConnector {
 	 * Gets the container type of the given {@link ILocation container}.
 	 * 
 	 * @param container
-	 *            the containing {@link ILocation} can be <code>null</code>
+	 *            the containing {@link ILocationContainer}
 	 * @return the container type of the given {@link ILocation container}
 	 */
-	private Class<? extends ILocation> getContainerType(ILocation container) {
-		final Class<? extends ILocation> res;
-
-		if (container != null) {
-			res = container.getClass();
-		} else {
-			res = null;
-		}
-
-		return res;
+	private Class<? extends ILocationContainer> getContainerType(ILocationContainer container) {
+		return container.getClass();
 	}
 
 	/**
@@ -123,8 +117,8 @@ public abstract class AbstractConnector implements IConnector {
 	 * @return the {@link ILocation} type according to the given container type and an element to locate if
 	 *         any is handled by this {@link IConnector}, <code>null</code> otherwise
 	 */
-	protected abstract Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType,
-			Object element);
+	protected abstract Class<? extends ILocation> getLocationType(
+			Class<? extends ILocationContainer> containerType, Object element);
 
 	/**
 	 * Initializes the given {@link ILocation}.

@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.ResourceConnector;
@@ -54,7 +55,7 @@ public class ResourceConnectorTests {
 	 */
 	private static class TestResourceConnector extends ResourceConnector {
 		@Override
-		public Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType,
+		public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
 				Object element) {
 			return super.getLocationType(containerType, element);
 		}

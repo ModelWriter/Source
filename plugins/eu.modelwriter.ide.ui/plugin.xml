@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+            class="eu.modelwriter.ide.ui.marker.SemanticLinkResolutionGenerator"
+            markerType="eu.modelwriter.semantic.ide.textSemanticAnnotation">
+      </markerResolutionGenerator>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:#AbstractTextEditorRulerContext">
+         <dynamic
+               class="eu.modelwriter.ide.ui.menu.QuickFixContributionItem"
+               id="eu.modelwriter.ide.ui.quickFixContributionItem">
+         </dynamic>
+      </menuContribution>
+   </extension>
+
+</plugin>

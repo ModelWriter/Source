@@ -17,7 +17,7 @@
       </provider>
    </extension>
    <extension
-         id="semanticAnnotation"
+         id="eu.modelwriter.semantic.ide.semanticAnnotation"
          name="Semantic Annotation"
          point="org.eclipse.core.resources.markers">
       <persistent
@@ -31,7 +31,8 @@
       </attribute>
    </extension>
    <extension
-         id="textSemanticAnnotation"
+         id="eu.modelwriter.semantic.ide.textSemanticAnnotation"
+         name="Text Semantic Annotation"
          point="org.eclipse.core.resources.markers">
       <persistent
             value="false">

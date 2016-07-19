@@ -14,5 +14,15 @@
             class="org.eclipse.mylyn.docs.intent.mapping.ide.connector.ResourceConnector">
       </connector>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.core.resources.IMarker"
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerAdapterFactory">
+         <adapter
+               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+         </adapter>
+      </factory>
+   </extension>
 
 </plugin>

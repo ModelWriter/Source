@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils.DiffMatch;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
@@ -34,7 +35,8 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.internal.TextAdapter;
 public class EObjectConnector extends AbstractConnector {
 
 	@Override
-	public Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType, Object element) {
+	protected Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+			Object element) {
 		final Class<? extends ILocation> res;
 
 		if (IEObjectContainer.class.isAssignableFrom(containerType)

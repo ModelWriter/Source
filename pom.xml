@@ -60,6 +60,11 @@
     <module>releng/eu.modelwriter.targetplatforms/indigo</module>
     <module>releng/eu.modelwriter.targetplatforms/helios</module>
 -->
+    <module>features/eu.modelwriter.feature</module>
+
+    <module>plugins/eu.modelwriter.ide.ui</module>
+    <!-- TODO <module>tests/eu.modelwriter.ide.ui.tests</module> -->
+
     <module>features/org.eclipse.mylyn.docs.intent.mapping.feature</module>
 
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping</module>

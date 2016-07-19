@@ -16,7 +16,7 @@ package eu.modelwriter.semantic.ide;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface ISEmanticAnnotationMarker {
+public interface ISemanticAnnotationMarker {
 
 	/**
 	 * The semantic annotation marker ID.
@@ -26,7 +26,7 @@ public interface ISEmanticAnnotationMarker {
 	/**
 	 * The semantic annotation marker ID.
 	 */
-	String TEXT_SEMANTIC_ANNOTATION_ID = Activator.PLUGIN_ID + ".semanticAnnotation";
+	String TEXT_SEMANTIC_ANNOTATION_ID = Activator.PLUGIN_ID + ".textSemanticAnnotation";
 
 	/**
 	 * The semantic concept attribute.

@@ -13,8 +13,8 @@ package org.eclipse.mylyn.docs.intent.mapping.conector;
 
 import java.util.Set;
 
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 
 /**
  * The {@link IConnector} registry maintains a set of active {@link IConnector}.
@@ -26,10 +26,9 @@ public interface IConnectorRegistry {
 	/**
 	 * Creates the {@link ILocation} according to the given container and an element to locate.
 	 * 
-	 * @param base
-	 *            the {@link IBase} used to store the {@link ILocation}.
 	 * @param container
-	 *            the of the containing {@link ILocation} can be <code>null</code> if not contained
+	 *            the {@link ILocationContainer}, it must be contained into an
+	 *            {@link org.eclipse.mylyn.docs.intent.mapping.base.IBase IBase}
 	 * @param element
 	 *            the Element object to locate
 	 * @return the created {@link ILocation} according to the given container and an element to locate if any
@@ -44,21 +43,42 @@ public interface IConnectorRegistry {
 	 * @throws ClassNotFoundException
 	 *             if the {@link Class} can't be found
 	 */
-	ILocation createLocation(IBase base, ILocation container, Object element) throws InstantiationException,
+	ILocation createLocation(ILocationContainer container, Object element) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException;
 
 	/**
 	 * Gets the {@link ILocation} according to the given container and an element to locate.
 	 * 
 	 * @param container
-	 *            the type of the containing {@link ILocation} can be <code>null</code> if not contained
+	 *            the type of the containing {@link ILocationContainer}
 	 * @param element
 	 *            the Element object to locate
 	 * @return the {@link ILocation} according to the given container and an element to locate if any is
 	 *         handled by a {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector},
 	 *         <code>null</code> otherwise
 	 */
-	ILocation getLocation(ILocation container, Object element);
+	ILocation getLocation(ILocationContainer container, Object element);
+
+	/**
+	 * Gets or creates an {@link ILocation} according to the given element.
+	 * 
+	 * @param container
+	 *            the {@link ILocationContainer}, it must be contained into an
+	 *            {@link org.eclipse.mylyn.docs.intent.mapping.base.IBase IBase}
+	 * @param element
+	 *            the Element object to locate
+	 * @return the {@link ILocation}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
+	 */
+	ILocation getOrCreateLocation(ILocationContainer container, Object element)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
 	/**
 	 * Gets a human readable name for the given {@link ILocation}.

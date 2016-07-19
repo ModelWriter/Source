@@ -23,6 +23,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDes
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
@@ -274,6 +275,60 @@ public final class MappingUtils {
 				conainer = ((ILocation)conainer).getContainer();
 			} else {
 				break;
+			}
+		}
+
+		return res;
+	}
+
+	/**
+	 * Gets the containing {@link IBase} of the given {@link ILocationContainer}.
+	 * 
+	 * @param container
+	 *            the {@link ILocationContainer}
+	 * @return the containing {@link IBase} of the given {@link ILocationContainer} if any, <code>null</code>
+	 *         otherwise
+	 */
+	public static IBase getBase(ILocationContainer container) {
+		final IBase res;
+
+		if (container instanceof IBase) {
+			res = (IBase)container;
+		} else if (container instanceof ILocation) {
+			res = getBase((ILocation)container);
+		} else {
+			throw new IllegalStateException("new ILocationContainer sub type ?");
+		}
+
+		return res;
+	}
+
+	/**
+	 * Gets the {@link ILink} between {@link ILocation source} and {@link ILocation target}.
+	 * 
+	 * @param source
+	 *            the {@link ILocation source}
+	 * @param target
+	 *            the {@link ILocation target}
+	 * @return the {@link ILink} between {@link ILocation source} and {@link ILocation target} if any,
+	 *         <code>null</code> otherwise
+	 */
+	public static ILink getLink(ILocation source, ILocation target) {
+		ILink res = null;
+
+		if (source.getTargetLinks().size() > target.getSourceLinks().size()) {
+			for (ILink link : target.getSourceLinks()) {
+				if (source.equals(link.getSource())) {
+					res = link;
+					break;
+				}
+			}
+		} else {
+			for (ILink link : source.getTargetLinks()) {
+				if (target.equals(link.getTarget())) {
+					res = link;
+					break;
+				}
 			}
 		}
 

@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.conector;
 
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 
 /**
  * The connector is in charge of {@link ILocation}.
@@ -24,10 +24,9 @@ public interface IConnector {
 	/**
 	 * Creates the {@link ILocation} according to the given container and an element to locate.
 	 * 
-	 * @param base
-	 *            the {@link IBase} used to store the {@link ILocation}.
 	 * @param container
-	 *            the type of the containing {@link ILocation} can be <code>null</code> if not contained
+	 *            the {@link ILocationContainer}, it must be contained into an
+	 *            {@link org.eclipse.mylyn.docs.intent.mapping.base.IBase IBase}
 	 * @param element
 	 *            the Element object to locate
 	 * @return the created {@link ILocation} according to the given container and an element to locate if any
@@ -41,20 +40,20 @@ public interface IConnector {
 	 * @throws ClassNotFoundException
 	 *             if the {@link Class} can't be found
 	 */
-	ILocation createLocation(IBase base, ILocation container, Object element) throws InstantiationException,
+	ILocation createLocation(ILocationContainer container, Object element) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException;
 
 	/**
 	 * Gets the {@link ILocation} according to the given container and an element to locate.
 	 * 
 	 * @param container
-	 *            the type of the containing {@link ILocation} can be <code>null</code> if not contained
+	 *            the type of the containing {@link ILocationContainer}
 	 * @param element
 	 *            the Element object to locate
 	 * @return the {@link ILocation} according to the given container and an element to locate if any is
 	 *         handled by this {@link IConnector} and found, <code>null</code> otherwise
 	 */
-	ILocation getLocation(ILocation container, Object element);
+	ILocation getLocation(ILocationContainer container, Object element);
 
 	/**
 	 * Gets a human readable name for the given {@link ILocation}.

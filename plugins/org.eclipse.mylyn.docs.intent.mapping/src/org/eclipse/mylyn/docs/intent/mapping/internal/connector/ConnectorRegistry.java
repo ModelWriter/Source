@@ -15,8 +15,8 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
 
@@ -28,20 +28,21 @@ import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
 public class ConnectorRegistry implements IConnectorRegistry {
 
 	/**
-	 * The {@link Set} of {@link ConnectorRegistry#register(IBase) registered} {@link IConnector}.
+	 * The {@link Set} of {@link ConnectorRegistry#register(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+	 * registered} {@link IConnector}.
 	 */
 	private final Set<IConnector> connectors = Collections.synchronizedSet(new LinkedHashSet<IConnector>());
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#createLocation(org.eclipse.mylyn.docs.intent.mapping.base.IBase,
-	 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocation, java.lang.Object)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#createLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 *      java.lang.Object)
 	 */
-	public ILocation createLocation(IBase base, ILocation container, Object element)
+	public ILocation createLocation(ILocationContainer container, Object element)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		for (IConnector connector : getConnectors()) {
-			final ILocation location = connector.createLocation(base, container, element);
+			final ILocation location = connector.createLocation(container, element);
 			if (location != null) {
 				return location;
 			}
@@ -53,10 +54,10 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
 	 *      java.lang.Object)
 	 */
-	public ILocation getLocation(ILocation container, Object element) {
+	public ILocation getLocation(ILocationContainer container, Object element) {
 		for (IConnector connector : getConnectors()) {
 			final ILocation location = connector.getLocation(container, element);
 			if (location != null) {
@@ -65,6 +66,26 @@ public class ConnectorRegistry implements IConnectorRegistry {
 		}
 
 		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getOrCreateLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 *      java.lang.Object)
+	 */
+	public ILocation getOrCreateLocation(ILocationContainer container, Object element)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		final ILocation res;
+
+		final ILocation foundLocation = getLocation(container, element);
+		if (foundLocation != null) {
+			res = foundLocation;
+		} else {
+			res = createLocation(container, element);
+		}
+
+		return res;
 	}
 
 	/**

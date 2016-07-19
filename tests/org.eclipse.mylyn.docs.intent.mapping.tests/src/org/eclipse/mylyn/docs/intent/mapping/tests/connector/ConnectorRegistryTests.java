@@ -17,6 +17,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.internal.connector.ConnectorRegistry;
@@ -67,8 +68,8 @@ public class ConnectorRegistryTests {
 	public static class TestConnector1 extends AbstractConnector {
 
 		@Override
-		protected Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType,
-				Object element) {
+		protected Class<? extends ILocation> getLocationType(
+				Class<? extends ILocationContainer> containerType, Object element) {
 			final Class<? extends ILocation> res;
 
 			if (containerType == TestLocation1.class) {
@@ -147,8 +148,8 @@ public class ConnectorRegistryTests {
 	public static class TestConnector2 extends AbstractConnector {
 
 		@Override
-		protected Class<? extends ILocation> getLocationType(Class<? extends ILocation> containerType,
-				Object element) {
+		protected Class<? extends ILocation> getLocationType(
+				Class<? extends ILocationContainer> containerType, Object element) {
 			final Class<? extends ILocation> res;
 
 			if (containerType == TestLocation2.class) {
@@ -272,9 +273,10 @@ public class ConnectorRegistryTests {
 			ClassNotFoundException {
 		final IBase base = new ConnectorRegistryTestBase();
 		final ILocation container = new TestLocation1();
+		container.setContainer(base);
 		final Object element = new Object();
 
-		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation location = connectorRegistery.createLocation(container, element);
 
 		assertEquals(null, location);
 	}
@@ -284,6 +286,7 @@ public class ConnectorRegistryTests {
 			ClassNotFoundException {
 		final IBase base = new ConnectorRegistryTestBase();
 		final ILocation container = new TestLocation1();
+		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
@@ -291,7 +294,7 @@ public class ConnectorRegistryTests {
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
 
-		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation location = connectorRegistery.createLocation(container, element);
 
 		assertTrue(location instanceof ITestLocation1);
 		assertEquals(element, ((ITestLocation1)location).getObject());
@@ -302,6 +305,7 @@ public class ConnectorRegistryTests {
 			ClassNotFoundException {
 		final IBase base = new ConnectorRegistryTestBase();
 		final ILocation container = new TestLocation1();
+		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
@@ -314,7 +318,7 @@ public class ConnectorRegistryTests {
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
 
-		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation location = connectorRegistery.createLocation(container, element);
 
 		assertTrue(location instanceof ITestLocation1);
 		assertEquals(element, ((ITestLocation1)location).getObject());
@@ -325,6 +329,7 @@ public class ConnectorRegistryTests {
 			ClassNotFoundException {
 		final IBase base = new ConnectorRegistryTestBase();
 		final ILocation container = new TestLocation2();
+		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
@@ -337,7 +342,7 @@ public class ConnectorRegistryTests {
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
 
-		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation location = connectorRegistery.createLocation(container, element);
 
 		assertTrue(location instanceof ITestLocation2);
 		assertEquals(element, ((ITestLocation2)location).getObject());
@@ -359,6 +364,7 @@ public class ConnectorRegistryTests {
 			ClassNotFoundException {
 		final IBase base = new ConnectorRegistryTestBase();
 		final ILocation container = new TestLocation1();
+		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
@@ -371,7 +377,7 @@ public class ConnectorRegistryTests {
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
 
-		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation location = connectorRegistery.createLocation(container, element);
 		final ILocation found = connectorRegistery.getLocation(container, element);
 
 		assertTrue(location instanceof ITestLocation1);
@@ -384,6 +390,7 @@ public class ConnectorRegistryTests {
 			ClassNotFoundException {
 		final IBase base = new ConnectorRegistryTestBase();
 		final ILocation container = new TestLocation2();
+		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
@@ -396,7 +403,7 @@ public class ConnectorRegistryTests {
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
 
-		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation location = connectorRegistery.createLocation(container, element);
 		final ILocation found = connectorRegistery.getLocation(container, element);
 
 		assertTrue(location instanceof ITestLocation2);
@@ -409,6 +416,7 @@ public class ConnectorRegistryTests {
 			ClassNotFoundException {
 		final IBase base = new ConnectorRegistryTestBase();
 		final ILocation container = new TestLocation1();
+		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
@@ -421,7 +429,7 @@ public class ConnectorRegistryTests {
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
 
-		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation location = connectorRegistery.createLocation(container, element);
 
 		assertTrue(connectorRegistery.getName(location).startsWith("TestLocation1 "));
 	}
@@ -431,6 +439,7 @@ public class ConnectorRegistryTests {
 			ClassNotFoundException {
 		final IBase base = new ConnectorRegistryTestBase();
 		final ILocation container = new TestLocation2();
+		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
@@ -443,7 +452,7 @@ public class ConnectorRegistryTests {
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
 
-		final ILocation location = connectorRegistery.createLocation(base, container, element);
+		final ILocation location = connectorRegistery.createLocation(container, element);
 
 		assertTrue(connectorRegistery.getName(location).startsWith("TestLocation2 "));
 	}

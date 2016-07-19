@@ -15,11 +15,6 @@
             markerType="eu.modelwriter.semantic.ide.semanticAnnotation"
             name="eu.modelwriter.semantic.ide.ui.semanticAnnotation">
       </type>
-      <type
-            markerType="eu.modelwriter.semantic.ide.textSemanticAnnotation"
-            name="eu.modelwriter.semantic.ide.ui.textSemanticAnnotation"
-            super="eu.modelwriter.semantic.ide.ui.semanticAnnotation">
-      </type>
    </extension>
    <extension
          point="org.eclipse.ui.editors.markerAnnotationSpecification">
@@ -38,8 +33,9 @@
             isGoToPreviousNavigationTargetKey="isErrorGoToPreviousNavigationTarget"
             label="Semantic Annotation"
             overviewRulerPreferenceKey="semanticAnnotationIndicationInOverviewRuler"
-            overviewRulerPreferenceValue="true"
+            overviewRulerPreferenceValue="false"
             presentationLayer="4"
+            quickFixIcon="$nl$/icons/semanticAnnotationQuickFix.gif"
             showInNextPrevDropdownToolbarAction="true"
             showInNextPrevDropdownToolbarActionKey="showErrorInNextPrevDropdownToolbarAction"
             textPreferenceKey="semanticAnnotationIndication"

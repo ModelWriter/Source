@@ -13,6 +13,7 @@ package org.eclipse.mylyn.docs.intent.mapping.ide;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector.FileDelegateRegistry;
 
@@ -27,6 +28,11 @@ public final class IdeMappingUtils {
 	 * The {@link IFileDelegateRegistry} instance.
 	 */
 	private static final IFileDelegateRegistry REGISTRY = new FileDelegateRegistry();
+
+	/**
+	 * The current {@link IBase}.
+	 */
+	private static IBase currentBase;
 
 	/**
 	 * Constructor.
@@ -75,4 +81,22 @@ public final class IdeMappingUtils {
 		return res;
 	}
 
+	/**
+	 * Sets the current {@link IBase} to the given {@link IBase}.
+	 * 
+	 * @param base
+	 *            the {@link IBase}
+	 */
+	public static void setCurrentBase(IBase base) {
+		currentBase = base;
+	}
+
+	/**
+	 * Gets the current {@link IBase}.
+	 * 
+	 * @return the current {@link IBase}
+	 */
+	public static IBase getCurentBase() {
+		return currentBase;
+	}
 }
