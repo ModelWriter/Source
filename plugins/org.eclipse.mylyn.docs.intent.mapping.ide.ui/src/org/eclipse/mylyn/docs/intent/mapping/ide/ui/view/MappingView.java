@@ -21,6 +21,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.ViewerComparator;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
@@ -29,9 +30,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -99,10 +103,10 @@ public class MappingView extends ViewPart {
 		composite.setLayout(new GridLayout(1, false));
 
 		Composite headerComposite = new Composite(composite, SWT.NONE);
-		headerComposite.setLayout(new GridLayout(2, false));
-		headerComposite.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false, 1, 1));
-
+		headerComposite.setLayout(new GridLayout(3, false));
+		headerComposite.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
 		final ComboViewer mappingBaseCombo = addMappingBaseCombo(headerComposite);
+		addScopeButton(headerComposite);
 
 		TabFolder bodyTabFolder = new TabFolder(composite, SWT.NONE);
 		bodyTabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -396,6 +400,28 @@ public class MappingView extends ViewPart {
 			}
 		});
 
+	}
+
+	/**
+	 * Adds the scope {@link Button} to the given body {@link Composite}.
+	 * 
+	 * @param headerComposite
+	 *            the body {@link Composite}
+	 */
+	private void addScopeButton(Composite headerComposite) {
+		final Button scopeButton = new Button(headerComposite, SWT.PUSH);
+		scopeButton.setText("Scope");
+		scopeButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, true, 1, 1));
+		scopeButton.addSelectionListener(new SelectionListener() {
+
+			public void widgetSelected(SelectionEvent e) {
+				WizardDialog wd = new WizardDialog(scopeButton.getShell(), new ScopeWizard());
+				wd.open();
+			}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
 	}
 
 	/**
