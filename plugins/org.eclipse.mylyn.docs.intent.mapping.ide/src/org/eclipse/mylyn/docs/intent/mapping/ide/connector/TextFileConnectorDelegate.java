@@ -11,10 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.connector;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -23,6 +20,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
@@ -67,19 +65,9 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 	 */
 	public void initLocation(IFileLocation location, IFile element) {
 		try {
-			final StringBuilder text = new StringBuilder(BUFFER_SIZE);
-			final BufferedReader reader = new BufferedReader(new InputStreamReader(element.getContents(),
-					element.getCharset()));
-			String line = reader.readLine();
-			while (line != null) {
-				text.append(line);
-				line = reader.readLine();
-			}
+			final String text = MappingUtils.getContent(element.getLocation().toFile(), element.getCharset());
 			final IdeTextConnector connector = new IdeTextConnector();
-			connector.update((ITextFileLocation)location, text.toString());
-		} catch (UnsupportedEncodingException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			connector.update((ITextFileLocation)location, text);
 		} catch (CoreException e) {
 			Activator.getDefault().getLog().log(
 					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));

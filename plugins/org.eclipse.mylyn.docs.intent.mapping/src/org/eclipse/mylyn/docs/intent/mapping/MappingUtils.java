@@ -11,6 +11,11 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -333,6 +338,41 @@ public final class MappingUtils {
 		}
 
 		return res;
+	}
+
+	/**
+	 * Gets the content of the given {@link File}.
+	 * 
+	 * @param file
+	 *            the {@link File}
+	 * @param charsetName
+	 *            The name of a supported {@link java.nio.charset.Charset </code>charset<code>}
+	 * @return a {@link CharSequence} of the content of the given {@link File}
+	 * @throws IOException
+	 *             if the {@link File} can't be read
+	 */
+	public static String getContent(File file, String charsetName) throws IOException {
+		if (!file.exists()) {
+			throw new IOException(file.getAbsolutePath() + " doesn't exists.");
+		} else if (file.isDirectory()) {
+			throw new IOException(file.getAbsolutePath() + " is a directory.");
+		} else if (!file.canRead()) {
+			throw new IOException(file.getAbsolutePath() + " is not readable.");
+		}
+		int len = (int)file.length();
+		StringBuilder res = new StringBuilder(len);
+		if (len != 0) {
+			InputStreamReader input = new InputStreamReader(
+					new BufferedInputStream(new FileInputStream(file)), charsetName);
+			char[] buffer = new char[len];
+			int length = input.read(buffer);
+			while (length != -1) {
+				res.append(buffer, 0, length);
+				length = input.read(buffer);
+			}
+			input.close();
+		}
+		return res.toString();
 	}
 
 }

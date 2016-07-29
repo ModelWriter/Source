@@ -11,12 +11,16 @@
  *******************************************************************************/
 package eu.modelwriter.ide.ui.marker;
 
+import com.hp.hpl.jena.rdf.model.Resource;
+
 import eu.modelwriter.ide.ui.Activator;
 import eu.modelwriter.semantic.ide.ISemanticAnnotationMarker;
+import eu.modelwriter.semantic.jena.ide.SemanticBaseListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -26,6 +30,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.jena.ide.IRdfFileLocation;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolution2;
@@ -37,6 +42,11 @@ import org.eclipse.ui.IMarkerResolutionGenerator2;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerator2 {
+
+	/**
+	 * Unable to get the concept attribute on the marker message.
+	 */
+	private static final String UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER = "Unable to get the concept attribute on the marker";
 
 	/**
 	 * Creates an {@link ILink} from the {@link ILocation source} and the {@link ILocation target}.
@@ -146,17 +156,35 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 		// TODO we want to have a description of ILocation here not the location itself...
 		final ILocation source = IdeMappingUtils.adapt(marker, ILocation.class);
 		if (source != null) {
-			final Object concept;
 			try {
-				concept = marker.getAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE);
-				final ILocation target = IdeMappingUtils.adapt(concept, ILocation.class);
-				if (target != null && MappingUtils.getLink(source, target) == null) {
-					res.add(new SemanticLinkMarkerResolution(source, target));
+				final Resource concept = (Resource)marker
+						.getAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE);
+				final IFile file = SemanticBaseListener.getFile(concept.getModel());
+				if (file != null) {
+					final IRdfFileLocation container = (IRdfFileLocation)MappingUtils.getConnectorRegistry()
+							.getOrCreateLocation(IdeMappingUtils.getCurentBase(), file);
+					final ILocation target = MappingUtils.getConnectorRegistry().getOrCreateLocation(
+							container, concept);
+					if (target != null && MappingUtils.getLink(source, target) == null) {
+						res.add(new SemanticLinkMarkerResolution(source, target));
+					}
 				}
 			} catch (CoreException e) {
 				Activator.getDefault().getLog().log(
 						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-								"Unanble to get the concept attribute on the marker", e));
+								UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
+			} catch (InstantiationException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+								UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
+			} catch (IllegalAccessException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+								UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
+			} catch (ClassNotFoundException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+								UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
 			}
 		}
 

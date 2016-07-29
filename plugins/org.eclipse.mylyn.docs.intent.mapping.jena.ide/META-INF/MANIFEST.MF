@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ide
+Bundle-SymbolicName: org.eclipse.mylyn.docs.intent.mapping.jena.ide;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.mylyn.docs.intent.mapping.jena,
+ org.eclipse.mylyn.docs.intent.mapping,
+ org.apache.jena,
+ org.eclipse.mylyn.docs.intent.mapping.ide,
+ org.eclipse.core.resources,
+ org.eclipse.core.contenttype
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.eclipse.mylyn.docs.intent.mapping.jena.ide,
+ org.eclipse.mylyn.docs.intent.mapping.jena.ide.connector

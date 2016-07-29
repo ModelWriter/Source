@@ -240,6 +240,11 @@ public class SemanticView extends ViewPart {
 	private boolean useAnnotatorCache;
 
 	/**
+	 * The {@link EditorPartListener} updating annotations.
+	 */
+	private EditorPartListener editorPartListener;
+
+	/**
 	 * Constructor.
 	 */
 	public SemanticView() {
@@ -266,18 +271,18 @@ public class SemanticView extends ViewPart {
 		initializeToolBar();
 		initializeMenu();
 
-		final EditorPartListener listener = new EditorPartListener();
+		editorPartListener = new EditorPartListener();
 		for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
 			for (IWorkbenchPage page : window.getPages()) {
 				final IEditorPart activeEditor = page.getActiveEditor();
 				if (activeEditor != null) {
 					annotate(activeEditor);
 				}
-				page.addPartListener(listener);
+				page.addPartListener(editorPartListener);
 			}
-			window.addPageListener(listener);
+			window.addPageListener(editorPartListener);
 		}
-		PlatformUI.getWorkbench().addWindowListener(listener);
+		PlatformUI.getWorkbench().addWindowListener(editorPartListener);
 
 		getSite().setSelectionProvider(selectionProvider);
 	}
@@ -460,6 +465,15 @@ public class SemanticView extends ViewPart {
 	@Override
 	public void dispose() {
 		super.dispose();
+
+		for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+			for (IWorkbenchPage page : window.getPages()) {
+				page.removePartListener(editorPartListener);
+			}
+			window.removePageListener(editorPartListener);
+		}
+		PlatformUI.getWorkbench().removeWindowListener(editorPartListener);
+
 		getSite().setSelectionProvider(null);
 	}
 

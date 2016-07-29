@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated ide -->
+      <package
+            uri="http://www.modelwriter.eu/mapping/jena/ide"
+            class="org.eclipse.mylyn.docs.intent.mapping.jena_ide.Jena_idePackage"
+            genModel="model/ide.genmodel"/>
+   </extension>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.location">
+      <base
+            class="org.eclipse.mylyn.docs.intent.mapping.Base">
+         <location
+               implementation="org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl"
+               interface="org.eclipse.mylyn.docs.intent.mapping.jena.ide.IRdfFileLocation">
+         </location>
+         <location
+               implementation="org.eclipse.mylyn.docs.intent.mapping.jena.impl.RdfLocationImpl"
+               interface="org.eclipse.mylyn.docs.intent.mapping.jena.IRdfLocation">
+         </location>
+      </base>
+   </extension>
+
+</plugin>

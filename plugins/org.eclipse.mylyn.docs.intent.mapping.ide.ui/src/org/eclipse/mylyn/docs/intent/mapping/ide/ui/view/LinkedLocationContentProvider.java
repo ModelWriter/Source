@@ -13,10 +13,14 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener.Stub;
 
 /**
  * Provide {@link ILink linked} {@link ILocation} for a given {@link ILocation}.
@@ -24,6 +28,119 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class LinkedLocationContentProvider extends AbstractLocationContentProvider {
+
+	/**
+	 * Recursively listen to {@link ILocation#getContents() content} changes.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	private final class ContentLocationListener extends Stub {
+
+		/**
+		 * Link listener for content listener. It basically attach to an {@link ILink} when its
+		 * {@link ILink#getSource() source} or {@link ILink#getTarget() target} is not setted yet.
+		 *
+		 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+		 */
+		private final class LinkListener extends org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener.Stub {
+
+			/**
+			 * The link we are attached to.
+			 */
+			private final ILink link;
+
+			/**
+			 * Constructor.
+			 * 
+			 * @param link
+			 *            the {@link ILink} to attach to.
+			 */
+			public LinkListener(ILink link) {
+				this.link = link;
+			}
+
+			@Override
+			public void sourceChanged(ILocation oldSource, ILocation newSource) {
+				update();
+				currentViewer.refresh();
+				link.removeListener(this);
+			}
+
+			@Override
+			public void targetChanged(ILocation oldTarget, ILocation newTarget) {
+				update();
+				currentViewer.refresh();
+				link.removeListener(this);
+			}
+
+		}
+
+		@Override
+		public void contentLocationAdded(ILocation location) {
+			update();
+			currentViewer.refresh();
+			addListener(location);
+		}
+
+		@Override
+		public void contentLocationRemoved(ILocation location) {
+			removeListener(location);
+		}
+
+		@Override
+		public void sourceLinkAdded(ILink link) {
+			if (direction == SOURCE) {
+				if (link.getSource() == null) {
+					link.addListener(new LinkListener(link));
+				} else {
+					update();
+					currentViewer.refresh();
+				}
+			}
+		}
+
+		@Override
+		public void targetLinkAdded(ILink link) {
+			if (direction == TARGET) {
+				if (link.getTarget() == null) {
+					link.addListener(new LinkListener(link));
+				} else {
+					update();
+					currentViewer.refresh();
+				}
+			}
+		}
+
+		/**
+		 * Recursively add itself to the content of the given {@link ILocation}.
+		 * 
+		 * @param location
+		 *            the {@link ILocation} to listen
+		 */
+		private void addListener(ILocation location) {
+			if (!listeners.containsKey(location)) {
+				location.addListener(this);
+				listeners.put(location, this);
+				for (ILocation child : location.getContents()) {
+					addListener(child);
+				}
+			}
+		}
+
+		/**
+		 * Recursively remove itself from the content of the given {@link ILocation}.
+		 * 
+		 * @param location
+		 *            the {@link ILocation} to listen
+		 */
+		private void removeListener(ILocation location) {
+			location.removeListener(this);
+			listeners.remove(location);
+			for (ILocation child : location.getContents()) {
+				removeListener(child);
+			}
+		}
+	}
 
 	/**
 	 * {@link ILocation#getSourceLinks() source} direction.
@@ -51,6 +168,11 @@ public class LinkedLocationContentProvider extends AbstractLocationContentProvid
 	private final boolean provideLinks;
 
 	/**
+	 * Mapping from an {@link ILocation} and its {@link ContentLocationListener}.
+	 */
+	private final Map<ILocation, ContentLocationListener> listeners = new HashMap<ILocation, ContentLocationListener>();
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param provideLinks
@@ -69,19 +191,23 @@ public class LinkedLocationContentProvider extends AbstractLocationContentProvid
 	@Override
 	protected void setLeavesAndLinks(Object input, List<ILocation> locationLeaves, List<ILink> links) {
 		if (input instanceof ILocation) {
+			final ILocation location = (ILocation)input;
 			if (direction == SOURCE) {
-				for (ILink link : ((ILocation)input).getSourceLinks()) {
+				for (ILink link : location.getSourceLinks()) {
 					links.add(link);
 					locationLeaves.add(link.getSource());
 				}
 			} else if (direction == TARGET) {
-				for (ILink link : ((ILocation)input).getTargetLinks()) {
+				for (ILink link : location.getTargetLinks()) {
 					links.add(link);
 					locationLeaves.add(link.getTarget());
 				}
 			}
 			if (recursive) {
-				for (ILocation child : ((ILocation)input).getContents()) {
+				final ContentLocationListener listener = new ContentLocationListener();
+				location.addListener(listener);
+				listeners.put((ILocation)input, listener);
+				for (ILocation child : location.getContents()) {
 					setLeavesAndLinks(child, locationLeaves, links);
 				}
 			}
@@ -138,7 +264,7 @@ public class LinkedLocationContentProvider extends AbstractLocationContentProvid
 			throw new IllegalStateException("should not happend");
 		}
 		for (ILink link : linksToCheck) {
-			if (linkListeners.containsKey(link)) {
+			if (listenedLinks.contains(link)) {
 				links.add(link);
 			}
 		}
@@ -179,6 +305,15 @@ public class LinkedLocationContentProvider extends AbstractLocationContentProvid
 		}
 
 		return res;
+	}
+
+	@Override
+	protected void update() {
+		for (Entry<ILocation, ContentLocationListener> entry : listeners.entrySet()) {
+			entry.getKey().removeListener(entry.getValue());
+		}
+		listeners.clear();
+		super.update();
 	}
 
 }

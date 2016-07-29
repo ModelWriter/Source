@@ -57,4 +57,5 @@ public interface IBaseRegistry {
 	 *            the {@link IBaseRegistryListener} to remove
 	 */
 	void removeListener(IBaseRegistryListener listener);
+
 }

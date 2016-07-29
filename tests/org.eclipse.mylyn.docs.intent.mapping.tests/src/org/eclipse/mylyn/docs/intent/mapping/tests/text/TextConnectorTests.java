@@ -89,6 +89,6 @@ public class TextConnectorTests extends TextConnector {
 
 		super.initLocation(location, new TextRegion(2, 4));
 
-		assertEquals("cd", super.getName(location));
+		assertEquals("\"cd\"", super.getName(location));
 	}
 }
