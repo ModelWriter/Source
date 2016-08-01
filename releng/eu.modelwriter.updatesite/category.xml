@@ -24,12 +24,6 @@
    <feature id="eu.modelwriter.semantic.jena.source" version="0.0.0">
       <category name="eu.modelwriter"/>
    </feature>
-   <feature id="eu.modelwriter.marker.source" version="0.0.0">
-      <category name="eu.modelwriter"/>
-   </feature>
-   <feature id="eu.modelwriter.other.source" version="0.0.0">
-      <category name="eu.modelwriter"/>
-   </feature>
    <feature id="org.apache.jena.feature" version="0.0.0">
       <category name="eu.modelwriter"/>
    </feature>
