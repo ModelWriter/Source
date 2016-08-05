@@ -8,7 +8,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.editor,
  org.eclipse.jface.text,
  eu.modelwriter.marker,
- org.eclipse.rmf.reqif10,
  eu.modelwriter.marker.ui,
  org.eclipse.mylyn.wikitext.tests,
  org.eclipse.mylyn.wikitext.markdown.core

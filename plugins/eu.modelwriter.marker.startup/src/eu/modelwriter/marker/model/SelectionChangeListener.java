@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.rmf.reqif10.Identifiable;
 
 import eu.modelwriter.marker.internal.MarkUtilities;
 import eu.modelwriter.marker.internal.MarkerFactory;
@@ -68,10 +67,6 @@ public class SelectionChangeListener implements ISelectionChangedListener {
           String text = null;
 
           // According to selected element, setting the text.
-          if (SelectionChangeListener.preSelection.getFirstElement() instanceof Identifiable) {
-            text = MarkerFactory.reqIfToString(
-                (Identifiable) SelectionChangeListener.preSelection.getFirstElement());
-          } else
             if (SelectionChangeListener.preSelection.getFirstElement() instanceof ENamedElement) {
             text =
                 ((ENamedElement) SelectionChangeListener.preSelection.getFirstElement()).getName();
@@ -99,7 +94,6 @@ public class SelectionChangeListener implements ISelectionChangedListener {
     }
     if ((SelectionChangeListener.preSelection == null)
         || (SelectionChangeListener.preSelection.getFirstElement() instanceof ENamedElement)
-        || (SelectionChangeListener.preSelection.getFirstElement() instanceof Identifiable)
         || !(SelectionChangeListener.preSelection.getFirstElement() instanceof EModelElement)) {
       SelectionChangeListener.preSelection = (ITreeSelection) event.getSelection();
       SelectionChangeListener.preMarker = MarkerFactory

@@ -52,10 +52,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.rmf.reqif10.AttributeValue;
-import org.eclipse.rmf.reqif10.AttributeValueString;
-import org.eclipse.rmf.reqif10.Identifiable;
-import org.eclipse.rmf.reqif10.SpecHierarchy;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
@@ -374,13 +370,6 @@ public class MarkerFactory {
       marker = MarkerFactory.createEcoreMarker(selection, file, res, editor);
 
     } else if (selection != null && MarkerActivator.getEditor() instanceof EcoreEditor
-        && selection.getFirstElement() != null
-        && selection.getFirstElement() instanceof Identifiable) {
-
-      marker = MarkerFactory.createReqIfMarker(selection, file, res, editor);
-
-
-    } else if (selection != null && MarkerActivator.getEditor() instanceof EcoreEditor
         && selection.getFirstElement() != null) {
 
       marker = MarkerFactory.createInstanceMarker(selection, file, res, editor);
@@ -393,94 +382,7 @@ public class MarkerFactory {
     return marker;
   }
 
-  /**
-   * Creates a ReqIf Marker from tree selection
-   *
-   * @param selection
-   * @param file
-   * @param res
-   * @param editor
-   * @return
-   */
-  private static IMarker createReqIfMarker(final ITreeSelection selection, final IFile file,
-      final IResource res, final IEditorPart editor) {
-
-    IMarker marker = null;
-
-    final Identifiable element = (Identifiable) selection.getFirstElement();
-    final URI uri = EcoreUtil.getURI(element);
-
-    final String attributeValue = MarkerFactory.reqIfToString(element);
-
-    final String identifier = element.getIdentifier();
-    if (identifier != null && !identifier.isEmpty()) {
-      final XMLInputFactory factory = XMLInputFactory.newInstance();
-      try {
-        final XMLStreamReader streamReader =
-            factory.createXMLStreamReader(new FileReader(res.getLocation().toFile()));
-
-        EventMemento memento = null;
-        EventMemento current = null;
-        while (streamReader.hasNext()) {
-          if (streamReader.getEventType() == XMLStreamReader.START_ELEMENT) {
-            final String name = streamReader.getAttributeValue(null, "IDENTIFIER");
-            if (name != null && name.equals(identifier)) {
-              break;
-            }
-          }
-          memento = new EventMemento(streamReader);
-          streamReader.next();
-          current = new EventMemento(streamReader);
-        }
-        streamReader.close();
-
-        // JFace Text Document object is created to get character offsets from line numbers.
-        final int[] offsetStartEnd =
-            MarkerFactory.getStartEndOffsetFromXML(streamReader, file, memento, current);
-        final int start = offsetStartEnd[0];
-        final int end = offsetStartEnd[1];
-
-        String text = null;
-        if (element.isSetIdentifier()) {
-          text = element.getIdentifier();
-        }
-        if (text == null) {
-          text = element.toString();
-        }
-
-        final HashMap<String, Object> map = new HashMap<String, Object>();
-        MarkerUtilities.setLineNumber(map, current.getLineNumber());
-        MarkerUtilities.setMessage(map, "Marker Type : non-type");
-        MarkerUtilities.setCharStart(map, start);
-        MarkerUtilities.setCharEnd(map, end);
-        map.put(IMarker.TEXT, attributeValue);
-        map.put(IMarker.LOCATION, current.getLineNumber());
-        map.put(IMarker.SOURCE_ID, MarkerFactory.generateId());
-        map.put("uri", uri.toString());
-        marker = file.createMarker(MarkerFactory.MARKER_MARKING);
-        if (marker.exists()) {
-          try {
-            marker.setAttributes(map);
-          } catch (final CoreException e) {
-            // You need to handle the case where the marker no longer exists
-            e.printStackTrace();
-          }
-        }
-
-        AnnotationFactory.addAnnotation(marker, AnnotationFactory.ANNOTATION_MARKING);
-
-      } catch (final XMLStreamException e) {
-        e.printStackTrace();
-      } catch (final FileNotFoundException e) {
-        e.printStackTrace();
-      } catch (final CoreException e1) {
-        e1.printStackTrace();
-      }
-    }
-
-    return marker;
-
-  }
+  
 
   /**
    * Find a marker for given offset on given resource
@@ -894,37 +796,6 @@ public class MarkerFactory {
 
   }
 
-  /**
-   * Returns the text of element which given from Reqif
-   */
-  public static String reqIfToString(final Identifiable element) {
-    AttributeValueString attribute = null;
-    String attributeValue = null;
-    if (element instanceof SpecHierarchy) {
-      final SpecHierarchy specHierarchy = (SpecHierarchy) element;
-      final Iterator<AttributeValue> iter = specHierarchy.getObject().getValues().iterator();
-      while (iter.hasNext()) {
-        final Object next = iter.next();
-        if (next instanceof AttributeValueString) {
-          attribute = (AttributeValueString) next;
-          attributeValue = attribute.getTheValue();
-          break;
-        }
-      }
-    } else {
-      final TreeIterator<EObject> iter = element.eAllContents();
-
-      while (iter.hasNext()) {
-        final EObject next = iter.next();
-        if (next instanceof AttributeValueString) {
-          attribute = (AttributeValueString) next;
-          attributeValue = attribute.getTheValue();
-          break;
-        }
-      }
-    }
-    return attributeValue;
-  }
 
   /**
    * For the given marker this method updates its XML location

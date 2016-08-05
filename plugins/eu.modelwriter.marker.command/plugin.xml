@@ -529,10 +529,6 @@
           commandId="eu.modelwriter.marker.command.markallinworkspace">
     </handler>
     <handler
-    	  class="eu.modelwriter.marker.command.CreateReqifSpecFromMarkdownHandler"
-          commandId="eu.modelwriter.writer.markers.createreqifspecfrommarkdown">
-    </handler>
-    <handler
           class="eu.modelwriter.marker.command.AlloyParseHandler"
           commandId="eu.modelwriter.marker.command.parsealloy">
     </handler>
@@ -602,11 +598,6 @@
           id="eu.modelwriter.marker.command.markallinworkspace"
           name="Mark All in Workspace">
     </command>
-    <command
-		  description="Creating ReqIf Spec From Selected MarkDown Text"
-		  id="eu.modelwriter.writer.markers.createreqifspecfrommarkdown"
-		  name="Create Reqif Spec From Selected Markdown Text">
-	</command>
     <command
           description="Parses &apos;*.als&apos; files"
           id="eu.modelwriter.marker.command.parsealloy"

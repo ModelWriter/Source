@@ -58,7 +58,6 @@ import org.eclipse.ui.dnd.IDragAndDropService;
 import eu.modelwriter.marker.internal.MarkUtilities;
 import eu.modelwriter.marker.internal.MarkerFactory;
 import eu.modelwriter.marker.internal.MarkerUpdater;
-import eu.modelwriter.marker.model.EcoreDropAdapter;
 import eu.modelwriter.marker.model.SelectionChangeListener;
 import eu.modelwriter.marker.ui.internal.views.masterview.MasterView;
 
@@ -333,7 +332,6 @@ public class Startup implements IStartup {
     int ops = DND.DROP_COPY | DND.DROP_MOVE | DND.DROP_LINK;
     
     IDragAndDropService dtSvc = eEditor.getSite().getService(IDragAndDropService.class);
-    dtSvc.addMergedDropTarget(eEditor.getViewer().getControl(), ops, t, new EcoreDropAdapter(eEditor));
   }
 
   private void initMasterView(IEditorPart editor) {
