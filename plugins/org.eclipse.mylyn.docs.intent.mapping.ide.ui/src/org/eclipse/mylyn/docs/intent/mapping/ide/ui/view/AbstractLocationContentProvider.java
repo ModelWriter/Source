@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -56,14 +55,43 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	protected Object currentInput;
 
 	/**
-	 * Mapping of {@link ILinkListener}.
+	 * The {@link ILinkListener}.
 	 */
-	protected Map<ILink, ILinkListener> linkListeners = new HashMap<ILink, ILinkListener>();
+	protected final ILinkListener linkListener = new ILinkListener.Stub() {
+
+		public void sourceChanged(ILocation oldSource, ILocation newSource) {
+			update();
+			currentViewer.refresh();
+		}
+
+		public void targetChanged(ILocation oldTarget, ILocation newTarget) {
+			update();
+			currentViewer.refresh();
+		}
+	};
 
 	/**
-	 * Mapping of {@link ILocationListener}.
+	 * The {@link Set} of listened {@link ILink}.
 	 */
-	protected Map<ILocation, ILocationListener> locationListeners = new HashMap<ILocation, ILocationListener>();
+	protected Set<ILink> listenedLinks = new HashSet<ILink>();
+
+	/**
+	 * The {@link ILocationListener}.
+	 */
+	protected ILocationListener locationListener = new ILocationListener.Stub() {
+
+		@Override
+		public void containerChanged(ILocationContainer oldContainer, ILocationContainer newContainer) {
+			update();
+			currentViewer.refresh();
+		}
+
+	};
+
+	/**
+	 * The {@link Set} of listened {@link ILocation}.
+	 */
+	protected Set<ILocation> listenedLocations = new HashSet<ILocation>();
 
 	/**
 	 * {@inheritDoc}
@@ -102,7 +130,7 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	/**
 	 * Update the content.
 	 */
-	private void update() {
+	protected void update() {
 		clearLocations();
 		clearLinks();
 
@@ -136,19 +164,7 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	 */
 	private void installLinkListeners(final List<ILink> links) {
 		for (ILink link : links) {
-			final ILinkListener linkListener = new ILinkListener.Stub() {
-
-				public void sourceChanged(ILocation oldSource, ILocation newSource) {
-					update();
-					currentViewer.refresh();
-				}
-
-				public void targetChanged(ILocation oldTarget, ILocation newTarget) {
-					update();
-					currentViewer.refresh();
-				}
-			};
-			linkListeners.put(link, linkListener);
+			listenedLinks.add(link);
 			link.addListener(linkListener);
 		}
 	}
@@ -162,7 +178,8 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 		while (!currentLocations.isEmpty()) {
 			Set<ILocation> nextLocations = new HashSet<ILocation>();
 			for (ILocation current : currentLocations) {
-				current.removeListener(locationListeners.remove(current));
+				listenedLocations.remove(current);
+				current.removeListener(locationListener);
 				nextLocations.addAll(locationForest.get(current));
 			}
 			currentLocations = nextLocations;
@@ -176,10 +193,10 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	 * Clears the {@link ILinkListener}.
 	 */
 	private void clearLinks() {
-		for (Entry<ILink, ILinkListener> entry : linkListeners.entrySet()) {
-			entry.getKey().removeListener(entry.getValue());
+		for (ILink link : listenedLinks) {
+			link.removeListener(linkListener);
 		}
-		linkListeners.clear();
+		listenedLinks.clear();
 	}
 
 	/**
@@ -201,19 +218,9 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 		while (!currentLocations.isEmpty()) {
 			final Set<ILocation> nextLocations = new LinkedHashSet<ILocation>();
 			for (ILocation current : currentLocations) {
-				if (locationListeners.get(current) == null) {
-					ILocationListener listener = new ILocationListener.Stub() {
-
-						@Override
-						public void containerChanged(ILocationContainer oldContainer,
-								ILocationContainer newContainer) {
-							update();
-							currentViewer.refresh();
-						}
-
-					};
-					locationListeners.put(current, listener);
-					current.addListener(listener);
+				if (!listenedLocations.contains(current)) {
+					listenedLocations.add(current);
+					current.addListener(locationListener);
 				}
 				if (current.getContainer() instanceof ILocation) {
 					final ILocation container = (ILocation)current.getContainer();

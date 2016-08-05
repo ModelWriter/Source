@@ -12,6 +12,7 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -353,9 +354,10 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void notifyChanged(Notification msg) {
+			final List<Adapter> eAdapters = new ArrayList<Adapter>(eAdapters());
 			switch (msg.getFeatureID(Base.class)) {
 				case MappingPackage.BASE__NAME:
-					for (Adapter adapter : eAdapters()) {
+					for (Adapter adapter : eAdapters) {
 						if (adapter instanceof BaseAdapter) {
 							((BaseAdapter)adapter).listener.nameChanged((String)msg.getOldValue(),
 									(String)msg.getNewValue());
@@ -365,7 +367,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 				case MappingPackage.BASE__CONTENTS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof BaseAdapter) {
 									((BaseAdapter)adapter).listener.contentsAdded((ILocation)msg
 											.getNewValue());
@@ -373,7 +375,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 							}
 							break;
 						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof BaseAdapter) {
 									for (ILocation location : (List<ILocation>)msg.getNewValue()) {
 										((BaseAdapter)adapter).listener.contentsAdded(location);
@@ -382,7 +384,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 							}
 							break;
 						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof BaseAdapter) {
 									((BaseAdapter)adapter).listener.contentsRemoved((ILocation)msg
 											.getOldValue());
@@ -390,7 +392,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 							}
 							break;
 						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof BaseAdapter) {
 									for (ILocation location : (List<ILocation>)msg.getOldValue()) {
 										((BaseAdapter)adapter).listener.contentsRemoved(location);
@@ -403,14 +405,14 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 				case MappingPackage.BASE__REPORTS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof BaseAdapter) {
 									((BaseAdapter)adapter).listener.reportAdded((IReport)msg.getNewValue());
 								}
 							}
 							break;
 						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof BaseAdapter) {
 									for (IReport report : (List<IReport>)msg.getNewValue()) {
 										((BaseAdapter)adapter).listener.reportAdded(report);
@@ -419,14 +421,14 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 							}
 							break;
 						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof BaseAdapter) {
 									((BaseAdapter)adapter).listener.reportRemoved((IReport)msg.getOldValue());
 								}
 							}
 							break;
 						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof BaseAdapter) {
 									for (IReport report : (List<IReport>)msg.getOldValue()) {
 										((BaseAdapter)adapter).listener.reportRemoved(report);

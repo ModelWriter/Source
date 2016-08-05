@@ -11,6 +11,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EObjectFileLocation" eSuperTypes="#//TextFileLocation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="eObjects" upperBound="-1"
-        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" volatile="true"/>
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" volatile="true"
+        transient="true"/>
   </eClassifiers>
 </ecore:EPackage>

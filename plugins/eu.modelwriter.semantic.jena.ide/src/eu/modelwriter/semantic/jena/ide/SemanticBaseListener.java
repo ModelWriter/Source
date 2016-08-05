@@ -44,6 +44,11 @@ import org.eclipse.core.runtime.Status;
 public class SemanticBaseListener implements IResourceChangeListener {
 
 	/**
+	 * {@link Model} to {@link IFile} mapping.
+	 */
+	private static final Map<Model, IFile> MODEL_TO_IFILE = new HashMap<Model, IFile>();
+
+	/**
 	 * The "Unable to load mapping base from " message.
 	 */
 	private static final String UNABLE_TO_LOAD_SEMANTIC_BASE_FROM = "Unable to load semantic base from ";
@@ -260,6 +265,7 @@ public class SemanticBaseListener implements IResourceChangeListener {
 		final Base base = getBaseFromFile(file);
 		if (base != null) {
 			resourceToBase.put(file, base);
+			MODEL_TO_IFILE.put(base.getModel(), file);
 			SemanticUtils.getSemanticBaseRegistry().register(base);
 		}
 	}
@@ -303,8 +309,20 @@ public class SemanticBaseListener implements IResourceChangeListener {
 	private void unregister(IFile file) {
 		final Base base = resourceToBase.remove(file);
 		if (base != null) {
+			MODEL_TO_IFILE.remove(base.getModel());
 			SemanticUtils.getSemanticBaseRegistry().unregister(base);
 		}
+	}
+
+	/**
+	 * Gets the {@link IFile} for the given {@link Model}.
+	 * 
+	 * @param model
+	 *            the {@link Model}
+	 * @return the {@link IFile} for the given {@link Model} if any registered, <code>null</code> otherwise
+	 */
+	public static IFile getFile(Model model) {
+		return MODEL_TO_IFILE.get(model);
 	}
 
 }

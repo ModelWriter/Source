@@ -13,6 +13,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -553,9 +554,10 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void notifyChanged(Notification msg) {
+			final List<Adapter> eAdapters = new ArrayList<Adapter>(eAdapters());
 			switch (msg.getFeatureID(Link.class)) {
 				case MappingPackage.LINK__DESCRIPTION:
-					for (Adapter adapter : eAdapters()) {
+					for (Adapter adapter : eAdapters) {
 						if (adapter instanceof LinkAdapter) {
 							((LinkAdapter)adapter).listener.descriptionChanged((String)msg.getOldValue(),
 									(String)msg.getNewValue());
@@ -563,7 +565,7 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 					}
 					break;
 				case MappingPackage.LINK__SOURCE:
-					for (Adapter adapter : eAdapters()) {
+					for (Adapter adapter : eAdapters) {
 						if (adapter instanceof LinkAdapter) {
 							((LinkAdapter)adapter).listener.sourceChanged((Location)msg.getOldValue(),
 									(Location)msg.getNewValue());
@@ -571,7 +573,7 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 					}
 					break;
 				case MappingPackage.LINK__TARGET:
-					for (Adapter adapter : eAdapters()) {
+					for (Adapter adapter : eAdapters) {
 						if (adapter instanceof LinkAdapter) {
 							((LinkAdapter)adapter).listener.targetChanged((Location)msg.getOldValue(),
 									(Location)msg.getNewValue());
@@ -581,14 +583,14 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 				case MappingPackage.LINK__REPORTS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LinkAdapter) {
 									((LinkAdapter)adapter).listener.reportAdded((IReport)msg.getNewValue());
 								}
 							}
 							break;
 						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LinkAdapter) {
 									for (IReport report : (List<IReport>)msg.getNewValue()) {
 										((LinkAdapter)adapter).listener.reportAdded(report);
@@ -597,14 +599,14 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 							}
 							break;
 						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LinkAdapter) {
 									((LinkAdapter)adapter).listener.reportRemoved((IReport)msg.getOldValue());
 								}
 							}
 							break;
 						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LinkAdapter) {
 									for (IReport report : (List<IReport>)msg.getOldValue()) {
 										((LinkAdapter)adapter).listener.reportRemoved(report);

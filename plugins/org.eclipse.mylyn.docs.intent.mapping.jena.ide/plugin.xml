@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.connector">
+      <connector
+            class="org.eclipse.mylyn.docs.intent.mapping.jena.ide.connector.IdeRdfConnector">
+      </connector>
+   </extension>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.fileConnectorDelegate">
+      <fileConnectorDelegate
+            class="org.eclipse.mylyn.docs.intent.mapping.jena.ide.connector.RdfFileConnectorDelegate">
+      </fileConnectorDelegate>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            base-type="org.eclipse.core.runtime.text"
+            file-extensions="ttl"
+            id="org.eclipse.mylyn.docs.intent.mapping.jena.ide.turtle"
+            name="Turtle"
+            priority="normal">
+      </content-type>
+   </extension>
+
+</plugin>

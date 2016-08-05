@@ -12,7 +12,9 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -347,9 +349,10 @@ public class ReportImpl extends MinimalEObjectImpl.Container implements Report {
 
 		@Override
 		public void notifyChanged(Notification msg) {
+			final List<Adapter> eAdapters = new ArrayList<Adapter>(eAdapters());
 			switch (msg.getFeatureID(Report.class)) {
 				case MappingPackage.REPORT__DESCRIPTION:
-					for (Adapter adapter : eAdapters()) {
+					for (Adapter adapter : eAdapters) {
 						if (adapter instanceof ReportAdapter) {
 							((ReportAdapter)adapter).listener.descriptionChanged((String)msg.getOldValue(),
 									(String)msg.getNewValue());
@@ -357,7 +360,7 @@ public class ReportImpl extends MinimalEObjectImpl.Container implements Report {
 					}
 					break;
 				case MappingPackage.REPORT__LINK:
-					for (Adapter adapter : eAdapters()) {
+					for (Adapter adapter : eAdapters) {
 						if (adapter instanceof ReportAdapter) {
 							((ReportAdapter)adapter).listener.linkChanged((ILink)msg.getOldValue(),
 									(ILink)msg.getNewValue());

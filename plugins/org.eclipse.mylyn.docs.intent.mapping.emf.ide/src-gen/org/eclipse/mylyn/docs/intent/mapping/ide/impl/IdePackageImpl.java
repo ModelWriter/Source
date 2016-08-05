@@ -283,7 +283,7 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 		initEClass(eObjectFileLocationEClass, EObjectFileLocation.class, "EObjectFileLocation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEObjectFileLocation_EObjects(), ecorePackage.getEObject(), null, "eObjects", null,
-				0, -1, EObjectFileLocation.class, !IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				0, -1, EObjectFileLocation.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
