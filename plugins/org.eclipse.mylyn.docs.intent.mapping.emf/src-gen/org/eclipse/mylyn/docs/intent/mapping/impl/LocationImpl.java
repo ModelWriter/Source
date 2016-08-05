@@ -13,6 +13,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -497,11 +498,12 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		@SuppressWarnings("unchecked")
 		@Override
 		public void notifyChanged(Notification msg) {
+			final List<Adapter> eAdapters = new ArrayList<Adapter>(eAdapters());
 			switch (msg.getFeatureID(Location.class)) {
 				case MappingPackage.LOCATION__SOURCE_LINKS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									((LocationAdapter)adapter).listener.sourceLinkAdded((ILink)msg
 											.getNewValue());
@@ -509,7 +511,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							}
 							break;
 						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									for (ILink link : (List<ILink>)msg.getNewValue()) {
 										((LocationAdapter)adapter).listener.sourceLinkAdded(link);
@@ -518,7 +520,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							}
 							break;
 						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									((LocationAdapter)adapter).listener.sourceLinkRemoved((ILink)msg
 											.getOldValue());
@@ -526,7 +528,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							}
 							break;
 						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									for (ILink link : (List<ILink>)msg.getOldValue()) {
 										((LocationAdapter)adapter).listener.sourceLinkRemoved(link);
@@ -539,7 +541,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				case MappingPackage.LOCATION__TARGET_LINKS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									((LocationAdapter)adapter).listener.targetLinkAdded((ILink)msg
 											.getNewValue());
@@ -547,7 +549,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							}
 							break;
 						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									for (ILink link : (List<ILink>)msg.getNewValue()) {
 										((LocationAdapter)adapter).listener.targetLinkAdded(link);
@@ -556,7 +558,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							}
 							break;
 						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									((LocationAdapter)adapter).listener.targetLinkRemoved((ILink)msg
 											.getOldValue());
@@ -564,7 +566,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							}
 							break;
 						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									for (ILink link : (List<ILink>)msg.getOldValue()) {
 										((LocationAdapter)adapter).listener.targetLinkRemoved(link);
@@ -577,7 +579,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				case MappingPackage.LOCATION__CONTENTS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									((LocationAdapter)adapter).listener.contentLocationAdded((ILocation)msg
 											.getNewValue());
@@ -585,7 +587,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							}
 							break;
 						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									for (ILocation location : (List<ILocation>)msg.getNewValue()) {
 										((LocationAdapter)adapter).listener.contentLocationAdded(location);
@@ -594,7 +596,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							}
 							break;
 						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									((LocationAdapter)adapter).listener.contentLocationRemoved((ILocation)msg
 											.getOldValue());
@@ -602,7 +604,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							}
 							break;
 						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters()) {
+							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									for (ILocation location : (List<ILocation>)msg.getOldValue()) {
 										((LocationAdapter)adapter).listener.contentLocationRemoved(location);
@@ -613,7 +615,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 					}
 					break;
 				case MappingPackage.LOCATION__CONTAINER:
-					for (Adapter adapter : eAdapters()) {
+					for (Adapter adapter : eAdapters) {
 						if (adapter instanceof LocationAdapter) {
 							((LocationAdapter)adapter).listener.containerChanged((ILocationContainer)msg
 									.getOldValue(), (ILocationContainer)msg.getNewValue());

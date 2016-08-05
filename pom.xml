@@ -85,6 +85,17 @@
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests</module>
 
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena</module>
+    <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.tests</module> -->
+
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena.ide</module>
+    <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.ide.tests</module> -->
+
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena.emf</module>
+    <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.emf.tests</module> -->
+
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide</module>
+    <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide.tests</module> -->
 
     <module>features/eu.modelwriter.semantic.feature</module>
 
@@ -123,18 +134,6 @@
 
     <module>plugins/eu.modelwriter.semantic.jena.ide</module>
     <module>tests/eu.modelwriter.semantic.jena.ide.tests</module>
-
-    <module>features/eu.modelwriter.marker.feature</module>
-    <module>plugins/eu.modelwriter.marker</module>
-    <module>plugins/eu.modelwriter.marker.command</module>
-    <module>plugins/eu.modelwriter.marker.startup</module>
-    <module>plugins/eu.modelwriter.marker.ui</module>
-
-    <module>features/eu.modelwriter.other.feature</module>
-    <module>plugins/eu.modelwriter.alloyanalyzer</module>
-    <module>plugins/eu.modelwriter.configuration</module>
-    <module>plugins/eu.modelwriter.specification.editor</module>
-    <module>plugins/eu.modelwriter.traceability.core.persistence</module>
     
     <module>releng/eu.modelwriter.updatesite</module>
 

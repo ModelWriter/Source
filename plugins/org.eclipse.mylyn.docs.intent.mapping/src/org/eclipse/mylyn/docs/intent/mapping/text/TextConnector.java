@@ -90,8 +90,10 @@ public class TextConnector extends AbstractConnector {
 		final String res;
 
 		if (location instanceof ITextLocation) {
-			res = ((ITextContainer)location.getContainer()).getText().substring(
-					((ITextLocation)location).getStartOffset(), ((ITextLocation)location).getEndOffset());
+			final String text = ((ITextContainer)location.getContainer()).getText();
+			final int start = ((ITextLocation)location).getStartOffset();
+			final int end = ((ITextLocation)location).getEndOffset();
+			res = "\"" + text.substring(start, end) + "\"";
 		} else {
 			res = null;
 		}

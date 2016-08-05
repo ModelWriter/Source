@@ -11,6 +11,10 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -20,12 +24,14 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.ide.ui.Activator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
@@ -41,8 +47,17 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPageListener;
+import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWindowListener;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.part.ViewPart;
@@ -53,6 +68,201 @@ import org.eclipse.ui.part.ViewPart;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class MappingView extends ViewPart {
+
+	/**
+	 * Listen to {@link org.eclipse.ui.IEditorPart IEditorPart}.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	private final class EditorPartListener implements IWindowListener, IPageListener, IPartListener2 {
+
+		/**
+		 * The array of {@link Viewer}.
+		 */
+		private final Viewer[] viewers;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param viewers
+		 *            the array of {@link Viewer}
+		 */
+		public EditorPartListener(Viewer... viewers) {
+			this.viewers = viewers;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IWindowListener#windowActivated(org.eclipse.ui.IWorkbenchWindow)
+		 */
+		public void windowActivated(IWorkbenchWindow window) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IWindowListener#windowDeactivated(org.eclipse.ui.IWorkbenchWindow)
+		 */
+		public void windowDeactivated(IWorkbenchWindow window) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IWindowListener#windowClosed(org.eclipse.ui.IWorkbenchWindow)
+		 */
+		public void windowClosed(IWorkbenchWindow window) {
+			window.removePageListener(this);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IWindowListener#windowOpened(org.eclipse.ui.IWorkbenchWindow)
+		 */
+		public void windowOpened(IWorkbenchWindow window) {
+			window.addPageListener(this);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPageListener#pageActivated(org.eclipse.ui.IWorkbenchPage)
+		 */
+		public void pageActivated(IWorkbenchPage page) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPageListener#pageClosed(org.eclipse.ui.IWorkbenchPage)
+		 */
+		public void pageClosed(IWorkbenchPage page) {
+			page.removePartListener(this);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPageListener#pageOpened(org.eclipse.ui.IWorkbenchPage)
+		 */
+		public void pageOpened(IWorkbenchPage page) {
+			page.addPartListener(this);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPartListener2#partActivated(org.eclipse.ui.IWorkbenchPartReference)
+		 */
+		public void partActivated(IWorkbenchPartReference partRef) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPartListener2#partBroughtToTop(org.eclipse.ui.IWorkbenchPartReference)
+		 */
+		public void partBroughtToTop(IWorkbenchPartReference partRef) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPartListener2#partClosed(org.eclipse.ui.IWorkbenchPartReference)
+		 */
+		public void partClosed(IWorkbenchPartReference partRef) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPartListener2#partDeactivated(org.eclipse.ui.IWorkbenchPartReference)
+		 */
+		public void partDeactivated(IWorkbenchPartReference partRef) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPartListener2#partOpened(org.eclipse.ui.IWorkbenchPartReference)
+		 */
+		public void partOpened(IWorkbenchPartReference partRef) {
+			final IWorkbenchPart part = partRef.getPart(false);
+			if (part instanceof IEditorPart) {
+				setInput((IEditorPart)part);
+			}
+		}
+
+		/**
+		 * Sets input according to the given {@link IEditorPart}.
+		 * 
+		 * @param editorPart
+		 *            the {@link IEditorPart}
+		 */
+		public void setInput(final IEditorPart editorPart) {
+			final IEditorInput input = editorPart.getEditorInput();
+			final IResource resource = (IResource)input.getAdapter(IFile.class);
+			final IBase base = IdeMappingUtils.getCurentBase();
+			if (base != null) {
+				try {
+					final ILocation location = MappingUtils.getConnectorRegistry().getOrCreateLocation(base,
+							resource);
+					for (Viewer viewer : viewers) {
+						viewer.setInput(location);
+					}
+				} catch (InstantiationException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				} catch (IllegalAccessException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				} catch (ClassNotFoundException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				}
+			}
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPartListener2#partHidden(org.eclipse.ui.IWorkbenchPartReference)
+		 */
+		public void partHidden(IWorkbenchPartReference partRef) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPartListener2#partVisible(org.eclipse.ui.IWorkbenchPartReference)
+		 */
+		public void partVisible(IWorkbenchPartReference partRef) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.ui.IPartListener2#partInputChanged(org.eclipse.ui.IWorkbenchPartReference)
+		 */
+		public void partInputChanged(IWorkbenchPartReference partRef) {
+			final IWorkbenchPart part = partRef.getPart(false);
+			if (part instanceof IEditorPart) {
+				setInput((IEditorPart)part);
+			}
+		}
+
+	}
 
 	/**
 	 * The view ID.
@@ -86,9 +296,9 @@ public class MappingView extends ViewPart {
 	private ISelectionListener selectionListener;
 
 	/**
-	 * TODO remove test purpose only.
+	 * The {@link EditorPartListener}.
 	 */
-	private ISelectionListener selectionListener2;
+	private EditorPartListener editorPartListener;
 
 	/**
 	 * Constructor.
@@ -318,31 +528,26 @@ public class MappingView extends ViewPart {
 		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			public void selectionChanged(SelectionChangedEvent event) {
-				final IBase base = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
-				final ILocation location = (ILocation)referencedTree.getViewer().getInput();
-				if (location != null && areSameBase(MappingUtils.getBase(location), base)) {
-					referencingTree.getViewer().setInput(null);
-					referencedTree.getViewer().setInput(null);
+				final IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getActivePage().getActiveEditor();
+				if (activeEditor != null && editorPartListener != null) {
+					editorPartListener.setInput(activeEditor);
 				}
 			}
 		});
 
-		// TODO remove this test purpose only use the current Editor input instead
-		selectionListener2 = new ISelectionListener() {
-
-			public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-				if (part != MappingView.this) {
-					final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
-					final IBase currentBase = IdeMappingUtils.getCurentBase();
-					if (location != null && currentBase != null
-							&& areSameBase(currentBase, MappingUtils.getBase(location))) {
-						referencingTree.getViewer().setInput(location);
-						referencedTree.getViewer().setInput(location);
-					}
+		editorPartListener = new EditorPartListener(referencingTree.getViewer(), referencedTree.getViewer());
+		for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+			for (IWorkbenchPage page : window.getPages()) {
+				final IEditorPart activeEditor = page.getActiveEditor();
+				if (activeEditor != null) {
+					editorPartListener.setInput(activeEditor);
 				}
+				page.addPartListener(editorPartListener);
 			}
-		};
-		getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(selectionListener2);
+			window.addPageListener(editorPartListener);
+		}
+		PlatformUI.getWorkbench().addWindowListener(editorPartListener);
 
 		sashForm.setWeights(new int[] {1, 1 });
 	}
@@ -457,10 +662,15 @@ public class MappingView extends ViewPart {
 			getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(selectionListener);
 			selectionListener = null;
 		}
-		if (selectionListener2 != null) {
-			getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(selectionListener2);
-			selectionListener2 = null;
+
+		for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+			for (IWorkbenchPage page : window.getPages()) {
+				page.removePartListener(editorPartListener);
+			}
+			window.removePageListener(editorPartListener);
 		}
+		PlatformUI.getWorkbench().removeWindowListener(editorPartListener);
+
 		getSite().setSelectionProvider(null);
 	}
 
@@ -471,7 +681,7 @@ public class MappingView extends ViewPart {
 	 *            the first {@link IBase}
 	 * @param secondBase
 	 *            the second {@link IBase}
-	 * @return <code>true</code> if the two givnen {@link IBase} are the same, <code>false</code> otherwise
+	 * @return <code>true</code> if the two given {@link IBase} are the same, <code>false</code> otherwise
 	 */
 	private boolean areSameBase(IBase firstBase, IBase secondBase) {
 		// TODO change this when we work on same instances of IBase
