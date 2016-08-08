@@ -288,7 +288,11 @@ public class Visualization extends ViewPart {
       }
 
       try {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    	final String LaF = UIManager.getSystemLookAndFeelClassName();
+      	if ("com.sun.java.swing.plaf.gtk.GTKLookAndFeel".equals(LaF))
+      		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+      	else
+      		UIManager.setLookAndFeel(LaF);
       } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
           | UnsupportedLookAndFeelException e1) {
 
