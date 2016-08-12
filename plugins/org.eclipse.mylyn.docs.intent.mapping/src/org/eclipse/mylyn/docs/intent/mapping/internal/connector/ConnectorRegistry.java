@@ -11,9 +11,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.internal.connector;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
@@ -28,10 +28,11 @@ import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
 public class ConnectorRegistry implements IConnectorRegistry {
 
 	/**
-	 * The {@link Set} of {@link ConnectorRegistry#register(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
-	 * registered} {@link IConnector}.
+	 * The {@link List} of
+	 * {@link ConnectorRegistry#register(org.eclipse.mylyn.docs.intent.mapping.base.IBase) registered}
+	 * {@link IConnector}.
 	 */
-	private final Set<IConnector> connectors = Collections.synchronizedSet(new LinkedHashSet<IConnector>());
+	private final List<IConnector> connectors = Collections.synchronizedList(new ArrayList<IConnector>());
 
 	/**
 	 * {@inheritDoc}
@@ -110,7 +111,26 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#register(org.eclipse.mylyn.docs.intent.mapping.conector.IConnector)
 	 */
 	public void register(IConnector connector) {
-		connectors.add(connector);
+		if (connector != null) {
+			synchronized(connectors) {
+				int index = 0;
+				boolean added = false;
+				for (IConnector currentConnector : connectors) {
+					if (currentConnector.getLocationType().isAssignableFrom(connector.getLocationType())) {
+						connectors.add(index, connector);
+						added = true;
+						break;
+					} else {
+						index++;
+					}
+				}
+				if (!added) {
+					connectors.add(index, connector);
+				}
+			}
+		} else {
+			throw new IllegalArgumentException("IConnector can't be null.");
+		}
 	}
 
 	/**
@@ -127,9 +147,9 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getConnectors()
 	 */
-	public Set<IConnector> getConnectors() {
+	public List<IConnector> getConnectors() {
 		synchronized(connectors) {
-			return Collections.unmodifiableSet(connectors);
+			return Collections.unmodifiableList(new ArrayList<IConnector>(connectors));
 		}
 	}
 

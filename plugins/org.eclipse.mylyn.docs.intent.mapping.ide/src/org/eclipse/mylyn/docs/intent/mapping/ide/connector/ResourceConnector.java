@@ -44,7 +44,7 @@ public class ResourceConnector extends AbstractConnector {
 		if (element instanceof IFile) {
 			res = getIFileLocationType((IFile)element);
 		} else if (element instanceof IResource) {
-			res = IResourceLocation.class;
+			res = getLocationType();
 		} else {
 			res = null;
 		}
@@ -146,6 +146,15 @@ public class ResourceConnector extends AbstractConnector {
 		}
 
 		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+	 */
+	public Class<? extends ILocation> getLocationType() {
+		return IResourceLocation.class;
 	}
 
 }

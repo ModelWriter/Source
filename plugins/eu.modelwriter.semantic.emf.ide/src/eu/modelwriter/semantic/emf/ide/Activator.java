@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015 Obeo.
+ * Copyright (c) 2016 Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,10 +9,9 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package eu.modelwriter.semantic.ide;
+package eu.modelwriter.semantic.emf.ide;
 
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
@@ -24,13 +23,15 @@ import org.osgi.framework.BundleContext;
 public class Activator extends Plugin {
 
 	/** The plug-in ID. */
-	public static final String PLUGIN_ID = "eu.modelwriter.semantic.ide";
+	public static final String PLUGIN_ID = "eu.modelwriter.semantic.emf.ide";
 
 	/** This plug-in's shared instance. */
 	private static Activator plugin;
 
-	/** The registry listener that will be used to listen to extension changes. */
-	private IdeSemanticRegistryListener registryListener = new IdeSemanticRegistryListener();
+	/**
+	 * The {@link SemanticBaseListener}.
+	 */
+	private SemanticBaseListener semanticBaseListener;
 
 	/**
 	 * {@inheritDoc}
@@ -41,12 +42,8 @@ public class Activator extends Plugin {
 		super.start(context);
 		plugin = this;
 
-		final IExtensionRegistry registry = Platform.getExtensionRegistry();
-		registry.addListener(registryListener, IdeSemanticRegistryListener.BASE_PROVIDER_EXTENSION_POINT);
-		registry.addListener(registryListener, IdeSemanticRegistryListener.SEMANTIC_PROVIDER_EXTENSION_POINT);
-		registry.addListener(registryListener,
-				IdeSemanticRegistryListener.SEMANTIC_SIMILARITY_PROVIDER_EXTENSION_POINT);
-		registryListener.parseInitialContributions();
+		semanticBaseListener = new SemanticBaseListener(true);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(semanticBaseListener);
 	}
 
 	/**
@@ -57,10 +54,8 @@ public class Activator extends Plugin {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
-
-		final IExtensionRegistry registry = Platform.getExtensionRegistry();
-		registry.removeListener(registryListener);
-		// TODO clear registry ?
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(semanticBaseListener);
+		semanticBaseListener = null;
 	}
 
 	/**

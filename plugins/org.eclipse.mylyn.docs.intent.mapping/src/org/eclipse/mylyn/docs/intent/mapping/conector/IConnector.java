@@ -64,4 +64,11 @@ public interface IConnector {
 	 */
 	String getName(ILocation location);
 
+	/**
+	 * Gets the {@link ILocation} {@link Class} managed by this connector.
+	 * 
+	 * @return the {@link ILocation} {@link Class} managed by this connector
+	 */
+	Class<? extends ILocation> getLocationType();
+
 }

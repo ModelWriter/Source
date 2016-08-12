@@ -21,14 +21,15 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.TextRegion;
 
 /**
- * Marker to {@link ILocation} {@link IAdapterFactory}.
+ * Marker to {@link ITextLocation} {@link IAdapterFactory}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class MarkerAdapterFactory implements IAdapterFactory {
+public class MarkerToLocationAdapterFactory implements IAdapterFactory {
 
 	/**
 	 * {@inheritDoc}
@@ -36,7 +37,7 @@ public class MarkerAdapterFactory implements IAdapterFactory {
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
-		ILocation res = null;
+		ITextLocation res = null;
 
 		final IBase currentBase = IdeMappingUtils.getCurentBase();
 		if (currentBase != null) {
@@ -51,7 +52,8 @@ public class MarkerAdapterFactory implements IAdapterFactory {
 						final int start = (Integer)marker.getAttribute(IMarker.CHAR_START);
 						final Integer end = (Integer)marker.getAttribute(IMarker.CHAR_END);
 						final TextRegion region = new TextRegion(start, end);
-						res = MappingUtils.getConnectorRegistry().getOrCreateLocation(container, region);
+						res = (ITextLocation)MappingUtils.getConnectorRegistry().getOrCreateLocation(
+								container, region);
 					}
 				} catch (CoreException e) {
 					Activator.getDefault().getLog().log(

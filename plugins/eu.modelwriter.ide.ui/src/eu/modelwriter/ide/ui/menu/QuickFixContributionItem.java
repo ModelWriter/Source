@@ -14,8 +14,11 @@ package eu.modelwriter.ide.ui.menu;
 import eu.modelwriter.ide.ui.Activator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -77,24 +80,34 @@ public class QuickFixContributionItem extends ContributionItem {
 		final List<IMarker> markers = getMarkersForCurrentLine();
 		int i = index;
 
+		final Map<IMarker, IMarkerResolution[]> resolutions = new HashMap<IMarker, IMarkerResolution[]>();
 		for (final IMarker marker : markers) {
-			new MenuItem(menu, SWT.SEPARATOR, i++);
-			final IMarkerResolution[] resolutions = IDE.getMarkerHelpRegistry().getResolutions(marker);
-			for (final IMarkerResolution resolution : resolutions) {
-				final MenuItem resolutionMenuItem = new MenuItem(menu, SWT.PUSH, i++);
-				resolutionMenuItem.setText(resolution.getLabel());
-				resolutionMenuItem.addListener(SWT.Selection, new Listener() {
+			final IMarkerResolution[] currentResolutions = IDE.getMarkerHelpRegistry().getResolutions(marker);
+			if (currentResolutions.length != 0) {
+				resolutions.put(marker, currentResolutions);
+			}
+		}
 
-					public void handleEvent(Event event) {
-						resolution.run(marker);
+		if (!resolutions.isEmpty()) {
+			new MenuItem(menu, SWT.SEPARATOR, i++);
+			for (final Entry<IMarker, IMarkerResolution[]> entry : resolutions.entrySet()) {
+				final IMarker marker = entry.getKey();
+				for (final IMarkerResolution resolution : entry.getValue()) {
+					final MenuItem resolutionMenuItem = new MenuItem(menu, SWT.PUSH, i++);
+					resolutionMenuItem.setText(resolution.getLabel());
+					resolutionMenuItem.addListener(SWT.Selection, new Listener() {
+
+						public void handleEvent(Event event) {
+							resolution.run(marker);
+						}
+					});
+					if (resolution instanceof IMarkerResolution2) {
+						final Image resolutionImage = ((IMarkerResolution2)resolution).getImage();
+						if (resolutionImage != null) {
+							resolutionMenuItem.setImage(resolutionImage);
+						}
+						// TODO description ?
 					}
-				});
-				if (resolution instanceof IMarkerResolution2) {
-					final Image resolutionImage = ((IMarkerResolution2)resolution).getImage();
-					if (resolutionImage != null) {
-						resolutionMenuItem.setImage(resolutionImage);
-					}
-					// TODO description ?
 				}
 			}
 		}

@@ -30,7 +30,7 @@ public class TextConnector extends AbstractConnector {
 		final Class<? extends ILocation> res;
 
 		if (ITextContainer.class.isAssignableFrom(containerType) && element instanceof TextRegion) {
-			res = ITextLocation.class;
+			res = getLocationType();
 		} else {
 			res = null;
 		}
@@ -99,6 +99,15 @@ public class TextConnector extends AbstractConnector {
 		}
 
 		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+	 */
+	public Class<? extends ILocation> getLocationType() {
+		return ITextLocation.class;
 	}
 
 }

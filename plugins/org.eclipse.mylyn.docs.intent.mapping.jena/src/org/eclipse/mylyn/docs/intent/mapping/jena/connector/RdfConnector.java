@@ -61,7 +61,7 @@ public class RdfConnector extends AbstractConnector {
 		final Class<? extends ILocation> res;
 
 		if (IRdfContainer.class.isAssignableFrom(containerType) && element instanceof Resource) {
-			res = IRdfLocation.class;
+			res = getLocationType();
 		} else {
 			res = null;
 		}
@@ -100,7 +100,15 @@ public class RdfConnector extends AbstractConnector {
 				}
 			}
 		}
+	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+	 */
+	public Class<? extends ILocation> getLocationType() {
+		return IRdfLocation.class;
 	}
 
 }

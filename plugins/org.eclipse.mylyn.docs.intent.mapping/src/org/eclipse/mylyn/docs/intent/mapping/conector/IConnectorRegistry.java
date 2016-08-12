@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.conector;
 
-import java.util.Set;
+import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
@@ -108,11 +108,11 @@ public interface IConnectorRegistry {
 	void unregister(IConnector connector);
 
 	/**
-	 * Gets the {@link Set} of {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector}.
+	 * Gets the {@link List} of {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector}.
 	 * 
-	 * @return the {@link Set} of {@link IConnectorRegistry#register(IConnector) registered}
+	 * @return the {@link List} of {@link IConnectorRegistry#register(IConnector) registered}
 	 *         {@link IConnector}
 	 */
-	Set<IConnector> getConnectors();
+	List<IConnector> getConnectors();
 
 }

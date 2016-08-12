@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ide
+Bundle-SymbolicName: eu.modelwriter.semantic.emf.ide;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Export-Package: eu.modelwriter.semantic.emf.ide,
+ eu.modelwriter.semantic.emf.ide.adapter
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ eu.modelwriter.semantic.ide,
+ eu.modelwriter.semantic.emf,
+ org.eclipse.emf.ecore,
+ eu.modelwriter.semantic
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: eu.modelwriter.semantic.emf.ide.Activator

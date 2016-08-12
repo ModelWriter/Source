@@ -19,7 +19,7 @@ import com.hp.hpl.jena.vocabulary.VCARD;
 import eu.modelwriter.semantic.IBase;
 import eu.modelwriter.semantic.IBaseRegistryListener;
 import eu.modelwriter.semantic.SemanticUtils;
-import eu.modelwriter.semantic.jena.Base;
+import eu.modelwriter.semantic.jena.JenaBase;
 import eu.modelwriter.semantic.jena.ide.SemanticBaseListener;
 
 import java.io.ByteArrayInputStream;
@@ -100,7 +100,7 @@ public class SemanticBaseListenerTests {
 	}
 
 	/**
-	 * Creates an {@link IFile} that is not a {@link Base} resource in the given {@link IContainer}.
+	 * Creates an {@link IFile} that is not a {@link JenaBase} resource in the given {@link IContainer}.
 	 * 
 	 * @param container
 	 *            the {@link IContainer}
@@ -137,15 +137,15 @@ public class SemanticBaseListenerTests {
 	}
 
 	/**
-	 * Creates a {@link Base} {@link IFile} in the given container containing the given {@link Base}.
+	 * Creates a {@link JenaBase} {@link IFile} in the given container containing the given {@link JenaBase}.
 	 * 
 	 * @param container
 	 *            the {@link IContainer}
 	 * @param base
-	 *            the {@link Base}
+	 *            the {@link JenaBase}
 	 * @return the created {@link IFile} if any, <code>null</code> otherwise
 	 */
-	private IFile createBaseFile(IContainer container, Base base) {
+	private IFile createBaseFile(IContainer container, JenaBase base) {
 		final String fileName = "test.ttl";
 		IFile res = container.getFile(new Path(fileName));
 
@@ -263,7 +263,7 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final Base base = new Base(model);
+			final JenaBase base = new JenaBase(model);
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 
@@ -360,7 +360,7 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final Base base = new Base(model);
+			final JenaBase base = new JenaBase(model);
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 
@@ -463,7 +463,7 @@ public class SemanticBaseListenerTests {
 			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final Model model = ModelFactory.createOntologyModel();
-			final Base base = new Base(model);
+			final JenaBase base = new JenaBase(model);
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 
@@ -495,7 +495,7 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final Base base = new Base(model);
+			final JenaBase base = new JenaBase(model);
 			final IProject project = createProject();
 			IFile file = createBaseFile(project, base);
 
@@ -614,7 +614,7 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final Base base = new Base(model);
+			final JenaBase base = new JenaBase(model);
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 
@@ -716,7 +716,7 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final Base base = new Base(model);
+			final JenaBase base = new JenaBase(model);
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 

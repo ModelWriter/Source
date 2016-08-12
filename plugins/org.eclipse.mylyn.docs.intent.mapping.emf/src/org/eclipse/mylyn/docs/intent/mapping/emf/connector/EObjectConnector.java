@@ -13,10 +13,13 @@ package org.eclipse.mylyn.docs.intent.mapping.emf.connector;
 
 import java.util.List;
 
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils.DiffMatch;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
@@ -34,6 +37,12 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.internal.TextAdapter;
  */
 public class EObjectConnector extends AbstractConnector {
 
+	/**
+	 * The factory used to retrieve providers.
+	 */
+	private static final AdapterFactory FACTORY = new ComposedAdapterFactory(
+			ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+
 	@Override
 	protected Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
 			Object element) {
@@ -41,7 +50,7 @@ public class EObjectConnector extends AbstractConnector {
 
 		if (IEObjectContainer.class.isAssignableFrom(containerType)
 				&& (element instanceof EObject || element instanceof Setting)) {
-			res = IEObjectLocation.class;
+			res = getLocationType();
 		} else {
 			res = null;
 		}
@@ -247,11 +256,15 @@ public class EObjectConnector extends AbstractConnector {
 		if (location instanceof IEObjectLocation) {
 			final IEObjectLocation eObjLocation = (IEObjectLocation)location;
 
+			final IItemLabelProvider itemProvider = (IItemLabelProvider)FACTORY.adapt(eObjLocation
+					.getEObject(), IItemLabelProvider.class);
+			final String label = itemProvider.getText(eObjLocation.getEObject());
 			if (eObjLocation.isSetting()) {
-				res = eObjLocation.getEObject().toString() + " "
-						+ eObjLocation.getEStructuralFeature().getName();
+				res = label + " "
+						+ itemProvider.getText(eObjLocation.getEStructuralFeature().getEContainingClass())
+						+ "." + eObjLocation.getEStructuralFeature().getName();
 			} else {
-				res = eObjLocation.getEObject().toString();
+				res = label;
 			}
 		} else {
 			res = null;
@@ -259,4 +272,14 @@ public class EObjectConnector extends AbstractConnector {
 
 		return res;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+	 */
+	public Class<? extends ILocation> getLocationType() {
+		return IEObjectLocation.class;
+	}
+
 }

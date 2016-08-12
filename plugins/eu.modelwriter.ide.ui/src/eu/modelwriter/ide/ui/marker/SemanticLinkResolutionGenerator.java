@@ -11,11 +11,8 @@
  *******************************************************************************/
 package eu.modelwriter.ide.ui.marker;
 
-import com.hp.hpl.jena.rdf.model.Resource;
-
 import eu.modelwriter.ide.ui.Activator;
 import eu.modelwriter.semantic.ide.ISemanticAnnotationMarker;
-import eu.modelwriter.semantic.jena.ide.SemanticBaseListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +27,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.jena.ide.IRdfFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolution2;
@@ -157,11 +154,11 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 		final ILocation source = IdeMappingUtils.adapt(marker, ILocation.class);
 		if (source != null) {
 			try {
-				final Resource concept = (Resource)marker
+				final Object concept = marker
 						.getAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE);
-				final IFile file = SemanticBaseListener.getFile(concept.getModel());
+				final IFile file = IdeMappingUtils.adapt(concept, IFile.class);
 				if (file != null) {
-					final IRdfFileLocation container = (IRdfFileLocation)MappingUtils.getConnectorRegistry()
+					final IFileLocation container = (IFileLocation)MappingUtils.getConnectorRegistry()
 							.getOrCreateLocation(IdeMappingUtils.getCurentBase(), file);
 					final ILocation target = MappingUtils.getConnectorRegistry().getOrCreateLocation(
 							container, concept);

@@ -14,5 +14,6 @@ Export-Package: org.eclipse.mylyn.docs.intent.mapping,
  org.eclipse.mylyn.docs.intent.mapping.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.mylyn.docs.intent.mapping;bundle-version="1.0.0"
+ org.eclipse.mylyn.docs.intent.mapping;bundle-version="1.0.0",
+ org.eclipse.emf.edit
 Bundle-ActivationPolicy: lazy

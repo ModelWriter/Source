@@ -18,7 +18,7 @@
          point="org.eclipse.core.runtime.adapters">
       <factory
             adaptableType="org.eclipse.core.resources.IMarker"
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerAdapterFactory">
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationAdapterFactory">
          <adapter
                type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
          </adapter>

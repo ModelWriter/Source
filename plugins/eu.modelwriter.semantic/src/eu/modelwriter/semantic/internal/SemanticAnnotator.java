@@ -148,13 +148,8 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 
 		// concept -> similarity type -> positions
 		cachedAutomaton = computeSimilarityAutomaton(cachedSimilarities);
-		final Map<Object, Map<Object, Set<int[]>>> conceptToText = doSimilaritiesToTextAnnotation(text,
-				cachedAutomaton, cachedSimilarities);
 
-		final Map<Object, Map<Object, Set<int[]>>> textToConcept = doTextToSimilarityAnnotation(text,
-				cachedSimilarities);
-
-		return mergePositions(conceptToText, textToConcept);
+		return getSemanticAnnotations(text);
 	}
 
 	/**

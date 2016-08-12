@@ -123,6 +123,9 @@
     <module>plugins/eu.modelwriter.semantic.emf</module>
     <module>tests/eu.modelwriter.semantic.emf.tests</module>
 
+    <module>plugins/eu.modelwriter.semantic.emf.ide</module>
+    <!-- <module>tests/eu.modelwriter.semantic.emf.ide.tests</module> -->
+
     <!-- <module>plugins/eu.modelwriter.semantic.emf.ide</module> -->
     <!-- <module>tests/eu.modelwriter.semantic.emf.ide.tests</module> -->
 

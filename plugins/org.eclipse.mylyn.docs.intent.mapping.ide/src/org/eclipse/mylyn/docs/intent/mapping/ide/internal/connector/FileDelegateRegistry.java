@@ -42,8 +42,8 @@ public class FileDelegateRegistry implements IFileDelegateRegistry {
 			synchronized(connectorDelegates) {
 				int index = 0;
 				boolean added = false;
-				for (IFileConnectorDelegate semanticProvider : connectorDelegates) {
-					if (delegate.getContentType().isKindOf(semanticProvider.getContentType())) {
+				for (IFileConnectorDelegate connectorDelegate : connectorDelegates) {
+					if (delegate.getContentType().isKindOf(connectorDelegate.getContentType())) {
 						connectorDelegates.add(index, delegate);
 						added = true;
 						break;

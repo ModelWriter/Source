@@ -46,7 +46,7 @@ public class TextConnectorTests extends TextConnector {
 	}
 
 	@Test
-	public void getLocationType() {
+	public void getLocationTypeTest() {
 		final Class<? extends ILocation> type = getLocationType(TestTextContainerLocation.class,
 				new TextRegion(0, 0));
 

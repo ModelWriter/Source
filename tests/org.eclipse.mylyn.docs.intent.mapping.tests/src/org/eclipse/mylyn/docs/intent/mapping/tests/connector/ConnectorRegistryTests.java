@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.connector;
 
-import java.util.Set;
+import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
@@ -73,7 +73,7 @@ public class ConnectorRegistryTests {
 			final Class<? extends ILocation> res;
 
 			if (containerType == TestLocation1.class) {
-				res = ITestLocation1.class;
+				res = getLocationType();
 			} else {
 				res = null;
 			}
@@ -103,6 +103,16 @@ public class ConnectorRegistryTests {
 
 			return res;
 		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+		 */
+		public Class<? extends ILocation> getLocationType() {
+			return ITestLocation1.class;
+		}
+
 	}
 
 	/**
@@ -153,7 +163,7 @@ public class ConnectorRegistryTests {
 			final Class<? extends ILocation> res;
 
 			if (containerType == TestLocation2.class) {
-				res = ITestLocation2.class;
+				res = getLocationType();
 			} else {
 				res = null;
 			}
@@ -184,6 +194,15 @@ public class ConnectorRegistryTests {
 			return res;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+		 */
+		public Class<? extends ILocation> getLocationType() {
+			return ITestLocation2.class;
+		}
+
 	}
 
 	/**
@@ -191,7 +210,7 @@ public class ConnectorRegistryTests {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public interface ITestLocation2 extends ILocation {
+	public interface ITestLocation2 extends ITestLocation1 {
 
 		void setObject(Object o);
 
@@ -260,12 +279,12 @@ public class ConnectorRegistryTests {
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
 
-		final Set<IConnector> bases = connectorRegistery.getConnectors();
+		final List<IConnector> bases = connectorRegistery.getConnectors();
 		assertEquals(3, bases.size());
 
-		assertTrue(bases.contains(connector0));
-		assertTrue(bases.contains(connector1));
-		assertTrue(bases.contains(connector2));
+		assertEquals(connector2, bases.get(0));
+		assertEquals(connector1, bases.get(1));
+		assertEquals(connector0, bases.get(2));
 	}
 
 	@Test

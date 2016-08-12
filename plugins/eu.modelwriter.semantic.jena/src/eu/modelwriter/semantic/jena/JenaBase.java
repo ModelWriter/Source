@@ -25,7 +25,7 @@ import java.util.Set;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class Base implements IBase {
+public class JenaBase implements IBase {
 
 	/**
 	 * The {@link Model}.
@@ -38,7 +38,7 @@ public class Base implements IBase {
 	 * @param model
 	 *            the {@link Model}
 	 */
-	public Base(Model model) {
+	public JenaBase(Model model) {
 		this.model = model;
 	}
 

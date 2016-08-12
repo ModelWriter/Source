@@ -9,18 +9,14 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package eu.modelwriter.semantic.jena.ide;
-
-import com.hp.hpl.jena.rdf.model.Model;
+package eu.modelwriter.semantic.emf.ide;
 
 import eu.modelwriter.semantic.SemanticUtils;
-import eu.modelwriter.semantic.jena.JenaBase;
+import eu.modelwriter.semantic.emf.EcoreBase;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -32,21 +28,27 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 /**
  * An {@link IResourceChangeListener} that
  * {@link eu.modelwriter.semantic.IBaseRegistry#register(eu.modelwriter.semantic.IBase) register}/
  * {@link eu.modelwriter.semantic.IBaseRegistry#unregister(eu.modelwriter.semantic.IBase) unregister}
- * {@link JenaBase} of the {@link eu.modelwriter.semantic.IBaseRegistry}.
+ * {@link EcoreBase} of the {@link eu.modelwriter.semantic.IBaseRegistry}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class SemanticBaseListener implements IResourceChangeListener {
 
 	/**
-	 * {@link Model} to {@link IFile} mapping.
+	 * {@link EPackage} to {@link IFile} mapping.
 	 */
-	private static final Map<Model, IFile> MODEL_TO_IFILE = new HashMap<Model, IFile>();
+	private static final Map<EPackage, IFile> EPCKAGE_TO_IFILE = new HashMap<EPackage, IFile>();
 
 	/**
 	 * The "Unable to load mapping base from " message.
@@ -54,16 +56,16 @@ public class SemanticBaseListener implements IResourceChangeListener {
 	private static final String UNABLE_TO_LOAD_SEMANTIC_BASE_FROM = "Unable to load semantic base from ";
 
 	/**
-	 * The turtle file extension.
+	 * The ecore file extension.
 	 */
-	private static final String TURTLE_FILE_EXTENSION = "ttl";
+	private static final String ECORE_FILE_EXTENSION = EcorePackage.eNAME;
 
 	/**
 	 * Mapping of {@link IFile} to
 	 * {@link eu.modelwriter.semantic.IBaseRegistry#register(eu.modelwriter.semantic.IBase) registered}
-	 * {@link JenaBase}.
+	 * {@link EcoreBase}.
 	 */
-	private final Map<IFile, JenaBase> resourceToBase = new HashMap<IFile, JenaBase>();
+	private final Map<IFile, EcoreBase> resourceToBase = new HashMap<IFile, EcoreBase>();
 
 	/**
 	 * Constructor.
@@ -237,15 +239,15 @@ public class SemanticBaseListener implements IResourceChangeListener {
 	 *            the target {@link IFile}
 	 */
 	private void resourceMoved(IFile source, IFile target) {
-		if (TURTLE_FILE_EXTENSION.equals(source.getFileExtension())) {
-			if (TURTLE_FILE_EXTENSION.equals(target.getFileExtension())) {
-				final JenaBase base = resourceToBase.remove(source);
+		if (ECORE_FILE_EXTENSION.equals(source.getFileExtension())) {
+			if (ECORE_FILE_EXTENSION.equals(target.getFileExtension())) {
+				final EcoreBase base = resourceToBase.remove(source);
 				resourceToBase.put(target, base);
 			} else {
 				unregister(source);
 			}
 		} else {
-			if (TURTLE_FILE_EXTENSION.equals(target.getFileExtension())) {
+			if (ECORE_FILE_EXTENSION.equals(target.getFileExtension())) {
 				register(target);
 			} else {
 				// nothing to do here
@@ -256,36 +258,38 @@ public class SemanticBaseListener implements IResourceChangeListener {
 
 	/**
 	 * {@link eu.modelwriter.semantic.IBaseRegistry#register(eu.modelwriter.semantic.IBase) Unregisters} the
-	 * {@link JenaBase} stored in the given {@link IFile} if any, does nothing otherwise.
+	 * {@link EcoreBase} stored in the given {@link IFile} if any, does nothing otherwise.
 	 * 
 	 * @param file
 	 *            the {@link IFile}
 	 */
 	private void register(IFile file) {
-		final JenaBase base = getBaseFromFile(file);
+		final EcoreBase base = getBaseFromFile(file);
 		if (base != null) {
 			resourceToBase.put(file, base);
-			MODEL_TO_IFILE.put(base.getModel(), file);
+			EPCKAGE_TO_IFILE.put(base.getEpackage(), file);
 			SemanticUtils.getSemanticBaseRegistry().register(base);
 		}
 	}
 
 	/**
-	 * Gets the {@link JenaBase} from the given {@link IFile}.
+	 * Gets the {@link EcoreBase} from the given {@link IFile}.
 	 * 
 	 * @param file
 	 *            the {@link IFile}
-	 * @return the {@link JenaBase} from the given {@link IFile} if nay, <code>null</code> otherwise
+	 * @return the {@link EcoreBase} from the given {@link IFile} if nay, <code>null</code> otherwise
 	 */
-	private JenaBase getBaseFromFile(IFile file) {
-		JenaBase res = null;
+	private EcoreBase getBaseFromFile(IFile file) {
+		EcoreBase res = null;
 
-		if (TURTLE_FILE_EXTENSION.equals(file.getFileExtension())) {
+		if (ECORE_FILE_EXTENSION.equals(file.getFileExtension())) {
 			try {
-				final Model model = RDFDataMgr.loadModel(file.getLocation().toFile().getAbsolutePath(),
-						Lang.TTL);
-				if (!model.isEmpty()) {
-					res = new JenaBase(model);
+				final ResourceSet rs = new ResourceSetImpl();
+				final URI uri = URI.createPlatformResourceURI(file.getFullPath().toPortableString(), true);
+				final Resource resource = rs.getResource(uri, true);
+				if (!resource.getContents().isEmpty() && resource.getContents().get(0) instanceof EPackage) {
+					final EPackage ePkg = (EPackage)resource.getContents().get(0);
+					res = new EcoreBase(ePkg);
 				}
 				// CHECKSTYLE:OFF
 			} catch (Exception e) {
@@ -301,28 +305,28 @@ public class SemanticBaseListener implements IResourceChangeListener {
 
 	/**
 	 * {@link eu.modelwriter.semantic.IBaseRegistry#unregister(eu.modelwriter.semantic.IBase) Unregisters} the
-	 * {@link JenaBase} corresponding to the given {@link IFile}.
+	 * {@link EcoreBase} corresponding to the given {@link IFile}.
 	 * 
 	 * @param file
 	 *            the {@link IFile}
 	 */
 	private void unregister(IFile file) {
-		final JenaBase base = resourceToBase.remove(file);
+		final EcoreBase base = resourceToBase.remove(file);
 		if (base != null) {
-			MODEL_TO_IFILE.remove(base.getModel());
+			EPCKAGE_TO_IFILE.remove(base.getEpackage());
 			SemanticUtils.getSemanticBaseRegistry().unregister(base);
 		}
 	}
 
 	/**
-	 * Gets the {@link IFile} for the given {@link Model}.
+	 * Gets the {@link IFile} for the given {@link EPackage}.
 	 * 
-	 * @param model
-	 *            the {@link Model}
-	 * @return the {@link IFile} for the given {@link Model} if any registered, <code>null</code> otherwise
+	 * @param ePkg
+	 *            the {@link EPackage}
+	 * @return the {@link IFile} for the given {@link EPackage} if any registered, <code>null</code> otherwise
 	 */
-	public static IFile getFile(Model model) {
-		return MODEL_TO_IFILE.get(model);
+	public static IFile getFile(EPackage ePkg) {
+		return EPCKAGE_TO_IFILE.get(ePkg);
 	}
 
 }

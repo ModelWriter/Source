@@ -7,20 +7,13 @@
    <extension
          point="eu.modelwriter.semantic.ide.semanticProvider">
       <provider
-            class="eu.modelwriter.semantic.jena.JenaSemanticProvider">
-      </provider>
-   </extension>
-   <extension
-         point="eu.modelwriter.semantic.ide.semanticSimilarityProvider">
-      <provider
-            class="eu.modelwriter.semantic.jena.JenaSynonymySimilarityProvider">
-      </provider>
+            class="eu.modelwriter.semantic.emf.EcoreSemanticProvider"></provider>
    </extension>
    <extension
          point="org.eclipse.core.runtime.adapters">
       <factory
-            adaptableType="com.hp.hpl.jena.rdf.model.Resource"
-            class="eu.modelwriter.semantic.jena.ide.adapter.ResourceToFileAdapterFactory">
+            adaptableType="org.eclipse.emf.ecore.EObject"
+            class="eu.modelwriter.semantic.emf.ide.adapter.EObjectToFileAdapterFactory">
          <adapter
                type="org.eclipse.core.resources.IFile">
          </adapter>
