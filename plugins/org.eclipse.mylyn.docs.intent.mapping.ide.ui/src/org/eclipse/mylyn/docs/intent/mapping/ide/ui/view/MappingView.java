@@ -11,10 +11,20 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 
+import java.io.File;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -28,7 +38,11 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.ide.ILocationMarker;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.ui.Activator;
 import org.eclipse.swt.SWT;
@@ -45,9 +59,12 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -56,6 +73,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
+import org.eclipse.ui.editors.text.ILocationProvider;
 import org.eclipse.ui.part.ViewPart;
 
 /**
@@ -64,6 +82,86 @@ import org.eclipse.ui.part.ViewPart;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class MappingView extends ViewPart {
+
+	/**
+	 * Adds and removes location markers according to edited locations and changes in {@link IBase}.
+	 * 
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	private final class MarkerBaseListener extends ILocationListener.Stub implements IBaseListener, ILocationListener {
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 */
+		public void contentsAdded(ILocation location) {
+			location.addListener(this);
+			if (isOpenedInEditor(location)) {
+				IdeMappingUtils.getOrCreateMarker(location);
+			}
+		}
+
+		/**
+		 * Tells if the given {@link ILocation} is opened in an editor.
+		 * 
+		 * @param location
+		 *            the {@link ILocation} to check
+		 * @return <code>true</code> if the given {@link ILocation} is opened in an editor, <code>false</code>
+		 *         otherwise
+		 */
+		private boolean isOpenedInEditor(ILocation location) {
+			final boolean res;
+
+			// we assume all opened location are directly contained by the base
+			if (location.getContainer() instanceof ILocation) {
+				res = isOpenedInEditor((ILocation)location.getContainer());
+			} else {
+				res = editedLocations.contains(location);
+			}
+
+			return res;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 */
+		public void contentsRemoved(ILocation location) {
+			location.removeListener(this);
+			IdeMappingUtils.deleteMarker(location);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#nameChanged(java.lang.String,
+		 *      java.lang.String)
+		 */
+		public void nameChanged(String oldName, String newName) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#reportAdded(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportAdded(IReport report) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#reportRemoved(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportRemoved(IReport report) {
+			// nothing to do here
+		}
+
+	}
 
 	/**
 	 * Listen to {@link org.eclipse.ui.IEditorPart IEditorPart}.
@@ -174,7 +272,10 @@ public class MappingView extends ViewPart {
 		 * @see org.eclipse.ui.IPartListener2#partClosed(org.eclipse.ui.IWorkbenchPartReference)
 		 */
 		public void partClosed(IWorkbenchPartReference partRef) {
-			// nothing to do here
+			final IWorkbenchPart part = partRef.getPart(false);
+			if (part instanceof IEditorPart) {
+				clearLocationMarker((IEditorPart)part);
+			}
 		}
 
 		/**
@@ -195,6 +296,7 @@ public class MappingView extends ViewPart {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (part instanceof IEditorPart) {
 				setInput((IEditorPart)part);
+				createLocationMarker((IEditorPart)part);
 			}
 		}
 
@@ -255,6 +357,7 @@ public class MappingView extends ViewPart {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (part instanceof IEditorPart) {
 				setInput((IEditorPart)part);
+				createLocationMarker((IEditorPart)part);
 			}
 		}
 
@@ -297,6 +400,17 @@ public class MappingView extends ViewPart {
 	private EditorPartListener editorPartListener;
 
 	/**
+	 * The {@link List} of edited {@link ILocation}.
+	 */
+	private final List<ILocation> editedLocations = new ArrayList<ILocation>();
+
+	/**
+	 * The listener maintaining the {@link ILocation} to {@link org.eclipse.core.resources.IMarker IMarker}
+	 * mapping.
+	 */
+	private final MarkerBaseListener markerBaseListener = new MarkerBaseListener();
+
+	/**
 	 * Constructor.
 	 */
 	public MappingView() {
@@ -320,6 +434,24 @@ public class MappingView extends ViewPart {
 		addSelectionTabItem(bodyTabFolder, mappingBaseCombo);
 		addDocumentTabItem(bodyTabFolder, mappingBaseCombo);
 		addReportTabItem(bodyTabFolder, mappingBaseCombo);
+
+		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
+
+			public void selectionChanged(SelectionChangedEvent event) {
+				for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+					for (IWorkbenchPage page : window.getPages()) {
+						for (IEditorReference editorRef : page.getEditorReferences()) {
+							final IEditorPart editorPart = editorRef.getEditor(false);
+							if (editorPart != null) {
+								clearLocationMarker(editorPart);
+								createLocationMarker(editorPart);
+							}
+						}
+					}
+				}
+			}
+
+		});
 
 		getSite().setSelectionProvider(selectionProvider);
 
@@ -350,8 +482,17 @@ public class MappingView extends ViewPart {
 		mappingCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			public void selectionChanged(SelectionChangedEvent event) {
-				IdeMappingUtils.setCurrentBase((IBase)((IStructuredSelection)event.getSelection())
-						.getFirstElement());
+				final IBase oldBase = IdeMappingUtils.getCurentBase();
+				final IBase newBase = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
+				if (oldBase != null) {
+					for (ILocation child : oldBase.getContents()) {
+						deleteLocation(child);
+					}
+				}
+				IdeMappingUtils.setCurrentBase(newBase);
+				for (ILocation child : newBase.getContents()) {
+					addLocation(child);
+				}
 			}
 		});
 
@@ -645,6 +786,18 @@ public class MappingView extends ViewPart {
 		}
 		PlatformUI.getWorkbench().removeWindowListener(editorPartListener);
 
+		IdeMappingUtils.setCurrentBase(null);
+		for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+			for (IWorkbenchPage page : window.getPages()) {
+				for (IEditorReference editorRef : page.getEditorReferences()) {
+					final IEditorPart editorPart = editorRef.getEditor(false);
+					if (editorPart != null) {
+						clearLocationMarker(editorPart);
+					}
+				}
+			}
+		}
+
 		getSite().setSelectionProvider(null);
 	}
 
@@ -660,6 +813,156 @@ public class MappingView extends ViewPart {
 	private boolean areSameBase(IBase firstBase, IBase secondBase) {
 		// TODO change this when we work on same instances of IBase
 		return firstBase.getName().equals(secondBase.getName());
+	}
+
+	/**
+	 * Clears all location markers for the given {@link IEditorPart}.
+	 * 
+	 * @param part
+	 *            the {@link IEditorPart}
+	 */
+	private void clearLocationMarker(IEditorPart part) {
+		final IEditorInput editorInput = part.getEditorInput();
+
+		if (editorInput != null) {
+			final IFile file = getFile(editorInput);
+			final IBase currentBase = IdeMappingUtils.getCurentBase();
+			if (file != null && currentBase != null) {
+				try {
+					file.deleteMarkers(ILocationMarker.LOCATION_ID, true, IResource.DEPTH_INFINITE);
+				} catch (CoreException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+									"unable to clear all location markers for "
+											+ file.getFullPath().toString(), e));
+				}
+				final ILocation fileLocation = MappingUtils.getConnectorRegistry().getLocation(currentBase,
+						file);
+				if (fileLocation != null) {
+					editedLocations.remove(fileLocation);
+					removeLocation(fileLocation);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Removes {@link ILocation} to {@link org.eclipse.core.resources.IMarker IMarker} mapping recursively.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to remove from the mapping
+	 */
+	private void removeLocation(ILocation location) {
+		IdeMappingUtils.removeMarker(location);
+		location.removeListener(markerBaseListener);
+		for (ILocation child : location.getContents()) {
+			removeLocation(child);
+		}
+	}
+
+	/**
+	 * Removes {@link ILocation} to {@link org.eclipse.core.resources.IMarker IMarker} mapping recursively and
+	 * {@link org.eclipse.core.resources.IMarker#delete() deletes} the
+	 * {@link org.eclipse.core.resources.IMarker IMarker}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to remove from the mapping
+	 */
+	private void deleteLocation(ILocation location) {
+		IdeMappingUtils.deleteMarker(location);
+		location.removeListener(markerBaseListener);
+		for (ILocation child : location.getContents()) {
+			removeLocation(child);
+		}
+	}
+
+	/**
+	 * Gets the {@link IFile} from the given {@link IEditorInput}.
+	 * 
+	 * @param editorInput
+	 *            the {@link IEditorInput}
+	 * @return the {@link IFile} from the given {@link IEditorInput} if any, <code>null</code> otherwise
+	 */
+	private IFile getFile(final IEditorInput editorInput) {
+		final IFile file;
+		if (editorInput instanceof IFileEditorInput) {
+			file = ((IFileEditorInput)editorInput).getFile();
+		} else {
+			final IPath path = getPath(editorInput);
+			if (path != null) {
+				file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
+			} else {
+				file = null;
+			}
+		}
+		return file;
+	}
+
+	/**
+	 * Gets the {@link IPath} from the given {@link IEditorInput}.
+	 * 
+	 * @param editorInput
+	 *            the {@link IEditorInput}
+	 * @return the {@link IPath} from the given {@link IEditorInput} if any, <code>null</code> otherwise
+	 */
+	private IPath getPath(final IEditorInput editorInput) {
+		final IPath path;
+		if (editorInput instanceof ILocationProvider) {
+			path = ((ILocationProvider)editorInput).getPath(editorInput);
+		} else if (editorInput instanceof IURIEditorInput) {
+			final URI uri = ((IURIEditorInput)editorInput).getURI();
+			if (uri != null) {
+				final File osFile = URIUtil.toFile(uri);
+				if (osFile != null) {
+					path = Path.fromOSString(osFile.getAbsolutePath());
+				} else {
+					path = null;
+				}
+			} else {
+				path = null;
+			}
+		} else {
+			path = null;
+		}
+		return path;
+	}
+
+	/**
+	 * Creates markers for the given {@link ILocation} and its {@link ILocation#getContents() contained}
+	 * {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 */
+	private void addLocation(ILocation location) {
+		IdeMappingUtils.getOrCreateMarker(location);
+		location.addListener(markerBaseListener);
+		for (ILocation child : location.getContents()) {
+			addLocation(child);
+		}
+	}
+
+	/**
+	 * Creates all location markers for the given {@link IEditorPart}.
+	 * 
+	 * @param part
+	 *            the {@link IEditorPart}
+	 */
+	private void createLocationMarker(IEditorPart part) {
+		final IEditorInput editorInput = part.getEditorInput();
+
+		if (editorInput != null) {
+			final IFile file = getFile(editorInput);
+			final IBase currentBase = IdeMappingUtils.getCurentBase();
+			if (file != null && currentBase != null) {
+				final ILocation fileLocation = MappingUtils.getConnectorRegistry().getLocation(currentBase,
+						file);
+				if (fileLocation != null) {
+					editedLocations.add(fileLocation);
+					addLocation(fileLocation);
+				}
+			}
+		}
 	}
 
 }

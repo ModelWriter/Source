@@ -15,14 +15,14 @@ package org.eclipse.mylyn.docs.intent.mapping.base;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface IBaseListener {
+public interface IBaseListener extends ILocationContainerListener {
 
 	/**
 	 * Stub implementation.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class Stub implements IBaseListener {
+	public static class Stub extends ILocationContainerListener.Stub implements IBaseListener {
 
 		/**
 		 * {@inheritDoc}
@@ -33,24 +33,6 @@ public interface IBaseListener {
 		public void nameChanged(String oldName, String newName) {
 			// nothing to do here
 
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
-		 */
-		public void contentsAdded(ILocation location) {
-			// nothing to do here
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
-		 */
-		public void contentsRemoved(ILocation location) {
-			// nothing to do here
 		}
 
 		/**
@@ -82,22 +64,6 @@ public interface IBaseListener {
 	 *            the new {@link IBase#getName() name}
 	 */
 	void nameChanged(String oldName, String newName);
-
-	/**
-	 * Notifies when the {@link IBase#getContents() contents} {@link ILocation} is added.
-	 * 
-	 * @param location
-	 *            the added {@link IBase#getContents() contents} {@link ILocation}
-	 */
-	void contentsAdded(ILocation location);
-
-	/**
-	 * Notifies when the {@link IBase#getContents() contents} {@link ILocation} is removed.
-	 * 
-	 * @param location
-	 *            the removed {@link IBase#getContents() contents} {@link ILocation}
-	 */
-	void contentsRemoved(ILocation location);
 
 	/**
 	 * Notifies when the {@link IBase#getReports() reports} {@link IReport} is added.

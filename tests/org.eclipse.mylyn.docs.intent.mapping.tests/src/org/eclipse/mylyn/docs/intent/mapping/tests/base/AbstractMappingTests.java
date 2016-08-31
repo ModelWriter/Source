@@ -193,14 +193,14 @@ public abstract class AbstractMappingTests {
 	protected final class TestLocationListener implements ILocationListener {
 
 		/**
-		 * Number of time {@link TestLocationListener#contentLocationRemoved(ILocation)} has been called.
+		 * Number of time {@link TestLocationListener#contentRemoved(ILocation)} has been called.
 		 */
-		private int contentLocationRemoved;
+		private int contentsLocationRemoved;
 
 		/**
-		 * Number of time {@link TestLocationListener#contentLocationAdded(ILocation)} has been called.
+		 * Number of time {@link TestLocationListener#contentAdded(ILocation)} has been called.
 		 */
-		private int contentLocationAdded;
+		private int contentsLocationAdded;
 
 		/**
 		 * Number of time {@link TestLocationListener#targetLinkRemoved(ILink)} has been called.
@@ -245,12 +245,12 @@ public abstract class AbstractMappingTests {
 			targetLinkRemoved++;
 		}
 
-		public void contentLocationAdded(ILocation location) {
-			contentLocationAdded++;
+		public void contentsAdded(ILocation location) {
+			contentsLocationAdded++;
 		}
 
-		public void contentLocationRemoved(ILocation location) {
-			contentLocationRemoved++;
+		public void contentsRemoved(ILocation location) {
+			contentsLocationRemoved++;
 		}
 
 		public void containerChanged(ILocationContainer oldContainer, ILocationContainer newContainer) {
@@ -304,8 +304,8 @@ public abstract class AbstractMappingTests {
 	protected void assertTestLocationListener(TestLocationListener listener, int contentLocationRemoved,
 			int contentLocationAdded, int targetLinkRemoved, int targetLinkAdded, int sourceLinkRemoved,
 			int sourceLinkAdded, int containerChanged) {
-		assertEquals(contentLocationRemoved, listener.contentLocationRemoved);
-		assertEquals(contentLocationAdded, listener.contentLocationAdded);
+		assertEquals(contentLocationRemoved, listener.contentsLocationRemoved);
+		assertEquals(contentLocationAdded, listener.contentsLocationAdded);
 		assertEquals(targetLinkRemoved, listener.targetLinkRemoved);
 		assertEquals(targetLinkAdded, listener.targetLinkAdded);
 		assertEquals(sourceLinkRemoved, listener.sourceLinkRemoved);

@@ -581,7 +581,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 						case Notification.ADD:
 							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
-									((LocationAdapter)adapter).listener.contentLocationAdded((ILocation)msg
+									((LocationAdapter)adapter).listener.contentsAdded((ILocation)msg
 											.getNewValue());
 								}
 							}
@@ -590,7 +590,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									for (ILocation location : (List<ILocation>)msg.getNewValue()) {
-										((LocationAdapter)adapter).listener.contentLocationAdded(location);
+										((LocationAdapter)adapter).listener.contentsAdded(location);
 									}
 								}
 							}
@@ -598,7 +598,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 						case Notification.REMOVE:
 							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
-									((LocationAdapter)adapter).listener.contentLocationRemoved((ILocation)msg
+									((LocationAdapter)adapter).listener.contentsRemoved((ILocation)msg
 											.getOldValue());
 								}
 							}
@@ -607,7 +607,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 							for (Adapter adapter : eAdapters) {
 								if (adapter instanceof LocationAdapter) {
 									for (ILocation location : (List<ILocation>)msg.getOldValue()) {
-										((LocationAdapter)adapter).listener.contentLocationRemoved(location);
+										((LocationAdapter)adapter).listener.contentsRemoved(location);
 									}
 								}
 							}

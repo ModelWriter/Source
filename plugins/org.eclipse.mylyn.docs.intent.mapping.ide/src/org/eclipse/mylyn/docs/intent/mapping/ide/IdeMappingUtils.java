@@ -11,11 +11,20 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector.FileDelegateRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 
 /**
  * Ide mapping utilities.
@@ -28,6 +37,11 @@ public final class IdeMappingUtils {
 	 * The {@link IFileDelegateRegistry} instance.
 	 */
 	private static final IFileDelegateRegistry REGISTRY = new FileDelegateRegistry();
+
+	/**
+	 * Mapping from an {@link ILocation} and it's {@link IMarker}.
+	 */
+	private static final Map<ILocation, IMarker> LOCATION_TO_MARKER = new HashMap<ILocation, IMarker>();
 
 	/**
 	 * The current {@link IBase}.
@@ -99,4 +113,83 @@ public final class IdeMappingUtils {
 	public static IBase getCurentBase() {
 		return currentBase;
 	}
+
+	/**
+	 * Gets the {@link ILocation#getContainer() containing} {@link IFileLocation} of the given
+	 * {@link ILocation} or itself if it's a {@link IFileLocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @return the {@link ILocation#getContainer() containing} {@link IFileLocation} of the given
+	 *         {@link ILocation} or itself if it's a {@link IFileLocation}, <code>null</code> if none is found
+	 */
+	public static IFileLocation getContainingFileLocation(ILocation location) {
+		final IFileLocation res;
+
+		if (location instanceof IFileLocation) {
+			res = (IFileLocation)location;
+		} else if (location.getContainer() instanceof ILocation) {
+			res = getContainingFileLocation((ILocation)location.getContainer());
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
+
+	/**
+	 * Gets or creates the {@link IMarker} for the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @return the {@link IMarker} for the given {@link ILocation} if any exists or can be created,
+	 *         <code>null</code> otherwise
+	 */
+	public static IMarker getOrCreateMarker(ILocation location) {
+		final IMarker res;
+
+		final IMarker existingMarker = LOCATION_TO_MARKER.get(location);
+		if (existingMarker == null) {
+			res = IdeMappingUtils.adapt(location, IMarker.class);
+			if (res != null) {
+				LOCATION_TO_MARKER.put(location, res);
+			}
+		} else {
+			res = existingMarker;
+		}
+
+		return res;
+	}
+
+	/**
+	 * {@link IMarker#delete() Deletes} the {@link IMarker} for the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 */
+	public static void deleteMarker(ILocation location) {
+		final IMarker marker = LOCATION_TO_MARKER.remove(location);
+		if (marker != null) {
+			try {
+				marker.delete();
+			} catch (CoreException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+								"unable to delete a location markers for "
+										+ marker.getResource().getFullPath().toString(), e));
+			}
+		}
+	}
+
+	/**
+	 * Removes the {@link IMarker} for the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @see #deleteMarker(ILocation) for deletion
+	 */
+	public static void removeMarker(ILocation location) {
+		LOCATION_TO_MARKER.remove(location);
+	}
+
 }

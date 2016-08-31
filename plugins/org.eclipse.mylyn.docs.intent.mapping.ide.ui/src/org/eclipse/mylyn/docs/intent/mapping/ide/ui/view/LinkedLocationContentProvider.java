@@ -76,14 +76,14 @@ public class LinkedLocationContentProvider extends AbstractLocationContentProvid
 		}
 
 		@Override
-		public void contentLocationAdded(ILocation location) {
+		public void contentsAdded(ILocation location) {
 			update();
 			currentViewer.refresh();
 			addListener(location);
 		}
 
 		@Override
-		public void contentLocationRemoved(ILocation location) {
+		public void contentsRemoved(ILocation location) {
 			removeListener(location);
 		}
 

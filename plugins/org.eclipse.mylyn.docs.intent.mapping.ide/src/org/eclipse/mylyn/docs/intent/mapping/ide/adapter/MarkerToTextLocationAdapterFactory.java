@@ -29,7 +29,7 @@ import org.eclipse.mylyn.docs.intent.mapping.text.TextRegion;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class MarkerToLocationAdapterFactory implements IAdapterFactory {
+public class MarkerToTextLocationAdapterFactory implements IAdapterFactory {
 
 	/**
 	 * {@inheritDoc}

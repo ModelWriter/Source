@@ -18,11 +18,39 @@
          point="org.eclipse.core.runtime.adapters">
       <factory
             adaptableType="org.eclipse.core.resources.IMarker"
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationAdapterFactory">
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToTextLocationAdapterFactory">
          <adapter
                type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
          </adapter>
       </factory>
+      <factory
+            adaptableType="org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation"
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.TextLocationToMarkerAdapterFactory">
+         <adapter
+               type="org.eclipse.core.resources.IMarker">
+         </adapter>
+      </factory>
+   </extension>
+   <extension
+         id="org.eclipse.mylyn.docs.intent.mapping.ide.locationMarker"
+         name="Location"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="false">
+      </persistent>
+      <attribute
+            name="org.eclipse.mylyn.docs.intent.mapping.ide.location">
+      </attribute>
+   </extension>
+   <extension
+         id="org.eclipse.mylyn.docs.intent.mapping.ide.textLocationMarker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.mylyn.docs.intent.mapping.ide.locationMarker">
+      </super>
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
    </extension>
 
 </plugin>

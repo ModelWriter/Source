@@ -25,7 +25,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends Plugin {
 
 	/** The plug-in ID. */
-	public static final String PLUGIN_ID = "org.eclipse.intent.mapping.ide";
+	public static final String PLUGIN_ID = "org.eclipse.mylyn.docs.intent.mapping.ide";
 
 	/** This plug-in's shared instance. */
 	private static Activator plugin;

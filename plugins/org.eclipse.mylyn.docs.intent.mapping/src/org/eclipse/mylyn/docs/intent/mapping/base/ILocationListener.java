@@ -16,14 +16,14 @@ package org.eclipse.mylyn.docs.intent.mapping.base;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface ILocationListener {
+public interface ILocationListener extends ILocationContainerListener {
 
 	/**
 	 * Stub implementation.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class Stub implements ILocationListener {
+	public static class Stub extends ILocationContainerListener.Stub implements ILocationListener {
 
 		/**
 		 * {@inheritDoc}
@@ -58,24 +58,6 @@ public interface ILocationListener {
 		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#targetLinkRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILink)
 		 */
 		public void targetLinkRemoved(ILink link) {
-			// nothing to do here
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#contentLocationAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
-		 */
-		public void contentLocationAdded(ILocation location) {
-			// nothing to do here
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#contentLocationRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
-		 */
-		public void contentLocationRemoved(ILocation location) {
 			// nothing to do here
 		}
 
@@ -122,22 +104,6 @@ public interface ILocationListener {
 	 *            the removed {@link ILocation#getTargetLinks() target} {@link ILink}
 	 */
 	void targetLinkRemoved(ILink link);
-
-	/**
-	 * Notifies when the {@link ILocation#getContents() content} {@link ILocation} is added.
-	 * 
-	 * @param location
-	 *            the added {@link ILocation#getContents() content} {@link ILocation}
-	 */
-	void contentLocationAdded(ILocation location);
-
-	/**
-	 * Notifies when the {@link ILocation#getContents() content} {@link ILocation} is removed.
-	 * 
-	 * @param location
-	 *            the removed {@link ILocation#getContents() content} {@link ILocation}
-	 */
-	void contentLocationRemoved(ILocation location);
 
 	/**
 	 * Notifies when the {@link ILocation#getContainer() container} {@link IScope} has changed.
