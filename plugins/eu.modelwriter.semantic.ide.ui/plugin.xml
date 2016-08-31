@@ -6,7 +6,7 @@
       <view
             class="eu.modelwriter.semantic.ide.ui.view.SemanticView"
             id="eu.modelwriter.semantic.ide.ui.view.SemanticView"
-            name="Semantic View">
+            name="Semantic">
       </view>
    </extension>
    <extension

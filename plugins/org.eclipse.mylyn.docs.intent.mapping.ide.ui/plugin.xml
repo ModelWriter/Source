@@ -6,7 +6,7 @@
       <view
             class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.MappingView"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.MappingView"
-            name="Mapping View">
+            name="Mapping">
       </view>
    </extension>
    <extension
