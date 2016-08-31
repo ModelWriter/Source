@@ -511,7 +511,6 @@ public class SemanticView extends ViewPart {
 									marker.setAttribute(IMarker.MESSAGE, concept + "\n" + similarity);
 									marker.setAttribute(IMarker.CHAR_START, positions[0]);
 									marker.setAttribute(IMarker.CHAR_END, positions[1]);
-									marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
 								}
 							}
 						}
