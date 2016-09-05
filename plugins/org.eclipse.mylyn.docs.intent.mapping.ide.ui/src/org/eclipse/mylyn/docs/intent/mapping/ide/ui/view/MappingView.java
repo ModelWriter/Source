@@ -322,7 +322,10 @@ public class MappingView extends ViewPart {
 		 * @see org.eclipse.ui.IPartListener2#partBroughtToTop(org.eclipse.ui.IWorkbenchPartReference)
 		 */
 		public void partBroughtToTop(IWorkbenchPartReference partRef) {
-			// nothing to do here
+			final IWorkbenchPart part = partRef.getPart(false);
+			if (part instanceof IEditorPart) {
+				setInput((IEditorPart)part);
+			}
 		}
 
 		/**
