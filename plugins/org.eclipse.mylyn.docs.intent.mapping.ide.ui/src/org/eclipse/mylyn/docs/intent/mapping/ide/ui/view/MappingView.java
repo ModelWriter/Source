@@ -39,24 +39,32 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.ide.ILocationMarker;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.ui.Activator;
+import org.eclipse.mylyn.docs.intent.mapping.ide.ui.UiIdeMappingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -82,6 +90,57 @@ import org.eclipse.ui.part.ViewPart;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class MappingView extends ViewPart {
+
+	/**
+	 * {@link Listener} that open {@link ILocation}, {@link ILink}, and {@link IReport}.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	private static class ShowLocationDoubleClickListener implements Listener {
+
+		/**
+		 * the {@link Tree} to listen to.
+		 */
+		private final Tree tree;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param tree
+		 *            the {@link Tree} to listen to
+		 */
+		public ShowLocationDoubleClickListener(Tree tree) {
+			this.tree = tree;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
+		 */
+		public void handleEvent(Event event) {
+			Point pt = new Point(event.x, event.y);
+			TreeItem item = tree.getItem(pt);
+			final Object selected = item.getData();
+			if (selected instanceof ILocation) {
+				UiIdeMappingUtils.showLocation((ILocation)selected);
+			} else if (selected instanceof ILink) {
+				for (int i = 0; i < tree.getColumnCount(); i++) {
+					Rectangle rect = item.getBounds(i);
+					if (rect.contains(pt)) {
+						if (i == 0) {
+							UiIdeMappingUtils.showLocation(((ILink)selected).getSource());
+						} else {
+							UiIdeMappingUtils.showLocation(((ILink)selected).getTarget());
+						}
+						break;
+					}
+				}
+			} else if (selected instanceof IReport) {
+				UiIdeMappingUtils.showLocation(((IReport)selected).getLink().getSource());
+			}
+		}
+	}
 
 	/**
 	 * Adds and removes location markers according to edited locations and changes in {@link IBase}.
@@ -519,6 +578,8 @@ public class MappingView extends ViewPart {
 
 		final FilteredTree referencingTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(),
 				false);
+		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
+				new ShowLocationDoubleClickListener(referencingTree.getViewer().getTree()));
 		referencingTree.getViewer().setContentProvider(
 				new LinkedLocationContentProvider(false, LinkedLocationContentProvider.SOURCE, false));
 		referencingTree.getViewer().setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
@@ -534,6 +595,8 @@ public class MappingView extends ViewPart {
 		});
 
 		final FilteredTree referencedTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(), false);
+		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
+				new ShowLocationDoubleClickListener(referencedTree.getViewer().getTree()));
 		referencedTree.getViewer().setContentProvider(
 				new LinkedLocationContentProvider(false, LinkedLocationContentProvider.TARGET, false));
 		referencedTree.getViewer().setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
@@ -574,6 +637,12 @@ public class MappingView extends ViewPart {
 				}
 			}
 		};
+
+		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
+				new ShowLocationDoubleClickListener(referencingTree.getViewer().getTree()));
+		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
+				new ShowLocationDoubleClickListener(referencedTree.getViewer().getTree()));
+
 		getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(selectionListener);
 
 		sashForm.setWeights(new int[] {1, 1 });
@@ -601,10 +670,13 @@ public class MappingView extends ViewPart {
 				false);
 		referencingTree.getViewer().setContentProvider(
 				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.SOURCE, true));
+		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
+				new ShowLocationDoubleClickListener(referencingTree.getViewer().getTree()));
 
 		referencingTree.getViewer().getTree().setHeaderVisible(true);
 		TreeViewerColumn referencingTreeSourceColumn = new TreeViewerColumn(referencingTree.getViewer(),
 				SWT.NONE);
+		referencingTreeSourceColumn.getColumn().setData(LinkedLocationContentProvider.SOURCE);
 		referencingTreeSourceColumn.getColumn().setResizable(true);
 		referencingTreeSourceColumn.getColumn().setText(SOURCE_LABEL);
 		referencingTreeSourceColumn.getColumn().setWidth(WIDTH);
@@ -613,6 +685,7 @@ public class MappingView extends ViewPart {
 
 		TreeViewerColumn referencingTreeTargetColumn = new TreeViewerColumn(referencingTree.getViewer(),
 				SWT.NONE);
+		referencingTreeTargetColumn.getColumn().setData(LinkedLocationContentProvider.TARGET);
 		referencingTreeTargetColumn.getColumn().setResizable(true);
 		referencingTreeTargetColumn.getColumn().setText(TARGET_LABEL);
 		referencingTreeTargetColumn.getColumn().setWidth(WIDTH);
@@ -633,6 +706,8 @@ public class MappingView extends ViewPart {
 		final FilteredTree referencedTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(), false);
 		referencedTree.getViewer().setContentProvider(
 				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.TARGET, true));
+		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
+				new ShowLocationDoubleClickListener(referencedTree.getViewer().getTree()));
 
 		referencedTree.getViewer().getTree().setHeaderVisible(true);
 		TreeViewerColumn referencedTreeSourceColumn = new TreeViewerColumn(referencedTree.getViewer(),
@@ -705,32 +780,35 @@ public class MappingView extends ViewPart {
 		selectionTabItem.setControl(treeComposite);
 		treeComposite.setLayout(new FillLayout(SWT.HORIZONTAL));
 
-		final FilteredTree linkTree = new FilteredTree(treeComposite, SWT.BORDER, new PatternFilter(), false);
-		linkTree.getViewer().setContentProvider(new SyncronizationLocationContentProvider());
+		final FilteredTree reportTree = new FilteredTree(treeComposite, SWT.BORDER, new PatternFilter(),
+				false);
+		reportTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
+				new ShowLocationDoubleClickListener(reportTree.getViewer().getTree()));
+		reportTree.getViewer().setContentProvider(new SyncronizationLocationContentProvider());
 
-		linkTree.getViewer().getTree().setHeaderVisible(true);
-		TreeViewerColumn linkTreeSourceColumn = new TreeViewerColumn(linkTree.getViewer(), SWT.NONE);
+		reportTree.getViewer().getTree().setHeaderVisible(true);
+		TreeViewerColumn linkTreeSourceColumn = new TreeViewerColumn(reportTree.getViewer(), SWT.NONE);
 		linkTreeSourceColumn.getColumn().setResizable(true);
 		linkTreeSourceColumn.getColumn().setText(SOURCE_LABEL);
 		linkTreeSourceColumn.getColumn().setWidth(WIDTH);
 		linkTreeSourceColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(new MappingLabelProvider(
 				MappingLabelProvider.SOURCE)));
 
-		TreeViewerColumn linkTreeTargetColumn = new TreeViewerColumn(linkTree.getViewer(), SWT.NONE);
+		TreeViewerColumn linkTreeTargetColumn = new TreeViewerColumn(reportTree.getViewer(), SWT.NONE);
 		linkTreeTargetColumn.getColumn().setResizable(true);
 		linkTreeTargetColumn.getColumn().setText(TARGET_LABEL);
 		linkTreeTargetColumn.getColumn().setWidth(WIDTH);
 		linkTreeTargetColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(new MappingLabelProvider(
 				MappingLabelProvider.TARGET)));
 
-		linkTree.getViewer().getControl().addFocusListener(new FocusListener() {
+		reportTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
 				selectionProvider.setSelectionProviderDelegate(null);
 			}
 
 			public void focusGained(FocusEvent e) {
-				selectionProvider.setSelectionProviderDelegate(linkTree.getViewer());
+				selectionProvider.setSelectionProviderDelegate(reportTree.getViewer());
 			}
 		});
 
@@ -738,7 +816,7 @@ public class MappingView extends ViewPart {
 
 			public void selectionChanged(SelectionChangedEvent event) {
 				final IBase base = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
-				linkTree.getViewer().setInput(base);
+				reportTree.getViewer().setInput(base);
 			}
 		});
 
