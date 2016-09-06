@@ -8,7 +8,9 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.mylyn.docs.intent.mapping.emf.ide,
+ org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter,
  org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector,
+ org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker,
  org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource,
  org.eclipse.mylyn.docs.intent.mapping.ide,
  org.eclipse.mylyn.docs.intent.mapping.ide.impl,

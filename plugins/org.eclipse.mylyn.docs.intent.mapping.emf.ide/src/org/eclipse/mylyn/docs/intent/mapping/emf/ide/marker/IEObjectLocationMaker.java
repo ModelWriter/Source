@@ -9,28 +9,26 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.ide;
+package org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker;
+
+import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.Activator;
 
 /**
  * Place holder for location marker constants.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface ILocationMarker {
+public interface IEObjectLocationMaker {
 
 	/**
-	 * The location marker ID.
+	 * The EObject location marker ID.
 	 */
-	String LOCATION_ID = Activator.PLUGIN_ID + ".locationMarker";
+	String EOBJECT_LOCATION_ID = Activator.PLUGIN_ID + ".eobjectLocationMarker";
 
 	/**
-	 * The text location marker ID.
+	 * The URI attribute.
 	 */
-	String TEXT_LOCATION_ID = Activator.PLUGIN_ID + ".textLocationMarker";
-
-	/**
-	 * The location attribute.
-	 */
-	String LOCATION_ATTRIBUTE = "location";
+	String URI_ATTRIBUTE = EValidator.URI_ATTRIBUTE;
 
 }

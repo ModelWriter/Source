@@ -56,5 +56,33 @@
             class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.IdeEObjectConnector">
       </connector>
    </extension>
+   <extension
+         id="org.eclipse.mylyn.docs.intent.mapping.emf.ide.eobjectLocationMarker"
+         name="EObject Location"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="false">
+      </persistent>
+      <super
+            type="org.eclipse.emf.ecore.diagnostic">
+      </super>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation"
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.EObjectLocationToMarkerAdapterFactory">
+         <adapter
+               type="org.eclipse.core.resources.IMarker">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.eclipse.core.resources.IMarker"
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.MarkerToEObjectLocationAdapterFactory">
+         <adapter
+               type="org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation">
+         </adapter>
+      </factory>
+   </extension>
 
 </plugin>

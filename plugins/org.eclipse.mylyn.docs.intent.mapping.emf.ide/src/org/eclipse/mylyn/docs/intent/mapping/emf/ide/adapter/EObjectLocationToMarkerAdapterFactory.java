@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.ide.adapter;
+package org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -19,18 +19,19 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker.IEObjectLocationMaker;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
-import org.eclipse.mylyn.docs.intent.mapping.ide.ILocationMarker;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
-import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 
 /**
- * {@link ITextLocation} to Marker {@link IAdapterFactory}.
+ * {@link IEObjectLocation} to Marker {@link IAdapterFactory}.
  * 
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class TextLocationToMarkerAdapterFactory implements IAdapterFactory {
+public class EObjectLocationToMarkerAdapterFactory implements IAdapterFactory {
 
 	/**
 	 * {@inheritDoc}
@@ -40,20 +41,19 @@ public class TextLocationToMarkerAdapterFactory implements IAdapterFactory {
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		IMarker res;
 
-		if (adaptableObject instanceof ITextLocation) {
-			final ITextLocation textLocation = (ITextLocation)adaptableObject;
-			final IMarker existingMarker = IdeMappingUtils.getMarker(textLocation);
+		if (adaptableObject instanceof IEObjectLocation) {
+			final IEObjectLocation eObjLocation = (IEObjectLocation)adaptableObject;
+			final IMarker existingMarker = IdeMappingUtils.getMarker(eObjLocation);
 			if (existingMarker != null) {
 				res = existingMarker;
 			} else {
-				final IFileLocation fileLocation = IdeMappingUtils.getContainingFileLocation(textLocation);
+				final IFileLocation fileLocation = IdeMappingUtils.getContainingFileLocation(eObjLocation);
 				final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
 						new Path(fileLocation.getFullPath()));
 				try {
-					res = file.createMarker(ILocationMarker.TEXT_LOCATION_ID);
-					res.setAttribute(IMarker.CHAR_START, textLocation.getStartOffset());
-					res.setAttribute(IMarker.CHAR_END, textLocation.getEndOffset());
-					res.setAttribute(ILocationMarker.LOCATION_ATTRIBUTE, textLocation);
+					res = file.createMarker(IEObjectLocationMaker.EOBJECT_LOCATION_ID);
+					res.setAttribute(IEObjectLocationMaker.URI_ATTRIBUTE, EcoreUtil.getURI(eObjLocation
+							.getEObject()));
 				} catch (CoreException e) {
 					res = null;
 					Activator.getDefault().getLog().log(

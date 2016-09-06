@@ -148,7 +148,7 @@ public final class IdeMappingUtils {
 	public static IMarker getOrCreateMarker(ILocation location) {
 		final IMarker res;
 
-		final IMarker existingMarker = LOCATION_TO_MARKER.get(location);
+		final IMarker existingMarker = getMarker(location);
 		if (existingMarker == null) {
 			res = IdeMappingUtils.adapt(location, IMarker.class);
 			if (res != null) {
@@ -159,6 +159,17 @@ public final class IdeMappingUtils {
 		}
 
 		return res;
+	}
+
+	/**
+	 * Gets the cached marker for the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @return the cached marker for the given {@link ILocation} if any, <code>null</code> otherwise
+	 */
+	public static IMarker getMarker(ILocation location) {
+		return LOCATION_TO_MARKER.get(location);
 	}
 
 	/**
