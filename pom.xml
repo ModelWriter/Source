@@ -7,22 +7,16 @@
    which accompanies this distribution, and is available at
    http://www.eclipse.org/legal/epl-v10.html
 -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <prerequisites>
     <maven>3.0</maven>
   </prerequisites>
-
   <groupId>eu.modelwriter</groupId>
   <artifactId>eu.modelwriter-parent</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ModelWriter Parent</name>
-
   <licenses>
     <license>
       <name>Eclipse Public License v1.0</name>
@@ -36,113 +30,86 @@
       </comments>
     </license>
   </licenses>
-
   <properties>
     <tycho-version>0.21.0</tycho-version>
     <tycho-extras-version>0.21.0</tycho-extras-version>
-
     <resource-encoding>UTF-8</resource-encoding>
     <maven-resources-version>2.6</maven-resources-version>
     <tycho.scmUrl>scm:git:git://github.com/ModelWriter/Source.git</tycho.scmUrl>
   </properties>
-
   <scm>
     <developerConnection>scm:git:git://github.com/ModelWriter/Source.git</developerConnection>
   </scm>
-
   <modules>
     <module>releng/eu.modelwriter.targetplatforms/neon</module>
     <module>releng/eu.modelwriter.targetplatforms/mars</module>
     <module>releng/eu.modelwriter.targetplatforms/luna</module>
-<!--
+    <!--
     <module>releng/eu.modelwriter.targetplatforms/kepler</module>
     <module>releng/eu.modelwriter.targetplatforms/juno</module>
     <module>releng/eu.modelwriter.targetplatforms/indigo</module>
     <module>releng/eu.modelwriter.targetplatforms/helios</module>
 -->
     <module>features/eu.modelwriter.feature</module>
-
     <module>plugins/eu.modelwriter.ide.ui</module>
     <!-- TODO <module>tests/eu.modelwriter.ide.ui.tests</module> -->
-
+    
     <module>features/org.eclipse.mylyn.docs.intent.mapping.feature</module>
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.tests</module>
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.ide.tests</module>
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.ide.ui</module>
     <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.ide.ui.tests</module> -->
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.tests</module>
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.edit</module>
     <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.edit.tests</module> -->
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests</module>
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena</module>
     <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.tests</module> -->
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena.ide</module>
     <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.ide.tests</module> -->
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena.emf</module>
     <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.emf.tests</module> -->
-
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide</module>
     <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide.tests</module> -->
-
+    
     <module>features/eu.modelwriter.semantic.feature</module>
-
     <module>plugins/eu.modelwriter.semantic</module>
     <module>tests/eu.modelwriter.semantic.tests</module>
-
     <module>plugins/eu.modelwriter.semantic.ide</module>
     <!-- TODO <module>tests/eu.modelwriter.semantic.ide.tests</module> -->
-
     <module>plugins/eu.modelwriter.semantic.ide.ui</module>
     <!-- TODO <module>tests/eu.modelwriter.semantic.ide.ui.tests</module> -->
-
     <module>plugins/dk.brics.automaton</module>
     <!-- <module>plugins/dk.brics.automaton.tests</module> -->
-
-
+    
     <module>features/eu.modelwriter.semantic.stanford-corenlp.feature</module>
-
     <module>plugins/eu.modelwriter.semantic.stanford-corenlp</module>
     <module>tests/eu.modelwriter.semantic.stanford-corenlp.tests</module>
-
-
+    
     <module>features/eu.modelwriter.semantic.emf.feature</module>
-
     <module>plugins/eu.modelwriter.semantic.emf</module>
     <module>tests/eu.modelwriter.semantic.emf.tests</module>
-
     <module>plugins/eu.modelwriter.semantic.emf.ide</module>
     <!-- <module>tests/eu.modelwriter.semantic.emf.ide.tests</module> -->
-
     <!-- <module>plugins/eu.modelwriter.semantic.emf.ide</module> -->
     <!-- <module>tests/eu.modelwriter.semantic.emf.ide.tests</module> -->
-
-
+    
+    <module>features/org.apache.poi.feature</module>
+    <module>plugins/org.apache.poi</module>
+    
     <module>features/eu.modelwriter.semantic.jena.feature</module>
-
     <module>plugins/eu.modelwriter.semantic.jena</module>
     <module>tests/eu.modelwriter.semantic.jena.tests</module>
-
     <module>plugins/eu.modelwriter.semantic.jena.ide</module>
     <module>tests/eu.modelwriter.semantic.jena.ide.tests</module>
     
     <module>releng/eu.modelwriter.updatesite</module>
-
     <module>releng/eu.modelwriter.gpl.updatesite</module>
   </modules>
-
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -166,11 +133,11 @@
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-source-plugin</artifactId>
         <version>${tycho-version}</version>
-	<configuration>
-	  <archive>
-	    <addMavenDescriptor>false</addMavenDescriptor>
-	  </archive>
-	</configuration>
+        <configuration>
+          <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+          </archive>
+        </configuration>
         <executions>
           <execution>
             <id>plugin-source</id>
@@ -184,10 +151,10 @@
         <groupId>org.eclipse.tycho.extras</groupId>
         <artifactId>tycho-source-feature-plugin</artifactId>
         <version>${tycho-extras-version}</version>
-	<configuration>
-	  <archive>
-	    <addMavenDescriptor>false</addMavenDescriptor>
-	  </archive>
+        <configuration>
+          <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+          </archive>
         </configuration>
         <executions>
           <execution>
@@ -316,7 +283,7 @@
           </executions>
         </plugin>
         <plugin>
-        <groupId>org.eclipse.tycho</groupId>
+          <groupId>org.eclipse.tycho</groupId>
           <artifactId>tycho-p2-plugin</artifactId>
           <version>${tycho-extras-version}</version>
           <executions>
@@ -335,7 +302,6 @@
       </plugins>
     </pluginManagement>
   </build>
-
   <profiles>
     <profile>
       <id>platform-neon</id>
@@ -421,7 +387,7 @@
     <profile>
       <id>platform-kepler</id>
       <activation>
-         <activeByDefault>false</activeByDefault>
+        <activeByDefault>false</activeByDefault>
         <property>
           <name>platform-version-name</name>
           <value>kepler</value>
@@ -448,7 +414,7 @@
     <profile>
       <id>platform-juno</id>
       <activation>
-         <activeByDefault>false</activeByDefault>
+        <activeByDefault>false</activeByDefault>
         <property>
           <name>platform-version-name</name>
           <value>juno</value>
@@ -475,7 +441,7 @@
     <profile>
       <id>platform-indigo</id>
       <activation>
-         <activeByDefault>false</activeByDefault>
+        <activeByDefault>false</activeByDefault>
         <property>
           <name>platform-version-name</name>
           <value>indigo</value>
@@ -499,10 +465,10 @@
         </plugins>
       </build>
     </profile>
-	<profile>
+    <profile>
       <id>platform-helios</id>
       <activation>
-         <activeByDefault>false</activeByDefault>
+        <activeByDefault>false</activeByDefault>
         <property>
           <name>platform-version-name</name>
           <value>helios</value>
@@ -526,10 +492,10 @@
         </plugins>
       </build>
     </profile>
-	<profile>
+    <profile>
       <id>platform-galileo</id>
       <activation>
-         <activeByDefault>false</activeByDefault>
+        <activeByDefault>false</activeByDefault>
         <property>
           <name>platform-version-name</name>
           <value>galileo</value>
@@ -540,10 +506,10 @@
         <platform-version>[3.5,3.6)</platform-version>
       </properties>
     </profile>
-	<profile>
+    <profile>
       <id>platform-ganymede</id>
       <activation>
-         <activeByDefault>false</activeByDefault>
+        <activeByDefault>false</activeByDefault>
         <property>
           <name>platform-version-name</name>
           <value>ganymede</value>
@@ -582,7 +548,7 @@
           </plugin>
         </plugins>
       </build>
-	</profile>
+    </profile>
     <profile>
       <id>static-checks</id>
       <activation>
@@ -615,5 +581,4 @@
       </properties>
     </profile>
   </profiles>
-
 </project>

@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.jena;bundle-version="2.11.1",
  org.eclipse.mylyn.docs.intent.mapping.jena.ide,
  org.eclipse.mylyn.docs.intent.mapping.jena,
- eu.modelwriter.semantic.jena.ide
+ eu.modelwriter.semantic.jena.ide,
+ org.apache.poi;bundle-version="3.14.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: eu.modelwriter.ide.ui.Activator
 Export-Package: eu.modelwriter.ide.ui,

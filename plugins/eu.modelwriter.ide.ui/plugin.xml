@@ -18,6 +18,50 @@
                id="eu.modelwriter.ide.ui.quickFixContributionItem">
          </dynamic>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any">
+         <command
+               commandId="eu.modelwriter.ide.ui.extractText"
+               label="Extract Text"
+               style="push"
+               tooltip="Extract the text from the selected .docx file">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <and>
+                        <instanceof
+                              value="org.eclipse.core.resources.IFile">
+                        </instanceof>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="docx">
+                        </test>
+                     </and>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="eu.modelwriter.ide.ui.command.ExtractTextHandler"
+            commandId="eu.modelwriter.ide.ui.extractText">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="Extract the text from the selected .docx file"
+            id="eu.modelwriter.ide.ui.extractText"
+            name="Extract Text">
+      </command>
    </extension>
 
 </plugin>
