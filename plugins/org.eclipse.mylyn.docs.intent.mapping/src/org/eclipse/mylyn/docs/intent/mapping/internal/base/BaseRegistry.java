@@ -39,9 +39,9 @@ public class BaseRegistry implements IBaseRegistry {
 	private final List<IBaseRegistryListener> listeners = new ArrayList<IBaseRegistryListener>();
 
 	/**
-	 * Gets the {@link List} of {@link IBaseRegistryListener} in a thread save way.
+	 * Gets the {@link List} of {@link IBaseRegistryListener} in a thread safe way.
 	 * 
-	 * @return the {@link List} of {@link IBaseRegistryListener} in a thread save way
+	 * @return the {@link List} of {@link IBaseRegistryListener} in a thread safe way
 	 */
 	private List<IBaseRegistryListener> getListeners() {
 		synchronized(listeners) {

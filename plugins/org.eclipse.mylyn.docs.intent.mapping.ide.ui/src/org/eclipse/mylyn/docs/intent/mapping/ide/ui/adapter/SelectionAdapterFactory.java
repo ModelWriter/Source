@@ -31,8 +31,9 @@ public class SelectionAdapterFactory implements IAdapterFactory {
 		final Object res;
 
 		if (adaptableObject instanceof IStructuredSelection) {
-			if (((IStructuredSelection)adaptableObject).getFirstElement() instanceof ILocation) {
-				res = ((IStructuredSelection)adaptableObject).getFirstElement();
+			final Object firstElement = ((IStructuredSelection)adaptableObject).getFirstElement();
+			if (firstElement instanceof ILocation) {
+				res = firstElement;
 			} else {
 				res = null;
 			}

@@ -11,8 +11,13 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
@@ -22,6 +27,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainerListener;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector.FileDelegateRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
@@ -42,6 +48,16 @@ public final class IdeMappingUtils {
 	 * Mapping from an {@link ILocation} and it's {@link IMarker}.
 	 */
 	private static final Map<ILocation, IMarker> LOCATION_TO_MARKER = new HashMap<ILocation, IMarker>();
+
+	/**
+	 * The pool of {@link ILocation} to link with.
+	 */
+	private static final Set<ILocation> LOCATIONS_POOL = new LinkedHashSet<ILocation>();
+
+	/**
+	 * The {@link List} of {@link ILocationContainerListener}.
+	 */
+	private static final List<ILocationContainerListener> LOCATIONS_POOL_LISTENERS = new ArrayList<ILocationContainerListener>();
 
 	/**
 	 * The current {@link IBase}.
@@ -201,6 +217,86 @@ public final class IdeMappingUtils {
 	 */
 	public static void removeMarker(ILocation location) {
 		LOCATION_TO_MARKER.remove(location);
+	}
+
+	/**
+	 * Gets the pool of {@link ILocation} to link with.
+	 * 
+	 * @return the pool of {@link ILocation} to link with
+	 */
+	public static Set<ILocation> getLocationsPool() {
+		return Collections.unmodifiableSet(LOCATIONS_POOL);
+	}
+
+	/**
+	 * Gets the {@link List} of {@link ILocationContainerListener} in a thread safe way.
+	 * 
+	 * @return the {@link List} of {@link ILocationContainerListener} in a thread safe way
+	 */
+	private static List<ILocationContainerListener> getLocationPoolListeners() {
+		synchronized(LOCATIONS_POOL_LISTENERS) {
+			return new ArrayList<ILocationContainerListener>(LOCATIONS_POOL_LISTENERS);
+		}
+	}
+
+	/**
+	 * Adds the given {@link ILocation} to the {@link #getLocationsPool() pool of location}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to add
+	 */
+	public static void addLocationToPool(ILocation location) {
+		final boolean added;
+		synchronized(LOCATIONS_POOL) {
+			added = LOCATIONS_POOL.add(location);
+		}
+		if (added) {
+			for (ILocationContainerListener listener : getLocationPoolListeners()) {
+				listener.contentsAdded(location);
+			}
+		}
+	}
+
+	/**
+	 * Removes the given {@link ILocation} from the {@link #getLocationsPool() pool of location}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to remove
+	 */
+	public static void removeLocationFromPool(ILocation location) {
+		final boolean removed;
+		synchronized(LOCATIONS_POOL) {
+			removed = LOCATIONS_POOL.remove(location);
+		}
+		if (removed) {
+			for (ILocationContainerListener listener : getLocationPoolListeners()) {
+				listener.contentsRemoved(location);
+			}
+		}
+	}
+
+	/**
+	 * Adds a {@link ILocationContainerListener} to the {@link #getLocationsPool() pool of location}.
+	 * 
+	 * @param listener
+	 *            the {@link ILocationContainerListener} to add
+	 */
+	public static void addLocationToPoolListener(ILocationContainerListener listener) {
+		synchronized(LOCATIONS_POOL_LISTENERS) {
+			LOCATIONS_POOL_LISTENERS.add(listener);
+		}
+	}
+
+	/**
+	 * Adds a {@link ILocationContainerListener} to the {@link #getLocationsPool() pool of location}.
+	 * 
+	 * @param listener
+	 *            the {@link ILocationContainerListener} to add
+	 */
+	public static void removeLocationToPoolListener(ILocationContainerListener listener) {
+		synchronized(LOCATIONS_POOL_LISTENERS) {
+			LOCATIONS_POOL_LISTENERS.remove(listener);
+		}
 	}
 
 }

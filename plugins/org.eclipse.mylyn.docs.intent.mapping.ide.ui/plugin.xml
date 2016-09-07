@@ -8,6 +8,11 @@
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.MappingView"
             name="Mapping">
       </view>
+      <view
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.LocationPoolView"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.LocationPoolView"
+            name="Location Pool">
+      </view>
    </extension>
    <extension
          point="org.eclipse.core.runtime.adapters">
