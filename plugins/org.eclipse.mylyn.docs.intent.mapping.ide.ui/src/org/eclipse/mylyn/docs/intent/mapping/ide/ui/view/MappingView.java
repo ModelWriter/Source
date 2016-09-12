@@ -11,20 +11,14 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 
-import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -68,11 +62,9 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -81,7 +73,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
-import org.eclipse.ui.editors.text.ILocationProvider;
 import org.eclipse.ui.part.ViewPart;
 
 /**
@@ -370,12 +361,12 @@ public class MappingView extends ViewPart {
 		 */
 		public void setInput(final IEditorPart editorPart) {
 			final IEditorInput input = editorPart.getEditorInput();
-			final IResource resource = (IResource)input.getAdapter(IFile.class);
+			final IFile file = UiIdeMappingUtils.getFile(input);
 			final IBase base = IdeMappingUtils.getCurentBase();
 			if (base != null) {
 				try {
 					final ILocation location = MappingUtils.getConnectorRegistry().getOrCreateLocation(base,
-							resource);
+							file);
 					for (Viewer viewer : viewers) {
 						viewer.setInput(location);
 					}
@@ -906,7 +897,7 @@ public class MappingView extends ViewPart {
 		final IEditorInput editorInput = part.getEditorInput();
 
 		if (editorInput != null) {
-			final IFile file = getFile(editorInput);
+			final IFile file = UiIdeMappingUtils.getFile(editorInput);
 			final IBase currentBase = IdeMappingUtils.getCurentBase();
 			if (file != null && currentBase != null) {
 				try {
@@ -958,57 +949,6 @@ public class MappingView extends ViewPart {
 	}
 
 	/**
-	 * Gets the {@link IFile} from the given {@link IEditorInput}.
-	 * 
-	 * @param editorInput
-	 *            the {@link IEditorInput}
-	 * @return the {@link IFile} from the given {@link IEditorInput} if any, <code>null</code> otherwise
-	 */
-	private IFile getFile(final IEditorInput editorInput) {
-		final IFile file;
-		if (editorInput instanceof IFileEditorInput) {
-			file = ((IFileEditorInput)editorInput).getFile();
-		} else {
-			final IPath path = getPath(editorInput);
-			if (path != null) {
-				file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
-			} else {
-				file = null;
-			}
-		}
-		return file;
-	}
-
-	/**
-	 * Gets the {@link IPath} from the given {@link IEditorInput}.
-	 * 
-	 * @param editorInput
-	 *            the {@link IEditorInput}
-	 * @return the {@link IPath} from the given {@link IEditorInput} if any, <code>null</code> otherwise
-	 */
-	private IPath getPath(final IEditorInput editorInput) {
-		final IPath path;
-		if (editorInput instanceof ILocationProvider) {
-			path = ((ILocationProvider)editorInput).getPath(editorInput);
-		} else if (editorInput instanceof IURIEditorInput) {
-			final URI uri = ((IURIEditorInput)editorInput).getURI();
-			if (uri != null) {
-				final File osFile = URIUtil.toFile(uri);
-				if (osFile != null) {
-					path = Path.fromOSString(osFile.getAbsolutePath());
-				} else {
-					path = null;
-				}
-			} else {
-				path = null;
-			}
-		} else {
-			path = null;
-		}
-		return path;
-	}
-
-	/**
 	 * Creates markers for the given {@link ILocation} and its {@link ILocation#getContents() contained}
 	 * {@link ILocation}.
 	 * 
@@ -1033,7 +973,7 @@ public class MappingView extends ViewPart {
 		final IEditorInput editorInput = part.getEditorInput();
 
 		if (editorInput != null) {
-			final IFile file = getFile(editorInput);
+			final IFile file = UiIdeMappingUtils.getFile(editorInput);
 			final IBase currentBase = IdeMappingUtils.getCurentBase();
 			if (file != null && currentBase != null) {
 				final ILocation fileLocation = MappingUtils.getConnectorRegistry().getLocation(currentBase,

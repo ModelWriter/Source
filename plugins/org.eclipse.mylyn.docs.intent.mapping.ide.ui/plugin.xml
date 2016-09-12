@@ -18,7 +18,14 @@
          point="org.eclipse.core.runtime.adapters">
       <factory
             adaptableType="org.eclipse.jface.viewers.IStructuredSelection"
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.adapter.SelectionAdapterFactory">
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.adapter.SelectionToLocationAdapterFactory">
+         <adapter
+               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.eclipse.jface.text.ITextSelection"
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.adapter.TextSelectionToTextLocationAdapterFactory">
          <adapter
                type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
          </adapter>

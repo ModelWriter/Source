@@ -16,11 +16,11 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 
 /**
- * Adapts {@link IStructuredSelection}.
+ * Adapts {@link IStructuredSelection} to {@link ILocation}.
  * 
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class SelectionAdapterFactory implements IAdapterFactory {
+public class SelectionToLocationAdapterFactory implements IAdapterFactory {
 
 	/**
 	 * {@inheritDoc}
