@@ -341,6 +341,36 @@ public final class MappingUtils {
 	}
 
 	/**
+	 * Creates an {@link ILink} between the given {@link ILink#getSource() source} and
+	 * {@link ILink#getTarget() target}.
+	 * 
+	 * @param source
+	 *            the {@link ILink#getSource() source} {@link ILocation}
+	 * @param target
+	 *            the {@link ILink#getTarget() target} {@link ILocation}
+	 * @return the created {@link ILink}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
+	 */
+	public static ILink createLink(ILocation source, ILocation target) throws InstantiationException,
+			IllegalAccessException, ClassNotFoundException {
+		final ILink res;
+
+		final IBase base = getBase(source);
+		res = base.getFactory().createElement(ILink.class);
+		res.setSource(source);
+		res.setTarget(target);
+
+		return res;
+	}
+
+	/**
 	 * Gets the content of the given {@link File}.
 	 * 
 	 * @param file

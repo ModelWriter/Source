@@ -45,6 +45,50 @@
             allPopups="false"
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <command
+               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"
+               label="Link location as source"
+               style="push"
+               tooltip="Links the current location as source with activated locations from the pool">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                        <instanceof
+                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
+               label="Link location as target"
+               style="push"
+               tooltip="Links the current location as target with activated locations from the pool">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                        <instanceof
+                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
                commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool"
                label="Add Location to Pool"
                style="push"
@@ -66,10 +110,6 @@
                </with>
             </visibleWhen>
          </command>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
-            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <command
                commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool"
                label="Remove Location from  Pool"
@@ -104,6 +144,14 @@
             class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.RemoveFromLocationsPoolHandler"
             commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool">
       </handler>
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.LinkAsSource"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource">
+      </handler>
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.LinkAsTarget"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
@@ -116,6 +164,16 @@
             description="Removes the selected location from the locations pool"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool"
             name="Remove Location from  Pool">
+      </command>
+      <command
+            description="Links the current location as source with activated locations from the pool"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"
+            name="Link as source">
+      </command>
+      <command
+            description="Links the current location as target with activated locations from the pool"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
+            name="Link as target">
       </command>
    </extension>
 </plugin>
