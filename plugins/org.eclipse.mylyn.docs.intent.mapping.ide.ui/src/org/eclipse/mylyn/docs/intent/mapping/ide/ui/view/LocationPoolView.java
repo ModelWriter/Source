@@ -11,18 +11,26 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 
-import org.eclipse.jface.action.IMenuManager;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainerListener;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.dialogs.FilteredTree;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.part.ViewPart;
 
@@ -98,12 +106,12 @@ public class LocationPoolView extends ViewPart {
 	}
 
 	/**
-	 * {@link ILocationContainerListener} refreshing a {@link Viewer} with the
+	 * {@link ILocationsPoolListener} refreshing a {@link Viewer} with the
 	 * {@link IdeMappingUtils#getLocationsPool() location pool}.
 	 * 
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	private static class LocationsPoolListener implements ILocationContainerListener {
+	private static class LocationsPoolListener implements ILocationsPoolListener {
 
 		/**
 		 * The {@link TreeViewer} to refresh.
@@ -139,6 +147,24 @@ public class LocationPoolView extends ViewPart {
 			viewer.setInput(IdeMappingUtils.getLocationsPool());
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationActivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 */
+		public void locationActivated(ILocation location) {
+			viewer.setInput(IdeMappingUtils.getLocationsPool());
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see orgmenu.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationDeactivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 */
+		public void locationDeactivated(ILocation location) {
+			viewer.setInput(IdeMappingUtils.getLocationsPool());
+		}
+
 	}
 
 	/**
@@ -150,6 +176,16 @@ public class LocationPoolView extends ViewPart {
 	 * The {@link LocationsPoolListener} refreshing the viewer.
 	 */
 	private LocationsPoolListener locationsPoolListener;
+
+	/**
+	 * The {@link MenuManager}.
+	 */
+	private final MenuManager menuManager = new MenuManager();
+
+	/**
+	 * The {@link Menu}.
+	 */
+	private Menu menu;
 
 	/**
 	 * Constructor.
@@ -168,17 +204,61 @@ public class LocationPoolView extends ViewPart {
 		Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(new FillLayout(SWT.HORIZONTAL));
 
-		final FilteredTree locationsList = new FilteredTree(container, SWT.BORDER, new PatternFilter(), false);
+		final FilteredCheckboxTree locationsList = new FilteredCheckboxTree(container, SWT.CHECK | SWT.MULTI
+				| SWT.BORDER, new PatternFilter(), false);
 		locationsList.getViewer().setContentProvider(new LocationPoolContentProvider());
 		locationsList.getViewer().setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
+		locationsList.getViewer().setCheckStateProvider(new ICheckStateProvider() {
+
+			public boolean isGrayed(Object element) {
+				return false;
+			}
+
+			public boolean isChecked(Object element) {
+				return IdeMappingUtils.isActive((ILocation)element);
+			}
+		});
 		locationsPoolListener = new LocationsPoolListener(locationsList.getViewer());
 		IdeMappingUtils.addLocationToPoolListener(locationsPoolListener);
+		locationsList.getViewer().getTree().addListener(SWT.MouseDoubleClick,
+				new ShowLocationDoubleClickListener(locationsList.getViewer().getTree()));
+		locationsList.getViewer().getTree().addListener(SWT.KeyUp, new Listener() {
+
+			public void handleEvent(Event event) {
+				if (event.character == SWT.DEL) {
+					final List<ILocation> toDelete = new ArrayList<ILocation>();
+					for (TreeItem item : ((Tree)event.widget).getSelection()) {
+						if (item.getData() instanceof ILocation) {
+							toDelete.add((ILocation)item.getData());
+						}
+					}
+					for (ILocation location : toDelete) {
+						IdeMappingUtils.removeLocationFromPool(location);
+					}
+				}
+			}
+		});
+		locationsList.getViewer().getTree().addListener(SWT.Selection, new Listener() {
+
+			public void handleEvent(Event event) {
+				if (event.detail == SWT.CHECK) {
+					if (((TreeItem)event.item).getChecked()) {
+						IdeMappingUtils.activateLocation((ILocation)event.item.getData());
+					} else {
+						IdeMappingUtils.deactivateLocation((ILocation)event.item.getData());
+					}
+				}
+			}
+		});
 
 		getSite().setSelectionProvider(locationsList.getViewer());
 
 		createActions();
 		initializeToolBar();
-		initializeMenu();
+
+		menu = menuManager.createContextMenu(locationsList.getViewer().getControl());
+		locationsList.getViewer().getControl().setMenu(menu);
+		getSite().registerContextMenu(menuManager, locationsList.getViewer());
 	}
 
 	/**
@@ -195,13 +275,6 @@ public class LocationPoolView extends ViewPart {
 		IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();
 	}
 
-	/**
-	 * Initialize the menu.
-	 */
-	private void initializeMenu() {
-		IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();
-	}
-
 	@Override
 	public void setFocus() {
 		// Set the focus
@@ -210,7 +283,9 @@ public class LocationPoolView extends ViewPart {
 	@Override
 	public void dispose() {
 		super.dispose();
-		IdeMappingUtils.removeLocationToPoolListener(locationsPoolListener);
+		IdeMappingUtils.removeLocationFromPoolListener(locationsPoolListener);
+		menu.dispose();
+		menuManager.dispose();
 	}
 
 }

@@ -19,8 +19,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
@@ -33,7 +33,6 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
@@ -45,20 +44,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -81,57 +75,6 @@ import org.eclipse.ui.part.ViewPart;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class MappingView extends ViewPart {
-
-	/**
-	 * {@link Listener} that open {@link ILocation}, {@link ILink}, and {@link IReport}.
-	 *
-	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
-	 */
-	private static class ShowLocationDoubleClickListener implements Listener {
-
-		/**
-		 * the {@link Tree} to listen to.
-		 */
-		private final Tree tree;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param tree
-		 *            the {@link Tree} to listen to
-		 */
-		public ShowLocationDoubleClickListener(Tree tree) {
-			this.tree = tree;
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
-		 */
-		public void handleEvent(Event event) {
-			Point pt = new Point(event.x, event.y);
-			TreeItem item = tree.getItem(pt);
-			final Object selected = item.getData();
-			if (selected instanceof ILocation) {
-				UiIdeMappingUtils.showLocation((ILocation)selected);
-			} else if (selected instanceof ILink) {
-				for (int i = 0; i < tree.getColumnCount(); i++) {
-					Rectangle rect = item.getBounds(i);
-					if (rect.contains(pt)) {
-						if (i == 0) {
-							UiIdeMappingUtils.showLocation(((ILink)selected).getSource());
-						} else {
-							UiIdeMappingUtils.showLocation(((ILink)selected).getTarget());
-						}
-						break;
-					}
-				}
-			} else if (selected instanceof IReport) {
-				UiIdeMappingUtils.showLocation(((IReport)selected).getLink().getSource());
-			}
-		}
-	}
 
 	/**
 	 * Adds and removes location markers according to edited locations and changes in {@link IBase}.
@@ -464,6 +407,16 @@ public class MappingView extends ViewPart {
 	private final MarkerBaseListener markerBaseListener = new MarkerBaseListener();
 
 	/**
+	 * The {@link MenuManager}.
+	 */
+	private final MenuManager menuManager = new MenuManager();
+
+	/**
+	 * {@link List} of created {@link Menu}.
+	 */
+	private final List<Menu> menus = new ArrayList<Menu>();
+
+	/**
 	 * Constructor.
 	 */
 	public MappingView() {
@@ -510,7 +463,8 @@ public class MappingView extends ViewPart {
 
 		createActions();
 		initializeToolBar();
-		initializeMenu();
+
+		getSite().registerContextMenu(menuManager, selectionProvider);
 	}
 
 	/**
@@ -587,6 +541,9 @@ public class MappingView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(referencingTree.getViewer());
 			}
 		});
+		Menu menu = menuManager.createContextMenu(referencingTree.getViewer().getControl());
+		menus.add(menu);
+		referencingTree.getViewer().getControl().setMenu(menu);
 
 		final FilteredTree referencedTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(), false);
 		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
@@ -604,6 +561,9 @@ public class MappingView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(referencedTree.getViewer());
 			}
 		});
+		menu = menuManager.createContextMenu(referencedTree.getViewer().getControl());
+		menus.add(menu);
+		referencedTree.getViewer().getControl().setMenu(menu);
 
 		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
@@ -696,6 +656,9 @@ public class MappingView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(referencingTree.getViewer());
 			}
 		});
+		Menu menu = menuManager.createContextMenu(referencingTree.getViewer().getControl());
+		menus.add(menu);
+		referencingTree.getViewer().getControl().setMenu(menu);
 
 		final FilteredTree referencedTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(), false);
 		referencedTree.getViewer().setContentProvider(
@@ -730,6 +693,9 @@ public class MappingView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(referencedTree.getViewer());
 			}
 		});
+		menu = menuManager.createContextMenu(referencedTree.getViewer().getControl());
+		menus.add(menu);
+		referencedTree.getViewer().getControl().setMenu(menu);
 
 		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
@@ -805,6 +771,9 @@ public class MappingView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(reportTree.getViewer());
 			}
 		});
+		final Menu menu = menuManager.createContextMenu(reportTree.getViewer().getControl());
+		menus.add(menu);
+		reportTree.getViewer().getControl().setMenu(menu);
 
 		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
@@ -828,13 +797,6 @@ public class MappingView extends ViewPart {
 	 */
 	private void initializeToolBar() {
 		IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();
-	}
-
-	/**
-	 * Initialize the menu.
-	 */
-	private void initializeMenu() {
-		IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();
 	}
 
 	@Override
@@ -871,6 +833,11 @@ public class MappingView extends ViewPart {
 		}
 
 		getSite().setSelectionProvider(null);
+
+		for (Menu menu : menus) {
+			menu.dispose();
+		}
+		menuManager.dispose();
 	}
 
 	/**

@@ -83,6 +83,13 @@
                type="org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation">
          </adapter>
       </factory>
+      <factory
+            adaptableType="org.eclipse.emf.ecore.EObject"
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.EObjectToEObjectLocationAdapterFactory">
+         <adapter
+               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+         </adapter>
+      </factory>
    </extension>
 
 </plugin>

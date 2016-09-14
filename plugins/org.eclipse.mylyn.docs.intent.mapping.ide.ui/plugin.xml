@@ -39,4 +39,83 @@
             markerType="org.eclipse.mylyn.docs.intent.mapping.ide.textLocationMarker">
       </updater>
    </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool"
+               label="Add Location to Pool"
+               style="push"
+               tooltip="Adds the selected location to locations pool">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                        <instanceof
+                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool"
+               label="Remove Location from  Pool"
+               style="push"
+               tooltip="Removes the selected location from the locations pool">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                        <instanceof
+                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.AddToLocationsPoolHandler"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool">
+      </handler>
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.RemoveFromLocationsPoolHandler"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="Adds the selected location to locations pool"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool"
+            name="Add Location to Pool">
+      </command>
+      <command
+            description="Removes the selected location from the locations pool"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool"
+            name="Remove Location from  Pool">
+      </command>
+   </extension>
 </plugin>

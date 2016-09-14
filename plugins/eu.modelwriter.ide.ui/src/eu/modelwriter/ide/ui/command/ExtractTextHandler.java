@@ -46,8 +46,8 @@ public class ExtractTextHandler extends AbstractHandler {
 	 * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		ISelection selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService()
-				.getSelection();
+		final ISelection selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getSelectionService().getSelection();
 		if (selection instanceof IStructuredSelection) {
 			for (Object selected : ((IStructuredSelection)selection).toList()) {
 				if (selected instanceof IFile) {

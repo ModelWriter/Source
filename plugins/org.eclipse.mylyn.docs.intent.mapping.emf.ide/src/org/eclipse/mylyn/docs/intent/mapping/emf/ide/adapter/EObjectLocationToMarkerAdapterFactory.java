@@ -52,8 +52,8 @@ public class EObjectLocationToMarkerAdapterFactory implements IAdapterFactory {
 						new Path(fileLocation.getFullPath()));
 				try {
 					res = file.createMarker(IEObjectLocationMaker.EOBJECT_LOCATION_ID);
-					res.setAttribute(IEObjectLocationMaker.URI_ATTRIBUTE, EcoreUtil.getURI(eObjLocation
-							.getEObject()));
+					res.setAttribute(IEObjectLocationMaker.URI_ATTRIBUTE, EcoreUtil.getURI(
+							eObjLocation.getEObject()).toString());
 				} catch (CoreException e) {
 					res = null;
 					Activator.getDefault().getLog().log(

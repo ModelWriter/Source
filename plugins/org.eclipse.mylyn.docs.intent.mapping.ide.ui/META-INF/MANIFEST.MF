@@ -14,6 +14,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text
 Export-Package: org.eclipse.mylyn.docs.intent.mapping.ide.ui,
  org.eclipse.mylyn.docs.intent.mapping.ide.ui.adapter,
+ org.eclipse.mylyn.docs.intent.mapping.ide.ui.command,
  org.eclipse.mylyn.docs.intent.mapping.ide.ui.marker,
  org.eclipse.mylyn.docs.intent.mapping.ide.ui.view
 Bundle-ActivationPolicy: lazy

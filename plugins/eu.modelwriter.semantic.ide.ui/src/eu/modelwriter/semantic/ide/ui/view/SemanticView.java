@@ -18,7 +18,9 @@ import eu.modelwriter.semantic.ISemanticSimilarityProvider;
 import eu.modelwriter.semantic.SemanticUtils;
 import eu.modelwriter.semantic.ide.ISemanticAnnotationMarker;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -28,8 +30,8 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
@@ -38,6 +40,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.TreeItem;
@@ -245,6 +248,16 @@ public class SemanticView extends ViewPart {
 	private EditorPartListener editorPartListener;
 
 	/**
+	 * The {@link MenuManager}.
+	 */
+	private final MenuManager menuManager = new MenuManager();
+
+	/**
+	 * {@link List} of created {@link Menu}.
+	 */
+	private final List<Menu> menus = new ArrayList<Menu>();
+
+	/**
 	 * Constructor.
 	 */
 	public SemanticView() {
@@ -269,7 +282,6 @@ public class SemanticView extends ViewPart {
 
 		createActions();
 		initializeToolBar();
-		initializeMenu();
 
 		editorPartListener = new EditorPartListener();
 		for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
@@ -285,6 +297,8 @@ public class SemanticView extends ViewPart {
 		PlatformUI.getWorkbench().addWindowListener(editorPartListener);
 
 		getSite().setSelectionProvider(selectionProvider);
+
+		getSite().registerContextMenu(menuManager, selectionProvider);
 	}
 
 	/**
@@ -330,6 +344,10 @@ public class SemanticView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(semanticBaseTree.getViewer());
 			}
 		});
+
+		final Menu menu = menuManager.createContextMenu(semanticBaseTree.getViewer().getControl());
+		menus.add(menu);
+		semanticBaseTree.getViewer().getControl().setMenu(menu);
 	}
 
 	/**
@@ -375,6 +393,10 @@ public class SemanticView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(semanticProviderTree.getViewer());
 			}
 		});
+
+		final Menu menu = menuManager.createContextMenu(semanticProviderTree.getViewer().getControl());
+		menus.add(menu);
+		semanticProviderTree.getViewer().getControl().setMenu(menu);
 	}
 
 	/**
@@ -425,6 +447,11 @@ public class SemanticView extends ViewPart {
 				selectionProvider.setSelectionProviderDelegate(semanticSimilarityProviderTree.getViewer());
 			}
 		});
+
+		final Menu menu = menuManager.createContextMenu(semanticSimilarityProviderTree.getViewer()
+				.getControl());
+		menus.add(menu);
+		semanticSimilarityProviderTree.getViewer().getControl().setMenu(menu);
 	}
 
 	/**
@@ -439,13 +466,6 @@ public class SemanticView extends ViewPart {
 	 */
 	private void initializeToolBar() {
 		IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();
-	}
-
-	/**
-	 * Initialize the menu.
-	 */
-	private void initializeMenu() {
-		IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();
 	}
 
 	@Override
@@ -475,6 +495,11 @@ public class SemanticView extends ViewPart {
 		PlatformUI.getWorkbench().removeWindowListener(editorPartListener);
 
 		getSite().setSelectionProvider(null);
+
+		for (Menu menu : menus) {
+			menu.dispose();
+		}
+		menuManager.dispose();
 	}
 
 	/**
