@@ -91,5 +91,15 @@
          </adapter>
       </factory>
    </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            base-type="org.eclipse.emf.ecore.xmi"
+            file-extensions="mapping"
+            id="org.eclipse.mylyn.docs.intent.mapping.emf.ide.mapping"
+            name="Mapping base"
+            priority="normal">
+      </content-type>
+   </extension>
 
 </plugin>

@@ -132,6 +132,25 @@
                </with>
             </visibleWhen>
          </command>
+         <command
+               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.deleteLink"
+               label="Delete Link"
+               style="push"
+               tooltip="Deletes the selected Link">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <instanceof
+                           value="org.eclipse.mylyn.docs.intent.mapping.base.ILink">
+                     </instanceof>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
    <extension
@@ -151,6 +170,10 @@
       <handler
             class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.LinkAsTarget"
             commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget">
+      </handler>
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.DeleteLink"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.deleteLink">
       </handler>
    </extension>
    <extension
@@ -174,6 +197,11 @@
             description="Links the current location as target with activated locations from the pool"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
             name="Link as target">
+      </command>
+      <command
+            description="Deletes the selected Link"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.deleteLink"
+            name="Delete Link">
       </command>
    </extension>
 </plugin>
