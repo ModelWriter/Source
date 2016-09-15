@@ -53,7 +53,8 @@
     <module>features/eu.modelwriter.feature</module>
     <module>plugins/eu.modelwriter.ide.ui</module>
     <!-- TODO <module>tests/eu.modelwriter.ide.ui.tests</module> -->
-    
+    <module>plugins/org.apache.poi</module>
+   
     <module>features/org.eclipse.mylyn.docs.intent.mapping.feature</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.tests</module>
@@ -99,9 +100,6 @@
     <!-- <module>tests/eu.modelwriter.semantic.emf.ide.tests</module> -->
     <!-- <module>plugins/eu.modelwriter.semantic.emf.ide</module> -->
     <!-- <module>tests/eu.modelwriter.semantic.emf.ide.tests</module> -->
-    
-    <module>features/org.apache.poi.feature</module>
-    <module>plugins/org.apache.poi</module>
     
     <module>features/eu.modelwriter.semantic.jena.feature</module>
     <module>plugins/eu.modelwriter.semantic.jena</module>

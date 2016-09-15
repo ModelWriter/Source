@@ -27,6 +27,12 @@
    <feature id="org.apache.jena.feature" version="0.0.0">
       <category name="eu.modelwriter"/>
    </feature>
+   <feature id="eu.modelwriter" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+   <feature id="eu.modelwriter.source" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
    <category-def name="eu.modelwriter" label="ModelWriter">
       <description>
          [Enter Catergory Description here.]

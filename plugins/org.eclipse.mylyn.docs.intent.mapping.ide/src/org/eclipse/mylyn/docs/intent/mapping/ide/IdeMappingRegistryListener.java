@@ -319,7 +319,7 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 		final String bundleName = extension.getContributor().getName();
 		final Bundle bundle = Platform.getBundle(bundleName);
 		try {
-			if (bundle.getState() != Bundle.STARTING && bundle.getState() != Bundle.ACTIVE) {
+			if (bundle.getState() != Bundle.ACTIVE) {
 				bundle.start();
 			}
 		} catch (BundleException e) {
