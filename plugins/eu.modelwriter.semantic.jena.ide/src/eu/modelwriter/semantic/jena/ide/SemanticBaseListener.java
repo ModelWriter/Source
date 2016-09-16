@@ -333,7 +333,7 @@ public class SemanticBaseListener implements IResourceChangeListener {
 			try {
 				final Model model = RDFDataMgr.loadModel(file.getLocation().toFile().getAbsolutePath(), lang);
 				if (!model.isEmpty()) {
-					res = new JenaBase(model);
+					res = new JenaBase(model, file.getFullPath().toString());
 				}
 				// CHECKSTYLE:OFF
 			} catch (Exception e) {

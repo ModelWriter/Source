@@ -263,13 +263,13 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final JenaBase base = new JenaBase(model);
+			final JenaBase base = new JenaBase(model, "test");
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 
 			assertTrue(file != null);
 			assertEquals(1, registeryListener.getBases().size());
-			assertEquals("baseURI", registeryListener.getBases().get(0).getName());
+			assertEquals("/test/test.ttl", registeryListener.getBases().get(0).getName());
 
 			project.delete(true, new NullProgressMonitor());
 		} catch (CoreException e) {
@@ -360,13 +360,13 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final JenaBase base = new JenaBase(model);
+			final JenaBase base = new JenaBase(model, "test");
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 
 			assertTrue(file != null);
 			assertEquals(1, registeryListener.getBases().size());
-			assertEquals("baseURI", registeryListener.getBases().get(0).getName());
+			assertEquals("/test/test.ttl", registeryListener.getBases().get(0).getName());
 
 			project.delete(true, new NullProgressMonitor());
 
@@ -463,18 +463,18 @@ public class SemanticBaseListenerTests {
 			SemanticUtils.getSemanticBaseRegistry().addListener(registeryListener);
 
 			final Model model = ModelFactory.createOntologyModel();
-			final JenaBase base = new JenaBase(model);
+			final JenaBase base = new JenaBase(model, "test");
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 
 			assertTrue(file != null);
 			assertEquals(1, registeryListener.getBases().size());
-			assertEquals("baseURI", registeryListener.getBases().get(0).getName());
+			assertEquals("/test/test.ttl", registeryListener.getBases().get(0).getName());
 
 			file.move(new Path("/test/file.ttl"), true, new NullProgressMonitor());
 
 			assertEquals(1, registeryListener.getBases().size());
-			assertEquals("baseURI", registeryListener.getBases().get(0).getName());
+			assertEquals("/test/test.ttl", registeryListener.getBases().get(0).getName());
 
 			project.delete(true, new NullProgressMonitor());
 		} catch (CoreException e) {
@@ -495,13 +495,13 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final JenaBase base = new JenaBase(model);
+			final JenaBase base = new JenaBase(model, "test");
 			final IProject project = createProject();
 			IFile file = createBaseFile(project, base);
 
 			assertTrue(file != null);
 			assertEquals(1, registeryListener.getBases().size());
-			assertEquals("baseURI", registeryListener.getBases().get(0).getName());
+			assertEquals("/test/test.ttl", registeryListener.getBases().get(0).getName());
 
 			file.move(new Path("/test/file.txt"), true, new NullProgressMonitor());
 			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path("/test/file.txt"));
@@ -511,7 +511,7 @@ public class SemanticBaseListenerTests {
 			file.move(new Path("/test/file.ttl"), true, new NullProgressMonitor());
 
 			assertEquals(1, registeryListener.getBases().size());
-			assertEquals("baseURI", registeryListener.getBases().get(0).getName());
+			assertEquals("/test/file.ttl", registeryListener.getBases().get(0).getName());
 
 			project.delete(true, new NullProgressMonitor());
 		} catch (CoreException e) {
@@ -614,7 +614,7 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final JenaBase base = new JenaBase(model);
+			final JenaBase base = new JenaBase(model, "test");
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 
@@ -716,7 +716,7 @@ public class SemanticBaseListenerTests {
 			final Model model = ModelFactory.createDefaultModel();
 			final Resource johnSmith = model.createResource("http://somewhere/JohnSmith");
 			johnSmith.addProperty(VCARD.FN, "John Smith");
-			final JenaBase base = new JenaBase(model);
+			final JenaBase base = new JenaBase(model, "test");
 			final IProject project = createProject();
 			final IFile file = createBaseFile(project, base);
 

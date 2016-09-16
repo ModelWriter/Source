@@ -33,13 +33,21 @@ public class JenaBase implements IBase {
 	private final Model model;
 
 	/**
+	 * The base name.
+	 */
+	private final String name;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param model
 	 *            the {@link Model}
+	 * @param name
+	 *            the base name
 	 */
-	public JenaBase(Model model) {
+	public JenaBase(Model model, String name) {
 		this.model = model;
+		this.name = name;
 	}
 
 	/**
@@ -48,7 +56,7 @@ public class JenaBase implements IBase {
 	 * @see eu.modelwriter.semantic.IBase#getName()
 	 */
 	public String getName() {
-		return model.getNsPrefixMap().entrySet().iterator().next().getValue();
+		return name;
 	}
 
 	/**
@@ -62,7 +70,6 @@ public class JenaBase implements IBase {
 		final NodeIterator it = model.listObjects();
 		while (it.hasNext()) {
 			concepts.add(it.next());
-
 		}
 
 		return concepts;
