@@ -44,6 +44,11 @@ import org.eclipse.core.runtime.Status;
 public class SemanticBaseListener implements IResourceChangeListener {
 
 	/**
+	 * The file extension to {@link Lang} mapping.
+	 */
+	private static final Map<String, Lang> EXTENSION_TO_LANG = initExtensionToLang();
+
+	/**
 	 * {@link Model} to {@link IFile} mapping.
 	 */
 	private static final Map<Model, IFile> MODEL_TO_IFILE = new HashMap<Model, IFile>();
@@ -52,11 +57,6 @@ public class SemanticBaseListener implements IResourceChangeListener {
 	 * The "Unable to load mapping base from " message.
 	 */
 	private static final String UNABLE_TO_LOAD_SEMANTIC_BASE_FROM = "Unable to load semantic base from ";
-
-	/**
-	 * The turtle file extension.
-	 */
-	private static final String TURTLE_FILE_EXTENSION = "ttl";
 
 	/**
 	 * Mapping of {@link IFile} to
@@ -75,6 +75,54 @@ public class SemanticBaseListener implements IResourceChangeListener {
 		if (scan) {
 			scan(ResourcesPlugin.getWorkspace().getRoot());
 		}
+	}
+
+	/**
+	 * Initializes the file extension to {@link Lang} mapping.
+	 * 
+	 * @return the file extension to {@link Lang} mapping
+	 */
+	private static Map<String, Lang> initExtensionToLang() {
+		final Map<String, Lang> res = new HashMap<String, Lang>();
+
+		for (String extension : Lang.JSONLD.getFileExtensions()) {
+			res.put(extension, Lang.JSONLD);
+		}
+		for (String extension : Lang.N3.getFileExtensions()) {
+			res.put(extension, Lang.N3);
+		}
+		for (String extension : Lang.NQ.getFileExtensions()) {
+			res.put(extension, Lang.NQ);
+		}
+		for (String extension : Lang.NQUADS.getFileExtensions()) {
+			res.put(extension, Lang.NQUADS);
+		}
+		for (String extension : Lang.NT.getFileExtensions()) {
+			res.put(extension, Lang.NT);
+		}
+		for (String extension : Lang.NTRIPLES.getFileExtensions()) {
+			res.put(extension, Lang.NTRIPLES);
+		}
+		for (String extension : Lang.RDFJSON.getFileExtensions()) {
+			res.put(extension, Lang.RDFJSON);
+		}
+		for (String extension : Lang.RDFNULL.getFileExtensions()) {
+			res.put(extension, Lang.RDFNULL);
+		}
+		for (String extension : Lang.RDFXML.getFileExtensions()) {
+			res.put(extension, Lang.RDFXML);
+		}
+		for (String extension : Lang.TRIG.getFileExtensions()) {
+			res.put(extension, Lang.TRIG);
+		}
+		for (String extension : Lang.TTL.getFileExtensions()) {
+			res.put(extension, Lang.TTL);
+		}
+		for (String extension : Lang.TURTLE.getFileExtensions()) {
+			res.put(extension, Lang.TURTLE);
+		}
+
+		return res;
 	}
 
 	/**
@@ -237,15 +285,15 @@ public class SemanticBaseListener implements IResourceChangeListener {
 	 *            the target {@link IFile}
 	 */
 	private void resourceMoved(IFile source, IFile target) {
-		if (TURTLE_FILE_EXTENSION.equals(source.getFileExtension())) {
-			if (TURTLE_FILE_EXTENSION.equals(target.getFileExtension())) {
+		if (EXTENSION_TO_LANG.get(source.getFileExtension()) != null) {
+			if (EXTENSION_TO_LANG.get(target.getFileExtension()) != null) {
 				final JenaBase base = resourceToBase.remove(source);
 				resourceToBase.put(target, base);
 			} else {
 				unregister(source);
 			}
 		} else {
-			if (TURTLE_FILE_EXTENSION.equals(target.getFileExtension())) {
+			if (EXTENSION_TO_LANG.get(target.getFileExtension()) != null) {
 				register(target);
 			} else {
 				// nothing to do here
@@ -280,10 +328,10 @@ public class SemanticBaseListener implements IResourceChangeListener {
 	private JenaBase getBaseFromFile(IFile file) {
 		JenaBase res = null;
 
-		if (TURTLE_FILE_EXTENSION.equals(file.getFileExtension())) {
+		final Lang lang = EXTENSION_TO_LANG.get(file.getFileExtension());
+		if (lang != null) {
 			try {
-				final Model model = RDFDataMgr.loadModel(file.getLocation().toFile().getAbsolutePath(),
-						Lang.TTL);
+				final Model model = RDFDataMgr.loadModel(file.getLocation().toFile().getAbsolutePath(), lang);
 				if (!model.isEmpty()) {
 					res = new JenaBase(model);
 				}

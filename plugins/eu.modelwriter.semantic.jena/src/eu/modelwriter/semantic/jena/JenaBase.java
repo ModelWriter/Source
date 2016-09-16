@@ -48,8 +48,7 @@ public class JenaBase implements IBase {
 	 * @see eu.modelwriter.semantic.IBase#getName()
 	 */
 	public String getName() {
-		// TODO double check that
-		return model.getProperty("baseURI").toString();
+		return model.getNsPrefixMap().entrySet().iterator().next().getValue();
 	}
 
 	/**
