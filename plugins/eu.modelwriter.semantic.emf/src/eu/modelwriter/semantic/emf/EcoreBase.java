@@ -49,7 +49,7 @@ public class EcoreBase implements IBase {
 	 * @see eu.modelwriter.semantic.IBase#getName()
 	 */
 	public String getName() {
-		return getEpackage().getNsURI();
+		return getEPackage().getNsURI();
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class EcoreBase implements IBase {
 	 *
 	 * @see eu.modelwriter.semantic.IBase#getConcepts()
 	 */
-	public Set<?> getConcepts() {
-		final Set<Object> res = new LinkedHashSet<Object>();
+	public Set<EObject> getConcepts() {
+		final Set<EObject> res = new LinkedHashSet<EObject>();
 
-		res.add(getEpackage());
-		final Iterator<EObject> it = getEpackage().eAllContents();
+		res.add(getEPackage());
+		final Iterator<EObject> it = getEPackage().eAllContents();
 		while (it.hasNext()) {
 			final EObject eObj = it.next();
 			if (eObj instanceof ENamedElement) {
@@ -77,7 +77,7 @@ public class EcoreBase implements IBase {
 	 * 
 	 * @return the {@link EPackage}
 	 */
-	public EPackage getEpackage() {
+	public EPackage getEPackage() {
 		return ePkg;
 	}
 

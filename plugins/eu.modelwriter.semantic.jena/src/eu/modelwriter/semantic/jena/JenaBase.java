@@ -64,7 +64,7 @@ public class JenaBase implements IBase {
 	 *
 	 * @see eu.modelwriter.semantic.IBase#getConcepts()
 	 */
-	public Set<?> getConcepts() {
+	public Set<RDFNode> getConcepts() {
 		Set<RDFNode> concepts = new LinkedHashSet<RDFNode>();
 
 		final NodeIterator it = model.listObjects();

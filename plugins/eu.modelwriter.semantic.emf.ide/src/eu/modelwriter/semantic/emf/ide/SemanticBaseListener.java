@@ -267,7 +267,7 @@ public class SemanticBaseListener implements IResourceChangeListener {
 		final EcoreBase base = getBaseFromFile(file);
 		if (base != null) {
 			resourceToBase.put(file, base);
-			EPCKAGE_TO_IFILE.put(base.getEpackage(), file);
+			EPCKAGE_TO_IFILE.put(base.getEPackage(), file);
 			SemanticUtils.getSemanticBaseRegistry().register(base);
 		}
 	}
@@ -313,7 +313,7 @@ public class SemanticBaseListener implements IResourceChangeListener {
 	private void unregister(IFile file) {
 		final EcoreBase base = resourceToBase.remove(file);
 		if (base != null) {
-			EPCKAGE_TO_IFILE.remove(base.getEpackage());
+			EPCKAGE_TO_IFILE.remove(base.getEPackage());
 			SemanticUtils.getSemanticBaseRegistry().unregister(base);
 		}
 	}
