@@ -97,9 +97,7 @@
     <module>plugins/eu.modelwriter.semantic.emf</module>
     <module>tests/eu.modelwriter.semantic.emf.tests</module>
     <module>plugins/eu.modelwriter.semantic.emf.ide</module>
-    <!-- <module>tests/eu.modelwriter.semantic.emf.ide.tests</module> -->
-    <!-- <module>plugins/eu.modelwriter.semantic.emf.ide</module> -->
-    <!-- <module>tests/eu.modelwriter.semantic.emf.ide.tests</module> -->
+    <module>tests/eu.modelwriter.semantic.emf.ide.tests</module>
     
     <module>features/eu.modelwriter.semantic.jena.feature</module>
     <module>plugins/eu.modelwriter.semantic.jena</module>

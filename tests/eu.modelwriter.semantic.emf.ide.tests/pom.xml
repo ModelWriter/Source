@@ -19,9 +19,9 @@
     <relativePath>../..</relativePath>
   </parent>
 
-  <artifactId>eu.modelwriter.semantic.emf.tests</artifactId>
+  <artifactId>eu.modelwriter.semantic.emf.ide.tests</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>Semantic EMF Tests</name>
+  <name>Semantic EMF IDE Tests</name>
 
   <packaging>eclipse-test-plugin</packaging>
   <build>
