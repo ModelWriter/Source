@@ -61,7 +61,7 @@ public class SemanticBaseRegistryContentProvider implements ITreeContentProvider
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener#baseRegistred(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener#providerRegistred(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
 		 */
 		public void baseRegistred(IBase base) {
 			refresh();
@@ -70,7 +70,7 @@ public class SemanticBaseRegistryContentProvider implements ITreeContentProvider
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener#baseUnregistred(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener#providerUnregistred(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
 		 */
 		public void baseUnregistred(IBase base) {
 			refresh();

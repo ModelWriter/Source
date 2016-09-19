@@ -61,18 +61,18 @@ public class SemanticProviderRegistryContentProvider implements ITreeContentProv
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProviderRegistryListener#baseRegistred(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProvider)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProviderRegistryListener#providerRegistred(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProvider)
 		 */
-		public void baseRegistred(ISemanticProvider base) {
+		public void providerRegistred(ISemanticProvider base) {
 			refresh();
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProviderRegistryListener#baseUnregistred(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProvider)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProviderRegistryListener#providerUnregistred(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProvider)
 		 */
-		public void baseUnregistred(ISemanticProvider base) {
+		public void providerUnregistred(ISemanticProvider base) {
 			refresh();
 		}
 

@@ -27,18 +27,18 @@ public interface ISemanticSimilarityProviderRegistryListener {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see eu.modelwriter.semantic.ISemanticSimilarityProviderRegistryListener#baseRegistred(eu.modelwriter.semantic.ISemanticSimilarityProvider)
+		 * @see eu.modelwriter.semantic.ISemanticSimilarityProviderRegistryListener#providerRegistred(eu.modelwriter.semantic.ISemanticSimilarityProvider)
 		 */
-		public void baseRegistred(ISemanticSimilarityProvider base) {
+		public void providerRegistred(ISemanticSimilarityProvider provider) {
 			// nothing to do here
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see eu.modelwriter.semantic.ISemanticSimilarityProviderRegistryListener#baseUnregistred(eu.modelwriter.semantic.ISemanticSimilarityProvider)
+		 * @see eu.modelwriter.semantic.ISemanticSimilarityProviderRegistryListener#providerUnregistred(eu.modelwriter.semantic.ISemanticSimilarityProvider)
 		 */
-		public void baseUnregistred(ISemanticSimilarityProvider base) {
+		public void providerUnregistred(ISemanticSimilarityProvider provider) {
 			// nothing to do here
 		}
 
@@ -48,18 +48,18 @@ public interface ISemanticSimilarityProviderRegistryListener {
 	 * Notification when an {@link ISemanticSimilarityProvider} is
 	 * {@link ISemanticSimilarityProviderRegistry#register(ISemanticSimilarityProvider) registered}.
 	 * 
-	 * @param base
+	 * @param provider
 	 *            the registered {@link ISemanticSimilarityProvider}
 	 */
-	void baseRegistred(ISemanticSimilarityProvider base);
+	void providerRegistred(ISemanticSimilarityProvider provider);
 
 	/**
 	 * Notification when an {@link ISemanticSimilarityProvider} is
 	 * {@link ISemanticSimilarityProviderRegistry#unregister(ISemanticSimilarityProvider) unregistered}.
 	 * 
-	 * @param base
+	 * @param provider
 	 *            the unregistered {@link ISemanticSimilarityProvider}
 	 */
-	void baseUnregistred(ISemanticSimilarityProvider base);
+	void providerUnregistred(ISemanticSimilarityProvider provider);
 
 }

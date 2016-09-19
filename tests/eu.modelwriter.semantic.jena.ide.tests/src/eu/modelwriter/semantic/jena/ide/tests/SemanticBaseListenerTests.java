@@ -73,7 +73,7 @@ public class SemanticBaseListenerTests {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener#baseRegistred(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener#providerRegistred(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
 		 */
 		public void baseRegistred(IBase base) {
 			bases.add(base);
@@ -82,7 +82,7 @@ public class SemanticBaseListenerTests {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener#baseUnregistred(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener#providerUnregistred(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
 		 */
 		public void baseUnregistred(IBase base) {
 			bases.remove(base);

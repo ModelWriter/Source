@@ -32,7 +32,7 @@ public class SemanticSimilarityProviderRegistry implements ISemanticSimilarityPr
 	 * The {@link Set} of {@link SemanticSimilarityProviderRegistry#register(ISemanticSimilarityProvider)
 	 * registered} {@link ISemanticSimilarityProvider}.
 	 */
-	private final Set<ISemanticSimilarityProvider> bases = new LinkedHashSet<ISemanticSimilarityProvider>();
+	private final Set<ISemanticSimilarityProvider> providers = new LinkedHashSet<ISemanticSimilarityProvider>();
 
 	/**
 	 * The {@link List} of {@link ISemanticSimilarityProviderRegistryListener}.
@@ -55,14 +55,14 @@ public class SemanticSimilarityProviderRegistry implements ISemanticSimilarityPr
 	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProviderRegistry#register(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProvider)
 	 */
-	public void register(ISemanticSimilarityProvider base) {
+	public void register(ISemanticSimilarityProvider provider) {
 		final boolean added;
 		synchronized(this) {
-			added = bases.add(base);
+			added = providers.add(provider);
 		}
 		if (added) {
 			for (ISemanticSimilarityProviderRegistryListener listener : getListeners()) {
-				listener.baseRegistred(base);
+				listener.providerRegistred(provider);
 			}
 		}
 	}
@@ -72,14 +72,14 @@ public class SemanticSimilarityProviderRegistry implements ISemanticSimilarityPr
 	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProviderRegistry#unregister(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProvider)
 	 */
-	public void unregister(ISemanticSimilarityProvider base) {
+	public void unregister(ISemanticSimilarityProvider provider) {
 		final boolean removed;
 		synchronized(this) {
-			removed = bases.remove(base);
+			removed = providers.remove(provider);
 		}
 		if (removed) {
 			for (ISemanticSimilarityProviderRegistryListener listener : getListeners()) {
-				listener.baseUnregistred(base);
+				listener.providerUnregistred(provider);
 			}
 		}
 	}
@@ -91,7 +91,7 @@ public class SemanticSimilarityProviderRegistry implements ISemanticSimilarityPr
 	 */
 	public Set<ISemanticSimilarityProvider> getProviders() {
 		synchronized(this) {
-			return Collections.unmodifiableSet(bases);
+			return Collections.unmodifiableSet(providers);
 		}
 	}
 

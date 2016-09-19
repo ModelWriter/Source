@@ -27,18 +27,18 @@ public interface ISemanticProviderRegistryListener {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see eu.modelwriter.semantic.ISemanticProviderRegistryListener#baseRegistred(eu.modelwriter.semantic.ISemanticProvider)
+		 * @see eu.modelwriter.semantic.ISemanticProviderRegistryListener#providerRegistred(eu.modelwriter.semantic.ISemanticProvider)
 		 */
-		public void baseRegistred(ISemanticProvider base) {
+		public void providerRegistred(ISemanticProvider base) {
 			// nothing to do here
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see eu.modelwriter.semantic.ISemanticProviderRegistryListener#baseUnregistred(eu.modelwriter.semantic.ISemanticProvider)
+		 * @see eu.modelwriter.semantic.ISemanticProviderRegistryListener#providerUnregistred(eu.modelwriter.semantic.ISemanticProvider)
 		 */
-		public void baseUnregistred(ISemanticProvider base) {
+		public void providerUnregistred(ISemanticProvider base) {
 			// nothing to do here
 		}
 
@@ -51,7 +51,7 @@ public interface ISemanticProviderRegistryListener {
 	 * @param base
 	 *            the registered {@link ISemanticProvider}
 	 */
-	void baseRegistred(ISemanticProvider base);
+	void providerRegistred(ISemanticProvider base);
 
 	/**
 	 * Notification when an {@link ISemanticProvider} is
@@ -60,6 +60,6 @@ public interface ISemanticProviderRegistryListener {
 	 * @param base
 	 *            the unregistered {@link ISemanticProvider}
 	 */
-	void baseUnregistred(ISemanticProvider base);
+	void providerUnregistred(ISemanticProvider base);
 
 }

@@ -61,18 +61,18 @@ public class SemanticSimilarityProviderRegistryContentProvider implements ITreeC
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProviderRegistryListener#baseRegistred(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProvider)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProviderRegistryListener#providerRegistred(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProvider)
 		 */
-		public void baseRegistred(ISemanticSimilarityProvider base) {
+		public void providerRegistred(ISemanticSimilarityProvider base) {
 			refresh();
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProviderRegistryListener#baseUnregistred(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProvider)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProviderRegistryListener#providerUnregistred(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticSimilarityProvider)
 		 */
-		public void baseUnregistred(ISemanticSimilarityProvider base) {
+		public void providerUnregistred(ISemanticSimilarityProvider base) {
 			refresh();
 		}
 

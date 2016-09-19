@@ -11,6 +11,11 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.tests;
 
+import eu.modelwriter.semantic.tests.internal.BaseRegistryTests;
+import eu.modelwriter.semantic.tests.internal.SemanticAnnotatorTests;
+import eu.modelwriter.semantic.tests.internal.SemanticProviderRegistryTests;
+import eu.modelwriter.semantic.tests.internal.SemanticSimilarityProviderRegistryTests;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -22,7 +27,8 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses(value = {IdentitySimilarityProviderTests.class, SemanticAnnotatorTests.class,
-		StringSemanticProviderTests.class, BaseRegistryTests.class, })
+		StringSemanticProviderTests.class, BaseRegistryTests.class, SemanticUtilsTests.class,
+		SemanticProviderRegistryTests.class, SemanticSimilarityProviderRegistryTests.class, })
 public class AllTests {
 
 }

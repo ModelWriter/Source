@@ -22,18 +22,18 @@ public interface ISemanticProviderRegistry {
 	/**
 	 * Registers an {@link ISemanticProvider}.
 	 * 
-	 * @param base
+	 * @param provider
 	 *            the {@link ISemanticProvider} to register
 	 */
-	void register(ISemanticProvider base);
+	void register(ISemanticProvider provider);
 
 	/**
 	 * Unregisters an {@link ISemanticProvider}.
 	 * 
-	 * @param base
+	 * @param provider
 	 *            the {@link ISemanticProvider} to unregister
 	 */
-	void unregister(ISemanticProvider base);
+	void unregister(ISemanticProvider provider);
 
 	/**
 	 * Gets the {@link Set} of registered {@link ISemanticProvider}.

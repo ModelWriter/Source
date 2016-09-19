@@ -32,7 +32,7 @@ public class SemanticProviderRegistry implements ISemanticProviderRegistry {
 	 * The {@link Set} of {@link SemanticProviderRegistry#register(ISemanticProvider) registered}
 	 * {@link ISemanticProvider}.
 	 */
-	private final Set<ISemanticProvider> bases = new LinkedHashSet<ISemanticProvider>();
+	private final Set<ISemanticProvider> providers = new LinkedHashSet<ISemanticProvider>();
 
 	/**
 	 * The {@link List} of {@link ISemanticProviderRegistryListener}.
@@ -55,14 +55,14 @@ public class SemanticProviderRegistry implements ISemanticProviderRegistry {
 	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProviderRegistry#register(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProvider)
 	 */
-	public void register(ISemanticProvider base) {
+	public void register(ISemanticProvider provider) {
 		final boolean added;
 		synchronized(this) {
-			added = bases.add(base);
+			added = providers.add(provider);
 		}
 		if (added) {
 			for (ISemanticProviderRegistryListener listener : getListeners()) {
-				listener.baseRegistred(base);
+				listener.providerRegistred(provider);
 			}
 		}
 	}
@@ -72,14 +72,14 @@ public class SemanticProviderRegistry implements ISemanticProviderRegistry {
 	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProviderRegistry#unregister(org.eclipse.mylyn.docs.intent.mapping.base.ISemanticProvider)
 	 */
-	public void unregister(ISemanticProvider base) {
+	public void unregister(ISemanticProvider provider) {
 		final boolean removed;
 		synchronized(this) {
-			removed = bases.remove(base);
+			removed = providers.remove(provider);
 		}
 		if (removed) {
 			for (ISemanticProviderRegistryListener listener : getListeners()) {
-				listener.baseUnregistred(base);
+				listener.providerUnregistred(provider);
 			}
 		}
 	}
@@ -91,7 +91,7 @@ public class SemanticProviderRegistry implements ISemanticProviderRegistry {
 	 */
 	public Set<ISemanticProvider> getProviders() {
 		synchronized(this) {
-			return Collections.unmodifiableSet(bases);
+			return Collections.unmodifiableSet(providers);
 		}
 	}
 

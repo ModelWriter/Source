@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package eu.modelwriter.semantic.tests;
+package eu.modelwriter.semantic.tests.internal;
 
 import eu.modelwriter.semantic.ISemanticProvider;
 import eu.modelwriter.semantic.ISemanticSimilarityProvider;
