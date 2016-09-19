@@ -83,7 +83,7 @@
     <module>plugins/eu.modelwriter.semantic</module>
     <module>tests/eu.modelwriter.semantic.tests</module>
     <module>plugins/eu.modelwriter.semantic.ide</module>
-    <!-- TODO <module>tests/eu.modelwriter.semantic.ide.tests</module> -->
+    <module>tests/eu.modelwriter.semantic.ide.tests</module>
     <module>plugins/eu.modelwriter.semantic.ide.ui</module>
     <!-- TODO <module>tests/eu.modelwriter.semantic.ide.ui.tests</module> -->
     <module>plugins/dk.brics.automaton</module>

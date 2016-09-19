@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="eu.modelwriter.semantic.ide.semanticProvider">
+      <provider
+            class="eu.modelwriter.semantic.ide.tests.TestSemanticProvider"></provider>
+   </extension>
+   <extension
+         point="eu.modelwriter.semantic.ide.semanticSimilarityProvider">
+      <provider
+            class="eu.modelwriter.semantic.ide.tests.TestSemanticSimilarityProvider">
+      </provider>
+   </extension>
+
+</plugin>
