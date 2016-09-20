@@ -17,6 +17,8 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.eclipse.core.commands.AbstractHandler;
@@ -41,6 +43,11 @@ import org.eclipse.ui.PlatformUI;
 public class ExtractTextHandler extends AbstractHandler {
 
 	/**
+	 * Error message.
+	 */
+	private static final String UNABLE_TO_EXTRACT_TEXT_FROM = "unable to extract text from: ";
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
@@ -52,29 +59,10 @@ public class ExtractTextHandler extends AbstractHandler {
 			for (Object selected : ((IStructuredSelection)selection).toList()) {
 				if (selected instanceof IFile) {
 					final IFile file = (IFile)selected;
-					try {
-						FileInputStream fis = new FileInputStream(file.getLocation().toFile());
-						XWPFDocument docx = new XWPFDocument(fis);
-						XWPFWordExtractor we = new XWPFWordExtractor(docx);
-						final IPath textPath = file.getFullPath().removeFileExtension().addFileExtension(
-								"txt");
-						final IFile textFile = ResourcesPlugin.getWorkspace().getRoot().getFile(textPath);
-						if (textFile.exists()) {
-							textFile.delete(true, new NullProgressMonitor());
-						}
-						textFile.create(new ByteArrayInputStream(we.getText().getBytes()), true,
-								new NullProgressMonitor());
-						we.close();
-						docx.close();
-						fis.close();
-					} catch (IOException e) {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-										"unable to extract text from: " + file.getFullPath(), e));
-					} catch (CoreException e) {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-										"unable to extract text from: " + file.getFullPath(), e));
+					if ("docx".equals(file.getFullPath().getFileExtension())) {
+						exctractDocx(file);
+					} else if ("doc".equals(file.getFullPath().getFileExtension())) {
+						exctractDoc(file);
 					}
 				}
 			}
@@ -82,4 +70,68 @@ public class ExtractTextHandler extends AbstractHandler {
 
 		return null;
 	}
+
+	/**
+	 * Extracts text from the given .docx {@link IFile}.
+	 * 
+	 * @param file
+	 *            the .docx {@link IFile}
+	 */
+	private void exctractDocx(final IFile file) {
+		try {
+			FileInputStream fis = new FileInputStream(file.getLocation().toFile());
+			XWPFDocument docx = new XWPFDocument(fis);
+			XWPFWordExtractor we = new XWPFWordExtractor(docx);
+			final IPath textPath = file.getFullPath().removeFileExtension().addFileExtension("txt");
+			final IFile textFile = ResourcesPlugin.getWorkspace().getRoot().getFile(textPath);
+			if (textFile.exists()) {
+				textFile.delete(true, new NullProgressMonitor());
+			}
+			textFile.create(new ByteArrayInputStream(we.getText().getBytes()), true,
+					new NullProgressMonitor());
+			we.close();
+			docx.close();
+			fis.close();
+		} catch (IOException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_EXTRACT_TEXT_FROM
+							+ file.getFullPath(), e));
+		} catch (CoreException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_EXTRACT_TEXT_FROM
+							+ file.getFullPath(), e));
+		}
+	}
+
+	/**
+	 * Extracts text from the given .doc {@link IFile}.
+	 * 
+	 * @param file
+	 *            the .doc {@link IFile}
+	 */
+	private void exctractDoc(final IFile file) {
+		try {
+			FileInputStream fis = new FileInputStream(file.getLocation().toFile());
+			HWPFDocument doc = new HWPFDocument(fis);
+			WordExtractor we = new WordExtractor(doc);
+			final IPath textPath = file.getFullPath().removeFileExtension().addFileExtension("txt");
+			final IFile textFile = ResourcesPlugin.getWorkspace().getRoot().getFile(textPath);
+			if (textFile.exists()) {
+				textFile.delete(true, new NullProgressMonitor());
+			}
+			textFile.create(new ByteArrayInputStream(we.getText().getBytes()), true,
+					new NullProgressMonitor());
+			we.close();
+			fis.close();
+		} catch (IOException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_EXTRACT_TEXT_FROM
+							+ file.getFullPath(), e));
+		} catch (CoreException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_EXTRACT_TEXT_FROM
+							+ file.getFullPath(), e));
+		}
+	}
+
 }
