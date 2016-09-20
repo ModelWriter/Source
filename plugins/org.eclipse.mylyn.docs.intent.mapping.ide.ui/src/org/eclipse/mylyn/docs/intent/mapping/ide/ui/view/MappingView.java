@@ -476,7 +476,7 @@ public class MappingView extends ViewPart {
 	 */
 	private ComboViewer addMappingBaseCombo(Composite headerComposite) {
 
-		Label selectMappingBaseLabel = new Label(headerComposite, SWT.NONE);
+		final Label selectMappingBaseLabel = new Label(headerComposite, SWT.NONE);
 		selectMappingBaseLabel.setToolTipText("Select a mapping base.");
 		selectMappingBaseLabel.setText("Mapping base:");
 		final ComboViewer mappingCombo = new ComboViewer(headerComposite, SWT.READ_ONLY);
@@ -524,8 +524,16 @@ public class MappingView extends ViewPart {
 
 		SashForm sashForm = new SashForm(treeComposite, SWT.NONE);
 
-		final FilteredTree referencingTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(),
-				false);
+		final Composite referencingComposite = new Composite(sashForm, SWT.NONE);
+		referencingComposite.setLayout(new GridLayout(1, false));
+
+		final Label referencingLabel = new Label(referencingComposite, SWT.CENTER);
+		referencingLabel.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		referencingLabel.setToolTipText("Locations referencing the current selection via a Link.");
+		referencingLabel.setText("Referencing Locations");
+
+		final FilteredTree referencingTree = new FilteredTree(referencingComposite, SWT.BORDER,
+				new PatternFilter(), false);
 		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(referencingTree.getViewer().getTree()));
 		referencingTree.getViewer().setContentProvider(
@@ -545,7 +553,16 @@ public class MappingView extends ViewPart {
 		menus.add(menu);
 		referencingTree.getViewer().getControl().setMenu(menu);
 
-		final FilteredTree referencedTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(), false);
+		final Composite referencedComposite = new Composite(sashForm, SWT.NONE);
+		referencedComposite.setLayout(new GridLayout(1, false));
+
+		final Label referencedLabel = new Label(referencedComposite, SWT.CENTER);
+		referencedLabel.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		referencedLabel.setToolTipText("Locations referenced by the current selection via a Link.");
+		referencedLabel.setText("Referenced Locations");
+
+		final FilteredTree referencedTree = new FilteredTree(referencedComposite, SWT.BORDER,
+				new PatternFilter(), false);
 		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(referencedTree.getViewer().getTree()));
 		referencedTree.getViewer().setContentProvider(
@@ -620,8 +637,16 @@ public class MappingView extends ViewPart {
 
 		SashForm sashForm = new SashForm(treeComposite, SWT.NONE);
 
-		final FilteredTree referencingTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(),
-				false);
+		final Composite referencingComposite = new Composite(sashForm, SWT.NONE);
+		referencingComposite.setLayout(new GridLayout(1, false));
+
+		final Label referencingLabel = new Label(referencingComposite, SWT.CENTER);
+		referencingLabel.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		referencingLabel.setToolTipText("Links from other documents to the current document.");
+		referencingLabel.setText("Incoming Links");
+
+		final FilteredTree referencingTree = new FilteredTree(referencingComposite, SWT.BORDER,
+				new PatternFilter(), false);
 		referencingTree.getViewer().setContentProvider(
 				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.SOURCE, true));
 		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
@@ -660,7 +685,16 @@ public class MappingView extends ViewPart {
 		menus.add(menu);
 		referencingTree.getViewer().getControl().setMenu(menu);
 
-		final FilteredTree referencedTree = new FilteredTree(sashForm, SWT.BORDER, new PatternFilter(), false);
+		final Composite referencedComposite = new Composite(sashForm, SWT.NONE);
+		referencedComposite.setLayout(new GridLayout(1, false));
+
+		final Label referencedLabel = new Label(referencedComposite, SWT.CENTER);
+		referencedLabel.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		referencedLabel.setToolTipText("Links from the current document to other documents.");
+		referencedLabel.setText("Outgoing Links");
+
+		final FilteredTree referencedTree = new FilteredTree(referencedComposite, SWT.BORDER,
+				new PatternFilter(), false);
 		referencedTree.getViewer().setContentProvider(
 				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.TARGET, true));
 		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
