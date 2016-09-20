@@ -34,7 +34,8 @@ public class LinkAsSource extends AbstractLocationHandler {
 	@Override
 	protected void handleLocation(ILocation source) {
 		for (ILocation target : IdeMappingUtils.getLocationsPool()) {
-			if (IdeMappingUtils.isActive(target) && MappingUtils.getLink(source, target) == null) {
+			if (IdeMappingUtils.isActive(target) && !source.equals(target)
+					&& MappingUtils.getLink(source, target) == null) {
 				try {
 					MappingUtils.createLink(source, target);
 				} catch (InstantiationException e) {
@@ -56,7 +57,8 @@ public class LinkAsSource extends AbstractLocationHandler {
 		boolean res = false;
 
 		for (ILocation target : IdeMappingUtils.getLocationsPool()) {
-			if (IdeMappingUtils.isActive(target) && MappingUtils.getLink(source, target) == null) {
+			if (IdeMappingUtils.isActive(target) && !source.equals(target)
+					&& MappingUtils.getLink(source, target) == null) {
 				res = true;
 				break;
 			}

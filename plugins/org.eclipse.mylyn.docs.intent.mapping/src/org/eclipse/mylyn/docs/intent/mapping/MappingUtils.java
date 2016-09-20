@@ -362,10 +362,14 @@ public final class MappingUtils {
 			IllegalAccessException, ClassNotFoundException {
 		final ILink res;
 
-		final IBase base = getBase(source);
-		res = base.getFactory().createElement(ILink.class);
-		res.setSource(source);
-		res.setTarget(target);
+		if (!source.equals(target)) {
+			final IBase base = getBase(source);
+			res = base.getFactory().createElement(ILink.class);
+			res.setSource(source);
+			res.setTarget(target);
+		} else {
+			throw new IllegalStateException("Can't link a Location to itself.");
+		}
 
 		return res;
 	}
