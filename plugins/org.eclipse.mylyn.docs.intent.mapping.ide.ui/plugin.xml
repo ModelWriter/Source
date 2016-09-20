@@ -44,113 +44,117 @@
       <menuContribution
             allPopups="false"
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-         <command
-               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"
-               label="Link location as source"
-               style="push"
-               tooltip="Links the current location as source with activated locations from the pool">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="selection">
-                  <iterate
-                        ifEmpty="false"
-                        operator="and">
-                     <adapt
-                           type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+         <menu
+               label="Mapping"
+               tooltip="Locations and Links menu">
+            <command
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"
+                  label="Link location as source"
+                  style="push"
+                  tooltip="Links the current location as source with activated locations from the pool">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <adapt
+                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                           <instanceof
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                           </instanceof>
+                        </adapt>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
+                  label="Link location as target"
+                  style="push"
+                  tooltip="Links the current location as target with activated locations from the pool">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <adapt
+                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                           <instanceof
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                           </instanceof>
+                        </adapt>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool"
+                  label="Add Location to Pool"
+                  style="push"
+                  tooltip="Adds the selected location to locations pool">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <adapt
+                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                           <instanceof
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                           </instanceof>
+                        </adapt>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool"
+                  label="Remove Location from  Pool"
+                  style="push"
+                  tooltip="Removes the selected location from the locations pool">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <adapt
+                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                           <instanceof
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                           </instanceof>
+                        </adapt>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.deleteLink"
+                  label="Delete Link"
+                  style="push"
+                  tooltip="Deletes the selected Link">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
                         <instanceof
-                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILink">
                         </instanceof>
-                     </adapt>
-                  </iterate>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
-               label="Link location as target"
-               style="push"
-               tooltip="Links the current location as target with activated locations from the pool">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="selection">
-                  <iterate
-                        ifEmpty="false"
-                        operator="and">
-                     <adapt
-                           type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
-                        <instanceof
-                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
-                        </instanceof>
-                     </adapt>
-                  </iterate>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool"
-               label="Add Location to Pool"
-               style="push"
-               tooltip="Adds the selected location to locations pool">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="selection">
-                  <iterate
-                        ifEmpty="false"
-                        operator="and">
-                     <adapt
-                           type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
-                        <instanceof
-                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
-                        </instanceof>
-                     </adapt>
-                  </iterate>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool"
-               label="Remove Location from  Pool"
-               style="push"
-               tooltip="Removes the selected location from the locations pool">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="selection">
-                  <iterate
-                        ifEmpty="false"
-                        operator="and">
-                     <adapt
-                           type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
-                        <instanceof
-                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
-                        </instanceof>
-                     </adapt>
-                  </iterate>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.deleteLink"
-               label="Delete Link"
-               style="push"
-               tooltip="Deletes the selected Link">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="selection">
-                  <iterate
-                        ifEmpty="false"
-                        operator="and">
-                     <instanceof
-                           value="org.eclipse.mylyn.docs.intent.mapping.base.ILink">
-                     </instanceof>
-                  </iterate>
-               </with>
-            </visibleWhen>
-         </command>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <extension

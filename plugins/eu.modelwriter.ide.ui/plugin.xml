@@ -13,10 +13,14 @@
       <menuContribution
             allPopups="false"
             locationURI="popup:#AbstractTextEditorRulerContext">
-         <dynamic
-               class="eu.modelwriter.ide.ui.menu.QuickFixContributionItem"
-               id="eu.modelwriter.ide.ui.quickFixContributionItem">
-         </dynamic>
+         <menu
+               label="Mapping"
+               tooltip="Locations and Links menu">
+            <dynamic
+                  class="eu.modelwriter.ide.ui.menu.QuickFixContributionItem"
+                  id="eu.modelwriter.ide.ui.quickFixContributionItem">
+            </dynamic>
+         </menu>
       </menuContribution>
       <menuContribution
             allPopups="false"
