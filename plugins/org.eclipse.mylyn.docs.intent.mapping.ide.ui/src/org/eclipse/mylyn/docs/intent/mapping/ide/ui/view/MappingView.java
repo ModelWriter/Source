@@ -315,13 +315,13 @@ public class MappingView extends ViewPart {
 					}
 				} catch (InstantiationException e) {
 					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to create location", e));
 				} catch (IllegalAccessException e) {
 					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to create location", e));
 				} catch (ClassNotFoundException e) {
 					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to create location", e));
 				}
 			}
 		}

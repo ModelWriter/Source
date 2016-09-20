@@ -248,7 +248,20 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider#getElements(java.lang.Object)
 	 */
 	public Object[] getElements(Object inputElement) {
-		return roots.toArray();
+		final List<Object> res = new ArrayList<Object>(roots.size());
+
+		for (ILocation location : roots) {
+			if (inputElement == location) {
+				final Object[] children = getChildren(inputElement);
+				for (int i = 0; i < children.length; i++) {
+					res.add(i, children[i]);
+				}
+			} else {
+				res.add(location);
+			}
+		}
+
+		return res.toArray();
 	}
 
 	/**
