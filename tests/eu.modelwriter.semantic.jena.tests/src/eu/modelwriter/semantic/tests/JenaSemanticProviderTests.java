@@ -54,8 +54,8 @@ public class JenaSemanticProviderTests {
 
 	@Test
 	public void getSemanticLabelsResourceNoLabel() {
-		Model model = ModelFactory.createDefaultModel();
-		Resource resource = model.createResource();
+		final Model model = ModelFactory.createDefaultModel();
+		final Resource resource = model.createResource();
 
 		final Set<String> semanticLabels = provider.getSemanticLabels(resource);
 
@@ -64,8 +64,8 @@ public class JenaSemanticProviderTests {
 
 	@Test
 	public void getSemanticLabelsResourceWithLocalName() {
-		Model model = ModelFactory.createDefaultModel();
-		Resource resource = model.createResource("/name");
+		final Model model = ModelFactory.createDefaultModel();
+		final Resource resource = model.createResource("/name");
 		resource.addProperty(RDFS.label, "something");
 
 		final Set<String> semanticLabels = provider.getSemanticLabels(resource);
@@ -78,8 +78,8 @@ public class JenaSemanticProviderTests {
 
 	@Test
 	public void getSemanticLabelsResource() {
-		Model model = ModelFactory.createDefaultModel();
-		Resource resource = model.createResource();
+		final Model model = ModelFactory.createDefaultModel();
+		final Resource resource = model.createResource();
 		resource.addProperty(RDFS.label, "something");
 
 		final Set<String> semanticLabels = provider.getSemanticLabels(resource);

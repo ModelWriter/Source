@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015 Obeo.
+ * Copyright (c) 2016 Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,18 +11,25 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.tests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import eu.modelwriter.semantic.jena.JenaUtils;
+
+import org.junit.Test;
 
 /**
- * Aggregates tests for the eu.modelwriter.semantic plug-in.
- * 
+ * Tests {@link JenaUtils}.
+ *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-@RunWith(Suite.class)
-@SuiteClasses(value = {JenaSemanticProviderTests.class, JenaBaseTests.class,
-		JenaSynonymySimilarityProviderTests.class, JenaUtilsTests.class, })
-public class AllTests {
+public class JenaUtilsTests {
+
+	@Test(expected = java.lang.NullPointerException.class)
+	public void getLabelsForPropertyNullNull() {
+		JenaUtils.getLabelsForProperty(null, null);
+	}
+
+	@Test
+	public void getLabelsForProperty() {
+		// TODO
+	}
 
 }
