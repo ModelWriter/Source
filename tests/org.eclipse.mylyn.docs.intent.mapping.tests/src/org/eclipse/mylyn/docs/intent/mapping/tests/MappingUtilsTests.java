@@ -14,9 +14,11 @@ package org.eclipse.mylyn.docs.intent.mapping.tests;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLink;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.LocationFactoryTests.TestLocation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -128,6 +130,99 @@ public class MappingUtilsTests {
 		MappingUtils.unregisterLocationImplementation(TestBase.class, ILocation.class);
 
 		assertNull(base.getFactory().createElement(ILocation.class));
+	}
+
+	@Test(expected = java.lang.NullPointerException.class)
+	public void getLinkNullNull() {
+		MappingUtils.getLink(null, null);
+	}
+
+	@Test(expected = java.lang.NullPointerException.class)
+	public void getLinkSourceNull() {
+		final ILocation source = new TestLocation();
+
+		MappingUtils.getLink(source, null);
+	}
+
+	@Test(expected = java.lang.NullPointerException.class)
+	public void getLinkNullTarget() {
+		final ILocation target = new TestLocation();
+
+		MappingUtils.getLink(null, target);
+	}
+
+	@Test
+	public void getLinkNoLink() {
+		final ILocation source = new TestLocation();
+		final ILocation target = new TestLocation();
+
+		final ILink res = MappingUtils.getLink(source, target);
+
+		assertNull(res);
+	}
+
+	@Test
+	public void getLink() {
+		final ILocation source = new TestLocation();
+		final ILocation target = new TestLocation();
+		final ILink link = new TestLink();
+		link.setSource(source);
+		link.setTarget(target);
+		source.getTargetLinks().add(link);
+		target.getSourceLinks().add(link);
+
+		final ILink res = MappingUtils.getLink(source, target);
+
+		assertEquals(link, res);
+	}
+
+	@Test
+	public void getLinkNotOposite() {
+		final ILocation source = new TestLocation();
+		final ILocation target = new TestLocation();
+		final ILink link = new TestLink();
+		link.setSource(source);
+		link.setTarget(target);
+		source.getTargetLinks().add(link);
+		target.getSourceLinks().add(link);
+
+		final ILink res = MappingUtils.getLink(target, source);
+
+		assertNull(res);
+	}
+
+	@Test
+	public void getLinkSourceMoreLinks() {
+		final ILocation source = new TestLocation();
+		final ILocation target = new TestLocation();
+		final ILink link = new TestLink();
+		final ILink link1 = new TestLink();
+		link.setSource(source);
+		link.setTarget(target);
+		source.getTargetLinks().add(link);
+		source.getTargetLinks().add(link1);
+		target.getSourceLinks().add(link);
+
+		final ILink res = MappingUtils.getLink(source, target);
+
+		assertEquals(link, res);
+	}
+
+	@Test
+	public void getLinkNotOpositeSourceMoreLinks() {
+		final ILocation source = new TestLocation();
+		final ILocation target = new TestLocation();
+		final ILink link = new TestLink();
+		final ILink link1 = new TestLink();
+		link.setSource(source);
+		link.setTarget(target);
+		source.getTargetLinks().add(link);
+		source.getTargetLinks().add(link1);
+		target.getSourceLinks().add(link);
+
+		final ILink res = MappingUtils.getLink(target, source);
+
+		assertNull(res);
 	}
 
 }

@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.LocationFactoryTests.TestLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;

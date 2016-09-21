@@ -18,9 +18,11 @@ import java.util.List;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;
@@ -31,7 +33,7 @@ import static org.junit.Assert.assertTrue;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class LocationFactoryTests {
+public class BaseElementFactoryTests {
 
 	/**
 	 * A test location interface.
@@ -55,6 +57,16 @@ public class LocationFactoryTests {
 		private ILocationContainer container;
 
 		/**
+		 * The {@link List} of source {@link ILink}.
+		 */
+		private List<ILink> sourceLinks = new ArrayList<ILink>();
+
+		/**
+		 * The {@link List} of target {@link ILink}.
+		 */
+		private List<ILink> targetLinks = new ArrayList<ILink>();
+
+		/**
 		 * The contents.
 		 */
 		private final List<ILocation> contents = new ArrayList<ILocation>();
@@ -73,13 +85,11 @@ public class LocationFactoryTests {
 		}
 
 		public List<ILink> getSourceLinks() {
-			// nothing to do here
-			return null;
+			return sourceLinks;
 		}
 
 		public List<ILink> getTargetLinks() {
-			// nothing to do here
-			return null;
+			return targetLinks;
 		}
 
 		public void setContainer(ILocationContainer container) {
@@ -109,6 +119,72 @@ public class LocationFactoryTests {
 		}
 
 		public void setType(Serializable type) {
+			// nothing to do here
+		}
+
+	}
+
+	/**
+	 * Test implementation of {@link ILink}.
+	 * 
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class TestLink implements ILink {
+
+		/**
+		 * The source {@link ILocation}.
+		 */
+		private ILocation target;
+
+		/**
+		 * The target {@link ILocation}.
+		 */
+		private ILocation source;
+
+		public void setType(Serializable type) {
+			// nothing to do here
+		}
+
+		public void setTarget(ILocation location) {
+			target = location;
+		}
+
+		public void setSource(ILocation location) {
+			source = location;
+		}
+
+		public void setDescription(String description) {
+			// nothing to do here
+		}
+
+		public void removeListener(ILinkListener listener) {
+			// nothing to do here
+		}
+
+		public Serializable getType() {
+			// nothing to do here
+			return null;
+		}
+
+		public ILocation getTarget() {
+			return target;
+		}
+
+		public ILocation getSource() {
+			return source;
+		}
+
+		public List<IReport> getReports() {
+			// nothing to do here
+			return null;
+		}
+
+		public String getDescription() {
+			// nothing to do here
+			return null;
+		}
+
+		public void addListener(ILinkListener listener) {
 			// nothing to do here
 		}
 

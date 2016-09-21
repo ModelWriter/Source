@@ -9,8 +9,10 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.tests.base;
+package org.eclipse.mylyn.docs.intent.mapping.tests.internal.base;
 
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -21,7 +23,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {BaseRegistryTests.class, LocationFactoryTests.class })
+@SuiteClasses(value = {BaseRegistryTests.class, BaseElementFactoryTests.class })
 public class BaseTests {
 
 }

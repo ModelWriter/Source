@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests;
 
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.connector.ConnectorTests;
+import org.eclipse.mylyn.docs.intent.mapping.tests.internal.base.BaseTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

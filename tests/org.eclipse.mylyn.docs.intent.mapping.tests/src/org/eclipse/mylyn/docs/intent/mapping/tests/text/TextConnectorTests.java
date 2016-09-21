@@ -12,7 +12,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.tests.text;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.LocationFactoryTests.ITestLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.ITestLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextContainerLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;

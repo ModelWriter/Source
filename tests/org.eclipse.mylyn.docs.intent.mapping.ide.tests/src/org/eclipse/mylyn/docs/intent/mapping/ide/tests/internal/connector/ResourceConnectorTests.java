@@ -31,7 +31,7 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests.FileConnectorDelegateA.FileLocationA;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests.FileConnectorDelegateB.FileLocationB;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests.FileConnectorDelegateC.FileLocationC;
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.LocationFactoryTests.TestLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
