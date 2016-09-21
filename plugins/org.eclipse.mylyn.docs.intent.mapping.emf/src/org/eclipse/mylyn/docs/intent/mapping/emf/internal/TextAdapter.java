@@ -300,8 +300,14 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 
 		final String text = getText();
 		if (location.getEStructuralFeature() == null) {
-			location.setStartOffset(getTextOffset());
-			location.setEndOffset(getTextOffset() + text.length());
+			if (location.getEObject() == getTarget()) {
+				location.setStartOffset(getTextOffset());
+				location.setEndOffset(getTextOffset() + text.length());
+			} else {
+				final ITextAdapter adapter = EObjectConnector.getTextAdapter(location.getEObject());
+				location.setStartOffset(adapter.getTextOffset());
+				location.setEndOffset(adapter.getTextOffset() + adapter.getText().length());
+			}
 		} else {
 			final int[] offsets = featureValueToOffsets.get(location.getEStructuralFeature()).get(
 					location.getValue());
@@ -325,8 +331,13 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 		final int[] res = new int[2];
 
 		final int[] offsets = featureValueToOffsets.get(feature).get(value);
-		res[0] = offsets[0];
-		res[1] = offsets[1];
+		if (offsets != null) {
+			res[0] = offsets[0];
+			res[1] = offsets[1];
+		} else {
+			res[0] = -1;
+			res[1] = -1;
+		}
 
 		return res;
 	}

@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.internal.base;
 
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
