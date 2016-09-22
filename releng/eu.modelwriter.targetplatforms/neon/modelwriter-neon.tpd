@@ -5,7 +5,9 @@ include "../common/common.tpd"
 with source requirements
 
 location "http://download.eclipse.org/releases/neon" {
+	org.eclipse.ui lazy
 	org.eclipse.platform.sdk lazy
+	org.eclipse.core.runtime lazy
 	org.eclipse.emf.sdk.feature.group lazy
 	
 	org.junit [4.0.0,5.0.0)

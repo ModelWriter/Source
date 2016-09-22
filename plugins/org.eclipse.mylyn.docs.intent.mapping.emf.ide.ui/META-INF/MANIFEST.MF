@@ -14,4 +14,7 @@ Require-Bundle: org.eclipse.core.resources,
  org.eclipse.mylyn.docs.intent.mapping.ide.ui,
  org.eclipse.mylyn.docs.intent.mapping.ide
 Import-Package: eu.modelwriter.semantic
-Export-Package: org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.adapter
+Export-Package: org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui,
+ org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.adapter
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.Activator

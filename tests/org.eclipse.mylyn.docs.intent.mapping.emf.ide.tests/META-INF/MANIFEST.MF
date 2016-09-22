@@ -3,7 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Tests
 Bundle-SymbolicName: org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests
 Bundle-Version: 1.0.0.qualifier
-Export-Package: org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests
+Export-Package: org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests,
+ org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.adapter,
+ org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector,
+ org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.resource
 Require-Bundle: org.junit,
  org.eclipse.mylyn.docs.intent.mapping.ide.tests,
  org.eclipse.mylyn.docs.intent.mapping.tests,
