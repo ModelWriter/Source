@@ -39,7 +39,7 @@ public class EObjectToEObjectLocationAdapterFactory implements IAdapterFactory {
 	 *
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
-	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
+	public IEObjectLocation getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		IEObjectLocation res;
 
 		final IBase currentBase = IdeMappingUtils.getCurentBase();

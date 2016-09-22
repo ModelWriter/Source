@@ -73,7 +73,7 @@ public class EObjectToFileAdapterFactoryTests {
 	/**
 	 * Creates an {@link IProject}.
 	 * 
-	 * @return
+	 * @return the created {@link IProject}
 	 * @throws CoreException
 	 */
 	private IProject createProject() throws CoreException {

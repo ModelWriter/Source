@@ -80,7 +80,7 @@
             adaptableType="org.eclipse.core.resources.IMarker"
             class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.MarkerToEObjectLocationAdapterFactory">
          <adapter
-               type="org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation">
+               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
          </adapter>
       </factory>
       <factory

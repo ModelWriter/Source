@@ -38,7 +38,7 @@ public class EObjectLocationToMarkerAdapterFactory implements IAdapterFactory {
 	 *
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
-	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
+	public IMarker getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		IMarker res;
 
 		if (adaptableObject instanceof IEObjectLocation) {
