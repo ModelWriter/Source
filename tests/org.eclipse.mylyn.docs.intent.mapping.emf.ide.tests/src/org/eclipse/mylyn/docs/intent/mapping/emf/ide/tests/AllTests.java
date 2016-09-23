@@ -13,7 +13,7 @@ package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests;
 
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.adapter.EObjectLocationToMarkerAdapterFactoryTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.adapter.EObjectToEObjectLocationAdapterFactoryTests;
-import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.adapter.MarkerToEObjectLocationAdapterFactoryTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.adapter.MarkerToEObjectLocationTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.EObjectFileConnectorDelegateTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.IdeEObjectConnectorParametrizedTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.IdeEObjectConnectorTests;
@@ -34,7 +34,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		EMFEObjectFileLocationTests.class, EObjectFileConnectorDelegateTests.class,
 		MappingBaseListenerTests.class, IdeEObjectConnectorTests.class,
 		IdeEObjectConnectorParametrizedTests.class, EObjectLocationToMarkerAdapterFactoryTests.class,
-		EObjectToEObjectLocationAdapterFactoryTests.class, MarkerToEObjectLocationAdapterFactoryTests.class, })
+		EObjectToEObjectLocationAdapterFactoryTests.class, MarkerToEObjectLocationTests.class, })
 public class AllTests {
 
 }

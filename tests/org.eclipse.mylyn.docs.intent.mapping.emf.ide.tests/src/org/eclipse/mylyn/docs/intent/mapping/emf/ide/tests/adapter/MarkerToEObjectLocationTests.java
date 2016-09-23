@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -32,10 +33,11 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.MarkerToEObjectLocationAdapterFactory;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.MarkerToEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker.IEObjectLocationMaker;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationAdapterFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -43,16 +45,21 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests {@link MarkerToEObjectLocationAdapterFactory}.
+ * Tests {@link MarkerToEObjectLocation}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class MarkerToEObjectLocationAdapterFactoryTests {
+public class MarkerToEObjectLocationTests {
+
+	/**
+	 * Makes sure org.eclipse.mylyn.docs.intent.mapping.ide is activated.
+	 */
+	private static final MarkerToLocationAdapterFactory FACTORY = new MarkerToLocationAdapterFactory();
 
 	/**
 	 * Makes sure org.eclipse.mylyn.docs.intent.mapping.emf.ide is activated.
 	 */
-	private static final MarkerToEObjectLocationAdapterFactory FACTORY = new MarkerToEObjectLocationAdapterFactory();
+	private static final MarkerToEObjectLocation ADAPTER = new MarkerToEObjectLocation();
 
 	@Test
 	public void getAdapter() throws CoreException, IOException {
@@ -66,7 +73,7 @@ public class MarkerToEObjectLocationAdapterFactoryTests {
 		r.save(null);
 		project.refreshLocal(1, new NullProgressMonitor());
 		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path("/test/test.xmi"));
-		final IMarker marker = file.createMarker(IEObjectLocationMaker.EOBJECT_LOCATION_ID);
+		final IMarker marker = file.createMarker(EValidator.MARKER);
 		marker.setAttribute(IEObjectLocationMaker.URI_ATTRIBUTE, EcoreUtil.getURI(ePackage).toString());
 
 		final Base base = MappingPackage.eINSTANCE.getMappingFactory().createBase();

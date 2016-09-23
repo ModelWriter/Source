@@ -25,6 +25,8 @@ import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDes
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
+import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationAdapterFactory;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -108,6 +110,26 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	public static final String CONNECTOR_ATTRIBUTE_CLASS = CLASS;
 
 	/**
+	 * Plugin providing {@link IMarkerToLocation} extension point to parse for extensions.
+	 */
+	public static final String MARKER_TO_LOCATION_EXTENSION_POINT = "org.eclipse.mylyn.docs.intent.mapping.ide.markerToLocation";
+
+	/**
+	 * {@link IMarkerToLocation} tag.
+	 */
+	public static final String MARKER_TO_LOCATION_TAG_EXTENSION = "markerToLocation";
+
+	/**
+	 * The {@link IMarkerToLocation} extension point adapter attribute.
+	 */
+	public static final String MARKER_TO_LOCATION_ATTRIBUTE_CLASS = CLASS;
+
+	/**
+	 * The {@link IMarkerToLocation} extension point adapter attribute.
+	 */
+	public static final String MARKER_TO_LOCATION_ATTRIBUTE_MARKER_TYPE = "markerType";
+
+	/**
 	 * An {@link IFactoryDescriptor} for an extension point.
 	 * 
 	 * @param <T>
@@ -165,6 +187,8 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 				parseBaseProviderExtension(extension);
 			} else if (CONNECTOR_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
 				parseConnectorProviderExtension(extension);
+			} else if (MARKER_TO_LOCATION_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
+				parseMarkerToLocationExtension(extension);
 			}
 		}
 	}
@@ -197,6 +221,10 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 		}
 		for (IExtension extension : registry.getExtensionPoint(CONNECTOR_EXTENSION_POINT).getExtensions()) {
 			parseConnectorProviderExtension(extension);
+		}
+		for (IExtension extension : registry.getExtensionPoint(MARKER_TO_LOCATION_EXTENSION_POINT)
+				.getExtensions()) {
+			parseMarkerToLocationExtension(extension);
 		}
 	}
 
@@ -259,7 +287,7 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	 * Parses a single {@link ILocation} extension contribution.
 	 * 
 	 * @param extension
-	 *            Parses the given extension and adds its contribution to the registry.
+	 *            Parses the given extension and adds its contribution to the registry
 	 */
 	@SuppressWarnings("unchecked")
 	private void parseLocationExtension(IExtension extension) {
@@ -291,7 +319,7 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	 * Parses a single {@link IFileConnectorDelegate} extension contribution.
 	 * 
 	 * @param extension
-	 *            Parses the given extension and adds its contribution to the registry.
+	 *            Parses the given extension and adds its contribution to the registry
 	 */
 	private void parseFileConnectorDelegateExtension(IExtension extension) {
 		final IConfigurationElement[] configElements = extension.getConfigurationElements();
@@ -332,7 +360,7 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	 * Parses a single {@link IConnector} extension contribution.
 	 * 
 	 * @param extension
-	 *            Parses the given extension and adds its contribution to the registry.
+	 *            Parses the given extension and adds its contribution to the registry
 	 */
 	private void parseConnectorProviderExtension(IExtension extension) {
 		final IConfigurationElement[] configElements = extension.getConfigurationElements();
@@ -342,6 +370,29 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 					final IConnector connector = (IConnector)elem
 							.createExecutableExtension(CONNECTOR_ATTRIBUTE_CLASS);
 					MappingUtils.getConnectorRegistry().register(connector);
+				} catch (CoreException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				}
+			}
+		}
+	}
+
+	/**
+	 * Parses a single {@link IMarkerToLocation} extension contribution.
+	 * 
+	 * @param extension
+	 *            Parses the given extension and adds its contribution to the registry
+	 */
+	private void parseMarkerToLocationExtension(IExtension extension) {
+		final IConfigurationElement[] configElements = extension.getConfigurationElements();
+		for (IConfigurationElement elem : configElements) {
+			if (MARKER_TO_LOCATION_TAG_EXTENSION.equals(elem.getName())) {
+				try {
+					final String marterType = elem.getAttribute(MARKER_TO_LOCATION_ATTRIBUTE_MARKER_TYPE);
+					final IMarkerToLocation adapter = (IMarkerToLocation)elem
+							.createExecutableExtension(MARKER_TO_LOCATION_ATTRIBUTE_CLASS);
+					MarkerToLocationAdapterFactory.register(adapter, marterType);
 				} catch (CoreException e) {
 					Activator.getDefault().getLog().log(
 							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
