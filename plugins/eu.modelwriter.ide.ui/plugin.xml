@@ -12,15 +12,11 @@
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
-            locationURI="popup:#AbstractTextEditorRulerContext">
-         <menu
-               label="Mapping"
-               tooltip="Locations and Links menu">
-            <dynamic
-                  class="eu.modelwriter.ide.ui.menu.QuickFixContributionItem"
-                  id="eu.modelwriter.ide.ui.quickFixContributionItem">
-            </dynamic>
-         </menu>
+            locationURI="popup:org.eclipse.mylyn.docs.intent.mapping.ide.ui.menu">
+         <dynamic
+               class="eu.modelwriter.ide.ui.menu.QuickFixContributionItem"
+               id="eu.modelwriter.ide.ui.quickFixContributionItem">
+         </dynamic>
       </menuContribution>
       <menuContribution
             allPopups="false"

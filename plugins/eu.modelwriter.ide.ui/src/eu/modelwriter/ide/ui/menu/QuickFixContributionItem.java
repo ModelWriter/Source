@@ -89,7 +89,6 @@ public class QuickFixContributionItem extends ContributionItem {
 		}
 
 		if (!resolutions.isEmpty()) {
-			new MenuItem(menu, SWT.SEPARATOR, i++);
 			for (final Entry<IMarker, IMarkerResolution[]> entry : resolutions.entrySet()) {
 				final IMarker marker = entry.getKey();
 				for (final IMarkerResolution resolution : entry.getValue()) {
@@ -110,6 +109,7 @@ public class QuickFixContributionItem extends ContributionItem {
 					}
 				}
 			}
+			new MenuItem(menu, SWT.SEPARATOR, i++);
 		}
 
 	}
