@@ -33,7 +33,7 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.EObjectFileConnec
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
-import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.ResourceConnectorTests.TestResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector.ResourceConnectorTests.TestResourceLocation;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

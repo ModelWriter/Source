@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector;
+package org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector;
 
 import java.io.ByteArrayInputStream;
 
@@ -28,6 +28,7 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.ResourceConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests.FileConnectorDelegateA.FileLocationA;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests.FileConnectorDelegateB.FileLocationB;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests.FileConnectorDelegateC.FileLocationC;
