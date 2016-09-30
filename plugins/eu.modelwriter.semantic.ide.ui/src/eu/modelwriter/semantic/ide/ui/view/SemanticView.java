@@ -27,6 +27,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -520,6 +521,8 @@ public class SemanticView extends ViewPart {
 
 					final IFile file = (IFile)editorPart.getEditorInput().getAdapter(IFile.class);
 					try {
+						file.deleteMarkers(ISemanticAnnotationMarker.SEMANTIC_ANNOTATION_ID, true,
+								IResource.DEPTH_INFINITE);
 						for (Entry<Object, Map<Object, Set<int[]>>> conceptEntry : annotations.entrySet()) {
 							final Object concept = conceptEntry.getKey();
 							for (Entry<Object, Set<int[]>> similarityEntry : conceptEntry.getValue()
