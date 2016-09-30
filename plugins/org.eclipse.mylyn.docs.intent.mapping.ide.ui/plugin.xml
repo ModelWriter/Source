@@ -223,4 +223,11 @@
             name="Delete">
       </command>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.mapping"
+            name="Mapping">
+      </category>
+   </extension>
 </plugin>

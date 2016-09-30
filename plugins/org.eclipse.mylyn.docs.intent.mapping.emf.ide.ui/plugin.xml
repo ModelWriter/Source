@@ -11,5 +11,14 @@
          </adapter>
       </factory>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.eclipse.mylyn.docs.intent.mapping.ide.ui.mapping"
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.wizard.NewEMFBase"
+            id="org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.newEMFBase"
+            name="EMF Base">
+      </wizard>
+   </extension>
 
 </plugin>
