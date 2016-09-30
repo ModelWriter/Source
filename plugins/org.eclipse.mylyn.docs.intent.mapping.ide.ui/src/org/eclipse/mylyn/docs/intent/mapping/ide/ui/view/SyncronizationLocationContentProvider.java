@@ -26,6 +26,14 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
  */
 public class SyncronizationLocationContentProvider extends AbstractLocationContentProvider {
 
+	/**
+	 * Constructor.
+	 */
+	public SyncronizationLocationContentProvider() {
+		super();
+		showReport = true;
+	}
+
 	@Override
 	protected void setLeavesAndLinks(Object input, List<ILocation> locationLeaves, List<ILink> links) {
 		if (input instanceof IBase) {

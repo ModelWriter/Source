@@ -76,6 +76,11 @@ public class BaseRegistryTests {
 		private final List<ILocation> contents = new ArrayList<ILocation>();
 
 		/**
+		 * The {@link List} of {@link IReport}.
+		 */
+		private final List<IReport> reports = new ArrayList<IReport>();
+
+		/**
 		 * The {@link BaseElementFactory}.
 		 */
 		private final BaseElementFactory factory = new BaseElementFactory();
@@ -106,8 +111,7 @@ public class BaseRegistryTests {
 		}
 
 		public List<IReport> getReports() {
-			// nothing to do here
-			return null;
+			return reports;
 		}
 
 	}

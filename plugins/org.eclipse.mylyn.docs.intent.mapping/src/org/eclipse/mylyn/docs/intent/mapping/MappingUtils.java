@@ -31,6 +31,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.base.BaseRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.connector.ConnectorRegistry;
@@ -407,6 +408,70 @@ public final class MappingUtils {
 			input.close();
 		}
 		return res.toString();
+	}
+
+	/**
+	 * Tells if the given {@link ILink} can be deleted.
+	 * 
+	 * @param link
+	 *            the {@link ILink} to check
+	 * @return <code>true</code> if the given {@link ILink} can be deleted, <code>false</code> otherwise
+	 */
+	public static boolean canDeleteLink(ILink link) {
+		return link.getReports().isEmpty();
+	}
+
+	/**
+	 * Deletes the given {@link ILink}.
+	 * 
+	 * @param link
+	 *            the {@link ILink} to delete
+	 */
+	public static void deleteLink(ILink link) {
+		if (canDeleteLink(link)) {
+			link.setSource(null);
+			link.setTarget(null);
+		} else {
+			throw new IllegalStateException("can't delete a link with report.");
+		}
+	}
+
+	/**
+	 * Tells if the given {@link ILocation} can be deleted.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to check
+	 * @return <code>true</code> if the given {@link ILocation} can be deleted, <code>false</code> otherwise
+	 */
+	public static boolean canDeleteLocation(ILocation location) {
+		return location.getSourceLinks().isEmpty() && location.getTargetLinks().isEmpty()
+				&& location.getContents().isEmpty();
+	}
+
+	/**
+	 * Deletes the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to delete
+	 */
+	public static void deleteLocation(ILocation location) {
+		if (canDeleteLocation(location)) {
+			location.setContainer(null);
+		} else {
+			throw new IllegalStateException("can't delete a location with links or contained locations.");
+		}
+	}
+
+	/**
+	 * Deletes the given {@link IReport}.
+	 * 
+	 * @param report
+	 *            the {@link IReport} to delete
+	 */
+	public static void deleteReport(IReport report) {
+		final IBase base = getBase(report.getLink().getSource());
+		base.getReports().remove(report);
+		report.setLink(null);
 	}
 
 }

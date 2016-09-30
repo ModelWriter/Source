@@ -23,6 +23,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReportListener;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;
@@ -93,7 +94,9 @@ public class BaseElementFactoryTests {
 		}
 
 		public void setContainer(ILocationContainer container) {
-			container.getContents().add(this);
+			if (container != null) {
+				container.getContents().add(this);
+			}
 			this.container = container;
 		}
 
@@ -141,6 +144,11 @@ public class BaseElementFactoryTests {
 		 */
 		private ILocation source;
 
+		/**
+		 * The {@link List} of {@link IReport}.
+		 */
+		private final List<IReport> reports = new ArrayList<IReport>();
+
 		public void setType(Serializable type) {
 			// nothing to do here
 		}
@@ -175,8 +183,7 @@ public class BaseElementFactoryTests {
 		}
 
 		public List<IReport> getReports() {
-			// nothing to do here
-			return null;
+			return reports;
 		}
 
 		public String getDescription() {
@@ -185,6 +192,49 @@ public class BaseElementFactoryTests {
 		}
 
 		public void addListener(ILinkListener listener) {
+			// nothing to do here
+		}
+
+	}
+
+	/**
+	 * Test implementation of {@link IReport}.
+	 * 
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class TestReport implements IReport {
+
+		/**
+		 * The {@link ILink}.
+		 */
+		private ILink link;
+
+		/**
+		 * The description.
+		 */
+		private String description;
+
+		public void setLink(ILink link) {
+			this.link = link;
+		}
+
+		public ILink getLink() {
+			return link;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void addListener(IReportListener listener) {
+			// nothing to do here
+		}
+
+		public void removeListener(IReportListener listener) {
 			// nothing to do here
 		}
 

@@ -26,6 +26,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 
 /**
  * Abstract {@link ILocation} {@link ITreeContentProvider}.
@@ -33,6 +34,60 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public abstract class AbstractLocationContentProvider implements ITreeContentProvider {
+
+	/**
+	 * The {@link ILinkListener}.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	private final class LinkListener extends ILinkListener.Stub {
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener.Stub#sourceChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
+		 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 */
+		public void sourceChanged(ILocation oldSource, ILocation newSource) {
+			update();
+			currentViewer.refresh();
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener.Stub#targetChanged(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
+		 *      org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 */
+		public void targetChanged(ILocation oldTarget, ILocation newTarget) {
+			update();
+			currentViewer.refresh();
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener.Stub#reportAdded(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportAdded(org.eclipse.mylyn.docs.intent.mapping.base.IReport report) {
+			if (showReport) {
+				update();
+				currentViewer.refresh();
+			}
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener.Stub#reportRemoved(org.eclipse.mylyn.docs.intent.mapping.base.IReport)
+		 */
+		public void reportRemoved(org.eclipse.mylyn.docs.intent.mapping.base.IReport report) {
+			if (showReport) {
+				update();
+				currentViewer.refresh();
+			}
+		}
+	}
 
 	/**
 	 * The {@link List} of root {@link ILocation}.
@@ -57,23 +112,17 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	/**
 	 * The {@link ILinkListener}.
 	 */
-	protected final ILinkListener linkListener = new ILinkListener.Stub() {
-
-		public void sourceChanged(ILocation oldSource, ILocation newSource) {
-			update();
-			currentViewer.refresh();
-		}
-
-		public void targetChanged(ILocation oldTarget, ILocation newTarget) {
-			update();
-			currentViewer.refresh();
-		}
-	};
+	protected final ILinkListener linkListener = new LinkListener();
 
 	/**
 	 * The {@link Set} of listened {@link ILink}.
 	 */
 	protected Set<ILink> listenedLinks = new HashSet<ILink>();
+
+	/**
+	 * Should we show {@link IReport}. Default to <code>false</code>.
+	 */
+	protected boolean showReport;
 
 	/**
 	 * The {@link ILocationListener}.

@@ -164,6 +164,11 @@ public class MappingView extends ViewPart {
 	private final class EditorPartListener implements IWindowListener, IPageListener, IPartListener2 {
 
 		/**
+		 * Unable to create location mesage.
+		 */
+		private static final String UNABLE_TO_CREATE_LOCATION = "unable to create location";
+
+		/**
 		 * The array of {@link Viewer}.
 		 */
 		private final Viewer[] viewers;
@@ -315,13 +320,13 @@ public class MappingView extends ViewPart {
 					}
 				} catch (InstantiationException e) {
 					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to create location", e));
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LOCATION, e));
 				} catch (IllegalAccessException e) {
 					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to create location", e));
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LOCATION, e));
 				} catch (ClassNotFoundException e) {
 					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to create location", e));
+							new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LOCATION, e));
 				}
 			}
 		}
@@ -532,8 +537,9 @@ public class MappingView extends ViewPart {
 		referencingLabel.setToolTipText("Locations referencing the current selection via a Link.");
 		referencingLabel.setText("Referencing Locations");
 
-		final FilteredTree referencingTree = new FilteredTree(referencingComposite, SWT.BORDER,
+		final FilteredTree referencingTree = new FilteredTree(referencingComposite, SWT.MULTI | SWT.BORDER,
 				new PatternFilter(), false);
+		referencingTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
 		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(referencingTree.getViewer().getTree()));
 		referencingTree.getViewer().setContentProvider(
@@ -561,8 +567,9 @@ public class MappingView extends ViewPart {
 		referencedLabel.setToolTipText("Locations referenced by the current selection via a Link.");
 		referencedLabel.setText("Referenced Locations");
 
-		final FilteredTree referencedTree = new FilteredTree(referencedComposite, SWT.BORDER,
+		final FilteredTree referencedTree = new FilteredTree(referencedComposite, SWT.MULTI | SWT.BORDER,
 				new PatternFilter(), false);
+		referencedTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
 		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(referencedTree.getViewer().getTree()));
 		referencedTree.getViewer().setContentProvider(
@@ -645,8 +652,9 @@ public class MappingView extends ViewPart {
 		referencingLabel.setToolTipText("Links from other documents to the current document.");
 		referencingLabel.setText("Incoming Links");
 
-		final FilteredTree referencingTree = new FilteredTree(referencingComposite, SWT.BORDER,
+		final FilteredTree referencingTree = new FilteredTree(referencingComposite, SWT.MULTI | SWT.BORDER,
 				new PatternFilter(), false);
+		referencingTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
 		referencingTree.getViewer().setContentProvider(
 				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.SOURCE, true));
 		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
@@ -693,8 +701,9 @@ public class MappingView extends ViewPart {
 		referencedLabel.setToolTipText("Links from the current document to other documents.");
 		referencedLabel.setText("Outgoing Links");
 
-		final FilteredTree referencedTree = new FilteredTree(referencedComposite, SWT.BORDER,
+		final FilteredTree referencedTree = new FilteredTree(referencedComposite, SWT.MULTI | SWT.BORDER,
 				new PatternFilter(), false);
+		referencedTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
 		referencedTree.getViewer().setContentProvider(
 				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.TARGET, true));
 		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
@@ -774,8 +783,9 @@ public class MappingView extends ViewPart {
 		selectionTabItem.setControl(treeComposite);
 		treeComposite.setLayout(new FillLayout(SWT.HORIZONTAL));
 
-		final FilteredTree reportTree = new FilteredTree(treeComposite, SWT.BORDER, new PatternFilter(),
-				false);
+		final FilteredTree reportTree = new FilteredTree(treeComposite, SWT.MULTI | SWT.BORDER,
+				new PatternFilter(), false);
+		reportTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
 		reportTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(reportTree.getViewer().getTree()));
 		reportTree.getViewer().setContentProvider(new SyncronizationLocationContentProvider());

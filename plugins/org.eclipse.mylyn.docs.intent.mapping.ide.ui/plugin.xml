@@ -137,10 +137,10 @@
                </visibleWhen>
             </command>
             <command
-                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.deleteLink"
-                  label="Delete Link"
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.delete"
+                  label="Delete"
                   style="push"
-                  tooltip="Deletes the selected Link">
+                  tooltip="Deletes the selection">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -148,9 +148,17 @@
                      <iterate
                            ifEmpty="false"
                            operator="and">
-                        <instanceof
-                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILink">
-                        </instanceof>
+                        <or>
+                           <instanceof
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                           </instanceof>
+                           <instanceof
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILink">
+                           </instanceof>
+                           <instanceof
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.IReport">
+                           </instanceof>
+                        </or>
                      </iterate>
                   </with>
                </visibleWhen>
@@ -177,8 +185,8 @@
             commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget">
       </handler>
       <handler
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.DeleteLink"
-            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.deleteLink">
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.Delete"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.delete">
       </handler>
    </extension>
    <extension
@@ -204,9 +212,9 @@
             name="Link as target">
       </command>
       <command
-            description="Deletes the selected Link"
-            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.deleteLink"
-            name="Delete Link">
+            description="Deletes the selection"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.delete"
+            name="Delete">
       </command>
    </extension>
 </plugin>
