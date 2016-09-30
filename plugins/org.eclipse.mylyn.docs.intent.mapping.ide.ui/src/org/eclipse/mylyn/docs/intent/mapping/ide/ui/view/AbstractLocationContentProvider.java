@@ -26,7 +26,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
-import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 
 /**
  * Abstract {@link ILocation} {@link ITreeContentProvider}.
@@ -120,7 +119,8 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	protected Set<ILink> listenedLinks = new HashSet<ILink>();
 
 	/**
-	 * Should we show {@link IReport}. Default to <code>false</code>.
+	 * Should we show {@link org.eclipse.mylyn.docs.intent.mapping.base.IReport IReport}. Default to
+	 * <code>false</code>.
 	 */
 	protected boolean showReport;
 

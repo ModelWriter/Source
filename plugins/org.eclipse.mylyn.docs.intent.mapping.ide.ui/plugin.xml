@@ -3,12 +3,18 @@
 <plugin>
    <extension
          point="org.eclipse.ui.views">
+      <category
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.mapping"
+            name="Mapping">
+      </category>
       <view
+            category="org.eclipse.mylyn.docs.intent.mapping.ide.ui.mapping"
             class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.MappingView"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.MappingView"
             name="Mapping">
       </view>
       <view
+            category="org.eclipse.mylyn.docs.intent.mapping.ide.ui.mapping"
             class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.LocationPoolView"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.LocationPoolView"
             name="Location Pool">

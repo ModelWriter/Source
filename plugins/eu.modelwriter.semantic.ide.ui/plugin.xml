@@ -3,7 +3,12 @@
 <plugin>
    <extension
          point="org.eclipse.ui.views">
+      <category
+            id="eu.modelwriter.semantic.ide.ui.semantic"
+            name="Semantic">
+      </category>
       <view
+            category="eu.modelwriter.semantic.ide.ui.semantic"
             class="eu.modelwriter.semantic.ide.ui.view.SemanticView"
             id="eu.modelwriter.semantic.ide.ui.view.SemanticView"
             name="Semantic">
