@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.base;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -112,6 +113,10 @@ public class BaseRegistryTests {
 
 		public List<IReport> getReports() {
 			return reports;
+		}
+
+		public void save() throws IOException {
+			// nothing to do here
 		}
 
 	}

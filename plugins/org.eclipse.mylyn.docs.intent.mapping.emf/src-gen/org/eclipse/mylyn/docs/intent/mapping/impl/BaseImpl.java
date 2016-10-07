@@ -12,6 +12,7 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -26,6 +27,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -498,4 +500,19 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 		return factory;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBase#save()
+	 * @generated NOT
+	 */
+	public void save() throws IOException {
+		final Resource eResource = this.eResource();
+		if (eResource != null) {
+			eResource.save(null);
+		} else {
+			throw new IOException("mapping base " + getName()
+					+ " is not contained in a resource and can't be saved.");
+		}
+	}
 } // BaseImpl

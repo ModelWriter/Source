@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -65,5 +66,13 @@ public interface IBase extends IMappingElement, ILocationContainer {
 	 * @return the {@link List} of {@link IReport}
 	 */
 	List<IReport> getReports();
+
+	/**
+	 * Saves the base.
+	 * 
+	 * @throws IOException
+	 *             if serialization went wrong
+	 */
+	void save() throws IOException;
 
 }

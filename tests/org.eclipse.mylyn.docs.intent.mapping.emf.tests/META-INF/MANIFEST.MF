@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.docs.intent.mapping.emf;bundle-version="1.0.0";visibility:=reexport,
  org.eclipse.mylyn.docs.intent.mapping.tests;bundle-version="1.0.0",
  org.junit;bundle-version="4.0.0",
- org.eclipse.mylyn.docs.intent.mapping
+ org.eclipse.mylyn.docs.intent.mapping,
+ org.eclipse.emf.ecore.xmi
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.mylyn.docs.intent.mapping.emf.tests,
  org.eclipse.mylyn.docs.intent.mapping.emf.tests.base,

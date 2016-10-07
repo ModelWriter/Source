@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -500,6 +501,13 @@ public class MappingView extends ViewPart {
 					for (ILocation child : oldBase.getContents()) {
 						deleteLocation(child);
 					}
+					try {
+						oldBase.save();
+					} catch (IOException e) {
+						Activator.getDefault().getLog().log(
+								new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to save base "
+										+ oldBase.getName(), e));
+					}
 				}
 				IdeMappingUtils.setCurrentBase(newBase);
 				for (ILocation child : newBase.getContents()) {
@@ -864,6 +872,16 @@ public class MappingView extends ViewPart {
 		}
 		PlatformUI.getWorkbench().removeWindowListener(editorPartListener);
 
+		final IBase oldBase = IdeMappingUtils.getCurentBase();
+		if (oldBase != null) {
+			try {
+				oldBase.save();
+			} catch (IOException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to save base "
+								+ oldBase.getName(), e));
+			}
+		}
 		IdeMappingUtils.setCurrentBase(null);
 		for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
 			for (IWorkbenchPage page : window.getPages()) {
