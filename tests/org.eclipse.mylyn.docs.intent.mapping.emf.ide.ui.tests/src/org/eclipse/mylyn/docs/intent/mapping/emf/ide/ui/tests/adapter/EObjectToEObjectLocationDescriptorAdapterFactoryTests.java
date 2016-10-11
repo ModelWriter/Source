@@ -9,10 +9,11 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.adapter;
+package org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.tests.adapter;
 
 import java.io.IOException;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -26,15 +27,13 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.EObjectToEObjectLocationAdapterFactory;
-import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -42,12 +41,13 @@ import static org.junit.Assert.assertTrue;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class EObjectToEObjectLocationAdapterFactoryTests {
+public class EObjectToEObjectLocationDescriptorAdapterFactoryTests {
 
 	/**
-	 * Makes sure org.eclipse.mylyn.docs.intent.mapping.emf.ide is activated.
+	 * Makes sure org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui is activated.
 	 */
-	private static final EObjectToEObjectLocationAdapterFactory FACTORY = new EObjectToEObjectLocationAdapterFactory();
+	private static final org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.Activator ACTIVATOR = org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.Activator
+			.getDefault();
 
 	@Test
 	public void getAdapter() throws CoreException, IOException {
@@ -64,13 +64,14 @@ public class EObjectToEObjectLocationAdapterFactoryTests {
 		MappingUtils.getMappingRegistry().register(base);
 		IdeMappingUtils.setCurrentBase(base);
 
-		IEObjectLocation location = (IEObjectLocation)Platform.getAdapterManager().getAdapter(ePackage,
-				ILocation.class);
+		ILocationDescriptor locationDescriptor = (ILocationDescriptor)Platform.getAdapterManager()
+				.getAdapter(ePackage, ILocationDescriptor.class);
 
-		assertNotNull(location);
-		assertEquals(ePackage, location.getEObject());
-		assertTrue(location.getContainer() instanceof IEObjectFileLocation);
-		final IEObjectFileLocation container = (IEObjectFileLocation)location.getContainer();
+		assertNotNull(locationDescriptor);
+		assertEquals(ePackage, locationDescriptor.getElement());
+		assertTrue(locationDescriptor.getContainerDescriptor().getElement() instanceof IFile);
+		assertNull(locationDescriptor.getContainerDescriptor().getContainerDescriptor());
+		final IFile container = (IFile)locationDescriptor.getContainerDescriptor().getElement();
 		assertEquals("/test/test.xmi", container.getFullPath());
 
 		project.delete(true, true, new NullProgressMonitor());

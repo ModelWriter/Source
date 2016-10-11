@@ -126,8 +126,9 @@ public class QuickFixContributionItem extends ContributionItem {
 				.getActiveEditor();
 		final IVerticalRulerInfo rulerInfo = (IVerticalRulerInfo)activeEditor
 				.getAdapter(IVerticalRulerInfo.class);
-		final IResource resource = getResource(activeEditor);
 
+		// TODO check if the last right click has been done on the ruler
+		final IResource resource = getResource(activeEditor);
 		if (resource != null) {
 			final IDocument document = (IDocument)((ITextEditor)activeEditor).getDocumentProvider()
 					.getDocument(activeEditor.getEditorInput());
@@ -158,6 +159,7 @@ public class QuickFixContributionItem extends ContributionItem {
 			final int lineNumber) {
 		final List<IMarker> res = new ArrayList<IMarker>();
 
+		// TODO use the selection for non text editor
 		IRegion line = null;
 		try {
 			line = document.getLineInformation(lineNumber);
