@@ -25,9 +25,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolution2;
@@ -46,7 +45,8 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 	private static final String UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER = "Unable to get the concept attribute on the marker";
 
 	/**
-	 * Creates an {@link ILink} from the {@link ILocation source} and the {@link ILocation target}.
+	 * Creates an {@link ILink} from the {@link ILocationDescriptor source} and the
+	 * {@link ILocationDescriptor target}.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
@@ -58,26 +58,27 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 		private static final String UNABLE_TO_CREATE_LINK = "Unable to create link.";
 
 		/**
-		 * The {@link ILocation source}.
+		 * The source {@link ILocationDescriptor}.
 		 */
-		private final ILocation source;
+		private final ILocationDescriptor sourceDescriptor;
 
 		/**
-		 * The {@link ILocation target}.
+		 * The target {@link ILocationDescriptor}.
 		 */
-		private final ILocation target;
+		private final ILocationDescriptor targetDescriptor;
 
 		/**
 		 * Constructor.
 		 * 
-		 * @param source
-		 *            the {@link ILocation source}
-		 * @param target
-		 *            the {@link ILocation target}
+		 * @param sourceDescriptor
+		 *            the {@link ILocationDescriptor source}
+		 * @param targetDescriptor
+		 *            the {@link ILocationDescriptor target}
 		 */
-		public SemanticLinkMarkerResolution(ILocation source, ILocation target) {
-			this.source = source;
-			this.target = target;
+		public SemanticLinkMarkerResolution(ILocationDescriptor sourceDescriptor,
+				ILocationDescriptor targetDescriptor) {
+			this.sourceDescriptor = sourceDescriptor;
+			this.targetDescriptor = targetDescriptor;
 		}
 
 		/**
@@ -89,9 +90,9 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 			final StringBuilder res = new StringBuilder();
 
 			res.append("Create link from ");
-			res.append(MappingUtils.getConnectorRegistry().getName(source));
+			res.append(sourceDescriptor.getName());
 			res.append(" to ");
-			res.append(MappingUtils.getConnectorRegistry().getName(target));
+			res.append(targetDescriptor.getName());
 			res.append(".");
 
 			return res.toString();
@@ -103,12 +104,12 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 		 * @see org.eclipse.ui.IMarkerResolution#run(org.eclipse.core.resources.IMarker)
 		 */
 		public void run(IMarker marker) {
-			final IBase base = MappingUtils.getBase(source);
+			final IBase base = IdeMappingUtils.getCurentBase();
 
 			try {
 				final ILink link = base.getFactory().createElement(ILink.class);
-				link.setSource(source);
-				link.setTarget(target);
+				link.setSource(sourceDescriptor.getOrCreate(base));
+				link.setTarget(targetDescriptor.getOrCreate(base));
 			} catch (InstantiationException e) {
 				Activator.getDefault().getLog().log(
 						new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, e));
@@ -150,20 +151,23 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 	public IMarkerResolution[] getResolutions(IMarker marker) {
 		final List<IMarkerResolution> res = new ArrayList<IMarkerResolution>();
 
-		// TODO we want to have a description of ILocation here not the location itself...
-		final ILocation source = IdeMappingUtils.adapt(marker, ILocation.class);
-		if (source != null) {
+		final ILocationDescriptor sourceDescriptor = IdeMappingUtils.adapt(marker, ILocationDescriptor.class);
+		if (sourceDescriptor != null) {
 			try {
 				final Object concept = marker
 						.getAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE);
 				final IFile file = IdeMappingUtils.adapt(concept, IFile.class);
 				if (file != null) {
-					final IFileLocation container = (IFileLocation)MappingUtils.getConnectorRegistry()
-							.getOrCreateLocation(IdeMappingUtils.getCurentBase(), file);
-					final ILocation target = MappingUtils.getConnectorRegistry().getOrCreateLocation(
-							container, concept);
-					if (target != null && MappingUtils.getLink(source, target) == null) {
-						res.add(new SemanticLinkMarkerResolution(source, target));
+					final IBase base = IdeMappingUtils.getCurentBase();
+					final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
+							.getLocationDescriptor(null, file);
+					final ILocationDescriptor targetDescriptor = MappingUtils.getConnectorRegistry()
+							.getLocationDescriptor(containerDescriptor, concept);
+					if (!sourceDescriptor.exists(base) || !targetDescriptor.exists(base)) {
+						res.add(new SemanticLinkMarkerResolution(sourceDescriptor, targetDescriptor));
+					} else if (MappingUtils.getLink(sourceDescriptor.getOrCreate(base), targetDescriptor
+							.getOrCreate(base)) == null) {
+						res.add(new SemanticLinkMarkerResolution(sourceDescriptor, targetDescriptor));
 					}
 				}
 			} catch (CoreException e) {

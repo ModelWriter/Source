@@ -12,7 +12,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector;
 
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
+import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.IdeEObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorTests;
 import org.junit.Test;
@@ -28,15 +28,7 @@ public class IdeEObjectConnectorTests extends EObjectConnectorTests {
 
 	@Test
 	public void isRegistred() {
-		boolean found = false;
-		for (IConnector connect : MappingUtils.getConnectorRegistry().getConnectors()) {
-			if (connect instanceof IdeEObjectConnector) {
-				found = true;
-				break;
-			}
-		}
-
-		assertTrue(found);
+		assertTrue(MappingUtils.getConnectorRegistry().getConnector(IEObjectLocation.class) instanceof IdeEObjectConnector);
 	}
 
 }

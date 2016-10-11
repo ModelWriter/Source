@@ -79,13 +79,6 @@
                type="org.eclipse.core.resources.IMarker">
          </adapter>
       </factory>
-      <factory
-            adaptableType="org.eclipse.emf.ecore.EObject"
-            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.EObjectToEObjectLocationAdapterFactory">
-         <adapter
-               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
-         </adapter>
-      </factory>
    </extension>
    <extension
          point="org.eclipse.core.contenttype.contentTypes">
@@ -100,7 +93,7 @@
    <extension
          point="org.eclipse.mylyn.docs.intent.mapping.ide.markerToLocation">
       <markerToLocation
-            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.MarkerToEObjectLocation"
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.MarkerToEObjectLocationDescriptor"
             markerType="org.eclipse.emf.ecore.diagnostic">
       </markerToLocation>
    </extension>

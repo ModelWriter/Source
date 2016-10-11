@@ -33,7 +33,6 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.adapter.SelectionToEObjectLocationAdapterFactory;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
@@ -49,12 +48,13 @@ import static org.junit.Assert.assertTrue;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class SelectionToEObjectLocationAdapterFactoryTests {
+public class SelectionToEObjectLocationDescriptorAdapterFactoryTests {
 
 	/**
 	 * Makes sure org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui is activated.
 	 */
-	private static final SelectionToEObjectLocationAdapterFactory FACTORY = new SelectionToEObjectLocationAdapterFactory();
+	private static final org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.Activator ACTIVATOR = org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.Activator
+			.getDefault();
 
 	@Test
 	public void getAdapter() throws CoreException, IOException {

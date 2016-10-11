@@ -108,19 +108,6 @@ public abstract class AbstractConnector implements IConnector {
 	}
 
 	/**
-	 * Gets the {@link ILocation} type according to the given container type and an element to locate.
-	 * 
-	 * @param containerType
-	 *            the type of the containing {@link ILocation} can be <code>null</code> if not contained
-	 * @param element
-	 *            the Element object to locate
-	 * @return the {@link ILocation} type according to the given container type and an element to locate if
-	 *         any is handled by this {@link IConnector}, <code>null</code> otherwise
-	 */
-	protected abstract Class<? extends ILocation> getLocationType(
-			Class<? extends ILocationContainer> containerType, Object element);
-
-	/**
 	 * Initializes the given {@link ILocation}.
 	 * 
 	 * @param location

@@ -24,6 +24,8 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils.DiffMatch;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
@@ -43,14 +45,19 @@ public class EObjectConnector extends AbstractConnector {
 	private static final AdapterFactory FACTORY = new ComposedAdapterFactory(
 			ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
-	@Override
-	protected Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
+	 *      java.lang.Object)
+	 */
+	public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
 			Object element) {
 		final Class<? extends ILocation> res;
 
 		if (IEObjectContainer.class.isAssignableFrom(containerType)
 				&& (element instanceof EObject || element instanceof Setting)) {
-			res = getLocationType();
+			res = getType();
 		} else {
 			res = null;
 		}
@@ -274,11 +281,61 @@ public class EObjectConnector extends AbstractConnector {
 	}
 
 	/**
+	 * Gets the name for the given {@link EObject} and {@link EStructuralFeature}.
+	 * 
+	 * @param eObj
+	 *            the {@link EObject}
+	 * @param feature
+	 *            the {@link EStructuralFeature} can be <code>null</code>
+	 * @return the name for the given {@link EObject} and {@link EStructuralFeature}
+	 */
+	private String getName(EObject eObj, EStructuralFeature feature) {
+		final StringBuilder res = new StringBuilder();
+
+		final IItemLabelProvider itemProvider = (IItemLabelProvider)FACTORY.adapt(eObj,
+				IItemLabelProvider.class);
+		res.append(itemProvider.getText(eObj));
+		if (feature != null) {
+			res.append(" ");
+			res.append(feature.getEContainingClass().getName());
+			res.append(".");
+			res.append(feature.getName());
+
+		}
+
+		return res.toString();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 *      java.lang.Object)
+	 */
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+		final ILocationDescriptor res;
+
+		if (element instanceof EObject) {
+			final EObject eObj = (EObject)element;
+			res = new ObjectLocationDescriptor(containerDescriptor, element, getName(eObj, null), getType());
+		} else if (element instanceof Setting) {
+			final EObject eObj = ((Setting)element).getEObject();
+			final EStructuralFeature feature = ((Setting)element).getEStructuralFeature();
+			res = new ObjectLocationDescriptor(containerDescriptor, element, getName(eObj, feature),
+					getType());
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
 	 */
-	public Class<? extends ILocation> getLocationType() {
+	public Class<? extends ILocation> getType() {
 		return IEObjectLocation.class;
 	}
 

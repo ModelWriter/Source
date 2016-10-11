@@ -11,24 +11,24 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.ui.command;
 
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 
 /**
- * Adds selected {@link ILocation} to the {@link IdeMappingUtils#getLocationsPool() locations pool}.
+ * Adds selected {@link ILocationDescriptor} to the {@link IdeMappingUtils#getLocationsPool() locations pool}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class AddToLocationsPoolHandler extends AbstractLocationHandler {
 
 	@Override
-	protected void handleLocation(ILocation location) {
-		IdeMappingUtils.addLocationToPool(location);
+	protected void handleLocationDescriptor(ILocationDescriptor locationDescriptor) {
+		IdeMappingUtils.addLocationToPool(locationDescriptor);
 	}
 
 	@Override
-	protected boolean canHandleLocation(ILocation location) {
-		return !IdeMappingUtils.getLocationsPool().contains(location);
+	protected boolean canHandleLocation(ILocationDescriptor locationDescriptor) {
+		return !IdeMappingUtils.getLocationsPool().contains(locationDescriptor);
 	}
 
 }

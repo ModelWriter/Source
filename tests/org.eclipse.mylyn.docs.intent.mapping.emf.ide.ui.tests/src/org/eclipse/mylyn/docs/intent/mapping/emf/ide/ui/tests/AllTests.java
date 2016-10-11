@@ -11,7 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.tests;
 
-import org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.tests.adapter.SelectionToEObjectLocationAdapterFactoryTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.tests.adapter.EObjectToEObjectLocationDescriptorAdapterFactoryTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.tests.adapter.SelectionToEObjectLocationDescriptorAdapterFactoryTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -22,7 +23,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {SelectionToEObjectLocationAdapterFactoryTests.class, })
+@SuiteClasses(value = {EObjectToEObjectLocationDescriptorAdapterFactoryTests.class,
+		SelectionToEObjectLocationDescriptorAdapterFactoryTests.class, })
 public class AllTests {
 
 }

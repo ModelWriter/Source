@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
-import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.ResourceConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
@@ -276,15 +275,7 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void isRegistred() {
-		boolean found = false;
-		for (IConnector connect : MappingUtils.getConnectorRegistry().getConnectors()) {
-			if (connect instanceof ResourceConnector) {
-				found = true;
-				break;
-			}
-		}
-
-		assertTrue(found);
+		assertTrue(MappingUtils.getConnectorRegistry().getConnector(IResourceLocation.class) instanceof ResourceConnector);
 	}
 
 	@Test

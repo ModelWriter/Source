@@ -11,32 +11,34 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.adapter;
 
+import java.io.IOException;
+
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.TextRegion;
 
 /**
- * Marker to {@link ITextLocation}.
+ * Marker to {@link ILocationDescriptor} descriptor.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class MarkerToTextLocation implements IMarkerToLocation {
+public class MarkerToTextLocationDescriptor implements IMarkerToLocationDescriptor {
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocation#getAdapter(org.eclipse.core.resources.IMarker)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocationDescriptor#getAdapter(org.eclipse.core.resources.IMarker)
 	 */
-	public ITextLocation getAdapter(IMarker marker) {
-		ITextLocation res = null;
+	public ILocationDescriptor getAdapter(IMarker marker) {
+		ILocationDescriptor res = null;
 
 		final IBase currentBase = IdeMappingUtils.getCurentBase();
 		if (currentBase != null) {
@@ -44,24 +46,20 @@ public class MarkerToTextLocation implements IMarkerToLocation {
 				if (marker.isSubtypeOf(IMarker.TEXT)) {
 					// TODO we implicitly decide to have a flat structure of location here... we probably
 					// don't want to do that
-					final ILocation container = MappingUtils.getConnectorRegistry().getOrCreateLocation(
-							currentBase, marker.getResource());
+					final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
+							.getLocationDescriptor(null, marker.getResource());
 					final int start = (Integer)marker.getAttribute(IMarker.CHAR_START);
 					final Integer end = (Integer)marker.getAttribute(IMarker.CHAR_END);
-					final TextRegion region = new TextRegion(start, end);
-					res = (ITextLocation)MappingUtils.getConnectorRegistry().getOrCreateLocation(container,
+					final String content = MappingUtils.getContent((int)marker.getResource().getLocation()
+							.toFile().length(), ((IFile)marker.getResource()).getContents());
+					final TextRegion region = new TextRegion(content.substring(start, end), start, end);
+					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(containerDescriptor,
 							region);
 				}
 			} catch (CoreException e) {
 				Activator.getDefault().getLog().log(
 						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-			} catch (InstantiationException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-			} catch (IllegalAccessException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-			} catch (ClassNotFoundException e) {
+			} catch (IOException e) {
 				Activator.getDefault().getLog().log(
 						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 			}
@@ -69,5 +67,4 @@ public class MarkerToTextLocation implements IMarkerToLocation {
 
 		return res;
 	}
-
 }

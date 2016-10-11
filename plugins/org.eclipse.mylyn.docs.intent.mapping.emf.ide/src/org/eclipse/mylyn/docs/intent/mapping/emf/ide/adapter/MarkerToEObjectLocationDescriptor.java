@@ -22,27 +22,26 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker.IEObjectLocationMaker;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocationDescriptor;
 
 /**
- * Marker to {@link IEObjectLocation}.
+ * Marker to {@link ILocationDescriptor} descriptor.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class MarkerToEObjectLocation implements IMarkerToLocation {
+public class MarkerToEObjectLocationDescriptor implements IMarkerToLocationDescriptor {
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocation#getAdapter(org.eclipse.core.resources.IMarker)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocationDescriptor#getAdapter(org.eclipse.core.resources.IMarker)
 	 */
-	public IEObjectLocation getAdapter(IMarker marker) {
-		IEObjectLocation res = null;
+	public ILocationDescriptor getAdapter(IMarker marker) {
+		ILocationDescriptor res = null;
 
 		final IBase currentBase = IdeMappingUtils.getCurentBase();
 		if (currentBase != null) {
@@ -50,25 +49,16 @@ public class MarkerToEObjectLocation implements IMarkerToLocation {
 				if (marker.isSubtypeOf(EValidator.MARKER)) {
 					// TODO we implicitly decide to have a flat structure of location here... we probably
 					// don't want to do that
-					final ILocation container = MappingUtils.getConnectorRegistry().getOrCreateLocation(
-							currentBase, marker.getResource());
+					final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
+							.getLocationDescriptor(null, marker.getResource());
 					final String uri = (String)marker.getAttribute(IEObjectLocationMaker.URI_ATTRIBUTE);
 					// TODO we should change this to use a global ResourceSet...
 					final ResourceSet rs = new ResourceSetImpl();
 					final EObject eObject = rs.getEObject(URI.createURI(uri), true);
-					res = (IEObjectLocation)MappingUtils.getConnectorRegistry().getOrCreateLocation(
-							container, eObject);
+					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(containerDescriptor,
+							eObject);
 				}
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-			} catch (InstantiationException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-			} catch (IllegalAccessException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-			} catch (ClassNotFoundException e) {
 				Activator.getDefault().getLog().log(
 						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 			}
@@ -76,5 +66,4 @@ public class MarkerToEObjectLocation implements IMarkerToLocation {
 
 		return res;
 	}
-
 }

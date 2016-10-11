@@ -25,31 +25,34 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToTextLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationDescriptorAdapterFactory;
+import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToTextLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector.TextFileConnectorDelegateTests.TestTextFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
+import org.eclipse.mylyn.docs.intent.mapping.text.TextRegion;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests {@link MarkerToTextLocation}.
+ * Tests {@link MarkerToTextLocationDescriptor}.
  * 
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class MarkerToTextLocationTests {
+public class MarkerToTextLocationDesciptorTests {
 
 	/**
 	 * Makes sure org.eclipse.mylyn.docs.intent.mapping.ide is activated.
 	 */
-	private static final MarkerToTextLocation ADAPTER = new MarkerToTextLocation();
+	private static final MarkerToLocationDescriptorAdapterFactory ADAPTER = new MarkerToLocationDescriptorAdapterFactory();
 
 	@Test
 	public void getAdapter() throws CoreException, IOException {
@@ -72,15 +75,19 @@ public class MarkerToTextLocationTests {
 				new BaseElementFactory.FactoryDescriptor<TextConnectorParametrizedTests.TestTextLocation>(
 						TextConnectorParametrizedTests.TestTextLocation.class));
 
-		ITextLocation location = (ITextLocation)Platform.getAdapterManager().getAdapter(marker,
-				ILocation.class);
+		ILocationDescriptor locationDescriptor = (ILocationDescriptor)Platform.getAdapterManager()
+				.getAdapter(marker, ILocationDescriptor.class);
 
-		assertNotNull(location);
-		assertEquals(3, location.getStartOffset());
-		assertEquals(4, location.getEndOffset());
-		assertTrue(location.getContainer() instanceof ITextFileLocation);
-		final ITextFileLocation container = (ITextFileLocation)location.getContainer();
-		assertEquals("/test/test.txt", container.getFullPath());
+		assertNotNull(locationDescriptor);
+		assertTrue(locationDescriptor.getElement() instanceof TextRegion);
+		final TextRegion textRegion = (TextRegion)locationDescriptor.getElement();
+		assertEquals(3, textRegion.getStartOffset());
+		assertEquals(4, textRegion.getEndOffset());
+		assertEquals("4", textRegion.getText());
+		assertTrue(locationDescriptor.getContainerDescriptor().getElement() instanceof IFile);
+		assertNull(locationDescriptor.getContainerDescriptor().getContainerDescriptor());
+		final IFile container = (IFile)locationDescriptor.getContainerDescriptor().getElement();
+		assertEquals("/test/test.txt", container.getFullPath().toString());
 
 		project.delete(true, true, new NullProgressMonitor());
 	}

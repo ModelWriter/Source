@@ -13,10 +13,13 @@ package org.eclipse.mylyn.docs.intent.mapping.internal.connector;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
 
@@ -33,6 +36,11 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 * {@link IConnector}.
 	 */
 	private final List<IConnector> connectors = Collections.synchronizedList(new ArrayList<IConnector>());
+
+	/**
+	 * Mapping of {@link IConnector#getType() connector type} to {@link IConnector}.
+	 */
+	private final Map<Class<? extends ILocation>, IConnector> typeToConnector = new HashMap<Class<? extends ILocation>, IConnector>();
 
 	/**
 	 * {@inheritDoc}
@@ -92,6 +100,24 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getLocationType(java.lang.Class,
+	 *      java.lang.Object)
+	 */
+	public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+			Object element) {
+		for (IConnector connector : getConnectors()) {
+			final Class<? extends ILocation> locationType = connector.getLocationType(containerType, element);
+			if (locationType != null) {
+				return locationType;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 	 */
 	public String getName(ILocation location) {
@@ -99,6 +125,24 @@ public class ConnectorRegistry implements IConnectorRegistry {
 			final String name = connector.getName(location);
 			if (name != null) {
 				return name;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 *      java.lang.Object)
+	 */
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+		for (IConnector connector : getConnectors()) {
+			final ILocationDescriptor descriptor = connector.getLocationDescriptor(containerDescriptor,
+					element);
+			if (descriptor != null) {
+				return descriptor;
 			}
 		}
 
@@ -116,7 +160,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 				int index = 0;
 				boolean added = false;
 				for (IConnector currentConnector : connectors) {
-					if (currentConnector.getLocationType().isAssignableFrom(connector.getLocationType())) {
+					if (currentConnector.getType().isAssignableFrom(connector.getType())) {
 						connectors.add(index, connector);
 						added = true;
 						break;
@@ -127,6 +171,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 				if (!added) {
 					connectors.add(index, connector);
 				}
+				typeToConnector.put(connector.getType(), connector);
 			}
 		} else {
 			throw new IllegalArgumentException("IConnector can't be null.");
@@ -139,17 +184,32 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#unregister(org.eclipse.mylyn.docs.intent.mapping.conector.IConnector)
 	 */
 	public void unregister(IConnector connector) {
-		connectors.remove(connector);
+		synchronized(connectors) {
+			connectors.remove(connector);
+			typeToConnector.remove(connector.getType());
+		}
+	}
+
+	/**
+	 * Gets the {@link List} of {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector}.
+	 * 
+	 * @return the {@link List} of {@link IConnectorRegistry#register(IConnector) registered}
+	 *         {@link IConnector}
+	 */
+	protected List<IConnector> getConnectors() {
+		synchronized(connectors) {
+			return Collections.unmodifiableList(new ArrayList<IConnector>(connectors));
+		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getConnectors()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getConnector(java.lang.Class)
 	 */
-	public List<IConnector> getConnectors() {
+	public IConnector getConnector(Class<? extends ILocation> connectorType) {
 		synchronized(connectors) {
-			return Collections.unmodifiableList(new ArrayList<IConnector>(connectors));
+			return typeToConnector.get(connectorType);
 		}
 	}
 

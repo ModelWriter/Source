@@ -12,9 +12,9 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector;
 
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IdeTextConnector;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorTests;
+import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -28,15 +28,7 @@ public class IdeTextConnectorTests extends TextConnectorTests {
 
 	@Test
 	public void isRegistred() {
-		boolean found = false;
-		for (IConnector connect : MappingUtils.getConnectorRegistry().getConnectors()) {
-			if (connect instanceof IdeTextConnector) {
-				found = true;
-				break;
-			}
-		}
-
-		assertTrue(found);
+		assertTrue(MappingUtils.getConnectorRegistry().getConnector(ITextLocation.class) instanceof IdeTextConnector);
 	}
 
 }

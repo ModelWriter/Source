@@ -11,12 +11,11 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.ui.command;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.ide.ui.Activator;
 
 /**
  * Links the selection as {@link org.eclipse.mylyn.docs.intent.mapping.base.ILink#getTarget() target} of the
@@ -26,45 +25,46 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.ui.Activator;
  */
 public class LinkAsTarget extends AbstractLocationHandler {
 
-	/**
-	 * Unable to create link message.
-	 */
-	private static final String UNABLE_TO_CREATE_LINK = "unable to create link";
-
 	@Override
-	protected void handleLocation(ILocation target) {
-		for (ILocation source : IdeMappingUtils.getLocationsPool()) {
-			if (IdeMappingUtils.isActive(source) && !source.equals(target)
-					&& MappingUtils.getLink(source, target) == null) {
-				try {
-					MappingUtils.createLink(source, target);
-				} catch (InstantiationException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, e));
-				} catch (IllegalAccessException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, e));
-				} catch (ClassNotFoundException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, e));
+	protected void handleLocationDescriptor(ILocationDescriptor targetDescriptor) {
+		final IBase base = IdeMappingUtils.getCurentBase();
+		final ILocation target = createLocation(targetDescriptor, base, UNABLE_TO_CREATE_TARGET_LOCATION);
+		if (target != null) {
+			for (ILocationDescriptor sourceDescriptor : IdeMappingUtils.getLocationsPool()) {
+				if (IdeMappingUtils.isActive(sourceDescriptor)) {
+					final ILocation source = createLocation(sourceDescriptor, base,
+							UNABLE_TO_CREATE_SOURCE_LOCATION);
+					if (!source.equals(target) && MappingUtils.getLink(source, target) == null) {
+						createLink(source, target);
+					}
 				}
 			}
 		}
 	}
 
 	@Override
-	protected boolean canHandleLocation(ILocation target) {
+	protected boolean canHandleLocation(ILocationDescriptor targetDescriptor) {
 		boolean res = false;
 
-		for (ILocation source : IdeMappingUtils.getLocationsPool()) {
-			if (IdeMappingUtils.isActive(source) && !source.equals(target)
-					&& MappingUtils.getLink(source, target) == null) {
-				res = true;
-				break;
+		final IBase base = IdeMappingUtils.getCurentBase();
+		if (targetDescriptor.exists(base)) {
+			final ILocation target = targetDescriptor.getLocation(base);
+			for (ILocationDescriptor sourceDescriptor : IdeMappingUtils.getLocationsPool()) {
+				if (IdeMappingUtils.isActive(sourceDescriptor)) {
+					if (!sourceDescriptor.exists(base)) {
+						res = true;
+						break;
+					} else if (!sourceDescriptor.getLocation(base).equals(target)
+							&& MappingUtils.getLink(sourceDescriptor.getLocation(base), target) == null) {
+						res = true;
+						break;
+					}
+				}
 			}
+		} else {
+			res = IdeMappingUtils.asActiveLocationDescriptor();
 		}
 
 		return res;
 	}
-
 }

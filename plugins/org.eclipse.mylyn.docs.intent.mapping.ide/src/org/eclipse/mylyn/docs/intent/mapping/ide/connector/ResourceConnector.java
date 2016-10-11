@@ -23,6 +23,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
@@ -36,15 +38,20 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IResourceLocation;
  */
 public class ResourceConnector extends AbstractConnector {
 
-	@Override
-	protected Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
+	 *      java.lang.Object)
+	 */
+	public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
 			Object element) {
 		final Class<? extends ILocation> res;
 
 		if (element instanceof IFile) {
 			res = getIFileLocationType((IFile)element);
 		} else if (element instanceof IResource) {
-			res = getLocationType();
+			res = getType();
 		} else {
 			res = null;
 		}
@@ -151,9 +158,28 @@ public class ResourceConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 *      java.lang.Object)
 	 */
-	public Class<? extends ILocation> getLocationType() {
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+		final ILocationDescriptor res;
+
+		if (element instanceof IResource) {
+			res = new ObjectLocationDescriptor(containerDescriptor, element, ((IResource)element)
+					.getFullPath().toString(), getType());
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType()
+	 */
+	public Class<? extends ILocation> getType() {
 		return IResourceLocation.class;
 	}
 

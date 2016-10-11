@@ -15,6 +15,8 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils.DiffMatch;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 
 /**
@@ -24,13 +26,18 @@ import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
  */
 public class TextConnector extends AbstractConnector {
 
-	@Override
-	protected Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
+	 *      java.lang.Object)
+	 */
+	public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
 			Object element) {
 		final Class<? extends ILocation> res;
 
 		if (ITextContainer.class.isAssignableFrom(containerType) && element instanceof TextRegion) {
-			res = getLocationType();
+			res = getType();
 		} else {
 			res = null;
 		}
@@ -104,9 +111,28 @@ public class TextConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 *      java.lang.Object)
 	 */
-	public Class<? extends ILocation> getLocationType() {
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+		final ILocationDescriptor res;
+
+		if (element instanceof TextRegion) {
+			res = new ObjectLocationDescriptor(containerDescriptor, element, ((TextRegion)element).getText(),
+					getType());
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType()
+	 */
+	public Class<? extends ILocation> getType() {
 		return ITextLocation.class;
 	}
 

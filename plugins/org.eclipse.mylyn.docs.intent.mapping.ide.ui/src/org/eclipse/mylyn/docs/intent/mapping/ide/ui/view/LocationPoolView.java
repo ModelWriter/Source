@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener;
 import org.eclipse.swt.SWT;
@@ -35,7 +35,7 @@ import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.part.ViewPart;
 
 /**
- * Pool of {@link ILocation} view.
+ * Pool of {@link ILocationDescriptor} view.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
@@ -132,39 +132,38 @@ public class LocationPoolView extends ViewPart {
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainerListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationActivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 		 */
-		public void contentsAdded(ILocation location) {
+		public void locationActivated(ILocationDescriptor locationDescriptor) {
 			viewer.setInput(IdeMappingUtils.getLocationsPool());
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainerListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationDeactivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 		 */
-		public void contentsRemoved(ILocation location) {
+		public void locationDeactivated(ILocationDescriptor locationDescriptor) {
 			viewer.setInput(IdeMappingUtils.getLocationsPool());
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationActivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 		 */
-		public void locationActivated(ILocation location) {
+		public void contentsAdded(ILocationDescriptor locationDescriptor) {
 			viewer.setInput(IdeMappingUtils.getLocationsPool());
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see orgmenu.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationDeactivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 		 */
-		public void locationDeactivated(ILocation location) {
+		public void contentsRemoved(ILocationDescriptor locationDescriptor) {
 			viewer.setInput(IdeMappingUtils.getLocationsPool());
 		}
-
 	}
 
 	/**
@@ -215,7 +214,7 @@ public class LocationPoolView extends ViewPart {
 			}
 
 			public boolean isChecked(Object element) {
-				return IdeMappingUtils.isActive((ILocation)element);
+				return IdeMappingUtils.isActive((ILocationDescriptor)element);
 			}
 		});
 		locationsPoolListener = new LocationsPoolListener(locationsList.getViewer());
@@ -226,14 +225,12 @@ public class LocationPoolView extends ViewPart {
 
 			public void handleEvent(Event event) {
 				if (event.character == SWT.DEL) {
-					final List<ILocation> toDelete = new ArrayList<ILocation>();
+					final List<ILocationDescriptor> toDelete = new ArrayList<ILocationDescriptor>();
 					for (TreeItem item : ((Tree)event.widget).getSelection()) {
-						if (item.getData() instanceof ILocation) {
-							toDelete.add((ILocation)item.getData());
-						}
+						toDelete.add((ILocationDescriptor)item.getData());
 					}
-					for (ILocation location : toDelete) {
-						IdeMappingUtils.removeLocationFromPool(location);
+					for (ILocationDescriptor locationDescriptor : toDelete) {
+						IdeMappingUtils.removeLocationFromPool(locationDescriptor);
 					}
 				}
 			}
@@ -243,9 +240,9 @@ public class LocationPoolView extends ViewPart {
 			public void handleEvent(Event event) {
 				if (event.detail == SWT.CHECK) {
 					if (((TreeItem)event.item).getChecked()) {
-						IdeMappingUtils.activateLocation((ILocation)event.item.getData());
+						IdeMappingUtils.activateLocation((ILocationDescriptor)event.item.getData());
 					} else {
-						IdeMappingUtils.deactivateLocation((ILocation)event.item.getData());
+						IdeMappingUtils.deactivateLocation((ILocationDescriptor)event.item.getData());
 					}
 				}
 			}

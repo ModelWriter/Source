@@ -15,6 +15,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -382,7 +383,7 @@ public final class MappingUtils {
 	 *            the {@link File}
 	 * @param charsetName
 	 *            The name of a supported {@link java.nio.charset.Charset </code>charset<code>}
-	 * @return a {@link CharSequence} of the content of the given {@link File}
+	 * @return a {@link String} of the content of the given {@link File}
 	 * @throws IOException
 	 *             if the {@link File} can't be read
 	 */
@@ -395,18 +396,38 @@ public final class MappingUtils {
 			throw new IOException(file.getAbsolutePath() + " is not readable.");
 		}
 		int len = (int)file.length();
-		StringBuilder res = new StringBuilder(len);
+		final String res;
 		if (len != 0) {
-			InputStreamReader input = new InputStreamReader(
-					new BufferedInputStream(new FileInputStream(file)), charsetName);
-			char[] buffer = new char[len];
-			int length = input.read(buffer);
-			while (length != -1) {
-				res.append(buffer, 0, length);
-				length = input.read(buffer);
-			}
-			input.close();
+			res = getContent(len, new FileInputStream(file));
+		} else {
+			res = "";
 		}
+		return res;
+	}
+
+	/**
+	 * Gets the content of the given {@link File}.
+	 * 
+	 * @param length
+	 *            the {@link InputStream} size
+	 * @param inputStream
+	 *            the {@link InputStream}
+	 * @return a {@link String} of the content of the given {@link File}
+	 * @throws IOException
+	 *             if the {@link InputStream} can't be read
+	 */
+	public static String getContent(int length, InputStream inputStream) throws IOException {
+		final StringBuilder res = new StringBuilder(length);
+		final InputStreamReader input = new InputStreamReader(new BufferedInputStream(inputStream));
+
+		final char[] buffer = new char[length];
+		int len = input.read(buffer);
+		while (len != -1) {
+			res.append(buffer, 0, len);
+			len = input.read(buffer);
+		}
+		input.close();
+
 		return res.toString();
 	}
 

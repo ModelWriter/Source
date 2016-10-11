@@ -2,16 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.eclipse.core.runtime.adapters">
-      <factory
-            adaptableType="org.eclipse.jface.viewers.IStructuredSelection"
-            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.adapter.SelectionToEObjectLocationAdapterFactory">
-         <adapter
-               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
-         </adapter>
-      </factory>
-   </extension>
-   <extension
          point="org.eclipse.ui.newWizards">
       <wizard
             category="org.eclipse.mylyn.docs.intent.mapping.ide.ui.mapping"

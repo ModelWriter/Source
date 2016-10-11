@@ -25,8 +25,8 @@ import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDes
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
-import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocation;
-import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationAdapterFactory;
+import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocationDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationDescriptorAdapterFactory;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -110,22 +110,22 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	public static final String CONNECTOR_ATTRIBUTE_CLASS = CLASS;
 
 	/**
-	 * Plugin providing {@link IMarkerToLocation} extension point to parse for extensions.
+	 * Plugin providing {@link IMarkerToLocationDescriptor} extension point to parse for extensions.
 	 */
 	public static final String MARKER_TO_LOCATION_EXTENSION_POINT = "org.eclipse.mylyn.docs.intent.mapping.ide.markerToLocation";
 
 	/**
-	 * {@link IMarkerToLocation} tag.
+	 * {@link IMarkerToLocationDescriptor} tag.
 	 */
 	public static final String MARKER_TO_LOCATION_TAG_EXTENSION = "markerToLocation";
 
 	/**
-	 * The {@link IMarkerToLocation} extension point adapter attribute.
+	 * The {@link IMarkerToLocationDescriptor} extension point adapter attribute.
 	 */
 	public static final String MARKER_TO_LOCATION_ATTRIBUTE_CLASS = CLASS;
 
 	/**
-	 * The {@link IMarkerToLocation} extension point adapter attribute.
+	 * The {@link IMarkerToLocationDescriptor} extension point adapter attribute.
 	 */
 	public static final String MARKER_TO_LOCATION_ATTRIBUTE_MARKER_TYPE = "markerType";
 
@@ -379,7 +379,7 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	}
 
 	/**
-	 * Parses a single {@link IMarkerToLocation} extension contribution.
+	 * Parses a single {@link IMarkerToLocationDescriptor} extension contribution.
 	 * 
 	 * @param extension
 	 *            Parses the given extension and adds its contribution to the registry
@@ -390,9 +390,9 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 			if (MARKER_TO_LOCATION_TAG_EXTENSION.equals(elem.getName())) {
 				try {
 					final String marterType = elem.getAttribute(MARKER_TO_LOCATION_ATTRIBUTE_MARKER_TYPE);
-					final IMarkerToLocation adapter = (IMarkerToLocation)elem
+					final IMarkerToLocationDescriptor adapter = (IMarkerToLocationDescriptor)elem
 							.createExecutableExtension(MARKER_TO_LOCATION_ATTRIBUTE_CLASS);
-					MarkerToLocationAdapterFactory.register(adapter, marterType);
+					MarkerToLocationDescriptorAdapterFactory.register(adapter, marterType);
 				} catch (CoreException e) {
 					Activator.getDefault().getLog().log(
 							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));

@@ -23,17 +23,13 @@
    <extension
          point="org.eclipse.core.runtime.adapters">
       <factory
-            adaptableType="org.eclipse.jface.viewers.IStructuredSelection"
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.adapter.SelectionToLocationAdapterFactory">
+            adaptableType="java.lang.Object"
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.adapter.ObjectToLocationAdapterFactory">
          <adapter
                type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
          </adapter>
-      </factory>
-      <factory
-            adaptableType="org.eclipse.jface.text.ITextSelection"
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.adapter.TextSelectionToTextLocationAdapterFactory">
          <adapter
-               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
          </adapter>
       </factory>
    </extension>
@@ -67,9 +63,9 @@
                            ifEmpty="false"
                            operator="and">
                         <adapt
-                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
                            <instanceof
-                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
                            </instanceof>
                         </adapt>
                      </iterate>
@@ -89,9 +85,9 @@
                            ifEmpty="false"
                            operator="and">
                         <adapt
-                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
                            <instanceof
-                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
                            </instanceof>
                         </adapt>
                      </iterate>
@@ -111,9 +107,9 @@
                            ifEmpty="false"
                            operator="and">
                         <adapt
-                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
                            <instanceof
-                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
                            </instanceof>
                         </adapt>
                      </iterate>
@@ -133,9 +129,9 @@
                            ifEmpty="false"
                            operator="and">
                         <adapt
-                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                              type="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
                            <instanceof
-                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
                            </instanceof>
                         </adapt>
                      </iterate>

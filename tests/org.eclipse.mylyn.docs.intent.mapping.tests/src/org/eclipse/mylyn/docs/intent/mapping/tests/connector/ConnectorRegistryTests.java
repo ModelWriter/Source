@@ -11,13 +11,13 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.connector;
 
-import java.util.List;
-
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.internal.connector.ConnectorRegistry;
@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -67,13 +68,18 @@ public class ConnectorRegistryTests {
 	 */
 	public static class TestConnector1 extends AbstractConnector {
 
-		@Override
-		protected Class<? extends ILocation> getLocationType(
-				Class<? extends ILocationContainer> containerType, Object element) {
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
+		 *      java.lang.Object)
+		 */
+		public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+				Object element) {
 			final Class<? extends ILocation> res;
 
 			if (containerType == TestLocation1.class) {
-				res = getLocationType();
+				res = getType();
 			} else {
 				res = null;
 			}
@@ -104,12 +110,26 @@ public class ConnectorRegistryTests {
 			return res;
 		}
 
+		public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
+				Object element) {
+			final ILocationDescriptor res;
+
+			if (containerDescriptor.getConnectorType() == ITestLocation1.class) {
+				res = new ObjectLocationDescriptor(containerDescriptor, element, "TestLocation1 "
+						+ element.toString(), getType());
+			} else {
+				res = null;
+			}
+
+			return res;
+		}
+
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+		 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType()
 		 */
-		public Class<? extends ILocation> getLocationType() {
+		public Class<? extends ILocation> getType() {
 			return ITestLocation1.class;
 		}
 
@@ -157,13 +177,18 @@ public class ConnectorRegistryTests {
 	 */
 	public static class TestConnector2 extends AbstractConnector {
 
-		@Override
-		protected Class<? extends ILocation> getLocationType(
-				Class<? extends ILocationContainer> containerType, Object element) {
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
+		 *      java.lang.Object)
+		 */
+		public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+				Object element) {
 			final Class<? extends ILocation> res;
 
 			if (containerType == TestLocation2.class) {
-				res = getLocationType();
+				res = getType();
 			} else {
 				res = null;
 			}
@@ -194,12 +219,26 @@ public class ConnectorRegistryTests {
 			return res;
 		}
 
+		public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
+				Object element) {
+			final ILocationDescriptor res;
+
+			if (containerDescriptor.getConnectorType() == ITestLocation2.class) {
+				res = new ObjectLocationDescriptor(containerDescriptor, element, "TestLocation2 "
+						+ element.toString(), getType());
+			} else {
+				res = null;
+			}
+
+			return res;
+		}
+
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+		 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType()
 		 */
-		public Class<? extends ILocation> getLocationType() {
+		public Class<? extends ILocation> getType() {
 			return ITestLocation2.class;
 		}
 
@@ -255,7 +294,7 @@ public class ConnectorRegistryTests {
 		final IConnector connector = new TestConnector1();
 		connectorRegistery.register(connector);
 
-		assertEquals(1, connectorRegistery.getConnectors().size());
+		assertTrue(connectorRegistery.getConnector(connector.getType()) instanceof TestConnector1);
 	}
 
 	@Test
@@ -263,28 +302,22 @@ public class ConnectorRegistryTests {
 		final IConnector connector = new TestConnector1();
 		connectorRegistery.register(connector);
 
-		assertEquals(1, connectorRegistery.getConnectors().size());
+		assertTrue(connectorRegistery.getConnector(connector.getType()) instanceof TestConnector1);
 
 		connectorRegistery.unregister(connector);
 
-		assertEquals(0, connectorRegistery.getConnectors().size());
+		assertNull(connectorRegistery.getConnector(connector.getType()));
 	}
 
 	@Test
-	public void getConnectors() {
-		final IConnector connector0 = new TestConnector1();
+	public void getConnector() {
 		final IConnector connector1 = new TestConnector1();
-		final IConnector connector2 = new TestConnector1();
-		connectorRegistery.register(connector0);
+		final IConnector connector2 = new TestConnector2();
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
 
-		final List<IConnector> bases = connectorRegistery.getConnectors();
-		assertEquals(3, bases.size());
-
-		assertEquals(connector2, bases.get(0));
-		assertEquals(connector1, bases.get(1));
-		assertEquals(connector0, bases.get(2));
+		assertTrue(connectorRegistery.getConnector(connector1.getType()) instanceof TestConnector1);
+		assertTrue(connectorRegistery.getConnector(connector2.getType()) instanceof TestConnector2);
 	}
 
 	@Test

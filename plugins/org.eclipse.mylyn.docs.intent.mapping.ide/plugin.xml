@@ -26,9 +26,9 @@
       </factory>
       <factory
             adaptableType="org.eclipse.core.resources.IMarker"
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationAdapterFactory">
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationDescriptorAdapterFactory">
          <adapter
-               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocation">
+               type="org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor">
          </adapter>
       </factory>
    </extension>
@@ -57,7 +57,7 @@
    <extension
          point="org.eclipse.mylyn.docs.intent.mapping.ide.markerToLocation">
       <markerToLocation
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToTextLocation"
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToTextLocationDescriptor"
             markerType="org.eclipse.core.resources.textmarker">
       </markerToLocation>
    </extension>

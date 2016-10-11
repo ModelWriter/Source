@@ -13,6 +13,7 @@ package org.eclipse.mylyn.docs.intent.mapping.conector;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 
 /**
  * The connector is in charge of {@link ILocation}.
@@ -56,6 +57,31 @@ public interface IConnector {
 	ILocation getLocation(ILocationContainer container, Object element);
 
 	/**
+	 * Gets the {@link ILocationDescriptor} for the given element.
+	 * 
+	 * @param containerDescriptor
+	 *            the container {@link ILocationDescriptor} can be <code>null</code>
+	 * @param element
+	 *            the element
+	 * @return the {@link ILocationDescriptor} for the given element if handled by this {@link IConnector},
+	 *         <code>null</code> otherwise
+	 */
+	ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element);
+
+	/**
+	 * Gets the {@link ILocation} type according to the given container type and an element to locate.
+	 * 
+	 * @param containerType
+	 *            the type of the containing {@link ILocation} can be <code>null</code> if not contained
+	 * @param element
+	 *            the Element object to locate
+	 * @return the {@link ILocation} type according to the given container type and an element to locate if
+	 *         any is handled by this {@link IConnector}, <code>null</code> otherwise
+	 */
+	Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+			Object element);
+
+	/**
 	 * Gets a human readable name for the given {@link ILocation}.
 	 * 
 	 * @param location
@@ -69,6 +95,6 @@ public interface IConnector {
 	 * 
 	 * @return the {@link ILocation} {@link Class} managed by this connector
 	 */
-	Class<? extends ILocation> getLocationType();
+	Class<? extends ILocation> getType();
 
 }

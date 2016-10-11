@@ -29,14 +29,22 @@ public class TextRegion {
 	private final int endOffset;
 
 	/**
+	 * The text.
+	 */
+	private final String text;
+
+	/**
 	 * Constructor.
 	 * 
+	 * @param text
+	 *            the text
 	 * @param startOffset
 	 *            the start offset
 	 * @param endOffset
 	 *            the end offset
 	 */
-	public TextRegion(int startOffset, int endOffset) {
+	public TextRegion(String text, int startOffset, int endOffset) {
+		this.text = text;
 		this.startOffset = startOffset;
 		this.endOffset = endOffset;
 	}
@@ -57,6 +65,26 @@ public class TextRegion {
 	 */
 	public int getEndOffset() {
 		return endOffset;
+	}
+
+	/**
+	 * Get the text.
+	 * 
+	 * @return the text
+	 */
+	public String getText() {
+		return text;
+	}
+
+	@Override
+	public int hashCode() {
+		return (text.hashCode() ^ endOffset) - startOffset;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof TextRegion && startOffset == ((TextRegion)obj).startOffset
+				&& endOffset == ((TextRegion)obj).endOffset && text.equals(((TextRegion)obj).text);
 	}
 
 }

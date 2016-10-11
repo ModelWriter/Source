@@ -11,10 +11,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.conector;
 
-import java.util.List;
-
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 
 /**
  * The {@link IConnector} registry maintains a set of active {@link IConnector}.
@@ -60,6 +59,19 @@ public interface IConnectorRegistry {
 	ILocation getLocation(ILocationContainer container, Object element);
 
 	/**
+	 * Gets the {@link ILocationDescriptor} for the given element.
+	 * 
+	 * @param containerDescriptor
+	 *            the container {@link ILocationDescriptor} can be <code>null</code>
+	 * @param element
+	 *            the element
+	 * @return the {@link ILocationDescriptor} for the given element if handled by a
+	 *         {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector},
+	 *         <code>null</code> otherwise
+	 */
+	ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element);
+
+	/**
 	 * Gets or creates an {@link ILocation} according to the given element.
 	 * 
 	 * @param container
@@ -79,6 +91,19 @@ public interface IConnectorRegistry {
 	 */
 	ILocation getOrCreateLocation(ILocationContainer container, Object element)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+
+	/**
+	 * Gets the {@link ILocation} type according to the given container type and an element to locate.
+	 * 
+	 * @param containerType
+	 *            the type of the containing {@link ILocation} can be <code>null</code> if not contained
+	 * @param element
+	 *            the Element object to locate
+	 * @return the {@link ILocation} type according to the given container type and an element to locate if
+	 *         any is handled by this {@link IConnector}, <code>null</code> otherwise
+	 */
+	Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+			Object element);
 
 	/**
 	 * Gets a human readable name for the given {@link ILocation}.
@@ -108,11 +133,14 @@ public interface IConnectorRegistry {
 	void unregister(IConnector connector);
 
 	/**
-	 * Gets the {@link List} of {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector}.
+	 * Gets the {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector} with the given
+	 * {@link IConnector#getType() connector type}.
 	 * 
-	 * @return the {@link List} of {@link IConnectorRegistry#register(IConnector) registered}
-	 *         {@link IConnector}
+	 * @param connectorType
+	 *            the {@link IConnector#getType() connector type}
+	 * @return the {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector} with the
+	 *         given {@link IConnector#getType() connector type}
 	 */
-	List<IConnector> getConnectors();
+	IConnector getConnector(Class<? extends ILocation> connectorType);
 
 }

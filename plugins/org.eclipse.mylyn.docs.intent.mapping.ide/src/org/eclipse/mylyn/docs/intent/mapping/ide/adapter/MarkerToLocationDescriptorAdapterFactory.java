@@ -24,25 +24,26 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 
 /**
- * Adapts {@link IMarker} to {@link ILocation}.
+ * Adapts {@link IMarker} to {@link ILocationDescriptor}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class MarkerToLocationAdapterFactory implements IAdapterFactory {
+public class MarkerToLocationDescriptorAdapterFactory implements IAdapterFactory {
 
 	/**
-	 * Mapping from {@link IMarkerToLocation} to marker type.
+	 * Mapping from {@link IMarkerToLocationDescriptor} to marker type.
 	 */
-	private static final Map<IMarkerToLocation, String> ADAPTER_TYPE = new HashMap<IMarkerToLocation, String>();
+	private static final Map<IMarkerToLocationDescriptor, String> ADAPTER_TYPE = new HashMap<IMarkerToLocationDescriptor, String>();
 
 	/**
-	 * The {@link List} of {@link IMarkerToLocation} from the more specific marker type to the less specific.
+	 * The {@link List} of {@link IMarkerToLocationDescriptor} from the more specific marker type to the less
+	 * specific.
 	 */
-	private static final List<IMarkerToLocation> ADAPTERS = new ArrayList<IMarkerToLocation>();
+	private static final List<IMarkerToLocationDescriptor> ADAPTERS = new ArrayList<IMarkerToLocationDescriptor>();
 
 	/**
 	 * {@inheritDoc}
@@ -50,15 +51,15 @@ public class MarkerToLocationAdapterFactory implements IAdapterFactory {
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
 	@SuppressWarnings("restriction")
-	public ILocation getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
-		ILocation res = null;
+	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
+		ILocationDescriptor res = null;
 
 		if (adaptableObject instanceof IMarker) {
 			final IMarker marker = (IMarker)adaptableObject;
 			final MarkerManager manager = ((Workspace)ResourcesPlugin.getWorkspace()).getMarkerManager();
 			try {
 				final String markerType = marker.getType();
-				for (IMarkerToLocation adapter : ADAPTERS) {
+				for (IMarkerToLocationDescriptor adapter : ADAPTERS) {
 					if (manager.isSubtype(markerType, ADAPTER_TYPE.get(adapter))) {
 						res = adapter.getAdapter(marker);
 						if (res != null) {
@@ -81,24 +82,24 @@ public class MarkerToLocationAdapterFactory implements IAdapterFactory {
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapterList()
 	 */
 	public Class<?>[] getAdapterList() {
-		return new Class<?>[] {ILocation.class };
+		return new Class<?>[] {ILocationDescriptor.class };
 	}
 
 	/**
-	 * registers the given {@link IMarkerToLocation} for the given marker type.
+	 * registers the given {@link IMarkerToLocationDescriptor} for the given marker type.
 	 * 
 	 * @param adapter
-	 *            the {@link IMarkerToLocation}
+	 *            the {@link IMarkerToLocationDescriptor}
 	 * @param markerType
 	 *            the marker type
 	 */
 	@SuppressWarnings("restriction")
-	public static void register(IMarkerToLocation adapter, String markerType) {
+	public static void register(IMarkerToLocationDescriptor adapter, String markerType) {
 		ADAPTER_TYPE.put(adapter, markerType);
 
 		final MarkerManager manager = ((Workspace)ResourcesPlugin.getWorkspace()).getMarkerManager();
 		int i = 0;
-		for (IMarkerToLocation registeredAdapter : ADAPTERS) {
+		for (IMarkerToLocationDescriptor registeredAdapter : ADAPTERS) {
 			if (manager.isSubtype(markerType, ADAPTER_TYPE.get(registeredAdapter))) {
 				break;
 			}

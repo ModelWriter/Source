@@ -12,22 +12,23 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.adapter;
 
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 
 /**
- * Adapts an {@link IMarker} to an {@link ILocation}.
+ * Adapts an {@link IMarker} to an {@link ILocationDescriptor}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface IMarkerToLocation {
+public interface IMarkerToLocationDescriptor {
 
 	/**
-	 * Gets the {@link ILocation} for the given {@link IMarker}.
+	 * Gets the {@link ILocationDescriptor} for the given {@link IMarker}.
 	 * 
 	 * @param marker
 	 *            the {@link IMarker} to adapt
-	 * @return the {@link ILocation} for the given {@link IMarker} if any, <code>null</code> otherwise
+	 * @return the {@link ILocationDescriptor} for the given {@link IMarker} if any, <code>null</code>
+	 *         otherwise
 	 */
-	ILocation getAdapter(IMarker marker);
+	ILocationDescriptor getAdapter(IMarker marker);
 
 }

@@ -27,7 +27,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainerListener;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileDelegateRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector.FileDelegateRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
@@ -44,50 +44,84 @@ public final class IdeMappingUtils {
 	 * 
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public interface ILocationsPoolListener extends ILocationContainerListener {
+	public interface ILocationsPoolListener {
 
 		/**
 		 * Stub implementation.
 		 *
 		 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 		 */
-		public static class Stub extends ILocationContainerListener.Stub implements ILocationsPoolListener {
+		public static class Stub implements ILocationsPoolListener {
 
 			/**
 			 * {@inheritDoc}
 			 *
-			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationActivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationActivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 			 */
-			public void locationActivated(ILocation location) {
+			public void locationActivated(ILocationDescriptor locationDescriptor) {
 				// nothing to do here
 			}
 
 			/**
 			 * {@inheritDoc}
 			 *
-			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationDeactivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationDeactivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 			 */
-			public void locationDeactivated(ILocation location) {
+			public void locationDeactivated(ILocationDescriptor locationDescriptor) {
+				// nothing to do here
+			}
+
+			/**
+			 * {@inheritDoc}
+			 *
+			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+			 */
+			public void contentsAdded(ILocationDescriptor locationDescriptor) {
+				// nothing to do here
+			}
+
+			/**
+			 * {@inheritDoc}
+			 *
+			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+			 */
+			public void contentsRemoved(ILocationDescriptor locationDescriptor) {
 				// nothing to do here
 			}
 
 		}
 
 		/**
-		 * Notifies that the given {@link ILocation} has been activated.
+		 * Notifies that the given {@link ILocationDescriptor} has been activated.
 		 * 
-		 * @param location
-		 *            the activated {@link ILocation}
+		 * @param locationDescriptor
+		 *            the activated {@link ILocationDescriptor}
 		 */
-		void locationActivated(ILocation location);
+		void locationActivated(ILocationDescriptor locationDescriptor);
 
 		/**
-		 * Notifies that the given {@link ILocation} has been deactivated.
+		 * Notifies that the given {@link ILocationDescriptor} has been deactivated.
 		 * 
-		 * @param location
-		 *            the deactivated {@link ILocation}
+		 * @param locationDescriptor
+		 *            the deactivated {@link ILocationDescriptor}
 		 */
-		void locationDeactivated(ILocation location);
+		void locationDeactivated(ILocationDescriptor locationDescriptor);
+
+		/**
+		 * Notifies that a {@link ILocationDescriptor} has been added.
+		 * 
+		 * @param locationDescriptor
+		 *            the added {@link ILocationDescriptor}
+		 */
+		void contentsAdded(ILocationDescriptor locationDescriptor);
+
+		/**
+		 * Notifies that a {@link ILocationDescriptor} has been removed.
+		 * 
+		 * @param locationDescriptor
+		 *            the removed {@link ILocationDescriptor}
+		 */
+		void contentsRemoved(ILocationDescriptor locationDescriptor);
 
 	}
 
@@ -102,9 +136,9 @@ public final class IdeMappingUtils {
 	private static final Map<ILocation, IMarker> LOCATION_TO_MARKER = new HashMap<ILocation, IMarker>();
 
 	/**
-	 * The pool of {@link ILocation} to link with.
+	 * The pool of {@link ILocationDescriptor} to link with.
 	 */
-	private static final Map<ILocation, Boolean> LOCATIONS_POOL = new LinkedHashMap<ILocation, Boolean>();
+	private static final Map<ILocationDescriptor, Boolean> LOCATIONS_POOL = new LinkedHashMap<ILocationDescriptor, Boolean>();
 
 	/**
 	 * The {@link List} of {@link ILocationsPoolListener}.
@@ -272,11 +306,11 @@ public final class IdeMappingUtils {
 	}
 
 	/**
-	 * Gets the pool of {@link ILocation} to link with.
+	 * Gets the pool of {@link ILocationDescriptor} to link with.
 	 * 
-	 * @return the pool of {@link ILocation} to link with
+	 * @return the pool of {@link ILocationDescriptor} to link with
 	 */
-	public static Set<ILocation> getLocationsPool() {
+	public static Set<ILocationDescriptor> getLocationsPool() {
 		return Collections.unmodifiableSet(LOCATIONS_POOL.keySet());
 	}
 
@@ -292,37 +326,39 @@ public final class IdeMappingUtils {
 	}
 
 	/**
-	 * Adds the given {@link ILocation} to the {@link #getLocationsPool() pool of location}.
+	 * Adds the given {@link ILocationDescriptor} to the {@link #getLocationsPool() pool of location
+	 * descriptor}.
 	 * 
-	 * @param location
-	 *            the {@link ILocation} to add
+	 * @param locationDesciptor
+	 *            the {@link ILocationDescriptor} to add
 	 */
-	public static void addLocationToPool(ILocation location) {
+	public static void addLocationToPool(ILocationDescriptor locationDesciptor) {
 		final Boolean added;
 		synchronized(LOCATIONS_POOL) {
-			added = LOCATIONS_POOL.put(location, false);
+			added = LOCATIONS_POOL.put(locationDesciptor, false);
 		}
 		if (added == null || added) {
 			for (ILocationsPoolListener listener : getLocationPoolListeners()) {
-				listener.contentsAdded(location);
+				listener.contentsAdded(locationDesciptor);
 			}
 		}
 	}
 
 	/**
-	 * Removes the given {@link ILocation} from the {@link #getLocationsPool() pool of location}.
+	 * Removes the given {@link ILocationDescriptor} from the {@link #getLocationsPool() pool of location
+	 * decriptor}.
 	 * 
-	 * @param location
+	 * @param locationDescriptor
 	 *            the {@link ILocation} to remove
 	 */
-	public static void removeLocationFromPool(ILocation location) {
+	public static void removeLocationFromPool(ILocationDescriptor locationDescriptor) {
 		final Boolean removed;
 		synchronized(LOCATIONS_POOL) {
-			removed = LOCATIONS_POOL.remove(location);
+			removed = LOCATIONS_POOL.remove(locationDescriptor);
 		}
 		if (removed != null) {
 			for (ILocationsPoolListener listener : getLocationPoolListeners()) {
-				listener.contentsRemoved(location);
+				listener.contentsRemoved(locationDescriptor);
 			}
 		}
 	}
@@ -352,67 +388,86 @@ public final class IdeMappingUtils {
 	}
 
 	/**
-	 * Activates the given {@link ILocation} form the {@link #getLocationsPool() pool of location}.
+	 * Activates the given {@link ILocationDescriptor} form the {@link #getLocationsPool() pool of location
+	 * descriptor}.
 	 * 
-	 * @param location
-	 *            the {@link ILocation} to activate
+	 * @param locationDescriptor
+	 *            the {@link ILocationDescriptor} to activate
 	 */
-	public static void activateLocation(ILocation location) {
+	public static void activateLocation(ILocationDescriptor locationDescriptor) {
 		final boolean changed;
 
 		synchronized(LOCATIONS_POOL) {
-			assert LOCATIONS_POOL.containsKey(location);
-			final Boolean lastValue = LOCATIONS_POOL.put(location, Boolean.TRUE);
+			assert LOCATIONS_POOL.containsKey(locationDescriptor);
+			final Boolean lastValue = LOCATIONS_POOL.put(locationDescriptor, Boolean.TRUE);
 			changed = lastValue == null || !lastValue;
 		}
 
 		if (changed) {
 			for (ILocationsPoolListener listener : getLocationPoolListeners()) {
-				listener.locationActivated(location);
+				listener.locationActivated(locationDescriptor);
 			}
 		}
 	}
 
 	/**
-	 * Deactivates the given {@link ILocation} form the {@link #getLocationsPool() pool of location}.
+	 * Deactivates the given {@link ILocationDescriptor} form the {@link #getLocationsPool() pool of location
+	 * descriptor}.
 	 * 
-	 * @param location
-	 *            the {@link ILocation} to deactivate
+	 * @param locationDescriptor
+	 *            the {@link ILocationDescriptor} to deactivate
 	 */
-	public static void deactivateLocation(ILocation location) {
+	public static void deactivateLocation(ILocationDescriptor locationDescriptor) {
 		final boolean changed;
 
 		synchronized(LOCATIONS_POOL) {
-			assert LOCATIONS_POOL.containsKey(location);
-			final Boolean lastValue = LOCATIONS_POOL.put(location, Boolean.FALSE);
+			assert LOCATIONS_POOL.containsKey(locationDescriptor);
+			final Boolean lastValue = LOCATIONS_POOL.put(locationDescriptor, Boolean.FALSE);
 			changed = lastValue == null || lastValue;
 		}
 
 		if (changed) {
 			for (ILocationsPoolListener listener : getLocationPoolListeners()) {
-				listener.locationDeactivated(location);
+				listener.locationDeactivated(locationDescriptor);
 			}
 		}
 	}
 
 	/**
-	 * Tells if the given {@link ILocation} from the {@link IdeMappingUtils#getLocationsPool() locations pool}
-	 * is active.
+	 * Tells if the given {@link ILocationDescriptor} from the {@link IdeMappingUtils#getLocationsPool()
+	 * location descriptors pool} is active.
 	 * 
-	 * @param location
-	 *            the {@link ILocation}
-	 * @return <code>true</code> if the given {@link ILocation} from the
-	 *         {@link IdeMappingUtils#getLocationsPool() locations pool} is active, <code>false</code>
-	 *         otherwise
+	 * @param locationDescriptor
+	 *            the {@link ILocationDescriptor}
+	 * @return <code>true</code> if the given {@link ILocationDescriptor} from the
+	 *         {@link IdeMappingUtils#getLocationsPool() location descriptors pool} is active,
+	 *         <code>false</code> otherwise
 	 */
-	public static boolean isActive(ILocation location) {
+	public static boolean isActive(ILocationDescriptor locationDescriptor) {
 		final boolean res;
+
 		synchronized(LOCATIONS_POOL) {
-			final Boolean isActive = LOCATIONS_POOL.get(location);
+			final Boolean isActive = LOCATIONS_POOL.get(locationDescriptor);
 			res = isActive != null && isActive;
 		}
 
 		return res;
+	}
+
+	/**
+	 * Tells if there is at least one {@link IdeMappingUtils#isActive(ILocationDescriptor) active}
+	 * {@link ILocationDescriptor} in the {@link IdeMappingUtils#getLocationsPool() location descriptors pool}
+	 * .
+	 * 
+	 * @return <code>true</code> if there is at least one
+	 *         {@link IdeMappingUtils#isActive(ILocationDescriptor) active} {@link ILocationDescriptor} in the
+	 *         {@link IdeMappingUtils#getLocationsPool() location descriptors pool}, <code>false</code>
+	 *         otherwise
+	 */
+	public static boolean asActiveLocationDescriptor() {
+		synchronized(LOCATIONS_POOL) {
+			return LOCATIONS_POOL.values().contains(Boolean.TRUE);
+		}
 	}
 
 }

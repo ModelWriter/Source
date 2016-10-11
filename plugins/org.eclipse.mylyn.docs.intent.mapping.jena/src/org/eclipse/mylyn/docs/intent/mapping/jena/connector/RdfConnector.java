@@ -19,6 +19,8 @@ import java.util.Set;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.jena.IRdfContainer;
 import org.eclipse.mylyn.docs.intent.mapping.jena.IRdfLocation;
@@ -55,13 +57,18 @@ public class RdfConnector extends AbstractConnector {
 		return rdfLocation.getURI().equals(resource.getURI());
 	}
 
-	@Override
-	protected Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
+	 *      java.lang.Object)
+	 */
+	public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
 			Object element) {
 		final Class<? extends ILocation> res;
 
 		if (IRdfContainer.class.isAssignableFrom(containerType) && element instanceof Resource) {
-			res = getLocationType();
+			res = getType();
 		} else {
 			res = null;
 		}
@@ -105,9 +112,28 @@ public class RdfConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 *      java.lang.Object)
 	 */
-	public Class<? extends ILocation> getLocationType() {
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+		final ILocationDescriptor res;
+
+		if (element instanceof Resource) {
+			res = new ObjectLocationDescriptor(containerDescriptor, element, ((Resource)element).getURI(),
+					getType());
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType()
+	 */
+	public Class<? extends ILocation> getType() {
 		return IRdfLocation.class;
 	}
 

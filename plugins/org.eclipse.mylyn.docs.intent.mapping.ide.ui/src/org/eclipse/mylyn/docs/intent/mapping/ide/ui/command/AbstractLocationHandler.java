@@ -17,18 +17,40 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.ide.ui.Activator;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Abstract implementation of handler for {@link ILocation}.
+ * Abstract implementation of handler for {@link ILocationDescriptor}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public abstract class AbstractLocationHandler extends AbstractHandler {
+
+	/**
+	 * Unable to create {@link ILink} message.
+	 */
+	protected static final String UNABLE_TO_CREATE_LINK = "unable to create link";
+
+	/**
+	 * Unable to create source {@link ILocation} message.
+	 */
+	protected static final String UNABLE_TO_CREATE_SOURCE_LOCATION = "unable to create source link";
+
+	/**
+	 * Unable to create target {@link ILocation} message.
+	 */
+	protected static final String UNABLE_TO_CREATE_TARGET_LOCATION = "unable to create target link";
 
 	/**
 	 * {@inheritDoc}
@@ -39,25 +61,27 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 		final ISelection selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getSelectionService().getSelection();
 
-		final List<ILocation> locations = new ArrayList<ILocation>();
+		final List<ILocationDescriptor> locationDescriptors = new ArrayList<ILocationDescriptor>();
 		if (selection instanceof IStructuredSelection) {
 
 			for (Object selected : ((IStructuredSelection)selection).toList()) {
-				final ILocation location = IdeMappingUtils.adapt(selected, ILocation.class);
-				if (location != null) {
-					locations.add(location);
+				final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selected,
+						ILocationDescriptor.class);
+				if (locationDescriptor != null) {
+					locationDescriptors.add(locationDescriptor);
 				}
 			}
 
 		} else {
-			final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
-			if (location != null) {
-				locations.add(location);
+			final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selection,
+					ILocationDescriptor.class);
+			if (locationDescriptor != null) {
+				locationDescriptors.add(locationDescriptor);
 			}
 		}
 
-		for (ILocation location : locations) {
-			handleLocation(location);
+		for (ILocationDescriptor locationDescriptor : locationDescriptors) {
+			handleLocationDescriptor(locationDescriptor);
 		}
 
 		return null;
@@ -72,37 +96,108 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 				.getSelectionService().getSelection();
 		if (selection instanceof IStructuredSelection) {
 			for (Object selected : ((IStructuredSelection)selection).toList()) {
-				final ILocation location = IdeMappingUtils.adapt(selected, ILocation.class);
-				if (location != null) {
-					if (canHandleLocation(location)) {
+				final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selected,
+						ILocationDescriptor.class);
+				if (locationDescriptor != null) {
+					if (canHandleLocation(locationDescriptor)) {
 						enable = true;
 						break;
 					}
 				}
 			}
 		} else {
-			final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
-			enable = location != null && canHandleLocation(location);
+			final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selection,
+					ILocationDescriptor.class);
+			enable = locationDescriptor != null && canHandleLocation(locationDescriptor);
 		}
 
 		setBaseEnabled(enable);
 	}
 
 	/**
-	 * Handles the given {@link ILocation} by applying needed operation.
+	 * Creates the {@link ILocation} from {@link ILocationDescriptor}.
 	 * 
-	 * @param location
-	 *            the {@link ILocation} to handle
+	 * @param locationDescriptor
+	 *            the {@link ILocationDescriptor}
+	 * @param base
+	 *            the {@link IBase}
+	 * @param errorMessage
+	 *            the error message
+	 * @return the created {@link ILocation} if no error occurred, <code>null</code> otherwise
 	 */
-	protected abstract void handleLocation(ILocation location);
+	protected ILocation createLocation(ILocationDescriptor locationDescriptor, final IBase base,
+			String errorMessage) {
+		ILocation res;
+
+		try {
+			res = locationDescriptor.getOrCreate(base);
+		} catch (InstantiationException eLocation) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage, eLocation));
+			res = null;
+		} catch (IllegalAccessException eLocation) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage, eLocation));
+			res = null;
+		} catch (ClassNotFoundException eLocation) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage, eLocation));
+			res = null;
+		}
+		return res;
+	}
 
 	/**
-	 * Tells if the given {@link ILocation} can be handled.
+	 * Creates the {@link ILink}.
 	 * 
-	 * @param location
-	 *            the {@link ILocation} to check
-	 * @return <code>true</code> if the given {@link ILocation} can be handled, <code>false</code> otherwise
+	 * @param source
+	 *            the {@link ILink#getSource() source} {@link ILocation}
+	 * @param target
+	 *            the {@link ILink#getTarget() target} {@link ILocation}
+	 * @return the created {@link ILink} if any, <code>null</code> otherwise
 	 */
-	protected abstract boolean canHandleLocation(ILocation location);
+	protected ILink createLink(final ILocation source, ILocation target) {
+		ILink res;
+
+		try {
+			if (!source.equals(target) && MappingUtils.getLink(source, target) == null) {
+				res = MappingUtils.createLink(source, target);
+			} else {
+				res = null;
+			}
+		} catch (InstantiationException eLink) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, eLink));
+			res = null;
+		} catch (IllegalAccessException eLink) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, eLink));
+			res = null;
+		} catch (ClassNotFoundException eLink) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, eLink));
+			res = null;
+		}
+
+		return res;
+	}
+
+	/**
+	 * Handles the given {@link ILocationDescriptor} by applying needed operation.
+	 * 
+	 * @param locationDescriptor
+	 *            the {@link ILocationDescriptor} to handle
+	 */
+	protected abstract void handleLocationDescriptor(ILocationDescriptor locationDescriptor);
+
+	/**
+	 * Tells if the given {@link ILocationDescriptor} can be handled.
+	 * 
+	 * @param locationDescriptor
+	 *            the {@link ILocationDescriptor} to check
+	 * @return <code>true</code> if the given {@link ILocationDescriptor} can be handled, <code>false</code>
+	 *         otherwise
+	 */
+	protected abstract boolean canHandleLocation(ILocationDescriptor locationDescriptor);
 
 }
