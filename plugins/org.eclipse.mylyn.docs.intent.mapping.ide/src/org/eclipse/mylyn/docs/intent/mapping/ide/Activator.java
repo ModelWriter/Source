@@ -11,9 +11,11 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.mylyn.docs.intent.mapping.ide.connector.ResourceLocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.TextFileConnectorDelegate;
 import org.osgi.framework.BundleContext;
 
@@ -32,6 +34,25 @@ public class Activator extends Plugin {
 
 	/** The registry listener that will be used to listen to extension changes. */
 	private IdeMappingRegistryListener registryListener = new IdeMappingRegistryListener();
+
+	/**
+	 * The {@link ResourceLocationListener}.
+	 */
+	private ResourceLocationListener resourceLocationListener;
+
+	/**
+	 * Gets the {@link ResourceLocationListener}.
+	 * 
+	 * @param resourceLocationListener
+	 *            the {@link ResourceLocationListener}
+	 */
+	public void setResourceLocationListener(ResourceLocationListener resourceLocationListener) {
+		if (this.resourceLocationListener != null) {
+			ResourcesPlugin.getWorkspace().removeResourceChangeListener(this.resourceLocationListener);
+		}
+		this.resourceLocationListener = resourceLocationListener;
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceLocationListener);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -66,6 +87,9 @@ public class Activator extends Plugin {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 		registry.removeListener(registryListener);
 		// TODO clear registry ?
+
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceLocationListener);
+		resourceLocationListener = null;
 	}
 
 	/**

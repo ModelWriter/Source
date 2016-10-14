@@ -25,6 +25,7 @@ public class RemoveFromLocationsPoolHandler extends AbstractLocationHandler {
 	@Override
 	protected void handleLocationDescriptor(ILocationDescriptor locationDescriptor) {
 		IdeMappingUtils.removeLocationFromPool(locationDescriptor);
+		locationDescriptor.dispose();
 	}
 
 	@Override

@@ -9,11 +9,13 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.conector;
+package org.eclipse.mylyn.docs.intent.mapping.connector;
 
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 
 /**
  * An abstract implementation of {@link IConnector}.
@@ -25,7 +27,7 @@ public abstract class AbstractConnector implements IConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#createLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#createLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
 	 *      java.lang.Object)
 	 */
 	public ILocation createLocation(ILocationContainer container, Object element)
@@ -55,7 +57,63 @@ public abstract class AbstractConnector implements IConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#updateLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
+	 *      java.lang.Object)
+	 */
+	public boolean updateLocation(ILocation location, Object element) {
+		final boolean res = canUpdate(location, element);
+
+		if (res) {
+			update(location, element);
+		}
+
+		return res;
+	}
+
+	/**
+	 * Updates the given {@link ObjectLocationDescriptor} with the given element.
+	 * 
+	 * @param locationDescriptor
+	 *            the {@link ObjectLocationDescriptor} to update
+	 * @param element
+	 *            the element
+	 * @return <code>true</code> if any changes has been done, <code>false</code> otherwise
+	 */
+	public boolean updateLocationDescriptor(ObjectLocationDescriptor locationDescriptor, Object element) {
+		locationDescriptor.setElement(element);
+
+		return true;
+	}
+
+	/**
+	 * Tells if we can update the given {@link ILocation} with the given located element.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to update
+	 * @param element
+	 *            the located element
+	 * @return <code>true</code> if we can update the given {@link ILocation} with the given located element,
+	 *         <code>false</code> otherwise
+	 */
+	protected abstract boolean canUpdate(ILocation location, Object element);
+
+	/**
+	 * Update the given {@link ILocation} by {@link AbstractConnector#initLocation(ILocation, Object)
+	 * initializing} it with the given element.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to update
+	 * @param element
+	 *            the located element
+	 */
+	protected void update(ILocation location, Object element) {
+		initLocation(location, element);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
 	 *      java.lang.Object)
 	 */
 	public ILocation getLocation(ILocationContainer container, Object element) {
@@ -116,5 +174,14 @@ public abstract class AbstractConnector implements IConnector {
 	 *            the element to locate
 	 */
 	protected abstract void initLocation(ILocation location, Object element);
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#dispose(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+	 */
+	public void dispose(ILocationDescriptor locationDescriptor) {
+		// nothing to do here
+	}
 
 }

@@ -34,14 +34,6 @@
       </factory>
    </extension>
    <extension
-         point="org.eclipse.ui.editors.markerUpdaters">
-      <updater
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.marker.TextLocationMarkerUpdater"
-            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.marker.textLocationMarkerUpdater"
-            markerType="org.eclipse.mylyn.docs.intent.mapping.ide.textLocationMarker">
-      </updater>
-   </extension>
-   <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"

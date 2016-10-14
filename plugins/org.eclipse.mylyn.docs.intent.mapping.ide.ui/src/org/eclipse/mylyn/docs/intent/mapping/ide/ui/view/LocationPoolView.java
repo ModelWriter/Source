@@ -218,7 +218,7 @@ public class LocationPoolView extends ViewPart {
 			}
 		});
 		locationsPoolListener = new LocationsPoolListener(locationsList.getViewer());
-		IdeMappingUtils.addLocationToPoolListener(locationsPoolListener);
+		IdeMappingUtils.addLocationPoolListener(locationsPoolListener);
 		locationsList.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(locationsList.getViewer().getTree()));
 		locationsList.getViewer().getTree().addListener(SWT.KeyUp, new Listener() {
@@ -231,6 +231,7 @@ public class LocationPoolView extends ViewPart {
 					}
 					for (ILocationDescriptor locationDescriptor : toDelete) {
 						IdeMappingUtils.removeLocationFromPool(locationDescriptor);
+						locationDescriptor.dispose();
 					}
 				}
 			}
@@ -280,7 +281,7 @@ public class LocationPoolView extends ViewPart {
 	@Override
 	public void dispose() {
 		super.dispose();
-		IdeMappingUtils.removeLocationFromPoolListener(locationsPoolListener);
+		IdeMappingUtils.removeLocationPoolListener(locationsPoolListener);
 		menu.dispose();
 		menuManager.dispose();
 	}

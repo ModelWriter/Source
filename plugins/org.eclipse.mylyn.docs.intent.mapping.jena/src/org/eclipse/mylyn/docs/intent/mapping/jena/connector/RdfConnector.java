@@ -21,12 +21,12 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
+import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.jena.IRdfContainer;
 import org.eclipse.mylyn.docs.intent.mapping.jena.IRdfLocation;
 
 /**
- * {@link Resource} {@link org.eclipse.mylyn.docs.intent.mapping.conector.IConnector IConnector}.
+ * {@link Resource} {@link org.eclipse.mylyn.docs.intent.mapping.connector.IConnector IConnector}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
@@ -35,7 +35,7 @@ public class RdfConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 	 */
 	public String getName(ILocation location) {
 		final String res;
@@ -60,7 +60,7 @@ public class RdfConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationType(java.lang.Class,
 	 *      java.lang.Object)
 	 */
 	public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
@@ -84,6 +84,11 @@ public class RdfConnector extends AbstractConnector {
 		rdfLocation.setURI(resource.getURI());
 	}
 
+	@Override
+	protected boolean canUpdate(ILocation location, Object element) {
+		return location instanceof IRdfLocation && element instanceof Resource;
+	}
+
 	/**
 	 * updates the given {@link IRdfContainer} with the given {@link List} of {@link Resource}.
 	 * 
@@ -92,7 +97,7 @@ public class RdfConnector extends AbstractConnector {
 	 * @param resources
 	 *            the {@link List} of {@link Resource}
 	 */
-	public void update(IRdfContainer container, List<Resource> resources) {
+	public static void updateRdfContainer(IRdfContainer container, List<Resource> resources) {
 		final Set<String> newURIs = new HashSet<String>();
 		for (Resource resource : resources) {
 			newURIs.add(resource.getURI());
@@ -112,15 +117,15 @@ public class RdfConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
 	 *      java.lang.Object)
 	 */
 	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
 		final ILocationDescriptor res;
 
 		if (element instanceof Resource) {
-			res = new ObjectLocationDescriptor(containerDescriptor, element, ((Resource)element).getURI(),
-					getType());
+			res = new ObjectLocationDescriptor(this, containerDescriptor, element, ((Resource)element)
+					.getURI());
 		} else {
 			res = null;
 		}
@@ -131,7 +136,7 @@ public class RdfConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getType()
 	 */
 	public Class<? extends ILocation> getType() {
 		return IRdfLocation.class;

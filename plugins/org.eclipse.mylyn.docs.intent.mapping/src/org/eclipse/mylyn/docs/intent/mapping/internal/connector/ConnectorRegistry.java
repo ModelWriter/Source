@@ -20,8 +20,8 @@ import java.util.Map;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
-import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.connector.IConnector;
+import org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry;
 
 /**
  * The default implementation of {@link IConnectorRegistry}.
@@ -45,7 +45,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#createLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#createLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
 	 *      java.lang.Object)
 	 */
 	public ILocation createLocation(ILocationContainer container, Object element)
@@ -63,7 +63,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
 	 *      java.lang.Object)
 	 */
 	public ILocation getLocation(ILocationContainer container, Object element) {
@@ -80,7 +80,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getOrCreateLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getOrCreateLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
 	 *      java.lang.Object)
 	 */
 	public ILocation getOrCreateLocation(ILocationContainer container, Object element)
@@ -100,7 +100,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getLocationType(java.lang.Class,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocationType(java.lang.Class,
 	 *      java.lang.Object)
 	 */
 	public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
@@ -118,7 +118,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 	 */
 	public String getName(ILocation location) {
 		for (IConnector connector : getConnectors()) {
@@ -134,7 +134,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
 	 *      java.lang.Object)
 	 */
 	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
@@ -152,7 +152,23 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#register(org.eclipse.mylyn.docs.intent.mapping.conector.IConnector)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#updateLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocation,
+	 *      java.lang.Object)
+	 */
+	public boolean updateLocation(ILocation location, Object element) {
+		for (IConnector connector : getConnectors()) {
+			if (connector.updateLocation(location, element)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#register(org.eclipse.mylyn.docs.intent.mapping.connector.IConnector)
 	 */
 	public void register(IConnector connector) {
 		if (connector != null) {
@@ -181,7 +197,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#unregister(org.eclipse.mylyn.docs.intent.mapping.conector.IConnector)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#unregister(org.eclipse.mylyn.docs.intent.mapping.connector.IConnector)
 	 */
 	public void unregister(IConnector connector) {
 		synchronized(connectors) {
@@ -205,7 +221,7 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry#getConnector(java.lang.Class)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getConnector(java.lang.Class)
 	 */
 	public IConnector getConnector(Class<? extends ILocation> connectorType) {
 		synchronized(connectors) {

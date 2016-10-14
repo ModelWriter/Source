@@ -24,18 +24,14 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;
 
 /**
  * {@link ITextFileLocation} delegate.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class TextFileConnectorDelegate implements IFileConnectorDelegate {
-
-	/**
-	 * The default buffer size.
-	 */
-	private static final int BUFFER_SIZE = 4048;
+public class TextFileConnectorDelegate extends AbstractFileConnectorDelegate {
 
 	/**
 	 * {@inheritDoc}
@@ -66,8 +62,7 @@ public class TextFileConnectorDelegate implements IFileConnectorDelegate {
 	public void initLocation(IFileLocation location, IFile element) {
 		try {
 			final String text = MappingUtils.getContent(element.getLocation().toFile(), element.getCharset());
-			final IdeTextConnector connector = new IdeTextConnector();
-			connector.update((ITextFileLocation)location, text);
+			TextConnector.updateTextContainer((ITextFileLocation)location, text);
 		} catch (CoreException e) {
 			Activator.getDefault().getLog().log(
 					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));

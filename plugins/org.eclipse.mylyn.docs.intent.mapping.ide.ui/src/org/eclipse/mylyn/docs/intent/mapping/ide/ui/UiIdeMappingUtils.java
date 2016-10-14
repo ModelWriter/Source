@@ -54,17 +54,30 @@ public final class UiIdeMappingUtils {
 	 *            the {@link ILocation} to show
 	 */
 	public static void showLocation(ILocation location) {
-		final IMarker marker = IdeMappingUtils.getOrCreateMarker(location);
+		final IMarker marker = IdeMappingUtils.getMarker(location);
 		if (marker != null) {
-			final IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-					.getActivePage();
-			try {
-				IDE.openEditor(activePage, marker, true);
-			} catch (PartInitException e) {
-				Activator.getDefault().getLog()
-						.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-								"unable to open location marker: ", e));
-			}
+			showMarker(marker);
+		} else {
+			final IMarker createdMarker = IdeMappingUtils.getOrCreateMarker(location);
+			showMarker(createdMarker);
+			IdeMappingUtils.deleteMarker(location);
+		}
+	}
+
+	/**
+	 * Shows the given {@link IMarker}.
+	 * 
+	 * @param marker
+	 *            the {@link IMarker} to show
+	 */
+	private static void showMarker(final IMarker marker) {
+		final IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getActivePage();
+		try {
+			IDE.openEditor(activePage, marker, true);
+		} catch (PartInitException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to open location marker: ", e));
 		}
 	}
 

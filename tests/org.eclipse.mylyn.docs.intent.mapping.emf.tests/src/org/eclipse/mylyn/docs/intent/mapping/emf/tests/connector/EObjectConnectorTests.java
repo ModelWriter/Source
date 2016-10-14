@@ -73,7 +73,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	public void initLocationEObject() {
 		final IEObjectContainer container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		update(container, eObjects);
+		updateEObjectContainer(container, eObjects);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 
@@ -91,7 +91,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	public void initLocationSetting() {
 		final IEObjectContainer container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		update(container, eObjects);
+		updateEObjectContainer(container, eObjects);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 
@@ -274,7 +274,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	public void getLocationEObject() {
 		final IEObjectContainer container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		update(container, eObjects);
+		updateEObjectContainer(container, eObjects);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 		container.getContents().add(location);
@@ -290,7 +290,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	public void getLocationSetting() {
 		final IEObjectContainer container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		update(container, eObjects);
+		updateEObjectContainer(container, eObjects);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 		container.getContents().add(location);

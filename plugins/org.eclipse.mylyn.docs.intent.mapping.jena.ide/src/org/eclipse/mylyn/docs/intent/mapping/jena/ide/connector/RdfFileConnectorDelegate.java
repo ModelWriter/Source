@@ -25,9 +25,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
-import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
+import org.eclipse.mylyn.docs.intent.mapping.ide.connector.AbstractFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.jena.IRdfContainer;
+import org.eclipse.mylyn.docs.intent.mapping.jena.connector.RdfConnector;
 import org.eclipse.mylyn.docs.intent.mapping.jena.ide.IRdfFileLocation;
 
 /**
@@ -35,7 +36,7 @@ import org.eclipse.mylyn.docs.intent.mapping.jena.ide.IRdfFileLocation;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class RdfFileConnectorDelegate implements IFileConnectorDelegate {
+public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 
 	/**
 	 * {@inheritDoc}
@@ -75,8 +76,7 @@ public class RdfFileConnectorDelegate implements IFileConnectorDelegate {
 			}
 		}
 
-		final IdeRdfConnector connector = new IdeRdfConnector();
-		connector.update((IRdfContainer)location, concepts);
-
+		RdfConnector.updateRdfContainer((IRdfContainer)location, concepts);
 	}
+
 }

@@ -160,13 +160,11 @@ public class QuickFixContributionItem extends ContributionItem {
 		final List<IMarker> res = new ArrayList<IMarker>();
 
 		// TODO use the selection for non text editor
-		IRegion line = null;
+		IRegion line;
 		try {
 			line = document.getLineInformation(lineNumber);
 		} catch (BadLocationException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-							"Unable to get annotations for the given position", e));
+			line = null;
 		}
 		if (line != null) {
 			@SuppressWarnings("unchecked")

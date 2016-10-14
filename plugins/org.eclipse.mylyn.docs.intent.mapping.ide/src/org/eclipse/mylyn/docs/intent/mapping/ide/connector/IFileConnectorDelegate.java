@@ -46,4 +46,14 @@ public interface IFileConnectorDelegate {
 	 */
 	void initLocation(IFileLocation location, IFile element);
 
+	/**
+	 * Updates the given {@link IFileLocation} with the given {@link IFile}.
+	 * 
+	 * @param location
+	 *            the {@link IFileLocation}
+	 * @param element
+	 *            the {@link IFile}
+	 */
+	void update(IFileLocation location, IFile element);
+
 }

@@ -48,7 +48,7 @@ public class TextLocationToMarkerAdapterFactory implements IAdapterFactory {
 			} else {
 				final IFileLocation fileLocation = IdeMappingUtils.getContainingFileLocation(textLocation);
 				final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-						new Path(fileLocation.getFullPath()));
+						Path.fromPortableString(fileLocation.getFullPath()));
 				try {
 					res = file.createMarker(ILocationMarker.TEXT_LOCATION_ID);
 					res.setAttribute(IMarker.CHAR_START, textLocation.getStartOffset());

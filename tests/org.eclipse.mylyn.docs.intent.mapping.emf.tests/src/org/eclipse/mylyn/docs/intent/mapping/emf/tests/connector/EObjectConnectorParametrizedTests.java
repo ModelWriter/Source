@@ -243,8 +243,7 @@ public class EObjectConnectorParametrizedTests {
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, testEObjects);
+		EObjectConnector.updateEObjectContainer(container, testEObjects);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final String expectedText = ((ITextContainer)location.getContainer()).getText().substring(
@@ -260,7 +259,7 @@ public class EObjectConnectorParametrizedTests {
 		}
 
 		List<EObject> newEObjects = testEObjects;
-		connector.update(container, newEObjects);
+		EObjectConnector.updateEObjectContainer(container, newEObjects);
 
 		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
@@ -274,8 +273,7 @@ public class EObjectConnectorParametrizedTests {
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, testEObjects);
+		EObjectConnector.updateEObjectContainer(container, testEObjects);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final String expectedText = ((ITextContainer)location.getContainer()).getText().substring(
@@ -294,7 +292,7 @@ public class EObjectConnectorParametrizedTests {
 
 		List<EObject> newEObjects = new ArrayList<EObject>(MappingPackage.eINSTANCE.getEClassifiers());
 		newEObjects.addAll(testEObjects);
-		connector.update(container, newEObjects);
+		EObjectConnector.updateEObjectContainer(container, newEObjects);
 
 		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
@@ -308,8 +306,7 @@ public class EObjectConnectorParametrizedTests {
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, testEObjects);
+		EObjectConnector.updateEObjectContainer(container, testEObjects);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final String expectedText = ((ITextContainer)location.getContainer()).getText().substring(
@@ -331,7 +328,7 @@ public class EObjectConnectorParametrizedTests {
 		List<EObject> newEObjects = new ArrayList<EObject>(testEObjects);
 		newEObjects.remove(0);
 		newEObjects.remove(0);
-		connector.update(container, newEObjects);
+		EObjectConnector.updateEObjectContainer(container, newEObjects);
 
 		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
@@ -348,8 +345,7 @@ public class EObjectConnectorParametrizedTests {
 		}
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, testEObjects);
+		EObjectConnector.updateEObjectContainer(container, testEObjects);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final int expectedTextOffset = location.getStartOffset();
@@ -377,7 +373,7 @@ public class EObjectConnectorParametrizedTests {
 			expectedText = getText(copier.get(altered[0]), (EStructuralFeature)altered[1], altered[2]);
 		}
 
-		connector.update(container, newEObjects);
+		EObjectConnector.updateEObjectContainer(container, newEObjects);
 
 		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
@@ -394,8 +390,7 @@ public class EObjectConnectorParametrizedTests {
 		}
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, testEObjects);
+		EObjectConnector.updateEObjectContainer(container, testEObjects);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final int offset = getText(new ArrayList<EObject>(MappingPackage.eINSTANCE.getEClassifiers()))
@@ -426,7 +421,7 @@ public class EObjectConnectorParametrizedTests {
 			expectedText = getText(copier.get(altered[0]), (EStructuralFeature)altered[1], altered[2]);
 		}
 
-		connector.update(container, newEObjects);
+		EObjectConnector.updateEObjectContainer(container, newEObjects);
 
 		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
@@ -443,8 +438,7 @@ public class EObjectConnectorParametrizedTests {
 		}
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, testEObjects);
+		EObjectConnector.updateEObjectContainer(container, testEObjects);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		ArrayList<EObject> removedEObjects = new ArrayList<EObject>();
@@ -478,7 +472,7 @@ public class EObjectConnectorParametrizedTests {
 			expectedText = getText(copier.get(altered[0]), (EStructuralFeature)altered[1], altered[2]);
 		}
 
-		connector.update(container, newEObjects);
+		EObjectConnector.updateEObjectContainer(container, newEObjects);
 
 		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
@@ -492,8 +486,7 @@ public class EObjectConnectorParametrizedTests {
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, testEObjects);
+		EObjectConnector.updateEObjectContainer(container, testEObjects);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final String expectedText = "";
@@ -508,7 +501,7 @@ public class EObjectConnectorParametrizedTests {
 		} else {
 			EcoreUtil.delete(copier.get(original[0]));
 		}
-		connector.update(container, newEObjects);
+		EObjectConnector.updateEObjectContainer(container, newEObjects);
 
 		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
@@ -522,8 +515,7 @@ public class EObjectConnectorParametrizedTests {
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, testEObjects);
+		EObjectConnector.updateEObjectContainer(container, testEObjects);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final String expectedText = "";
@@ -540,7 +532,7 @@ public class EObjectConnectorParametrizedTests {
 		}
 
 		newEObjects.addAll(0, MappingPackage.eINSTANCE.getEClassifiers());
-		connector.update(container, newEObjects);
+		EObjectConnector.updateEObjectContainer(container, newEObjects);
 
 		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
@@ -554,8 +546,7 @@ public class EObjectConnectorParametrizedTests {
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, testEObjects);
+		EObjectConnector.updateEObjectContainer(container, testEObjects);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final String expectedText = "";
@@ -573,7 +564,7 @@ public class EObjectConnectorParametrizedTests {
 
 		newEObjects.remove(0);
 		newEObjects.remove(0);
-		connector.update(container, newEObjects);
+		EObjectConnector.updateEObjectContainer(container, newEObjects);
 
 		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
@@ -582,18 +573,16 @@ public class EObjectConnectorParametrizedTests {
 
 	private String getText(List<EObject> eObjects) {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
-		final EObjectConnector connector = new EObjectConnector();
-		connector.update(container, eObjects);
+		EObjectConnector.updateEObjectContainer(container, eObjects);
 
 		return container.getText();
 	}
 
 	private String getText(EObject eObject, EStructuralFeature feature, Object value) {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
-		final EObjectConnector connector = new EObjectConnector();
 		List<EObject> eObjects = new ArrayList<EObject>();
 		eObjects.add(eObject);
-		connector.update(container, eObjects);
+		EObjectConnector.updateEObjectContainer(container, eObjects);
 		final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(eObject);
 		final int[] offsets = textAdapter.getOffsets(feature, value);
 

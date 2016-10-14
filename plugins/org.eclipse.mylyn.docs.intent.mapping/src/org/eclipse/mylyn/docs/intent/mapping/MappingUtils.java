@@ -33,7 +33,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
-import org.eclipse.mylyn.docs.intent.mapping.conector.IConnectorRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.base.BaseRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.connector.ConnectorRegistry;
 

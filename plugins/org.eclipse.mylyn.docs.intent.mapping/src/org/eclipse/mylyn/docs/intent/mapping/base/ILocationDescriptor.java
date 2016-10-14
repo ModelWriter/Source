@@ -27,14 +27,6 @@ public interface ILocationDescriptor {
 	ILocationDescriptor getContainerDescriptor();
 
 	/**
-	 * Gets the {@link org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType() connector type}.
-	 * 
-	 * @return the {@link org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType() connector type}
-	 *         if any, <code>null</code> otherwise
-	 */
-	Class<? extends ILocation> getConnectorType();
-
-	/**
 	 * Tells if the described {@link ILocation} exists.
 	 * 
 	 * @param base
@@ -73,6 +65,15 @@ public interface ILocationDescriptor {
 			ClassNotFoundException;
 
 	/**
+	 * Updates with the given Element.
+	 * 
+	 * @param element
+	 *            the element
+	 * @return <code>true</code> if updated, <code>false</code> otherwise
+	 */
+	boolean update(Object element);
+
+	/**
 	 * Gets the located element.
 	 * 
 	 * @return the located element
@@ -85,5 +86,10 @@ public interface ILocationDescriptor {
 	 * @return the human readable name
 	 */
 	String getName();
+
+	/**
+	 * Disposes the descriptor when not needed anymore.
+	 */
+	void dispose();
 
 }

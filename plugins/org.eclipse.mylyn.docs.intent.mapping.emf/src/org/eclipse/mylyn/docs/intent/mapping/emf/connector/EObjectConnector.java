@@ -26,14 +26,14 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
+import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter;
 import org.eclipse.mylyn.docs.intent.mapping.emf.internal.TextAdapter;
 
 /**
- * {@link EObject} {@link org.eclipse.mylyn.docs.intent.mapping.conector.IConnector IConnector}.
+ * {@link EObject} {@link org.eclipse.mylyn.docs.intent.mapping.connector.IConnector IConnector}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
@@ -48,7 +48,7 @@ public class EObjectConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationType(java.lang.Class,
 	 *      java.lang.Object)
 	 */
 	public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
@@ -132,7 +132,7 @@ public class EObjectConnector extends AbstractConnector {
 	 * @param eObjects
 	 *            the {@link IEObjectContainer#getEObjects() EObject list}
 	 */
-	public void update(IEObjectContainer container, List<EObject> eObjects) {
+	public static void updateEObjectContainer(IEObjectContainer container, List<EObject> eObjects) {
 		final String newText = serialize(eObjects);
 		final String oldText = container.getText();
 		container.setEObjects(eObjects);
@@ -194,7 +194,8 @@ public class EObjectConnector extends AbstractConnector {
 	 * @return <code>true</code> if the start and end offsets are valid in the given text according to given
 	 *         {@link EStructuralFeature}, <code>false</code> otherwise
 	 */
-	protected boolean isValidOffsets(String text, EStructuralFeature feature, int startOffset, int endOffset) {
+	protected static boolean isValidOffsets(String text, EStructuralFeature feature, int startOffset,
+			int endOffset) {
 		final boolean res;
 
 		if (feature != null) {
@@ -223,7 +224,7 @@ public class EObjectConnector extends AbstractConnector {
 	 *            the {@link List} of {@link EObject} to serialize
 	 * @return the {@link String} representing the given {@link List} of {@link EObject}
 	 */
-	private String serialize(List<EObject> eObjects) {
+	private static String serialize(List<EObject> eObjects) {
 		final StringBuilder builder = new StringBuilder();
 
 		for (EObject eObj : eObjects) {
@@ -256,7 +257,7 @@ public class EObjectConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 	 */
 	public String getName(ILocation location) {
 		final String res;
@@ -309,7 +310,7 @@ public class EObjectConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
 	 *      java.lang.Object)
 	 */
 	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
@@ -317,12 +318,11 @@ public class EObjectConnector extends AbstractConnector {
 
 		if (element instanceof EObject) {
 			final EObject eObj = (EObject)element;
-			res = new ObjectLocationDescriptor(containerDescriptor, element, getName(eObj, null), getType());
+			res = new ObjectLocationDescriptor(this, containerDescriptor, element, getName(eObj, null));
 		} else if (element instanceof Setting) {
 			final EObject eObj = ((Setting)element).getEObject();
 			final EStructuralFeature feature = ((Setting)element).getEStructuralFeature();
-			res = new ObjectLocationDescriptor(containerDescriptor, element, getName(eObj, feature),
-					getType());
+			res = new ObjectLocationDescriptor(this, containerDescriptor, element, getName(eObj, feature));
 		} else {
 			res = null;
 		}
@@ -330,10 +330,16 @@ public class EObjectConnector extends AbstractConnector {
 		return res;
 	}
 
+	@Override
+	protected boolean canUpdate(ILocation location, Object element) {
+		return location instanceof IEObjectLocation
+				&& (element instanceof EObject || element instanceof Setting);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationType()
 	 */
 	public Class<? extends ILocation> getType() {
 		return IEObjectLocation.class;

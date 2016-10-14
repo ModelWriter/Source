@@ -29,6 +29,8 @@ import org.eclipse.ui.texteditor.IMarkerUpdater;
  */
 public class TextLocationMarkerUpdater implements IMarkerUpdater {
 
+	// TODO can't be used since we don't know which ITextLocation will be updated and which will not.
+
 	/**
 	 * The ID of this updater.
 	 */

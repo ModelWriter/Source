@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.conector;
+package org.eclipse.mylyn.docs.intent.mapping.connector;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
@@ -43,6 +43,17 @@ public interface IConnector {
 	 */
 	ILocation createLocation(ILocationContainer container, Object element) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException;
+
+	/**
+	 * Updates the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to update
+	 * @param element
+	 *            the located element
+	 * @return <code>true</code> if the given {@link ILocation} has been updated, <code>false</code> otherwise
+	 */
+	boolean updateLocation(ILocation location, Object element);
 
 	/**
 	 * Gets the {@link ILocation} according to the given container and an element to locate.
@@ -96,5 +107,13 @@ public interface IConnector {
 	 * @return the {@link ILocation} {@link Class} managed by this connector
 	 */
 	Class<? extends ILocation> getType();
+
+	/**
+	 * Disposes the given {@link ILocationDescriptor}.
+	 * 
+	 * @param locationDescriptor
+	 *            the {@link ILocationDescriptor} to dispose
+	 */
+	void dispose(ILocationDescriptor locationDescriptor);
 
 }

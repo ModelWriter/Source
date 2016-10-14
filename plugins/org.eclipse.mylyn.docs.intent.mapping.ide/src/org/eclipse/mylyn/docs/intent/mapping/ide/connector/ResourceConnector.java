@@ -25,23 +25,49 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.conector.AbstractConnector;
+import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IResourceLocation;
 
 /**
- * An {@link IResource} {@link org.eclipse.mylyn.docs.intent.mapping.conector.IConnector IConnector}.
+ * An {@link IResource} {@link org.eclipse.mylyn.docs.intent.mapping.connector.IConnector IConnector}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class ResourceConnector extends AbstractConnector {
 
 	/**
+	 * The {@link ResourceLocationListener} reacting to workspace changes.
+	 */
+	private final ResourceLocationListener resourceLocationListener;
+
+	/**
+	 * Constructor.
+	 */
+	public ResourceConnector() {
+		resourceLocationListener = new ResourceLocationListener(true, this);
+		Activator.getDefault().setResourceLocationListener(resourceLocationListener);
+	}
+
+	@Override
+	public ILocation getLocation(ILocationContainer container, Object element) {
+		if (element instanceof IResource) {
+			for (ILocation child : container.getContents()) {
+				if (match(child, element)) {
+					return child;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationType(java.lang.Class,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationType(java.lang.Class,
 	 *      java.lang.Object)
 	 */
 	public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
@@ -88,30 +114,61 @@ public class ResourceConnector extends AbstractConnector {
 	private IFileConnectorDelegate getDelegate(IFile file) {
 		IFileConnectorDelegate res = null;
 
-		try {
-			InputStream contents = file.getContents();
-			final IContentType contentType = Platform.getContentTypeManager().findContentTypeFor(contents,
-					file.getName());
-			contents.close();
+		if (file.exists()) {
+			try {
+				InputStream contents = file.getContents();
+				final IContentType contentType = Platform.getContentTypeManager().findContentTypeFor(
+						contents, file.getName());
+				contents.close();
 
-			if (contentType != null) {
-				for (IFileConnectorDelegate delegate : IdeMappingUtils.getFileConectorDelegateRegistry()
-						.getConnectorDelegates()) {
-					if (contentType.isKindOf(delegate.getContentType())) {
-						res = delegate;
-						break;
+				if (contentType != null) {
+					for (IFileConnectorDelegate delegate : IdeMappingUtils.getFileConectorDelegateRegistry()
+							.getConnectorDelegates()) {
+						if (contentType.isKindOf(delegate.getContentType())) {
+							res = delegate;
+							break;
+						}
 					}
 				}
+			} catch (CoreException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			} catch (IOException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 			}
-		} catch (CoreException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-		} catch (IOException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		}
 
 		return res;
+	}
+
+	@Override
+	protected boolean canUpdate(ILocation location, Object element) {
+		final boolean res;
+
+		if (location instanceof IFileLocation && element instanceof IFile) {
+			final IFileConnectorDelegate delegate = getDelegate((IFile)element);
+			res = delegate != null;
+		} else if (location instanceof IResourceLocation && element instanceof IResource) {
+			res = true;
+		} else {
+			res = false;
+		}
+
+		return res;
+	}
+
+	@Override
+	protected void update(ILocation location, Object element) {
+		final IResourceLocation toUpdate = (IResourceLocation)location;
+
+		toUpdate.setFullPath(((IResource)element).getFullPath().toPortableString());
+		if (element instanceof IFile) {
+			final IFileConnectorDelegate delegate = getDelegate((IFile)element);
+			if (delegate != null) {
+				delegate.update((IFileLocation)location, (IFile)element);
+			}
+		}
 	}
 
 	@Override
@@ -123,9 +180,6 @@ public class ResourceConnector extends AbstractConnector {
 			final IFileConnectorDelegate delegate = getDelegate((IFile)element);
 			if (delegate != null) {
 				delegate.initLocation((IFileLocation)location, (IFile)element);
-			} else {
-				throw new IllegalArgumentException(
-						"A delegate created a IFileLocation but we can't find it anymore...");
 			}
 		}
 	}
@@ -135,13 +189,13 @@ public class ResourceConnector extends AbstractConnector {
 		final IResourceLocation resourceLocation = (IResourceLocation)location;
 		final IResource resource = (IResource)element;
 
-		return resourceLocation.getFullPath().equals(resource.getFullPath().toString());
+		return resourceLocation.getFullPath().equals(resource.getFullPath().toPortableString());
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 	 */
 	public String getName(ILocation location) {
 		final String res;
@@ -158,15 +212,16 @@ public class ResourceConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
 	 *      java.lang.Object)
 	 */
 	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
 		final ILocationDescriptor res;
 
 		if (element instanceof IResource) {
-			res = new ObjectLocationDescriptor(containerDescriptor, element, ((IResource)element)
-					.getFullPath().toString(), getType());
+			res = new ObjectLocationDescriptor(this, containerDescriptor, element, ((IResource)element)
+					.getFullPath().toString());
+			resourceLocationListener.addKnownDescriptor(res);
 		} else {
 			res = null;
 		}
@@ -174,10 +229,16 @@ public class ResourceConnector extends AbstractConnector {
 		return res;
 	}
 
+	@Override
+	public void dispose(ILocationDescriptor locationDescriptor) {
+		super.dispose(locationDescriptor);
+		resourceLocationListener.removeKnownDescriptor(locationDescriptor);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getType()
 	 */
 	public Class<? extends ILocation> getType() {
 		return IResourceLocation.class;

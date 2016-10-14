@@ -28,7 +28,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationDescriptorAdapterFactory;
-import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToTextLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector.TextFileConnectorDelegateTests.TestTextFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
@@ -43,7 +42,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests {@link MarkerToTextLocationDescriptor}.
+ * Tests {@link org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToTextLocationDescriptor
+ * MarkerToTextLocationDescriptor}.
  * 
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */

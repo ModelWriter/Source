@@ -11,8 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
-import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
+import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 
 /**
  * {@link ILocationDescriptor} based on a {@link Object} and a location type.
@@ -22,14 +21,14 @@ import org.eclipse.mylyn.docs.intent.mapping.conector.IConnector;
 public class ObjectLocationDescriptor implements ILocationDescriptor {
 
 	/**
-	 * The {@link Object}.
+	 * The located {@link Object element}.
 	 */
-	private final Object element;
+	private Object element;
 
 	/**
-	 * The {@link org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType() connector type}.
+	 * The {@link AbstractConnector} that created the descriptor.
 	 */
-	private final Class<? extends ILocation> type;
+	private final AbstractConnector connector;
 
 	/**
 	 * The {@link ILocationDescriptor#getContainerDescriptor() container descriptor}.
@@ -50,16 +49,15 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 	 *            the {@link Object}
 	 * @param name
 	 *            the human readable name
-	 * @param type
-	 *            the {@link org.eclipse.mylyn.docs.intent.mapping.conector.IConnector#getType() connector
-	 *            type}
+	 * @param connector
+	 *            the {@link AbstractConnector} creating the descriptor
 	 */
-	public ObjectLocationDescriptor(ILocationDescriptor containerDescriptor, Object element, String name,
-			Class<? extends ILocation> type) {
+	public ObjectLocationDescriptor(AbstractConnector connector, ILocationDescriptor containerDescriptor,
+			Object element, String name) {
 		this.containerDescriptor = containerDescriptor;
 		this.element = element;
 		this.name = name;
-		this.type = type;
+		this.connector = connector;
 	}
 
 	/**
@@ -69,15 +67,6 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 	 */
 	public ILocationDescriptor getContainerDescriptor() {
 		return containerDescriptor;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getConnectorType()
-	 */
-	public Class<? extends ILocation> getConnectorType() {
-		return type;
 	}
 
 	/**
@@ -98,10 +87,8 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 		final ILocation res;
 
 		if (getContainerDescriptor() == null) {
-			final IConnector connector = MappingUtils.getConnectorRegistry().getConnector(getConnectorType());
 			res = connector.getLocation(base, element);
 		} else if (getContainerDescriptor().exists(base)) {
-			final IConnector connector = MappingUtils.getConnectorRegistry().getConnector(getConnectorType());
 			res = connector.getLocation(getContainerDescriptor().getLocation(base), element);
 		} else {
 			res = null;
@@ -126,7 +113,6 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 			container = getContainerDescriptor().getOrCreate(base);
 		}
 
-		final IConnector connector = MappingUtils.getConnectorRegistry().getConnector(getConnectorType());
 		final ILocation existingLocation = connector.getLocation(container, element);
 		if (existingLocation != null) {
 			res = existingLocation;
@@ -140,10 +126,29 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#update(java.lang.Object)
+	 */
+	public boolean update(Object e) {
+		return connector.updateLocationDescriptor(this, e);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getElement()
 	 */
 	public Object getElement() {
 		return element;
+	}
+
+	/**
+	 * Sets the given element.
+	 * 
+	 * @param element
+	 *            the element
+	 */
+	public void setElement(Object element) {
+		this.element = element;
 	}
 
 	/**
@@ -164,6 +169,15 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 	public boolean equals(Object obj) {
 		return obj instanceof ObjectLocationDescriptor
 				&& element.equals(((ObjectLocationDescriptor)obj).element);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#dispose()
+	 */
+	public void dispose() {
+		connector.dispose(this);
 	}
 
 }

@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.mylyn.docs.intent.mapping,
  org.eclipse.mylyn.docs.intent.mapping.base,
- org.eclipse.mylyn.docs.intent.mapping.conector,
+ org.eclipse.mylyn.docs.intent.mapping.connector,
  org.eclipse.mylyn.docs.intent.mapping.internal.base;x-friends:="org.eclipse.mylyn.docs.intent.mapping.tests",
  org.eclipse.mylyn.docs.intent.mapping.internal.connector,
  org.eclipse.mylyn.docs.intent.mapping.text

@@ -9,7 +9,7 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.conector;
+package org.eclipse.mylyn.docs.intent.mapping.connector;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
@@ -104,6 +104,17 @@ public interface IConnectorRegistry {
 	 */
 	Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
 			Object element);
+
+	/**
+	 * Updates the given {@link ILocation} with the given {@link Object element}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @param element
+	 *            the element
+	 * @return <code>true</code> if any update has been made, <code>false</code> otherwise
+	 */
+	boolean updateLocation(ILocation location, Object element);
 
 	/**
 	 * Gets a human readable name for the given {@link ILocation}.

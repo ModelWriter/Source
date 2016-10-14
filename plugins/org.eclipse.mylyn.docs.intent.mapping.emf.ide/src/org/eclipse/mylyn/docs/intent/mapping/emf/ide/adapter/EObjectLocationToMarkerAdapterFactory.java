@@ -49,7 +49,7 @@ public class EObjectLocationToMarkerAdapterFactory implements IAdapterFactory {
 			} else {
 				final IFileLocation fileLocation = IdeMappingUtils.getContainingFileLocation(eObjLocation);
 				final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-						new Path(fileLocation.getFullPath()));
+						Path.fromPortableString(fileLocation.getFullPath()));
 				try {
 					res = file.createMarker(IEObjectLocationMaker.EOBJECT_LOCATION_ID);
 					res.setAttribute(IEObjectLocationMaker.URI_ATTRIBUTE, EcoreUtil.getURI(

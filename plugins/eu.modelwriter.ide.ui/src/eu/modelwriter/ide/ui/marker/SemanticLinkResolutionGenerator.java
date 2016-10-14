@@ -109,7 +109,9 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 			try {
 				final ILink link = base.getFactory().createElement(ILink.class);
 				link.setSource(sourceDescriptor.getOrCreate(base));
+				sourceDescriptor.dispose();
 				link.setTarget(targetDescriptor.getOrCreate(base));
+				targetDescriptor.dispose();
 			} catch (InstantiationException e) {
 				Activator.getDefault().getLog().log(
 						new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, e));

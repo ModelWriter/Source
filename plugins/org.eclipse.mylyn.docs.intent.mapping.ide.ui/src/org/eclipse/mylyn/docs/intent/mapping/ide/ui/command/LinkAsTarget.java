@@ -29,6 +29,7 @@ public class LinkAsTarget extends AbstractLocationHandler {
 	protected void handleLocationDescriptor(ILocationDescriptor targetDescriptor) {
 		final IBase base = IdeMappingUtils.getCurentBase();
 		final ILocation target = createLocation(targetDescriptor, base, UNABLE_TO_CREATE_TARGET_LOCATION);
+		targetDescriptor.dispose();
 		if (target != null) {
 			for (ILocationDescriptor sourceDescriptor : IdeMappingUtils.getLocationsPool()) {
 				if (IdeMappingUtils.isActive(sourceDescriptor)) {

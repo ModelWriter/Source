@@ -126,6 +126,27 @@ public final class IdeMappingUtils {
 	}
 
 	/**
+	 * Listener for {@link IdeMappingUtils#getCurentBase() current base}
+	 * {@link IdeMappingUtils#setCurrentBase(IBase) change}.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public interface ICurrentBaseListener {
+
+		/**
+		 * Notifies that the {@link IdeMappingUtils#getCurentBase() current base} has been
+		 * {@link IdeMappingUtils#setCurrentBase(IBase) changed}.
+		 * 
+		 * @param oldBase
+		 *            the old {@link IBase}
+		 * @param newBase
+		 *            the new {@link IBase}
+		 */
+		void currentBaseChanged(IBase oldBase, IBase newBase);
+
+	}
+
+	/**
 	 * The {@link IFileDelegateRegistry} instance.
 	 */
 	private static final IFileDelegateRegistry REGISTRY = new FileDelegateRegistry();
@@ -144,6 +165,11 @@ public final class IdeMappingUtils {
 	 * The {@link List} of {@link ILocationsPoolListener}.
 	 */
 	private static final List<ILocationsPoolListener> LOCATIONS_POOL_LISTENERS = new ArrayList<ILocationsPoolListener>();
+
+	/**
+	 * The {@link List} of {@link ILocationsPoolListener}.
+	 */
+	private static final List<ICurrentBaseListener> CURRENT_BASE_LISTENERS = new ArrayList<ICurrentBaseListener>();
 
 	/**
 	 * The current {@link IBase}.
@@ -200,11 +226,17 @@ public final class IdeMappingUtils {
 	/**
 	 * Sets the current {@link IBase} to the given {@link IBase}.
 	 * 
-	 * @param base
-	 *            the {@link IBase}
+	 * @param newBase
+	 *            the new {@link IBase}
 	 */
-	public static void setCurrentBase(IBase base) {
-		currentBase = base;
+	public static void setCurrentBase(IBase newBase) {
+		if (currentBase != newBase) {
+			final IBase oldBase = currentBase;
+			currentBase = newBase;
+			for (ICurrentBaseListener listener : getCurrentBaseListeners()) {
+				listener.currentBaseChanged(oldBase, newBase);
+			}
+		}
 	}
 
 	/**
@@ -346,7 +378,7 @@ public final class IdeMappingUtils {
 
 	/**
 	 * Removes the given {@link ILocationDescriptor} from the {@link #getLocationsPool() pool of location
-	 * decriptor}.
+	 * descriptor}.
 	 * 
 	 * @param locationDescriptor
 	 *            the {@link ILocation} to remove
@@ -364,24 +396,24 @@ public final class IdeMappingUtils {
 	}
 
 	/**
-	 * Adds a {@link ILocationsPoolListener} to the {@link #getLocationsPool() pool of location}.
+	 * Adds the given {@link ILocationsPoolListener}.
 	 * 
 	 * @param listener
 	 *            the {@link ILocationsPoolListener} to add
 	 */
-	public static void addLocationToPoolListener(ILocationsPoolListener listener) {
+	public static void addLocationPoolListener(ILocationsPoolListener listener) {
 		synchronized(LOCATIONS_POOL_LISTENERS) {
 			LOCATIONS_POOL_LISTENERS.add(listener);
 		}
 	}
 
 	/**
-	 * removes a {@link ILocationsPoolListener} from the {@link #getLocationsPool() pool of location}.
+	 * removes the given {@link ILocationsPoolListener}.
 	 * 
 	 * @param listener
-	 *            the {@link ILocationsPoolListener} to add
+	 *            the {@link ILocationsPoolListener} to remove
 	 */
-	public static void removeLocationFromPoolListener(ILocationsPoolListener listener) {
+	public static void removeLocationPoolListener(ILocationsPoolListener listener) {
 		synchronized(LOCATIONS_POOL_LISTENERS) {
 			LOCATIONS_POOL_LISTENERS.remove(listener);
 		}
@@ -467,6 +499,41 @@ public final class IdeMappingUtils {
 	public static boolean asActiveLocationDescriptor() {
 		synchronized(LOCATIONS_POOL) {
 			return LOCATIONS_POOL.values().contains(Boolean.TRUE);
+		}
+	}
+
+	/**
+	 * Gets the {@link List} of {@link ICurrentBaseListener} in a thread safe way.
+	 * 
+	 * @return the {@link List} of {@link ICurrentBaseListener} in a thread safe way
+	 */
+	private static List<ICurrentBaseListener> getCurrentBaseListeners() {
+		synchronized(CURRENT_BASE_LISTENERS) {
+			return new ArrayList<ICurrentBaseListener>(CURRENT_BASE_LISTENERS);
+		}
+	}
+
+	/**
+	 * Adds the given {@link ICurrentBaseListener}.
+	 * 
+	 * @param listener
+	 *            the {@link ICurrentBaseListener} to add
+	 */
+	public static void addCurrentBaseListener(ICurrentBaseListener listener) {
+		synchronized(CURRENT_BASE_LISTENERS) {
+			CURRENT_BASE_LISTENERS.add(listener);
+		}
+	}
+
+	/**
+	 * Removes the given {@link ICurrentBaseListener}.
+	 * 
+	 * @param listener
+	 *            the {@link ICurrentBaseListener} to remove
+	 */
+	public static void removeCurrentBaseListener(ICurrentBaseListener listener) {
+		synchronized(CURRENT_BASE_LISTENERS) {
+			CURRENT_BASE_LISTENERS.remove(listener);
 		}
 	}
 

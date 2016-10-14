@@ -55,16 +55,6 @@ public class LocationDescriptor implements ILocationDescriptor {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getConnectorType()
-	 */
-	public Class<? extends ILocation> getConnectorType() {
-		// we don't know which IConnector handle this location.
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#exists(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
 	 */
 	public boolean exists(IBase base) {
@@ -93,9 +83,18 @@ public class LocationDescriptor implements ILocationDescriptor {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#update(java.lang.Object)
+	 */
+	public boolean update(Object element) {
+		return MappingUtils.getConnectorRegistry().updateLocation(location, element);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getElement()
 	 */
-	public Object getElement() {
+	public ILocation getElement() {
 		return location;
 	}
 
@@ -116,6 +115,15 @@ public class LocationDescriptor implements ILocationDescriptor {
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof LocationDescriptor && location.equals(((LocationDescriptor)obj).location);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#dispose()
+	 */
+	public void dispose() {
+		// nothing to do here
 	}
 
 }
