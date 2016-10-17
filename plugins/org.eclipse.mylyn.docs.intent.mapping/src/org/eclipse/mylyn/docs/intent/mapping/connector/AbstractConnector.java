@@ -43,7 +43,7 @@ public abstract class AbstractConnector implements IConnector {
 			if (location == null) {
 				throw new IllegalArgumentException("The base can't create " + locationType.getSimpleName());
 			} else {
-				initLocation(location, adaptedElement);
+				initLocation(container, location, adaptedElement);
 				location.setContainer(container);
 				res = location;
 			}
@@ -107,7 +107,7 @@ public abstract class AbstractConnector implements IConnector {
 	 *            the located element
 	 */
 	protected void update(ILocation location, Object element) {
-		initLocation(location, element);
+		initLocation(location.getContainer(), location, element);
 	}
 
 	/**
@@ -168,12 +168,14 @@ public abstract class AbstractConnector implements IConnector {
 	/**
 	 * Initializes the given {@link ILocation}.
 	 * 
+	 * @param container
+	 *            the {@link ILocationContainer}
 	 * @param location
 	 *            the {@link ILocation} to initialize
 	 * @param element
 	 *            the element to locate
 	 */
-	protected abstract void initLocation(ILocation location, Object element);
+	protected abstract void initLocation(ILocationContainer container, ILocation location, Object element);
 
 	/**
 	 * {@inheritDoc}

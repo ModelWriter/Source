@@ -77,7 +77,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 
-		super.initLocation(location, EcorePackage.eINSTANCE.getEClass());
+		super.initLocation(container, location, EcorePackage.eINSTANCE.getEClass());
 
 		assertEquals(12772, location.getStartOffset());
 		assertEquals(39773, location.getEndOffset());
@@ -95,7 +95,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 
-		super.initLocation(location, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
+		super.initLocation(container, location, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
 				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name()));
 
 		assertEquals("name:EClass", container.getText().substring(location.getStartOffset(),
@@ -279,7 +279,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		location.setContainer(container);
 		container.getContents().add(location);
 
-		super.initLocation(location, EcorePackage.eINSTANCE.getEClass());
+		super.initLocation(container, location, EcorePackage.eINSTANCE.getEClass());
 
 		assertEquals(location, super.getLocation(container, EcorePackage.eINSTANCE.getEClass()));
 		assertEquals(null, super.getLocation(container, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
@@ -295,7 +295,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		location.setContainer(container);
 		container.getContents().add(location);
 
-		super.initLocation(location, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
+		super.initLocation(container, location, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
 				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name()));
 
 		assertEquals(null, super.getLocation(container, EcorePackage.eINSTANCE.getEClass()));

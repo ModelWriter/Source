@@ -60,7 +60,7 @@ public class TextConnectorTests extends TextConnector {
 		final ITextLocation location = new TestTextLocation();
 		location.setContainer(container);
 
-		super.initLocation(location, new TextRegion("cd", 2, 4));
+		super.initLocation(container, location, new TextRegion("cd", 2, 4));
 
 		assertEquals(2, location.getStartOffset());
 		assertEquals(4, location.getEndOffset());
@@ -74,7 +74,7 @@ public class TextConnectorTests extends TextConnector {
 		location.setContainer(container);
 		container.getContents().add(location);
 
-		super.initLocation(location, new TextRegion("cd", 2, 4));
+		super.initLocation(container, location, new TextRegion("cd", 2, 4));
 
 		assertEquals(location, super.getLocation(container, new TextRegion("cd", 2, 4)));
 	}
@@ -87,7 +87,7 @@ public class TextConnectorTests extends TextConnector {
 		location.setContainer(container);
 		container.getContents().add(location);
 
-		super.initLocation(location, new TextRegion("cd", 2, 4));
+		super.initLocation(container, location, new TextRegion("cd", 2, 4));
 
 		assertEquals("\"cd\"", super.getName(location));
 	}

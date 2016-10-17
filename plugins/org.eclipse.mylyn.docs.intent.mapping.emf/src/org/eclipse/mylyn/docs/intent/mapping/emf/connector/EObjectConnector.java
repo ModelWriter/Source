@@ -66,8 +66,8 @@ public class EObjectConnector extends AbstractConnector {
 	}
 
 	@Override
-	protected void initLocation(ILocation location, Object element) {
-		IEObjectLocation toInit = (IEObjectLocation)location;
+	protected void initLocation(ILocationContainer container, ILocation location, Object element) {
+		final IEObjectLocation toInit = (IEObjectLocation)location;
 
 		final EObject eObject;
 		final EStructuralFeature feature;
@@ -76,7 +76,7 @@ public class EObjectConnector extends AbstractConnector {
 		final String text;
 		final int textStartOffset;
 		if (element instanceof Setting) {
-			eObject = ((Setting)element).getEObject();
+			eObject = getEObject((IEObjectContainer)container, ((Setting)element).getEObject());
 			feature = ((Setting)element).getEStructuralFeature();
 			value = ((Setting)element).get(true);
 			setting = true;
@@ -87,7 +87,7 @@ public class EObjectConnector extends AbstractConnector {
 					- adapter.getTextOffset());
 			textStartOffset = offsets[0];
 		} else {
-			eObject = (EObject)element;
+			eObject = getEObject((IEObjectContainer)container, (EObject)element);
 			feature = null;
 			value = null;
 			setting = false;
@@ -102,6 +102,29 @@ public class EObjectConnector extends AbstractConnector {
 		toInit.setValue(value);
 		toInit.setStartOffset(textStartOffset);
 		toInit.setEndOffset(textStartOffset + text.length());
+	}
+
+	/**
+	 * Gets the instance of the given {@link EObject} in the given {@link IEObjectContainer}.
+	 * 
+	 * @param container
+	 *            the {@link IEObjectContainer}
+	 * @param eObject
+	 *            the original {@link EObject}
+	 * @return the instance of the given {@link EObject} in the given {@link IEObjectContainer} if any, the
+	 *         <code>null</code> otherwise
+	 */
+	private EObject getEObject(IEObjectContainer container, EObject eObject) {
+		final EObject res;
+
+		if (!container.getEObjects().isEmpty()) {
+			final String uriFragment = eObject.eResource().getURIFragment(eObject);
+			res = container.getEObjects().get(0).eResource().getEObject(uriFragment);
+		} else {
+			res = null;
+		}
+
+		return res;
 	}
 
 	@Override

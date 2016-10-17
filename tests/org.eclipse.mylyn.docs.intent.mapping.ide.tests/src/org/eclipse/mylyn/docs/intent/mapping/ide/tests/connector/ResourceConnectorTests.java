@@ -61,8 +61,8 @@ public class ResourceConnectorTests {
 		}
 
 		@Override
-		public void initLocation(ILocation location, Object element) {
-			super.initLocation(location, element);
+		public void initLocation(ILocationContainer container, ILocation location, Object element) {
+			super.initLocation(container, location, element);
 		}
 
 	}
@@ -224,7 +224,7 @@ public class ResourceConnectorTests {
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("TestProject");
 		TestResourceLocation location = new TestResourceLocation();
 
-		connector.initLocation(location, project);
+		connector.initLocation(null, location, project);
 
 		assertEquals("/TestProject", location.getFullPath());
 	}
@@ -235,7 +235,7 @@ public class ResourceConnectorTests {
 				new Path("TestProject/TestFolder"));
 		TestResourceLocation location = new TestResourceLocation();
 
-		connector.initLocation(location, folder);
+		connector.initLocation(null, location, folder);
 
 		assertEquals("/TestProject/TestFolder", location.getFullPath());
 	}
@@ -246,7 +246,7 @@ public class ResourceConnectorTests {
 				new Path("TestProject/TestFolder/TestFile.aaa"));
 		TestResourceLocation location = new TestResourceLocation();
 
-		connector.initLocation(location, fileA);
+		connector.initLocation(null, location, fileA);
 
 		assertEquals("/TestProject/TestFolder/TestFile.aaa", location.getFullPath());
 	}
@@ -257,7 +257,7 @@ public class ResourceConnectorTests {
 				new Path("TestProject/TestFolder/TestFile.bbb"));
 		TestResourceLocation location = new TestResourceLocation();
 
-		connector.initLocation(location, fileB);
+		connector.initLocation(null, location, fileB);
 
 		assertEquals("/TestProject/TestFolder/TestFile.bbb", location.getFullPath());
 	}
@@ -268,7 +268,7 @@ public class ResourceConnectorTests {
 				new Path("TestProject/TestFolder/TestFile.ccc"));
 		TestResourceLocation location = new TestResourceLocation();
 
-		connector.initLocation(location, fileC);
+		connector.initLocation(null, location, fileC);
 
 		assertEquals("/TestProject/TestFolder/TestFile.ccc", location.getFullPath());
 	}
@@ -285,7 +285,7 @@ public class ResourceConnectorTests {
 		TestResourceLocation location = new TestResourceLocation();
 		container.getContents().add(location);
 
-		connector.initLocation(location, project);
+		connector.initLocation(null, location, project);
 
 		assertEquals(location, connector.getLocation(container, project));
 	}
@@ -298,7 +298,7 @@ public class ResourceConnectorTests {
 		TestResourceLocation location = new TestResourceLocation();
 		container.getContents().add(location);
 
-		connector.initLocation(location, folder);
+		connector.initLocation(null, location, folder);
 
 		assertEquals(location, connector.getLocation(container, folder));
 	}
@@ -311,7 +311,7 @@ public class ResourceConnectorTests {
 		TestResourceLocation location = new TestResourceLocation();
 		container.getContents().add(location);
 
-		connector.initLocation(location, fileB);
+		connector.initLocation(null, location, fileB);
 
 		assertEquals(location, connector.getLocation(container, fileB));
 	}

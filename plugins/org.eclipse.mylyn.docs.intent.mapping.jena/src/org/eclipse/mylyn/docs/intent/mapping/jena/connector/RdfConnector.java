@@ -77,7 +77,7 @@ public class RdfConnector extends AbstractConnector {
 	}
 
 	@Override
-	protected void initLocation(ILocation location, Object element) {
+	protected void initLocation(ILocationContainer container, ILocation location, Object element) {
 		final IRdfLocation rdfLocation = (IRdfLocation)location;
 		final Resource resource = (Resource)element;
 

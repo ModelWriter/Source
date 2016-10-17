@@ -46,7 +46,7 @@ public class TextConnector extends AbstractConnector {
 	}
 
 	@Override
-	protected void initLocation(ILocation location, Object element) {
+	protected void initLocation(ILocationContainer container, ILocation location, Object element) {
 		final ITextLocation toInit = (ITextLocation)location;
 		final TextRegion region = (TextRegion)element;
 

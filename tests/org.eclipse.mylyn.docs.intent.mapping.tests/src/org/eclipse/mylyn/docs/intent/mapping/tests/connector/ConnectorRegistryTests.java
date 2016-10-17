@@ -88,7 +88,7 @@ public class ConnectorRegistryTests {
 		}
 
 		@Override
-		protected void initLocation(ILocation location, Object element) {
+		protected void initLocation(ILocationContainer container, ILocation location, Object element) {
 			((ITestLocation1)location).setObject(element);
 		}
 
@@ -198,7 +198,7 @@ public class ConnectorRegistryTests {
 		}
 
 		@Override
-		protected void initLocation(ILocation location, Object element) {
+		protected void initLocation(ILocationContainer container, ILocation location, Object element) {
 			((ITestLocation2)location).setObject(element);
 		}
 

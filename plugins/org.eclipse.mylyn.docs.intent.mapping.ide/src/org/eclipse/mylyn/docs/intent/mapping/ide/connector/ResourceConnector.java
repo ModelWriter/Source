@@ -172,7 +172,7 @@ public class ResourceConnector extends AbstractConnector {
 	}
 
 	@Override
-	protected void initLocation(ILocation location, Object element) {
+	protected void initLocation(ILocationContainer container, ILocation location, Object element) {
 		final IResourceLocation toInit = (IResourceLocation)location;
 
 		toInit.setFullPath(((IResource)element).getFullPath().toPortableString());
