@@ -27,6 +27,15 @@ public abstract class AbstractConnector implements IConnector {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#canHandle(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public boolean canHandle(ILocation location) {
+		return getType().isAssignableFrom(location.getClass());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#createLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
 	 *      java.lang.Object)
 	 */
@@ -61,7 +70,7 @@ public abstract class AbstractConnector implements IConnector {
 	 *      java.lang.Object)
 	 */
 	public boolean updateLocation(ILocation location, Object element) {
-		final boolean res = canUpdate(location, element);
+		final boolean res = canUpdate(element);
 
 		if (res) {
 			update(location, element);
@@ -86,16 +95,13 @@ public abstract class AbstractConnector implements IConnector {
 	}
 
 	/**
-	 * Tells if we can update the given {@link ILocation} with the given located element.
+	 * Tells if we can update with the given located element.
 	 * 
-	 * @param location
-	 *            the {@link ILocation} to update
 	 * @param element
 	 *            the located element
-	 * @return <code>true</code> if we can update the given {@link ILocation} with the given located element,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if we can update with the given located element, <code>false</code> otherwise
 	 */
-	protected abstract boolean canUpdate(ILocation location, Object element);
+	protected abstract boolean canUpdate(Object element);
 
 	/**
 	 * Update the given {@link ILocation} by {@link AbstractConnector#initLocation(ILocation, Object)

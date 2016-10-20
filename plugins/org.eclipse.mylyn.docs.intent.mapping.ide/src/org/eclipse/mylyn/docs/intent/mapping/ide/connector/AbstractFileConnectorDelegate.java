@@ -12,6 +12,8 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.connector;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 
 /**
@@ -29,6 +31,17 @@ public abstract class AbstractFileConnectorDelegate implements IFileConnectorDel
 	 */
 	public void update(IFileLocation location, IFile element) {
 		initLocation(location, element);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getElement(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation)
+	 */
+	public Object getElement(IFileLocation location) {
+		final IFile res = ResourcesPlugin.getWorkspace().getRoot().getFile(
+				Path.fromPortableString(location.getFullPath()));
+		return res;
 	}
 
 }

@@ -79,4 +79,16 @@ public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 		RdfConnector.updateRdfContainer((IRdfContainer)location, concepts);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getElement(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation)
+	 */
+	public Object getElement(IFileLocation location) {
+		final IFile file = (IFile)super.getElement(location);
+		final Model res = RDFDataMgr.loadModel(file.getLocation().toFile().getAbsolutePath(), Lang.TTL);
+
+		return res;
+	}
+
 }

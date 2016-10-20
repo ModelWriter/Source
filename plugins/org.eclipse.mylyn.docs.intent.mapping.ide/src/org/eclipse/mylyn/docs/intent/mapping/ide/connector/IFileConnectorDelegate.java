@@ -56,4 +56,15 @@ public interface IFileConnectorDelegate {
 	 */
 	void update(IFileLocation location, IFile element);
 
+	/**
+	 * Gets the {@link Object element} located by the given {@link IFileLocation}.
+	 * 
+	 * @param location
+	 *            the {@link IFileLocation}
+	 * @return the {@link Object element} located by the given {@link IFileLocation} if the given
+	 *         {@link IFileLocation} if handled by this {@link IFileConnectorDelegate}, <code>null</code>
+	 *         otherwise
+	 */
+	Object getElement(IFileLocation location);
+
 }

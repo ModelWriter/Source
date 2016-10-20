@@ -12,7 +12,6 @@
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -25,7 +24,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
@@ -61,9 +59,9 @@ public class EObjectFileConnectorDelegateTests {
 		private String text;
 
 		/**
-		 * The {@link List} of {@link EObject}.
+		 * The {@link Resource}.
 		 */
-		private List<EObject> eObjects;
+		private Resource resource;
 
 		/**
 		 * {@inheritDoc}
@@ -83,22 +81,12 @@ public class EObjectFileConnectorDelegateTests {
 			return text;
 		}
 
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer#setEObjects(java.util.List)
-		 */
-		public void setEObjects(List<EObject> eObjs) {
-			this.eObjects = eObjs;
+		public void setResource(Resource resource) {
+			this.resource = resource;
 		}
 
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer#getEObjects()
-		 */
-		public List<EObject> getEObjects() {
-			return eObjects;
+		public Resource getResrouce() {
+			return resource;
 		}
 
 	}
@@ -165,7 +153,7 @@ public class EObjectFileConnectorDelegateTests {
 
 		delegate.initLocation(location, file);
 
-		assertEquals(3, location.getEObjects().size());
+		assertEquals(555, location.getText().length());
 	}
 
 	@Test

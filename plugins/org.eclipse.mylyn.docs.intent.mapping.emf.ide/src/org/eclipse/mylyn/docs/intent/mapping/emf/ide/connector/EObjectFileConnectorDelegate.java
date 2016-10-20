@@ -62,7 +62,18 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.getResource(URI.createPlatformResourceURI(element.getFullPath()
 				.toPortableString(), true), true);
-		EObjectConnector.updateEObjectContainer((IEObjectContainer)location, resource.getContents());
+		EObjectConnector.updateEObjectContainer((IEObjectContainer)location, resource);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getElement(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation)
+	 */
+	public Object getElement(IFileLocation location) {
+		final ResourceSet rs = new ResourceSetImpl();
+
+		return rs.getResource(URI.createPlatformResourceURI(location.getFullPath(), true), true);
 	}
 
 }

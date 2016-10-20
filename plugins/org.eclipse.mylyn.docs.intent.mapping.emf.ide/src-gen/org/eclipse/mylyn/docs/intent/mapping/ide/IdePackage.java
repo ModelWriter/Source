@@ -15,7 +15,6 @@ package org.eclipse.mylyn.docs.intent.mapping.ide;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 
 /**
@@ -387,22 +386,13 @@ public interface IdePackage extends EPackage {
 	int EOBJECT_FILE_LOCATION__TEXT = TEXT_FILE_LOCATION__TEXT;
 
 	/**
-	 * The feature id for the '<em><b>EObjects</b></em>' reference list. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EOBJECT_FILE_LOCATION__EOBJECTS = TEXT_FILE_LOCATION_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>EObject File Location</em>' class. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION_FEATURE_COUNT = TEXT_FILE_LOCATION_FEATURE_COUNT + 1;
+	int EOBJECT_FILE_LOCATION_FEATURE_COUNT = TEXT_FILE_LOCATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>EObject File Location</em>' class. <!-- begin-user-doc --> <!--
@@ -477,18 +467,6 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getEObjectFileLocation();
-
-	/**
-	 * Returns the meta object for the reference list '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getEObjects <em>EObjects</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the reference list '<em>EObjects</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getEObjects()
-	 * @see #getEObjectFileLocation()
-	 * @generated
-	 */
-	EReference getEObjectFileLocation_EObjects();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc
@@ -572,14 +550,6 @@ public interface IdePackage extends EPackage {
 		 * @generated
 		 */
 		EClass EOBJECT_FILE_LOCATION = eINSTANCE.getEObjectFileLocation();
-
-		/**
-		 * The meta object literal for the '<em><b>EObjects</b></em>' reference list feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference EOBJECT_FILE_LOCATION__EOBJECTS = eINSTANCE.getEObjectFileLocation_EObjects();
 
 	}
 

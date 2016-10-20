@@ -99,8 +99,8 @@ public class ConnectorRegistryTests {
 		}
 
 		@Override
-		protected boolean canUpdate(ILocation location, Object element) {
-			return location instanceof ITestLocation1;
+		protected boolean canUpdate(Object element) {
+			return true;
 		}
 
 		public String getName(ILocation location) {
@@ -121,6 +121,23 @@ public class ConnectorRegistryTests {
 
 			res = new ObjectLocationDescriptor(this, containerDescriptor, element, "TestLocation1 "
 					+ element.toString());
+
+			return res;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 */
+		public Object getElement(ILocation location) {
+			final Object res;
+
+			if (location instanceof TestLocation1) {
+				res = ((TestLocation1)location).getObject();
+			} else {
+				res = null;
+			}
 
 			return res;
 		}
@@ -209,8 +226,8 @@ public class ConnectorRegistryTests {
 		}
 
 		@Override
-		protected boolean canUpdate(ILocation location, Object element) {
-			return location instanceof ITestLocation2;
+		protected boolean canUpdate(Object element) {
+			return true;
 		}
 
 		public String getName(ILocation location) {
@@ -231,6 +248,23 @@ public class ConnectorRegistryTests {
 
 			res = new ObjectLocationDescriptor(this, containerDescriptor, element, "TestLocation2 "
 					+ element.toString());
+
+			return res;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+		 */
+		public Object getElement(ILocation location) {
+			final Object res;
+
+			if (location instanceof TestLocation2) {
+				res = ((TestLocation2)location).getObject();
+			} else {
+				res = null;
+			}
 
 			return res;
 		}

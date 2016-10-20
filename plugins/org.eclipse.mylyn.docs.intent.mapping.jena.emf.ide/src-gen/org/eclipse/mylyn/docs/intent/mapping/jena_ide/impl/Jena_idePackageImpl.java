@@ -2,13 +2,7 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl;
 
-import static org.eclipse.mylyn.docs.intent.mapping.jena_ide.Jena_idePackage.RESOURCE;
-
-import com.hp.hpl.jena.rdf.model.Resource;
-
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage;
@@ -28,13 +22,6 @@ public class Jena_idePackageImpl extends EPackageImpl implements Jena_idePackage
 	 * @generated
 	 */
 	private EClass rdfFileLocationEClass = null;
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	private EDataType resourceEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -115,24 +102,6 @@ public class Jena_idePackageImpl extends EPackageImpl implements Jena_idePackage
 	 * 
 	 * @generated
 	 */
-	public EAttribute getRdfFileLocation_Resources() {
-		return (EAttribute)rdfFileLocationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EDataType getResource() {
-		return resourceEDataType;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public Jena_ideFactory getJena_ideFactory() {
 		return (Jena_ideFactory)getEFactoryInstance();
 	}
@@ -157,10 +126,6 @@ public class Jena_idePackageImpl extends EPackageImpl implements Jena_idePackage
 
 		// Create classes and their features
 		rdfFileLocationEClass = createEClass(RDF_FILE_LOCATION);
-		createEAttribute(rdfFileLocationEClass, RDF_FILE_LOCATION__RESOURCES);
-
-		// Create data types
-		resourceEDataType = createEDataType(RESOURCE);
 	}
 
 	/**
@@ -199,13 +164,6 @@ public class Jena_idePackageImpl extends EPackageImpl implements Jena_idePackage
 		// Initialize classes, features, and operations; add parameters
 		initEClass(rdfFileLocationEClass, RdfFileLocation.class, "RdfFileLocation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRdfFileLocation_Resources(), this.getResource(), "resources", null, 0, -1,
-				RdfFileLocation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		// Initialize data types
-		initEDataType(resourceEDataType, Resource.class, "Resource", !IS_SERIALIZABLE,
-				!IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

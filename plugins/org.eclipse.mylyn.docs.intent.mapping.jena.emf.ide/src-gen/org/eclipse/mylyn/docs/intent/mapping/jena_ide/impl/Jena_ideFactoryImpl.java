@@ -3,7 +3,6 @@
 package org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
@@ -57,34 +56,6 @@ public class Jena_ideFactoryImpl extends EFactoryImpl implements Jena_ideFactory
 				return createRdfFileLocation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName()
-						+ "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public Object createFromString(EDataType eDataType, String initialValue) {
-		switch (eDataType.getClassifierID()) {
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-						+ "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public String convertToString(EDataType eDataType, Object instanceValue) {
-		switch (eDataType.getClassifierID()) {
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName()
 						+ "' is not a valid classifier");
 		}
 	}

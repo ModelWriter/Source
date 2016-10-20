@@ -11,16 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.resource;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.resource.AbstractResourceLocationTests;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for {@link IEObjectFileLocation}.
@@ -32,37 +24,6 @@ public abstract class AbstractEObjectFileLocationTests extends AbstractResourceL
 	protected IEObjectFileLocation createLocation() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		return getBase().getFactory().createElement(IEObjectFileLocation.class);
-	}
-
-	@Test
-	public void setEObjectsNull() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		final IEObjectFileLocation location = createLocation();
-
-		location.setEObjects(null);
-
-		assertEquals(null, location.getEObjects());
-	}
-
-	@Test
-	public void setEObjects() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		final IEObjectFileLocation location = createLocation();
-		final List<EObject> eObjects = new ArrayList<EObject>();
-
-		location.setEObjects(eObjects);
-
-		assertEquals(eObjects, location.getEObjects());
-	}
-
-	@Test
-	public void getEObjectsDefault() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		final IEObjectFileLocation location = createLocation();
-
-		location.getEObjects();
-
-		assertTrue(location.getEObjects() instanceof List);
-		assertEquals(0, location.getEObjects().size());
 	}
 
 }

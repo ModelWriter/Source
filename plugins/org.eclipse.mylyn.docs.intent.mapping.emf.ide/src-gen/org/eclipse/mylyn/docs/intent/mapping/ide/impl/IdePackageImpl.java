@@ -15,7 +15,6 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation;
@@ -183,15 +182,6 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 	 * 
 	 * @generated
 	 */
-	public EReference getEObjectFileLocation_EObjects() {
-		return (EReference)eObjectFileLocationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public IdeFactory getIdeFactory() {
 		return (IdeFactory)getEFactoryInstance();
 	}
@@ -224,7 +214,6 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 		createEAttribute(textFileLocationEClass, TEXT_FILE_LOCATION__TEXT);
 
 		eObjectFileLocationEClass = createEClass(EOBJECT_FILE_LOCATION);
-		createEReference(eObjectFileLocationEClass, EOBJECT_FILE_LOCATION__EOBJECTS);
 	}
 
 	/**
@@ -282,9 +271,6 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 
 		initEClass(eObjectFileLocationEClass, EObjectFileLocation.class, "EObjectFileLocation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEObjectFileLocation_EObjects(), ecorePackage.getEObject(), null, "eObjects", null,
-				0, -1, EObjectFileLocation.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

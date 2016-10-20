@@ -11,32 +11,13 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.jena;
 
-import com.hp.hpl.jena.rdf.model.Resource;
-
-import java.util.List;
-
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 
 /**
- * {@link Resource} container.
+ * {@link com.hp.hpl.jena.rdf.model.Resource Resource} container.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public interface IRdfContainer extends ILocation {
-
-	/**
-	 * Sets the {@link List} of {@link Resource}.
-	 * 
-	 * @param resources
-	 *            the {@link List} of {@link Resource}
-	 */
-	void setResources(List<Resource> resources);
-
-	/**
-	 * Gets the {@link List} of {@link Resource}.
-	 * 
-	 * @return the {@link List} of {@link Resource}
-	 */
-	List<Resource> getResources();
 
 }

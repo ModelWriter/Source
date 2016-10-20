@@ -11,12 +11,14 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.jena.connector;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -40,11 +42,7 @@ public class RdfConnector extends AbstractConnector {
 	public String getName(ILocation location) {
 		final String res;
 
-		if (location instanceof IRdfLocation) {
-			res = ((IRdfLocation)location).getURI();
-		} else {
-			res = null;
-		}
+		res = ((IRdfLocation)location).getURI();
 
 		return res;
 	}
@@ -85,8 +83,8 @@ public class RdfConnector extends AbstractConnector {
 	}
 
 	@Override
-	protected boolean canUpdate(ILocation location, Object element) {
-		return location instanceof IRdfLocation && element instanceof Resource;
+	protected boolean canUpdate(Object element) {
+		return element instanceof Resource;
 	}
 
 	/**
@@ -102,8 +100,6 @@ public class RdfConnector extends AbstractConnector {
 		for (Resource resource : resources) {
 			newURIs.add(resource.getURI());
 		}
-
-		container.setResources(resources);
 
 		for (ILocation child : container.getContents()) {
 			if (child instanceof IRdfLocation) {
@@ -129,6 +125,21 @@ public class RdfConnector extends AbstractConnector {
 		} else {
 			res = null;
 		}
+
+		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public Object getElement(ILocation location) {
+		final Resource res;
+
+		final Model model = (Model)MappingUtils.getConnectorRegistry().getElement(
+				(ILocation)location.getContainer());
+		res = model.getResource(((IRdfLocation)location).getURI());
 
 		return res;
 	}

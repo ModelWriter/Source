@@ -2,9 +2,7 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.jena_ide;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage;
 
@@ -119,22 +117,13 @@ public interface Jena_idePackage extends EPackage {
 	int RDF_FILE_LOCATION__FULL_PATH = IdePackage.FILE_LOCATION__FULL_PATH;
 
 	/**
-	 * The feature id for the '<em><b>Resources</b></em>' attribute list. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int RDF_FILE_LOCATION__RESOURCES = IdePackage.FILE_LOCATION_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Rdf File Location</em>' class. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int RDF_FILE_LOCATION_FEATURE_COUNT = IdePackage.FILE_LOCATION_FEATURE_COUNT + 1;
+	int RDF_FILE_LOCATION_FEATURE_COUNT = IdePackage.FILE_LOCATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Rdf File Location</em>' class. <!-- begin-user-doc --> <!--
@@ -146,15 +135,6 @@ public interface Jena_idePackage extends EPackage {
 	int RDF_FILE_LOCATION_OPERATION_COUNT = IdePackage.FILE_LOCATION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '<em>Resource</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see com.hp.hpl.jena.rdf.model.Resource
-	 * @see org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.Jena_idePackageImpl#getResource()
-	 * @generated
-	 */
-	int RESOURCE = 1;
-
-	/**
 	 * Returns the meta object for class '
 	 * {@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.RdfFileLocation <em>Rdf File Location</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -164,29 +144,6 @@ public interface Jena_idePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getRdfFileLocation();
-
-	/**
-	 * Returns the meta object for the attribute list '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.RdfFileLocation#getResources <em>Resources</em>}
-	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the attribute list '<em>Resources</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.jena_ide.RdfFileLocation#getResources()
-	 * @see #getRdfFileLocation()
-	 * @generated
-	 */
-	EAttribute getRdfFileLocation_Resources();
-
-	/**
-	 * Returns the meta object for data type '{@link com.hp.hpl.jena.rdf.model.Resource <em>Resource</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for data type '<em>Resource</em>'.
-	 * @see com.hp.hpl.jena.rdf.model.Resource
-	 * @model instanceClass="com.hp.hpl.jena.rdf.model.Resource" serializeable="false"
-	 * @generated
-	 */
-	EDataType getResource();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc
@@ -221,24 +178,6 @@ public interface Jena_idePackage extends EPackage {
 		 * @generated
 		 */
 		EClass RDF_FILE_LOCATION = eINSTANCE.getRdfFileLocation();
-
-		/**
-		 * The meta object literal for the '<em><b>Resources</b></em>' attribute list feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EAttribute RDF_FILE_LOCATION__RESOURCES = eINSTANCE.getRdfFileLocation_Resources();
-
-		/**
-		 * The meta object literal for the '<em>Resource</em>' data type. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
-		 * 
-		 * @see com.hp.hpl.jena.rdf.model.Resource
-		 * @see org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.Jena_idePackageImpl#getResource()
-		 * @generated
-		 */
-		EDataType RESOURCE = eINSTANCE.getResource();
 
 	}
 

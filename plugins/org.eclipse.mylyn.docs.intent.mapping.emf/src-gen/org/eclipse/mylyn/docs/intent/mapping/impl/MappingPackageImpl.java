@@ -338,7 +338,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	public EAttribute getEObjectLocation_Setting() {
+	public EAttribute getEObjectLocation_FeatureName() {
 		return (EAttribute)eObjectLocationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -448,7 +448,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		createEAttribute(textLocationEClass, TEXT_LOCATION__END_OFFSET);
 
 		eObjectLocationEClass = createEClass(EOBJECT_LOCATION);
-		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__SETTING);
+		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__FEATURE_NAME);
 
 		locationContainerEClass = createEClass(LOCATION_CONTAINER);
 		createEReference(locationContainerEClass, LOCATION_CONTAINER__CONTENTS);
@@ -552,8 +552,8 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 
 		initEClass(eObjectLocationEClass, EObjectLocation.class, "EObjectLocation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEObjectLocation_Setting(), ecorePackage.getEBoolean(), "setting", null, 1, 1,
-				EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+		initEAttribute(getEObjectLocation_FeatureName(), ecorePackage.getEString(), "featureName", null, 0,
+				1, EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(locationContainerEClass, LocationContainer.class, "LocationContainer", IS_ABSTRACT,

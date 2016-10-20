@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
@@ -230,64 +231,75 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter#setLocationFromText(org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter#getElement(org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation)
 	 */
-	public void setLocationFromText(IEObjectLocation location) {
+	public Object getElement(IEObjectLocation location) {
+		final Object res;
 
-		final int offset = location.getStartOffset();
-		if (offset == getTextOffset()) {
+		final int startOffset = location.getStartOffset();
+		if (startOffset == getTextOffset()) {
 			if (((double)(location.getEndOffset() - location.getStartOffset()) / (double)getText().length()) >= deleteThreshold) {
-				location.setEObject(getTarget());
-				location.setEStructuralFeature(null);
-				location.setValue(null);
+				res = getTarget();
 			} else {
-				clearLocation(location);
+				res = null;
 			}
 		} else {
-			final FeatureValue featureValue = offsetToFeatureValues.get(location.getStartOffset());
+			final FeatureValue featureValue = offsetToFeatureValues.get(startOffset);
 			if (featureValue == null) {
 				FeatureValue child = null;
 				for (Entry<Integer, FeatureValue> entry : offsetToFeatureValues.entrySet()) {
-					if (entry.getKey() > offset) {
+					if (entry.getKey() > startOffset) {
 						break;
-					} else {
+					} else if (entry.getValue().feature instanceof EReference
+							&& ((EReference)entry.getValue().feature).isContainment()) {
 						child = entry.getValue();
 					}
 				}
-				if (child.value instanceof EObject) {
+				if (child != null && child.value instanceof EObject) {
 					final ITextAdapter textAdapter = EObjectConnector.getTextAdapter((EObject)child.value);
-					textAdapter.setLocationFromText(location);
+					res = textAdapter.getElement(location);
 				} else {
-					clearLocation(location);
+					res = null;
 				}
 			} else {
 				// TODO compare surrounding EObject serialization and discard the location according to the
 				// editing distance for instance
-				if (location.isSetting()) {
-					location.setEObject(getTarget());
-					location.setEStructuralFeature(featureValue.feature);
-					location.setValue(featureValue.value);
+				if (location.getFeatureName() != null) {
+					final EObject eObj = getTarget();
+					final EStructuralFeature feature = featureValue.feature;
+					final Object value = featureValue.value;
+					res = new Setting() {
+						public void unset() {
+							throw new UnsupportedOperationException();
+						}
+
+						public void set(Object newValue) {
+							throw new UnsupportedOperationException();
+						}
+
+						public boolean isSet() {
+							throw new UnsupportedOperationException();
+						}
+
+						public EStructuralFeature getEStructuralFeature() {
+							return feature;
+						}
+
+						public EObject getEObject() {
+							return eObj;
+						}
+
+						public Object get(boolean resolve) {
+							return value;
+						}
+					};
 				} else {
-					location.setEObject((EObject)featureValue.value);
-					location.setEStructuralFeature(null);
-					location.setValue(null);
+					res = (EObject)featureValue.value;
 				}
 			}
 		}
-	}
 
-	/**
-	 * Clears the given {@link IEObjectLocation}.
-	 * 
-	 * @param location
-	 *            the {@link IEObjectLocation} to clear
-	 */
-	private void clearLocation(IEObjectLocation location) {
-		location.setStartOffset(-1);
-		location.setEndOffset(-1);
-		location.setEObject(null);
-		location.setEStructuralFeature(null);
-		location.setValue(null);
+		return res;
 	}
 
 	/**
@@ -296,24 +308,24 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter#setLocationFromEObject(org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation)
 	 */
 	public void setLocationFromEObject(IEObjectLocation location) {
-		assert location.getEObject() == getTarget();
-
 		final String text = getText();
-		if (location.getEStructuralFeature() == null) {
-			if (location.getEObject() == getTarget()) {
-				location.setStartOffset(getTextOffset());
-				location.setEndOffset(getTextOffset() + text.length());
-			} else {
-				final ITextAdapter adapter = EObjectConnector.getTextAdapter(location.getEObject());
-				location.setStartOffset(adapter.getTextOffset());
-				location.setEndOffset(adapter.getTextOffset() + adapter.getText().length());
-			}
-		} else {
-			final int[] offsets = featureValueToOffsets.get(location.getEStructuralFeature()).get(
-					location.getValue());
-			location.setStartOffset(offsets[0]);
-			location.setEndOffset(offsets[1]);
-		}
+		location.setStartOffset(getTextOffset());
+		location.setEndOffset(getTextOffset() + text.length());
+		location.setFeatureName(null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter#setLocationFromEObject(org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation,
+	 *      org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
+	 */
+	public void setLocationFromEObject(IEObjectLocation location, EStructuralFeature feature, Object value) {
+		getText();
+		final int[] offsets = featureValueToOffsets.get(feature).get(value);
+		location.setStartOffset(offsets[0]);
+		location.setEndOffset(offsets[1]);
+		location.setFeatureName(feature.getName());
 	}
 
 	@Override

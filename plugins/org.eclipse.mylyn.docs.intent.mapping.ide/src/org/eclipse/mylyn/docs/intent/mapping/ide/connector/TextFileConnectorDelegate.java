@@ -71,4 +71,5 @@ public class TextFileConnectorDelegate extends AbstractFileConnectorDelegate {
 					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		}
 	}
+
 }

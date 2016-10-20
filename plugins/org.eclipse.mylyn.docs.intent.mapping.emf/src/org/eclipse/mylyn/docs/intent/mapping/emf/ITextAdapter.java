@@ -44,20 +44,34 @@ public interface ITextAdapter extends Adapter {
 	int getTextOffset();
 
 	/**
-	 * Sets the given {@link IEObjectLocation} from its {@link IEObjectLocation#getText() text}.
-	 * 
-	 * @param location
-	 *            the {@link IEObjectLocation} to set
-	 */
-	void setLocationFromText(IEObjectLocation location);
-
-	/**
 	 * Sets the given {@link IEObjectLocation} from its {@link IEObjectLocation#getEObject() EObject}.
 	 * 
 	 * @param location
 	 *            the {@link IEObjectLocation} to set
 	 */
 	void setLocationFromEObject(IEObjectLocation location);
+
+	/**
+	 * Sets the given {@link IEObjectLocation} from its {@link IEObjectLocation#getEObject() EObject}.
+	 * 
+	 * @param location
+	 *            the {@link IEObjectLocation} to set
+	 * @param feature
+	 *            the {@link EStructuralFeature} to set
+	 * @param value
+	 *            the value to set
+	 */
+	void setLocationFromEObject(IEObjectLocation location, EStructuralFeature feature, Object value);
+
+	/**
+	 * Gets the {@link Object element} located by the given {@link IEObjectLocation}.
+	 * 
+	 * @param location
+	 *            the {@link IEObjectLocation}
+	 * @return the {@link Object element} located by the given {@link IEObjectLocation} if any,
+	 *         <code>null</code> otherwise
+	 */
+	Object getElement(IEObjectLocation location);
 
 	/**
 	 * Gets the start and end offsets of the given {@link EStructuralFeature} and value.

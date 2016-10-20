@@ -80,6 +80,21 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public Object getElement(ILocation location) {
+		for (IConnector connector : getConnectors()) {
+			if (connector.canHandle(location)) {
+				return connector.getElement(location);
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getOrCreateLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
 	 *      java.lang.Object)
 	 */
@@ -122,9 +137,8 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 */
 	public String getName(ILocation location) {
 		for (IConnector connector : getConnectors()) {
-			final String name = connector.getName(location);
-			if (name != null) {
-				return name;
+			if (connector.canHandle(location)) {
+				return connector.getName(location);
 			}
 		}
 
@@ -157,8 +171,8 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 */
 	public boolean updateLocation(ILocation location, Object element) {
 		for (IConnector connector : getConnectors()) {
-			if (connector.updateLocation(location, element)) {
-				return true;
+			if (connector.canHandle(location)) {
+				return connector.updateLocation(location, element);
 			}
 		}
 

@@ -23,6 +23,16 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 public interface IConnector {
 
 	/**
+	 * Tells if then connector can handle the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation} to check.
+	 * @return <code>true</code> if then connector can handle the given {@link ILocation}, <code>false</code>
+	 *         otherwise
+	 */
+	boolean canHandle(ILocation location);
+
+	/**
 	 * Creates the {@link ILocation} according to the given container and an element to locate.
 	 * 
 	 * @param container
@@ -91,6 +101,16 @@ public interface IConnector {
 	 */
 	Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
 			Object element);
+
+	/**
+	 * Gets the {@link Object element} located by the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @return the {@link Object element} located by the given {@link ILocation} if the given
+	 *         {@link ILocation} is handled by this {@link IConnector}, <code>null</code> otherwise
+	 */
+	Object getElement(ILocation location);
 
 	/**
 	 * Gets a human readable name for the given {@link ILocation}.

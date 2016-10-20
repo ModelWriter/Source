@@ -45,6 +45,24 @@ public class TextConnector extends AbstractConnector {
 		return res;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public Object getElement(ILocation location) {
+		final TextRegion res;
+
+		final ITextLocation textLocation = (ITextLocation)location;
+		final int startOffset = textLocation.getStartOffset();
+		final int endOffset = textLocation.getEndOffset();
+		final String text = ((ITextContainer)location.getContainer()).getText().substring(startOffset,
+				endOffset);
+		res = new TextRegion(text, startOffset, endOffset);
+
+		return res;
+	}
+
 	@Override
 	protected void initLocation(ILocationContainer container, ILocation location, Object element) {
 		final ITextLocation toInit = (ITextLocation)location;
@@ -64,8 +82,8 @@ public class TextConnector extends AbstractConnector {
 	}
 
 	@Override
-	protected boolean canUpdate(ILocation location, Object element) {
-		return location instanceof ITextLocation && element instanceof TextRegion;
+	protected boolean canUpdate(Object element) {
+		return element instanceof TextRegion;
 	}
 
 	/**
@@ -101,14 +119,10 @@ public class TextConnector extends AbstractConnector {
 	public String getName(ILocation location) {
 		final String res;
 
-		if (location instanceof ITextLocation) {
-			final String text = ((ITextContainer)location.getContainer()).getText();
-			final int start = ((ITextLocation)location).getStartOffset();
-			final int end = ((ITextLocation)location).getEndOffset();
-			res = "\"" + text.substring(start, end) + "\"";
-		} else {
-			res = null;
-		}
+		final String text = ((ITextContainer)location.getContainer()).getText();
+		final int start = ((ITextLocation)location).getStartOffset();
+		final int end = ((ITextLocation)location).getEndOffset();
+		res = "\"" + text.substring(start, end) + "\"";
 
 		return res;
 	}

@@ -265,51 +265,13 @@ public class TextAdapterTests {
 		adapter.getText();
 
 		final IEObjectLocation location = new TestEObjectLocation();
-		location.setEObject(eCls1);
-		location.setEStructuralFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
-		location.setValue(eAttr2);
-		location.setSetting(true);
+		location.setFeatureName(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures().getName());
 
-		adapter.setLocationFromEObject(location);
+		adapter.setLocationFromEObject(location, EcorePackage.eINSTANCE.getEClass_EStructuralFeatures(),
+				eAttr2);
 
 		assertEquals(776, location.getStartOffset());
 		assertEquals(1099, location.getEndOffset());
-	}
-
-	@Test
-	public void setLocationFromTextSetting() {
-		final EClass eCls1 = EcorePackage.eINSTANCE.getEcoreFactory().createEClass();
-		eCls1.setName("ECls1");
-
-		final EAttribute eAttr1 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
-		eAttr1.setName("eAttr1");
-
-		final EAttribute eAttr2 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
-		eAttr2.setName("eAttr2");
-
-		final EAttribute eAttr3 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
-		eAttr3.setName("eAttr3");
-
-		eCls1.getEStructuralFeatures().add(eAttr1);
-		eCls1.getEStructuralFeatures().add(eAttr2);
-		eCls1.getEStructuralFeatures().add(eAttr3);
-
-		final TextAdapter adapter = new TextAdapter();
-		adapter.setTarget(eCls1);
-		adapter.getText();
-
-		final IEObjectLocation location = new TestEObjectLocation();
-
-		location.setStartOffset(776);
-		location.setEndOffset(1099);
-		location.setSetting(true);
-
-		adapter.setLocationFromText(location);
-
-		assertEquals(eCls1, location.getEObject());
-		assertEquals(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures(), location.getEStructuralFeature());
-		assertEquals(eAttr2, location.getValue());
-		assertEquals(true, location.isSetting());
 	}
 
 	@Test
@@ -335,49 +297,13 @@ public class TextAdapterTests {
 		adapter.getText();
 
 		final IEObjectLocation location = new TestEObjectLocation();
-		location.setEObject(eAttr2);
-		location.setSetting(false);
+		location.setFeatureName(null);
 
-		adapter.setLocationFromEObject(location);
+		((ITextAdapter)EcoreUtil.getAdapter(eAttr2.eAdapters(), ITextAdapter.class))
+				.setLocationFromEObject(location);
 
 		assertEquals(776, location.getStartOffset());
 		assertEquals(1099, location.getEndOffset());
-	}
-
-	@Test
-	public void setLocationFromText() {
-		final EClass eCls1 = EcorePackage.eINSTANCE.getEcoreFactory().createEClass();
-		eCls1.setName("ECls1");
-
-		final EAttribute eAttr1 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
-		eAttr1.setName("eAttr1");
-
-		final EAttribute eAttr2 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
-		eAttr2.setName("eAttr2");
-
-		final EAttribute eAttr3 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
-		eAttr3.setName("eAttr3");
-
-		eCls1.getEStructuralFeatures().add(eAttr1);
-		eCls1.getEStructuralFeatures().add(eAttr2);
-		eCls1.getEStructuralFeatures().add(eAttr3);
-
-		final TextAdapter adapter = new TextAdapter();
-		adapter.setTarget(eCls1);
-		adapter.getText();
-
-		final IEObjectLocation location = new TestEObjectLocation();
-
-		location.setStartOffset(776);
-		location.setEndOffset(1099);
-		location.setSetting(false);
-
-		adapter.setLocationFromText(location);
-
-		assertEquals(eAttr2, location.getEObject());
-		assertEquals(null, location.getEStructuralFeature());
-		assertEquals(null, location.getValue());
-		assertEquals(false, location.isSetting());
 	}
 
 }

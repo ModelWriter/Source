@@ -17,6 +17,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -72,15 +73,15 @@ public class EObjectConnector extends AbstractConnector {
 		final EObject eObject;
 		final EStructuralFeature feature;
 		final Object value;
-		final boolean setting;
+		final String featureName;
 		final String text;
 		final int textStartOffset;
 		if (element instanceof Setting) {
 			eObject = getEObject((IEObjectContainer)container, ((Setting)element).getEObject());
 			feature = ((Setting)element).getEStructuralFeature();
 			value = ((Setting)element).get(true);
-			setting = true;
-			final ITextAdapter adapter = getTextAdapter(eObject);
+			featureName = feature.getName();
+			final ITextAdapter adapter = EObjectConnector.getTextAdapter(eObject);
 			final String containerText = adapter.getText();
 			final int[] offsets = adapter.getOffsets(feature, value);
 			text = containerText.substring(offsets[0] - adapter.getTextOffset(), offsets[1]
@@ -90,16 +91,13 @@ public class EObjectConnector extends AbstractConnector {
 			eObject = getEObject((IEObjectContainer)container, (EObject)element);
 			feature = null;
 			value = null;
-			setting = false;
-			final ITextAdapter adapter = getTextAdapter(eObject);
+			featureName = null;
+			final ITextAdapter adapter = EObjectConnector.getTextAdapter(eObject);
 			text = adapter.getText();
 			textStartOffset = adapter.getTextOffset();
 		}
 
-		toInit.setEObject(eObject);
-		toInit.setEStructuralFeature(feature);
-		toInit.setSetting(setting);
-		toInit.setValue(value);
+		toInit.setFeatureName(featureName);
 		toInit.setStartOffset(textStartOffset);
 		toInit.setEndOffset(textStartOffset + text.length());
 	}
@@ -117,12 +115,9 @@ public class EObjectConnector extends AbstractConnector {
 	private EObject getEObject(IEObjectContainer container, EObject eObject) {
 		final EObject res;
 
-		if (!container.getEObjects().isEmpty()) {
-			final String uriFragment = eObject.eResource().getURIFragment(eObject);
-			res = container.getEObjects().get(0).eResource().getEObject(uriFragment);
-		} else {
-			res = null;
-		}
+		final Resource resource = (Resource)MappingUtils.getConnectorRegistry().getElement(container);
+		final String uriFragment = eObject.eResource().getURIFragment(eObject);
+		res = resource.getEObject(uriFragment);
 
 		return res;
 	}
@@ -132,33 +127,52 @@ public class EObjectConnector extends AbstractConnector {
 		final boolean res;
 
 		final IEObjectLocation eObjectLocation = (IEObjectLocation)location;
-		if (element instanceof Setting) {
-			final Setting setting = (Setting)element;
-			res = eObjectLocation.isSetting()
-					&& eObjectLocation.getEStructuralFeature() == setting.getEStructuralFeature()
-					&& EcoreUtil.getURI(eObjectLocation.getEObject()).equals(
-							EcoreUtil.getURI(setting.getEObject()));
+		if (eObjectLocation.getFeatureName() != null) {
+			if (element instanceof Setting) {
+				final Setting locationSetting = (Setting)getElement(location);
+				final Setting setting = (Setting)element;
+				res = locationSetting.getEStructuralFeature() == setting.getEStructuralFeature()
+						&& EcoreUtil.getURI(locationSetting.getEObject()).equals(
+								EcoreUtil.getURI(setting.getEObject()));
+			} else {
+				res = false;
+			}
 		} else {
-			final EObject eObject = (EObject)element;
-			res = !eObjectLocation.isSetting()
-					&& EcoreUtil.getURI(eObjectLocation.getEObject()).equals(EcoreUtil.getURI(eObject));
+			if (element instanceof EObject) {
+				final EObject locationElement = (EObject)getElement(location);
+				final EObject eObject = (EObject)element;
+				res = EcoreUtil.getURI(locationElement).equals(EcoreUtil.getURI(eObject));
+			} else {
+				res = false;
+			}
 		}
+
 		return res;
 	}
 
 	/**
-	 * Updates the given {@link IEObjectContainer} with the given {@link IEObjectContainer#getEObjects()
-	 * EObject list}.
+	 * Updates the given {@link IEObjectContainer} with the given {@link Resource}.
+	 * 
+	 * @param container
+	 *            the {@link IEObjectContainer}
+	 * @param resource
+	 *            the {@link Resource}
+	 */
+	public static void updateEObjectContainer(IEObjectContainer container, Resource resource) {
+		updateEObjectContainer(container, resource.getContents());
+	}
+
+	/**
+	 * Updates the given {@link IEObjectContainer} with the given {@link List} of {@link EObject}.
 	 * 
 	 * @param container
 	 *            the {@link IEObjectContainer}
 	 * @param eObjects
-	 *            the {@link IEObjectContainer#getEObjects() EObject list}
+	 *            the {@link List} of {@link EObject}
 	 */
 	public static void updateEObjectContainer(IEObjectContainer container, List<EObject> eObjects) {
 		final String newText = serialize(eObjects);
 		final String oldText = container.getText();
-		container.setEObjects(eObjects);
 		container.setText(newText);
 		if (oldText != null) {
 			final DiffMatch diff = MappingUtils.getDiffMatch(oldText, newText);
@@ -167,35 +181,13 @@ public class EObjectConnector extends AbstractConnector {
 					final IEObjectLocation location = (IEObjectLocation)child;
 					final int newStartOffset = diff.getIndex(location.getStartOffset());
 					final int newEndOffset = diff.getIndex(location.getEndOffset());
-					if (isValidOffsets(newText, location.getEStructuralFeature(), newStartOffset,
-							newEndOffset)) {
+					if (isValidOffsets(newText, location.getFeatureName(), newStartOffset, newEndOffset)) {
 						location.setStartOffset(newStartOffset);
 						location.setEndOffset(newEndOffset);
 					} else {
+						// TODO at this point we might want to mark the location as deleted and keep its data
 						location.setStartOffset(-1);
 						location.setEndOffset(-1);
-						// TODO at this point we might want to mark the location as deleted and keep its data
-						location.setEObject(null);
-						location.setSetting(false);
-						location.setEStructuralFeature(null);
-						location.setValue(null);
-					}
-				}
-			}
-			for (ILocation child : container.getContents()) {
-				if (child instanceof IEObjectLocation) {
-					final IEObjectLocation location = (IEObjectLocation)child;
-					ITextAdapter adapter = null;
-					for (EObject eObj : container.getEObjects()) {
-						final ITextAdapter textAdapter = getTextAdapter(eObj);
-						if (textAdapter.getTextOffset() > location.getStartOffset()) {
-							break;
-						} else {
-							adapter = textAdapter;
-						}
-					}
-					if (adapter != null) {
-						adapter.setLocationFromText(location);
 					}
 				}
 			}
@@ -208,8 +200,8 @@ public class EObjectConnector extends AbstractConnector {
 	 * 
 	 * @param text
 	 *            the containing text
-	 * @param feature
-	 *            the {@link EStructuralFeature} if nay, <code>null</code> otherwise
+	 * @param featureName
+	 *            the {@link EStructuralFeature#getName() feature name} if any, <code>null</code> otherwise
 	 * @param startOffset
 	 *            the {@link IEObjectLocation#getStartOffset() start offset}
 	 * @param endOffset
@@ -217,16 +209,15 @@ public class EObjectConnector extends AbstractConnector {
 	 * @return <code>true</code> if the start and end offsets are valid in the given text according to given
 	 *         {@link EStructuralFeature}, <code>false</code> otherwise
 	 */
-	protected static boolean isValidOffsets(String text, EStructuralFeature feature, int startOffset,
-			int endOffset) {
+	protected static boolean isValidOffsets(String text, String featureName, int startOffset, int endOffset) {
 		final boolean res;
 
-		if (feature != null) {
+		if (featureName != null) {
 			final boolean startMatched = startOffset - TextAdapter.START_SETTING.length() >= 0
 					&& TextAdapter.START_SETTING.equals(text.substring(startOffset
 							- TextAdapter.START_SETTING.length(), startOffset));
 			final boolean featureMatched = text.substring(startOffset).startsWith(
-					feature.getName() + TextAdapter.MIDDLE_SETTING);
+					featureName + TextAdapter.MIDDLE_SETTING);
 			final boolean endMatched = endOffset + TextAdapter.END_SETTING.length() <= text.length()
 					&& text.substring(endOffset).startsWith(TextAdapter.END_SETTING);
 			res = startMatched && featureMatched && endMatched;
@@ -251,30 +242,12 @@ public class EObjectConnector extends AbstractConnector {
 		final StringBuilder builder = new StringBuilder();
 
 		for (EObject eObj : eObjects) {
-			final ITextAdapter textAdapter = getTextAdapter(eObj);
+			final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(eObj);
 			textAdapter.setTextOffset(builder.length());
 			builder.append(textAdapter.getText());
 		}
 
 		return builder.toString();
-	}
-
-	/**
-	 * Gets a {@link ITextAdapter} for the given {@link EObject}.
-	 * 
-	 * @param eObject
-	 *            the {@link EObject}
-	 * @return a {@link ITextAdapter} for the given {@link EObject}
-	 */
-	public static ITextAdapter getTextAdapter(EObject eObject) {
-		ITextAdapter res = (ITextAdapter)EcoreUtil.getAdapter(eObject.eAdapters(), ITextAdapter.class);
-
-		if (res == null) {
-			res = new TextAdapter();
-			eObject.eAdapters().add(res);
-		}
-
-		return res;
 	}
 
 	/**
@@ -284,20 +257,15 @@ public class EObjectConnector extends AbstractConnector {
 	 */
 	public String getName(ILocation location) {
 		final String res;
-		if (location instanceof IEObjectLocation) {
-			final IEObjectLocation eObjLocation = (IEObjectLocation)location;
 
-			final IItemLabelProvider itemProvider = (IItemLabelProvider)FACTORY.adapt(eObjLocation
-					.getEObject(), IItemLabelProvider.class);
-			final String label = itemProvider.getText(eObjLocation.getEObject());
-			if (eObjLocation.isSetting()) {
-				res = label + " "
-						+ itemProvider.getText(eObjLocation.getEStructuralFeature().getEContainingClass())
-						+ "." + eObjLocation.getEStructuralFeature().getName();
-			} else {
-				res = label;
-			}
+		final Object element = getElement(location);
+		if (element instanceof Setting) {
+			final Setting setting = (Setting)element;
+			res = getName(setting.getEObject(), setting.getEStructuralFeature());
+		} else if (element instanceof EObject) {
+			res = getName((EObject)element, null);
 		} else {
+			// the located element has been deleted...
 			res = null;
 		}
 
@@ -354,9 +322,37 @@ public class EObjectConnector extends AbstractConnector {
 	}
 
 	@Override
-	protected boolean canUpdate(ILocation location, Object element) {
-		return location instanceof IEObjectLocation
-				&& (element instanceof EObject || element instanceof Setting);
+	protected boolean canUpdate(Object element) {
+		return element instanceof EObject || element instanceof Setting;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public Object getElement(ILocation location) {
+		final Object res;
+
+		final IEObjectLocation eObjLocation = (IEObjectLocation)location;
+		final Resource resource = (Resource)MappingUtils.getConnectorRegistry().getElement(
+				(ILocation)location.getContainer());
+		ITextAdapter nearestAdapter = null;
+		for (EObject root : resource.getContents()) {
+			final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(root);
+			if (textAdapter.getTextOffset() > eObjLocation.getStartOffset()) {
+				break;
+			} else {
+				nearestAdapter = textAdapter;
+			}
+		}
+		if (nearestAdapter != null) {
+			res = nearestAdapter.getElement(eObjLocation);
+		} else {
+			res = null;
+		}
+
+		return res;
 	}
 
 	/**
@@ -366,6 +362,24 @@ public class EObjectConnector extends AbstractConnector {
 	 */
 	public Class<? extends ILocation> getType() {
 		return IEObjectLocation.class;
+	}
+
+	/**
+	 * Gets a {@link ITextAdapter} for the given {@link EObject}.
+	 * 
+	 * @param eObject
+	 *            the {@link EObject}
+	 * @return a {@link ITextAdapter} for the given {@link EObject}
+	 */
+	public static ITextAdapter getTextAdapter(EObject eObject) {
+		ITextAdapter res = (ITextAdapter)EcoreUtil.getAdapter(eObject.eAdapters(), ITextAdapter.class);
+
+		if (res == null) {
+			res = new TextAdapter();
+			eObject.eAdapters().add(res);
+		}
+
+		return res;
 	}
 
 }

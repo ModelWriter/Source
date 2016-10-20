@@ -19,7 +19,9 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker.IEObjectLocationMaker;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
@@ -52,8 +54,10 @@ public class EObjectLocationToMarkerAdapterFactory implements IAdapterFactory {
 						Path.fromPortableString(fileLocation.getFullPath()));
 				try {
 					res = file.createMarker(IEObjectLocationMaker.EOBJECT_LOCATION_ID);
-					res.setAttribute(IEObjectLocationMaker.URI_ATTRIBUTE, EcoreUtil.getURI(
-							eObjLocation.getEObject()).toString());
+					final EObject eObject = (EObject)MappingUtils.getConnectorRegistry().getElement(
+							eObjLocation);
+					res.setAttribute(IEObjectLocationMaker.URI_ATTRIBUTE, EcoreUtil.getURI(eObject)
+							.toString());
 				} catch (CoreException e) {
 					res = null;
 					Activator.getDefault().getLog().log(

@@ -11,31 +11,13 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf;
 
-import java.util.List;
-
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
 
 /**
- * {@link EObject} container.
+ * {@link org.eclipse.emf.ecore.resource.Resource Resource} container.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public interface IEObjectContainer extends ITextContainer {
-
-	/**
-	 * Sets the {@link List} of contained {@link EObject}.
-	 * 
-	 * @param eObjects
-	 *            the {@link List} of contained {@link EObject}
-	 */
-	void setEObjects(List<EObject> eObjects);
-
-	/**
-	 * Gets the {@link List} of contained {@link EObject}.
-	 * 
-	 * @return the {@link List} of contained {@link EObject}
-	 */
-	List<EObject> getEObjects();
 
 }

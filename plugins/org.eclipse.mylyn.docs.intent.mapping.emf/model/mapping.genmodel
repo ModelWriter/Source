@@ -33,7 +33,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//TextLocation/endOffset"/>
     </genClasses>
     <genClasses ecoreClass="mapping.ecore#//EObjectLocation">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectLocation/setting"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectLocation/featureName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="mapping.ecore#//LocationContainer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mapping.ecore#//LocationContainer/contents"/>

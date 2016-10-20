@@ -12,9 +12,6 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.ide;
 
-import java.util.List;
-
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 
 /**
@@ -32,20 +29,4 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocati
  * @generated NOT
  */
 public interface EObjectFileLocation extends TextFileLocation, IEObjectFileLocation {
-	/**
-	 * Returns the value of the '<em><b>EObjects</b></em>' reference list. The list contents are of type
-	 * {@link org.eclipse.emf.ecore.EObject}. <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>EObjects</em>' reference list isn't clear, there really should be more of a
-	 * description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>EObjects</em>' reference list.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage#getEObjectFileLocation_EObjects()
-	 * @model volatile="true"
-	 * @generated NOT
-	 */
-	List<EObject> getEObjects();
-
 } // EObjectFileLocation

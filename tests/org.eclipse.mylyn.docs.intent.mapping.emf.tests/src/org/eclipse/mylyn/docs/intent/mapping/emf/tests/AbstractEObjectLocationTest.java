@@ -11,19 +11,19 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.tests;
 
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractLocationTests;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractTextLocationTests;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Tests {@link IEObjectLocation}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public abstract class AbstractEObjectLocationTest extends AbstractLocationTests {
+public abstract class AbstractEObjectLocationTest extends AbstractTextLocationTests {
 
 	@Override
 	protected IEObjectLocation createLocation() throws InstantiationException, IllegalAccessException,
@@ -32,84 +32,31 @@ public abstract class AbstractEObjectLocationTest extends AbstractLocationTests 
 	}
 
 	@Test
-	public void setEObjectNull() throws InstantiationException, IllegalAccessException,
+	public void setSettingFalse() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
-		location.setEObject(null);
+		location.setFeatureName(null);
 
-		assertEquals(null, location.getEObject());
+		assertNull(location.getFeatureName());
 	}
 
 	@Test
-	public void setEObject() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		IEObjectLocation location = createLocation();
-
-		location.setEObject(EcorePackage.eINSTANCE);
-
-		assertEquals(EcorePackage.eINSTANCE, location.getEObject());
-	}
-
-	@Test
-	public void getEObjectDefault() throws InstantiationException, IllegalAccessException,
+	public void setSettingTrue() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
-		assertEquals(null, location.getEObject());
+		location.setFeatureName("someFeature");
+
+		assertEquals("someFeature", location.getFeatureName());
 	}
 
 	@Test
-	public void setEStructuralFeatureNull() throws InstantiationException, IllegalAccessException,
+	public void isSettingDefault() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
-		location.setEStructuralFeature(null);
-
-		assertEquals(null, location.getEStructuralFeature());
-	}
-
-	@Test
-	public void setEStructuralFeature() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		IEObjectLocation location = createLocation();
-
-		location.setEStructuralFeature(EcorePackage.eINSTANCE.getEClass_Interface());
-
-		assertEquals(EcorePackage.eINSTANCE.getEClass_Interface(), location.getEStructuralFeature());
-	}
-
-	@Test
-	public void getEStructuralFeatureDefault() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		IEObjectLocation location = createLocation();
-
-		assertEquals(null, location.getEStructuralFeature());
-	}
-
-	@Test
-	public void setValueNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		IEObjectLocation location = createLocation();
-
-		location.setValue(null);
-
-		assertEquals(null, location.getValue());
-	}
-
-	@Test
-	public void setValue() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		IEObjectLocation location = createLocation();
-
-		location.setValue(this);
-
-		assertEquals(this, location.getValue());
-	}
-
-	@Test
-	public void getValueDefault() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		IEObjectLocation location = createLocation();
-
-		assertEquals(null, location.getValue());
+		assertNull(location.getFeatureName());
 	}
 
 }

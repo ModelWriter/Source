@@ -450,13 +450,13 @@ public interface MappingPackage extends EPackage {
 	int EOBJECT_LOCATION__END_OFFSET = TEXT_LOCATION__END_OFFSET;
 
 	/**
-	 * The feature id for the '<em><b>Setting</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * The feature id for the '<em><b>Feature Name</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__SETTING = TEXT_LOCATION_FEATURE_COUNT + 0;
+	int EOBJECT_LOCATION__FEATURE_NAME = TEXT_LOCATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>EObject Location</em>' class. <!-- begin-user-doc -->
@@ -781,15 +781,15 @@ public interface MappingPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#isSetting <em>Setting</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getFeatureName <em>Feature Name</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the attribute '<em>Setting</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#isSetting()
+	 * @return the meta object for the attribute '<em>Feature Name</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getFeatureName()
 	 * @see #getEObjectLocation()
 	 * @generated
 	 */
-	EAttribute getEObjectLocation_Setting();
+	EAttribute getEObjectLocation_FeatureName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer
@@ -1047,12 +1047,12 @@ public interface MappingPackage extends EPackage {
 		EClass EOBJECT_LOCATION = eINSTANCE.getEObjectLocation();
 
 		/**
-		 * The meta object literal for the '<em><b>Setting</b></em>' attribute feature. <!-- begin-user-doc
-		 * --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Feature Name</b></em>' attribute feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
-		EAttribute EOBJECT_LOCATION__SETTING = eINSTANCE.getEObjectLocation_Setting();
+		EAttribute EOBJECT_LOCATION__FEATURE_NAME = eINSTANCE.getEObjectLocation_FeatureName();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer

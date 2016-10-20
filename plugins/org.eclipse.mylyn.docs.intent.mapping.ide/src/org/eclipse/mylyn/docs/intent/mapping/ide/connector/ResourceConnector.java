@@ -16,8 +16,10 @@ import java.io.InputStream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
@@ -143,13 +145,13 @@ public class ResourceConnector extends AbstractConnector {
 	}
 
 	@Override
-	protected boolean canUpdate(ILocation location, Object element) {
+	protected boolean canUpdate(Object element) {
 		final boolean res;
 
-		if (location instanceof IFileLocation && element instanceof IFile) {
+		if (element instanceof IFile) {
 			final IFileConnectorDelegate delegate = getDelegate((IFile)element);
 			res = delegate != null;
-		} else if (location instanceof IResourceLocation && element instanceof IResource) {
+		} else if (element instanceof IResource) {
 			res = true;
 		} else {
 			res = false;
@@ -200,11 +202,7 @@ public class ResourceConnector extends AbstractConnector {
 	public String getName(ILocation location) {
 		final String res;
 
-		if (location instanceof IResourceLocation) {
-			res = ((IResourceLocation)location).getFullPath();
-		} else {
-			res = null;
-		}
+		res = ((IResourceLocation)location).getFullPath();
 
 		return res;
 	}
@@ -233,6 +231,31 @@ public class ResourceConnector extends AbstractConnector {
 	public void dispose(ILocationDescriptor locationDescriptor) {
 		super.dispose(locationDescriptor);
 		resourceLocationListener.removeKnownDescriptor(locationDescriptor);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
+	 */
+	public Object getElement(ILocation location) {
+		Object res = null;
+
+		if (location instanceof IFileLocation) {
+			for (IFileConnectorDelegate delegate : IdeMappingUtils.getFileConectorDelegateRegistry()
+					.getConnectorDelegates()) {
+				final Object delegateRes = delegate.getElement((IFileLocation)location);
+				if (delegateRes != null) {
+					res = delegateRes;
+					break;
+				}
+			}
+		} else {
+			res = ResourcesPlugin.getWorkspace().getRoot().getContainerForLocation(
+					Path.fromPortableString(((IResourceLocation)location).getFullPath()));
+		}
+
+		return res;
 	}
 
 	/**

@@ -59,6 +59,17 @@ public interface IConnectorRegistry {
 	ILocation getLocation(ILocationContainer container, Object element);
 
 	/**
+	 * Gets the {@link Object element} located by the given {@link ILocation}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @return the {@link Object element} located by the given {@link ILocation} if any is handled by a
+	 *         {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector},
+	 *         <code>null</code> otherwise
+	 */
+	Object getElement(ILocation location);
+
+	/**
 	 * Gets the {@link ILocationDescriptor} for the given element.
 	 * 
 	 * @param containerDescriptor

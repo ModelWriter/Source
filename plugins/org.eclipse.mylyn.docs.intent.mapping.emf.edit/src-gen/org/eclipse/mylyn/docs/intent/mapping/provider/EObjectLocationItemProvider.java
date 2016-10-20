@@ -26,6 +26,8 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation}
@@ -78,23 +80,24 @@ public class EObjectLocationItemProvider extends TextLocationItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSettingPropertyDescriptor(object);
+			addFeatureNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Setting feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * This adds a property descriptor for the Feature Name feature. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @generated
 	 */
-	protected void addSettingPropertyDescriptor(Object object) {
+	protected void addFeatureNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
 				.getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_EObjectLocation_setting_feature"), getString(
-						"_UI_PropertyDescriptor_description", "_UI_EObjectLocation_setting_feature",
-						"_UI_EObjectLocation_type"), MappingPackage.Literals.EOBJECT_LOCATION__SETTING, true,
-				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_EObjectLocation_featureName_feature"), getString(
+						"_UI_PropertyDescriptor_description", "_UI_EObjectLocation_featureName_feature",
+						"_UI_EObjectLocation_type"), MappingPackage.Literals.EOBJECT_LOCATION__FEATURE_NAME,
+				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -116,13 +119,7 @@ public class EObjectLocationItemProvider extends TextLocationItemProvider {
 	public String getText(Object object) {
 		final String label;
 
-		EObjectLocation location = (EObjectLocation)object;
-		if (location.isSetting()) {
-			label = eLabelProvider.getText(location.getEObject()) + " "
-					+ location.getEStructuralFeature().getName();
-		} else {
-			label = eLabelProvider.getText(location.getEObject());
-		}
+		label = MappingUtils.getConnectorRegistry().getName((ILocation)object);
 
 		return label == null || label.length() == 0 ? getString("_UI_EObjectLocation_type")
 				: getString("_UI_EObjectLocation_type") + " " + label;
@@ -140,7 +137,7 @@ public class EObjectLocationItemProvider extends TextLocationItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(EObjectLocation.class)) {
-			case MappingPackage.EOBJECT_LOCATION__SETTING:
+			case MappingPackage.EOBJECT_LOCATION__FEATURE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false,
 						true));
 				return;

@@ -38,12 +38,12 @@ public interface EObjectLocation extends TextLocation, IEObjectLocation {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Setting</em>' attribute.
-	 * @see #setSetting(boolean)
+	 * @see #setFeatureName(boolean)
 	 * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getEObjectLocation_Setting()
 	 * @model required="true"
 	 * @generated
 	 */
-	boolean isSetting();
+	String getFeatureName();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#isSetting
@@ -51,9 +51,9 @@ public interface EObjectLocation extends TextLocation, IEObjectLocation {
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Setting</em>' attribute.
-	 * @see #isSetting()
+	 * @see #getFeatureName()
 	 * @generated
 	 */
-	void setSetting(boolean value);
+	void setFeatureName(String value);
 
 } // EObjectLocation

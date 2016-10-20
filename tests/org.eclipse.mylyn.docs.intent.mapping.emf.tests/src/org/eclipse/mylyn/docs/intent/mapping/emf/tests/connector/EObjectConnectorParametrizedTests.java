@@ -20,10 +20,18 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter;
@@ -31,6 +39,8 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextContainerLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -54,26 +64,75 @@ public class EObjectConnectorParametrizedTests {
 	public static class TestEObjectContainerLocation extends TestTextContainerLocation implements IEObjectContainer {
 
 		/**
-		 * The {@link List} of {@link EObject}.
+		 * The {@link Resource}.
 		 */
-		private List<EObject> eObjects;
+		private Resource resource;
 
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer#setEObjects(java.util.List)
-		 */
-		public void setEObjects(List<EObject> eObjs) {
-			eObjects = eObjs;
+		public void setResource(Resource res) {
+			resource = res;
 		}
 
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer#getEObjects()
-		 */
-		public List<EObject> getEObjects() {
-			return eObjects;
+		public Resource getResource() {
+			return resource;
+		}
+
+	}
+
+	/**
+	 * Connector for {@link TestEObjectContainerLocation}.
+	 * 
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class TestEObjectContainerConnector extends AbstractConnector {
+
+		public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
+				Object element) {
+			// nothing to do here
+			return null;
+		}
+
+		public Class<? extends ILocation> getLocationType(Class<? extends ILocationContainer> containerType,
+				Object element) {
+			// nothing to do here
+			return null;
+		}
+
+		public Object getElement(ILocation location) {
+			final Resource res;
+
+			if (location instanceof TestEObjectContainerLocation) {
+				res = ((TestEObjectContainerLocation)location).getResource();
+			} else {
+				res = null;
+			}
+
+			return res;
+		}
+
+		public String getName(ILocation location) {
+			// nothing to do here
+			return null;
+		}
+
+		public Class<? extends ILocation> getType() {
+			return IEObjectContainer.class;
+		}
+
+		@Override
+		protected boolean canUpdate(Object element) {
+			// nothing to do here
+			return false;
+		}
+
+		@Override
+		protected boolean match(ILocation location, Object element) {
+			// nothing to do here
+			return false;
+		}
+
+		@Override
+		protected void initLocation(ILocationContainer container, ILocation location, Object element) {
+			// nothing to do here
 		}
 
 	}
@@ -86,58 +145,29 @@ public class EObjectConnectorParametrizedTests {
 	public static class TestEObjectLocation extends TestTextLocation implements IEObjectLocation {
 
 		/**
-		 * The {@link EObject}.
+		 * The {@link EStructuralFeature#getName() feature name}.
 		 */
-		private EObject eObj;
+		private String featureName;
 
-		/**
-		 * The {@link EStructuralFeature}.
-		 */
-		private EStructuralFeature eFeature;
-
-		/**
-		 * Should we use the feature.
-		 */
-		private boolean setting;
-
-		/**
-		 * The value.
-		 */
-		private Object val;
-
-		public EObject getEObject() {
-			return eObj;
+		public void setFeatureName(String featureName) {
+			this.featureName = featureName;
 		}
 
-		public void setEObject(EObject eObject) {
-			eObj = eObject;
-		}
-
-		public EStructuralFeature getEStructuralFeature() {
-			return eFeature;
-		}
-
-		public void setEStructuralFeature(EStructuralFeature feature) {
-			eFeature = feature;
-		}
-
-		public Object getValue() {
-			return val;
-		}
-
-		public void setValue(Object value) {
-			val = value;
-		}
-
-		public void setSetting(boolean setting) {
-			this.setting = setting;
-		}
-
-		public boolean isSetting() {
-			return setting;
+		public String getFeatureName() {
+			return featureName;
 		}
 
 	}
+
+	/**
+	 * The {@link TestEObjectContainerConnector}.
+	 */
+	private static TestEObjectContainerConnector testEObjectContainerConnector = new TestEObjectContainerConnector();
+
+	/**
+	 * The {@link EObjectConnector}.
+	 */
+	private static EObjectConnector eObjectConnector = new EObjectConnector();
 
 	/**
 	 * The original [{@link IEObjectLocation#getEObject() EObject},
@@ -187,6 +217,18 @@ public class EObjectConnectorParametrizedTests {
 								EcorePackage.eINSTANCE.getEBooleanObject(), }, }, });
 	}
 
+	@BeforeClass
+	public static void beforeClass() {
+		MappingUtils.getConnectorRegistry().register(testEObjectContainerConnector);
+		MappingUtils.getConnectorRegistry().register(eObjectConnector);
+	}
+
+	@AfterClass
+	public static void afterClass() {
+		MappingUtils.getConnectorRegistry().unregister(testEObjectContainerConnector);
+		MappingUtils.getConnectorRegistry().unregister(eObjectConnector);
+	}
+
 	private static EClass createEClass() {
 		final EClass res = EcorePackage.eINSTANCE.getEcoreFactory().createEClass();
 
@@ -206,16 +248,20 @@ public class EObjectConnectorParametrizedTests {
 	protected IEObjectLocation createEObjectLocation(Copier copier, TestEObjectContainerLocation container) {
 		final IEObjectLocation res = new TestEObjectLocation();
 
-		res.setEObject(copier.get(original[0]));
-		res.setSetting(original[1] != null);
-		res.setEStructuralFeature((EStructuralFeature)original[1]);
-		if (original[2] instanceof EObject) {
-			res.setValue(copier.get(original[2]));
+		final EObject eObject = copier.get(original[0]);
+		final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(eObject);
+		if (original[1] != null) {
+			final EStructuralFeature feature = (EStructuralFeature)original[1];
+			final Object value;
+			if (original[2] instanceof EObject) {
+				value = copier.get(original[2]);
+			} else {
+				value = original[2];
+			}
+			textAdapter.setLocationFromEObject(res, feature, value);
 		} else {
-			res.setValue(original[2]);
+			textAdapter.setLocationFromEObject(res);
 		}
-		final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(res.getEObject());
-		textAdapter.setLocationFromEObject(res);
 		container.getContents().add(res);
 		res.setContainer(container);
 
@@ -231,9 +277,18 @@ public class EObjectConnectorParametrizedTests {
 					location.getStartOffset(), location.getEndOffset()));
 		}
 		assertEquals(expectedTextOffset, location.getStartOffset());
-		assertEquals(expectedEObject, location.getEObject());
-		assertEquals(expectedFeature, location.getEStructuralFeature());
-		assertEquals(expectedValue, location.getValue());
+		final Object element = MappingUtils.getConnectorRegistry().getElement(location);
+		if (element instanceof Setting) {
+			final Setting setting = (Setting)element;
+			assertEquals(expectedEObject, setting.getEObject());
+			assertEquals(expectedFeature, setting.getEStructuralFeature());
+			assertEquals(expectedValue, setting.get(true));
+		} else if (element instanceof EObject) {
+			assertEquals(expectedEObject, element);
+		} else {
+			assertEquals(-1, location.getStartOffset());
+			assertEquals(-1, location.getEndOffset());
+		}
 	}
 
 	@Test
@@ -260,8 +315,10 @@ public class EObjectConnectorParametrizedTests {
 
 		List<EObject> newEObjects = testEObjects;
 		EObjectConnector.updateEObjectContainer(container, newEObjects);
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(newEObjects);
+		container.setResource(resource);
 
-		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
 				expectedValue);
 	}
@@ -293,8 +350,10 @@ public class EObjectConnectorParametrizedTests {
 		List<EObject> newEObjects = new ArrayList<EObject>(MappingPackage.eINSTANCE.getEClassifiers());
 		newEObjects.addAll(testEObjects);
 		EObjectConnector.updateEObjectContainer(container, newEObjects);
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(newEObjects);
+		container.setResource(resource);
 
-		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
 				expectedValue);
 	}
@@ -329,8 +388,10 @@ public class EObjectConnectorParametrizedTests {
 		newEObjects.remove(0);
 		newEObjects.remove(0);
 		EObjectConnector.updateEObjectContainer(container, newEObjects);
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(newEObjects);
+		container.setResource(resource);
 
-		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
 				expectedValue);
 	}
@@ -374,8 +435,10 @@ public class EObjectConnectorParametrizedTests {
 		}
 
 		EObjectConnector.updateEObjectContainer(container, newEObjects);
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(newEObjects);
+		container.setResource(resource);
 
-		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
 				expectedValue);
 	}
@@ -422,8 +485,10 @@ public class EObjectConnectorParametrizedTests {
 		}
 
 		EObjectConnector.updateEObjectContainer(container, newEObjects);
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(newEObjects);
+		container.setResource(resource);
 
-		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
 				expectedValue);
 	}
@@ -473,8 +538,10 @@ public class EObjectConnectorParametrizedTests {
 		}
 
 		EObjectConnector.updateEObjectContainer(container, newEObjects);
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(newEObjects);
+		container.setResource(resource);
 
-		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
 				expectedValue);
 	}
@@ -502,8 +569,10 @@ public class EObjectConnectorParametrizedTests {
 			EcoreUtil.delete(copier.get(original[0]));
 		}
 		EObjectConnector.updateEObjectContainer(container, newEObjects);
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(newEObjects);
+		container.setResource(resource);
 
-		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
 				expectedValue);
 	}
@@ -533,8 +602,10 @@ public class EObjectConnectorParametrizedTests {
 
 		newEObjects.addAll(0, MappingPackage.eINSTANCE.getEClassifiers());
 		EObjectConnector.updateEObjectContainer(container, newEObjects);
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(newEObjects);
+		container.setResource(resource);
 
-		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
 				expectedValue);
 	}
@@ -565,8 +636,10 @@ public class EObjectConnectorParametrizedTests {
 		newEObjects.remove(0);
 		newEObjects.remove(0);
 		EObjectConnector.updateEObjectContainer(container, newEObjects);
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(newEObjects);
+		container.setResource(resource);
 
-		assertEquals(newEObjects, container.getEObjects());
 		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
 				expectedValue);
 	}

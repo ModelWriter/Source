@@ -76,6 +76,11 @@ public class FileDelegateRegistryTests {
 			// nothing to do here
 		}
 
+		public Object getElement(IFileLocation location) {
+			// nothing to do here
+			return null;
+		}
+
 	}
 
 	/**
@@ -108,6 +113,11 @@ public class FileDelegateRegistryTests {
 			// nothing to do here
 		}
 
+		public Object getElement(IFileLocation location) {
+			// nothing to do here
+			return null;
+		}
+
 	}
 
 	/**
@@ -138,6 +148,11 @@ public class FileDelegateRegistryTests {
 
 		public void initLocation(IFileLocation location, IFile element) {
 			// nothing to do here
+		}
+
+		public Object getElement(IFileLocation location) {
+			// nothing to do here
+			return null;
 		}
 
 	}

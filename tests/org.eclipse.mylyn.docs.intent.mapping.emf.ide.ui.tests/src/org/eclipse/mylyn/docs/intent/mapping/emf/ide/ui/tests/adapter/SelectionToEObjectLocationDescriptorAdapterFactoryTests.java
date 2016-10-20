@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -83,8 +84,9 @@ public class SelectionToEObjectLocationDescriptorAdapterFactoryTests {
 				ILocation.class);
 
 		assertNotNull(location);
-		assertTrue(location.getEObject() instanceof EPackage);
-		assertEquals("testPackage", ((EPackage)location.getEObject()).getName());
+		final EObject element = (EObject)MappingUtils.getConnectorRegistry().getElement(location);
+		assertTrue(element instanceof EPackage);
+		assertEquals("testPackage", ((EPackage)element).getName());
 		assertTrue(location.getContainer() instanceof IEObjectFileLocation);
 		final IEObjectFileLocation container = (IEObjectFileLocation)location.getContainer();
 		assertEquals("/test/test.xmi", container.getFullPath());
