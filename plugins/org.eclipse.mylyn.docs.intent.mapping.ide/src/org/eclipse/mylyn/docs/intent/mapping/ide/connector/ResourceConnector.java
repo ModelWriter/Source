@@ -239,16 +239,16 @@ public class ResourceConnector extends AbstractConnector {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 	 */
 	public Object getElement(ILocation location) {
-		Object res = null;
+		final Object res;
 
 		if (location instanceof IFileLocation) {
-			for (IFileConnectorDelegate delegate : IdeMappingUtils.getFileConectorDelegateRegistry()
-					.getConnectorDelegates()) {
-				final Object delegateRes = delegate.getElement((IFileLocation)location);
-				if (delegateRes != null) {
-					res = delegateRes;
-					break;
-				}
+			final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
+					Path.fromPortableString(((IFileLocation)location).getFullPath()));
+			final IFileConnectorDelegate delegate = getDelegate(file);
+			if (delegate != null) {
+				res = delegate.getElement((IFileLocation)location);
+			} else {
+				res = null;
 			}
 		} else {
 			res = ResourcesPlugin.getWorkspace().getRoot().getContainerForLocation(

@@ -11,6 +11,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
@@ -31,6 +34,11 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate {
+
+	/**
+	 * Mapping of {@link IEObjectFileLocation#getFullPath() full path} to {@link Resource}.
+	 */
+	private final Map<String, Resource> knownResrouces = new HashMap<String, Resource>();
 
 	/**
 	 * {@inheritDoc}
@@ -62,7 +70,9 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.getResource(URI.createPlatformResourceURI(element.getFullPath()
 				.toPortableString(), true), true);
+		knownResrouces.put(location.getFullPath(), resource);
 		EObjectConnector.updateEObjectContainer((IEObjectContainer)location, resource);
+
 	}
 
 	/**
@@ -71,9 +81,11 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getElement(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation)
 	 */
 	public Object getElement(IFileLocation location) {
-		final ResourceSet rs = new ResourceSetImpl();
+		if (!knownResrouces.containsKey(location.getFullPath())) {
+			initLocation(location, (IFile)super.getElement(location));
+		}
 
-		return rs.getResource(URI.createPlatformResourceURI(location.getFullPath(), true), true);
+		return knownResrouces.get(location.getFullPath());
 	}
 
 }

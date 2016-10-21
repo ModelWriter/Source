@@ -13,6 +13,7 @@ package org.eclipse.mylyn.docs.intent.mapping.emf.tests.internal;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
@@ -304,6 +305,82 @@ public class TextAdapterTests {
 
 		assertEquals(776, location.getStartOffset());
 		assertEquals(1099, location.getEndOffset());
+	}
+
+	@Test
+	public void getElementSetting() {
+		final EClass eCls1 = EcorePackage.eINSTANCE.getEcoreFactory().createEClass();
+		eCls1.setName("ECls1");
+
+		final EAttribute eAttr1 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
+		eAttr1.setName("eAttr1");
+
+		final EAttribute eAttr2 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
+		eAttr2.setName("eAttr2");
+
+		final EAttribute eAttr3 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
+		eAttr3.setName("eAttr3");
+
+		eCls1.getEStructuralFeatures().add(eAttr1);
+		eCls1.getEStructuralFeatures().add(eAttr2);
+		eCls1.getEStructuralFeatures().add(eAttr3);
+
+		final TextAdapter adapter = new TextAdapter();
+		adapter.setTarget(eCls1);
+		adapter.getText();
+
+		final IEObjectLocation location = new TestEObjectLocation();
+		location.setFeatureName(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures().getName());
+
+		adapter.setLocationFromEObject(location, EcorePackage.eINSTANCE.getEClass_EStructuralFeatures(),
+				eAttr2);
+
+		assertEquals(776, location.getStartOffset());
+		assertEquals(1099, location.getEndOffset());
+
+		final Object element = adapter.getElement(location);
+
+		assertTrue(element instanceof Setting);
+		assertEquals(eCls1, ((Setting)element).getEObject());
+		assertEquals(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures(), ((Setting)element)
+				.getEStructuralFeature());
+		assertEquals(eAttr2, ((Setting)element).get(true));
+	}
+
+	@Test
+	public void getElementEObject() {
+		final EClass eCls1 = EcorePackage.eINSTANCE.getEcoreFactory().createEClass();
+		eCls1.setName("ECls1");
+
+		final EAttribute eAttr1 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
+		eAttr1.setName("eAttr1");
+
+		final EAttribute eAttr2 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
+		eAttr2.setName("eAttr2");
+
+		final EAttribute eAttr3 = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
+		eAttr3.setName("eAttr3");
+
+		eCls1.getEStructuralFeatures().add(eAttr1);
+		eCls1.getEStructuralFeatures().add(eAttr2);
+		eCls1.getEStructuralFeatures().add(eAttr3);
+
+		final TextAdapter adapter = new TextAdapter();
+		adapter.setTarget(eCls1);
+		adapter.getText();
+
+		final IEObjectLocation location = new TestEObjectLocation();
+		location.setFeatureName(null);
+
+		((ITextAdapter)EcoreUtil.getAdapter(eAttr2.eAdapters(), ITextAdapter.class))
+				.setLocationFromEObject(location);
+
+		assertEquals(776, location.getStartOffset());
+		assertEquals(1099, location.getEndOffset());
+
+		final Object element = adapter.getElement(location);
+
+		assertEquals(eAttr2, element);
 	}
 
 }

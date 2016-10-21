@@ -54,7 +54,7 @@ public final class UiIdeMappingUtils {
 	 *            the {@link ILocation} to show
 	 */
 	public static void showLocation(ILocation location) {
-		final IMarker marker = IdeMappingUtils.getMarker(location);
+		final IMarker marker = IdeMappingUtils.getOrCreateMarker(location);
 		if (marker != null) {
 			showMarker(marker);
 		} else {
