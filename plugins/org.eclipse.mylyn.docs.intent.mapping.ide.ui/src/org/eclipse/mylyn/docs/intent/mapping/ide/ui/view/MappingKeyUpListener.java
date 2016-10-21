@@ -37,7 +37,7 @@ final class MappingKeyUpListener implements Listener {
 	 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
 	 */
 	public void handleEvent(Event event) {
-		if (event.character == SWT.DEL) {
+		if (event.keyCode == SWT.DEL) {
 			deleteReports(((Tree)event.widget).getSelection());
 			deleteLinks(((Tree)event.widget).getSelection());
 			deleteLocations(((Tree)event.widget).getSelection());

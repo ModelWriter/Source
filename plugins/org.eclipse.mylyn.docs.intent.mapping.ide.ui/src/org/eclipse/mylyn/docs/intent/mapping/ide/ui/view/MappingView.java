@@ -548,7 +548,7 @@ public class MappingView extends ViewPart {
 
 		final FilteredTree referencingTree = new FilteredTree(referencingComposite, SWT.MULTI | SWT.BORDER,
 				new PatternFilter(), false);
-		referencingTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
+		referencingTree.getViewer().getTree().addListener(SWT.KeyDown, new MappingKeyUpListener());
 		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(referencingTree.getViewer().getTree()));
 		referencingTree.getViewer().setContentProvider(
@@ -666,7 +666,7 @@ public class MappingView extends ViewPart {
 
 		final FilteredTree referencingTree = new FilteredTree(referencingComposite, SWT.MULTI | SWT.BORDER,
 				new PatternFilter(), false);
-		referencingTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
+		referencingTree.getViewer().getTree().addListener(SWT.KeyDown, new MappingKeyUpListener());
 		referencingTree.getViewer().setContentProvider(
 				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.SOURCE, true));
 		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
@@ -797,7 +797,7 @@ public class MappingView extends ViewPart {
 
 		final FilteredTree reportTree = new FilteredTree(treeComposite, SWT.MULTI | SWT.BORDER,
 				new PatternFilter(), false);
-		reportTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
+		reportTree.getViewer().getTree().addListener(SWT.KeyDown, new MappingKeyUpListener());
 		reportTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(reportTree.getViewer().getTree()));
 		reportTree.getViewer().setContentProvider(new SyncronizationLocationContentProvider());
