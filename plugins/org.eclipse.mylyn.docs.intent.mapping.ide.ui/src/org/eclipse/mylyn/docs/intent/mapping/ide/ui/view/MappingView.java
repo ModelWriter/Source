@@ -35,6 +35,7 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.ide.ILocationMarker;
@@ -612,13 +613,16 @@ public class MappingView extends ViewPart {
 		selectionListener = new ISelectionListener() {
 
 			public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-				if (part != MappingView.this) {
-					final ILocation location = IdeMappingUtils.adapt(selection, ILocation.class);
-					final IBase currentBase = IdeMappingUtils.getCurentBase();
-					if (location != null && currentBase != null
-							&& areSameBase(currentBase, MappingUtils.getBase(location))) {
-						referencingTree.getViewer().setInput(location);
-						referencedTree.getViewer().setInput(location);
+				final IBase currentBase = IdeMappingUtils.getCurentBase();
+				if (part != MappingView.this && currentBase != null) {
+					final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selection,
+							ILocationDescriptor.class);
+					if (locationDescriptor != null && locationDescriptor.exists(currentBase)) {
+						final ILocation location = locationDescriptor.getLocation(currentBase);
+						if (location != null && areSameBase(currentBase, MappingUtils.getBase(location))) {
+							referencingTree.getViewer().setInput(location);
+							referencedTree.getViewer().setInput(location);
+						}
 					}
 				}
 			}
