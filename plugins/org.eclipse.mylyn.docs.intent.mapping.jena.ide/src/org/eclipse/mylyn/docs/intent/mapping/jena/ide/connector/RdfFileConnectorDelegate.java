@@ -17,7 +17,9 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
@@ -39,6 +41,59 @@ import org.eclipse.mylyn.docs.intent.mapping.jena.ide.IRdfFileLocation;
 public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 
 	/**
+	 * The file extension to {@link Lang} mapping.
+	 */
+	private static final Map<String, Lang> EXTENSION_TO_LANG = initExtensionToLang();
+
+	/**
+	 * Initializes the file extension to {@link Lang} mapping.
+	 * 
+	 * @return the file extension to {@link Lang} mapping
+	 */
+	private static Map<String, Lang> initExtensionToLang() {
+		final Map<String, Lang> res = new HashMap<String, Lang>();
+
+		for (String extension : Lang.JSONLD.getFileExtensions()) {
+			res.put(extension, Lang.JSONLD);
+		}
+		for (String extension : Lang.N3.getFileExtensions()) {
+			res.put(extension, Lang.N3);
+		}
+		for (String extension : Lang.NQ.getFileExtensions()) {
+			res.put(extension, Lang.NQ);
+		}
+		for (String extension : Lang.NQUADS.getFileExtensions()) {
+			res.put(extension, Lang.NQUADS);
+		}
+		for (String extension : Lang.NT.getFileExtensions()) {
+			res.put(extension, Lang.NT);
+		}
+		for (String extension : Lang.NTRIPLES.getFileExtensions()) {
+			res.put(extension, Lang.NTRIPLES);
+		}
+		for (String extension : Lang.RDFJSON.getFileExtensions()) {
+			res.put(extension, Lang.RDFJSON);
+		}
+		for (String extension : Lang.RDFNULL.getFileExtensions()) {
+			res.put(extension, Lang.RDFNULL);
+		}
+		for (String extension : Lang.RDFXML.getFileExtensions()) {
+			res.put(extension, Lang.RDFXML);
+		}
+		for (String extension : Lang.TRIG.getFileExtensions()) {
+			res.put(extension, Lang.TRIG);
+		}
+		for (String extension : Lang.TTL.getFileExtensions()) {
+			res.put(extension, Lang.TTL);
+		}
+		for (String extension : Lang.TURTLE.getFileExtensions()) {
+			res.put(extension, Lang.TURTLE);
+		}
+
+		return res;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getContentType()
@@ -46,7 +101,7 @@ public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 	public IContentType getContentType() {
 		final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
 
-		return contentTypeManager.getContentType("org.eclipse.mylyn.docs.intent.mapping.jena.ide.turtle");
+		return contentTypeManager.getContentType("org.eclipse.mylyn.docs.intent.mapping.jena.ide.onthology");
 	}
 
 	/**
@@ -65,7 +120,8 @@ public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 	 *      org.eclipse.core.resources.IFile)
 	 */
 	public void initLocation(IFileLocation location, IFile element) {
-		final Model model = RDFDataMgr.loadModel(element.getLocation().toFile().getAbsolutePath(), Lang.TTL);
+		final Lang lang = EXTENSION_TO_LANG.get(element.getFileExtension());
+		final Model model = RDFDataMgr.loadModel(element.getLocation().toFile().getAbsolutePath(), lang);
 
 		final List<Resource> concepts = new ArrayList<Resource>();
 		final NodeIterator it = model.listObjects();
@@ -86,7 +142,8 @@ public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 	 */
 	public Object getElement(IFileLocation location) {
 		final IFile file = (IFile)super.getElement(location);
-		final Model res = RDFDataMgr.loadModel(file.getLocation().toFile().getAbsolutePath(), Lang.TTL);
+		final Lang lang = EXTENSION_TO_LANG.get(file.getFileExtension());
+		final Model res = RDFDataMgr.loadModel(file.getLocation().toFile().getAbsolutePath(), lang);
 
 		return res;
 	}

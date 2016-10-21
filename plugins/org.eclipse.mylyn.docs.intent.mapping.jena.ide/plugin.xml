@@ -14,11 +14,11 @@
       </fileConnectorDelegate>
    </extension>
    <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             base-type="org.eclipse.core.runtime.text"
-            file-extensions="ttl"
-            id="org.eclipse.mylyn.docs.intent.mapping.jena.ide.turtle"
+            file-extensions="nq,n3,rdf,owl,nt,rj,jsonld,trig,ttl"
+            id="org.eclipse.mylyn.docs.intent.mapping.jena.ide.onthology"
             name="Turtle"
             priority="normal">
       </content-type>
