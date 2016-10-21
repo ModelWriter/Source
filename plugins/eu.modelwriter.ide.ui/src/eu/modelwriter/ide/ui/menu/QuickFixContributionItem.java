@@ -174,7 +174,8 @@ public class QuickFixContributionItem extends ContributionItem {
 				final Annotation annotation = it.next();
 				final Position position = model.getPosition(annotation);
 				try {
-					if (position != null && document.getLineOfOffset(position.getOffset()) == lineNumber) {
+					if (position != null && document.getLineOfOffset(position.getOffset()) == lineNumber
+							&& annotation instanceof MarkerAnnotation) {
 						res.add(((MarkerAnnotation)annotation).getMarker());
 					}
 				} catch (BadLocationException e) {
