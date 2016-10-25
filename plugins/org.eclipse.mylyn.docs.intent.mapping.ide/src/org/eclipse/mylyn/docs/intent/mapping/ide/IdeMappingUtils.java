@@ -430,9 +430,12 @@ public final class IdeMappingUtils {
 		final boolean changed;
 
 		synchronized(LOCATIONS_POOL) {
-			assert LOCATIONS_POOL.containsKey(locationDescriptor);
-			final Boolean lastValue = LOCATIONS_POOL.put(locationDescriptor, Boolean.TRUE);
-			changed = lastValue == null || !lastValue;
+			if (LOCATIONS_POOL.containsKey(locationDescriptor)) {
+				final Boolean lastValue = LOCATIONS_POOL.put(locationDescriptor, Boolean.TRUE);
+				changed = lastValue == null || !lastValue;
+			} else {
+				changed = false;
+			}
 		}
 
 		if (changed) {
@@ -453,9 +456,12 @@ public final class IdeMappingUtils {
 		final boolean changed;
 
 		synchronized(LOCATIONS_POOL) {
-			assert LOCATIONS_POOL.containsKey(locationDescriptor);
-			final Boolean lastValue = LOCATIONS_POOL.put(locationDescriptor, Boolean.FALSE);
-			changed = lastValue == null || lastValue;
+			if (LOCATIONS_POOL.containsKey(locationDescriptor)) {
+				final Boolean lastValue = LOCATIONS_POOL.put(locationDescriptor, Boolean.FALSE);
+				changed = lastValue == null || lastValue;
+			} else {
+				changed = false;
+			}
 		}
 
 		if (changed) {

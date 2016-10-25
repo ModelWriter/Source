@@ -173,19 +173,6 @@ public class ConnectorRegistryTests {
 	 */
 	public static class TestLocation1 extends TestLocation implements ITestLocation1 {
 
-		/**
-		 * The {@link Object}.
-		 */
-		private Object object;
-
-		public void setObject(Object o) {
-			object = o;
-		}
-
-		public Object getObject() {
-			return object;
-		}
-
 	}
 
 	/**
@@ -299,19 +286,6 @@ public class ConnectorRegistryTests {
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
 	public static class TestLocation2 extends TestLocation implements ITestLocation2 {
-
-		/**
-		 * The {@link Object}.
-		 */
-		private Object object;
-
-		public void setObject(Object o) {
-			object = o;
-		}
-
-		public Object getObject() {
-			return object;
-		}
 
 	}
 

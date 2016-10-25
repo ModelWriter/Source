@@ -59,7 +59,9 @@ public final class UiIdeMappingUtils {
 			showMarker(marker);
 		} else {
 			final IMarker createdMarker = IdeMappingUtils.getOrCreateMarker(location);
-			showMarker(createdMarker);
+			if (createdMarker != null) {
+				showMarker(createdMarker);
+			}
 			IdeMappingUtils.deleteMarker(location);
 		}
 	}

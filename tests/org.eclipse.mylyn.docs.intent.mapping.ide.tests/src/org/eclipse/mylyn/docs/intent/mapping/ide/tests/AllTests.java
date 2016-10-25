@@ -29,7 +29,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses(value = {FileDelegateRegistryTests.class, ResourceConnectorTests.class,
 		TextFileConnectorDelegateTests.class, IdeTextConnectorTests.class,
-		MarkerToTextLocationDesciptorTests.class, ResourceLocationListenerTests.class, })
+		MarkerToTextLocationDesciptorTests.class, ResourceLocationListenerTests.class,
+		IdeMappingUtilsTests.class })
 public class AllTests {
 
 }

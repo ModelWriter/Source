@@ -60,6 +60,7 @@ public class EObjectLocationToMarkerAdapterFactoryTests {
 		project.refreshLocal(1, new NullProgressMonitor());
 
 		TestEObjectFileLocation container = new TestEObjectFileLocation();
+		EObjectConnector.updateEObjectContainer(container, r);
 		container.setResource(r);
 		container.setFullPath("/test/test.xmi");
 

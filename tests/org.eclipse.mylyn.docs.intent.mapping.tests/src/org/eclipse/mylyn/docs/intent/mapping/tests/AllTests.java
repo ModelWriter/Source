@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests;
 
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.LocationDescriptorTests;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.ObjectLocationDescriptorTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.connector.ConnectorTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.internal.base.BaseTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextTests;
@@ -24,7 +26,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {BaseTests.class, ConnectorTests.class, TextTests.class, MappingUtilsTests.class, })
+@SuiteClasses(value = {BaseTests.class, ConnectorTests.class, TextTests.class, MappingUtilsTests.class,
+		ObjectLocationDescriptorTests.class, LocationDescriptorTests.class })
 public class AllTests {
 
 }

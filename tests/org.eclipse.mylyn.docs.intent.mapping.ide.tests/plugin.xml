@@ -24,5 +24,15 @@
             priority="normal">
       </content-type>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="java.lang.String"
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.tests.AdapterFactory">
+         <adapter
+               type="java.lang.Integer">
+         </adapter>
+      </factory>
+   </extension>
 
 </plugin>

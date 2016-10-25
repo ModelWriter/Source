@@ -43,6 +43,10 @@ public class BaseElementFactoryTests {
 	 */
 	public interface ITestLocation extends ILocation {
 
+		void setObject(Object object);
+
+		Object getObject();
+
 	}
 
 	/**
@@ -71,6 +75,19 @@ public class BaseElementFactoryTests {
 		 * The contents.
 		 */
 		private final List<ILocation> contents = new ArrayList<ILocation>();
+
+		/**
+		 * The {@link Object}.
+		 */
+		private Object object;
+
+		public void setObject(Object o) {
+			object = o;
+		}
+
+		public Object getObject() {
+			return object;
+		}
 
 		public String getName() {
 			// nothing to do here
