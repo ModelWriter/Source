@@ -29,8 +29,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.text.IDocument;
@@ -66,6 +68,69 @@ import org.eclipse.ui.texteditor.ITextEditor;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class SemanticView extends ViewPart {
+
+	/**
+	 * Annotation {@link Job}.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	private final class AnnotationJob extends Job {
+		/**
+		 * The text to annotate.
+		 */
+		private final String text;
+
+		/**
+		 * The current {@link IEditorPart}.
+		 */
+		private final IEditorPart editorPart;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param text
+		 *            the text to annotate
+		 * @param editorPart
+		 *            the current {@link IEditorPart}
+		 */
+		private AnnotationJob(String text, IEditorPart editorPart) {
+			super("Semantic annotation");
+			this.text = text;
+			this.editorPart = editorPart;
+		}
+
+		@Override
+		protected IStatus run(IProgressMonitor monitor) {
+			final Map<Object, Map<Object, Set<int[]>>> annotations = getAnnotations(text);
+
+			final IFile file = (IFile)editorPart.getEditorInput().getAdapter(IFile.class);
+			try {
+				file.deleteMarkers(ISemanticAnnotationMarker.SEMANTIC_ANNOTATION_ID, true,
+						IResource.DEPTH_INFINITE);
+				for (Entry<Object, Map<Object, Set<int[]>>> conceptEntry : annotations.entrySet()) {
+					final Object concept = conceptEntry.getKey();
+					for (Entry<Object, Set<int[]>> similarityEntry : conceptEntry.getValue().entrySet()) {
+						final Object similarity = similarityEntry.getKey();
+						for (int[] positions : similarityEntry.getValue()) {
+							final IMarker marker = file
+									.createMarker(ISemanticAnnotationMarker.TEXT_SEMANTIC_ANNOTATION_ID);
+							marker.setAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE, concept);
+							marker.setAttribute(ISemanticAnnotationMarker.SEMANTIC_SIMILARITY_ATTRIBUTE,
+									similarity);
+							marker.setAttribute(IMarker.MESSAGE, concept + "\n" + similarity);
+							marker.setAttribute(IMarker.CHAR_START, positions[0]);
+							marker.setAttribute(IMarker.CHAR_END, positions[1]);
+						}
+					}
+				}
+			} catch (CoreException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			}
+
+			return Status.OK_STATUS;
+		}
+	}
 
 	/**
 	 * Listen to {@link org.eclipse.ui.IEditorPart IEditorPart}.
@@ -509,43 +574,16 @@ public class SemanticView extends ViewPart {
 	 * @param editorPart
 	 *            the {@link IEditorPart}
 	 */
-	private void annotate(IEditorPart editorPart) {
-		ITextEditor editor = (ITextEditor)editorPart.getAdapter(ITextEditor.class);
+	private void annotate(final IEditorPart editorPart) {
+		final ITextEditor editor = (ITextEditor)editorPart.getAdapter(ITextEditor.class);
 		if (editor != null) {
-			IDocumentProvider provider = editor.getDocumentProvider();
-			IDocument document = provider.getDocument(editor.getEditorInput());
+			final IDocumentProvider provider = editor.getDocumentProvider();
+			final IDocument document = provider.getDocument(editor.getEditorInput());
 			if (document != null) {
 				final String text = document.get();
 				if (text != null) {
-					final Map<Object, Map<Object, Set<int[]>>> annotations = getAnnotations(text);
-
-					final IFile file = (IFile)editorPart.getEditorInput().getAdapter(IFile.class);
-					try {
-						file.deleteMarkers(ISemanticAnnotationMarker.SEMANTIC_ANNOTATION_ID, true,
-								IResource.DEPTH_INFINITE);
-						for (Entry<Object, Map<Object, Set<int[]>>> conceptEntry : annotations.entrySet()) {
-							final Object concept = conceptEntry.getKey();
-							for (Entry<Object, Set<int[]>> similarityEntry : conceptEntry.getValue()
-									.entrySet()) {
-								final Object similarity = similarityEntry.getKey();
-								for (int[] positions : similarityEntry.getValue()) {
-									final IMarker marker = file
-											.createMarker(ISemanticAnnotationMarker.TEXT_SEMANTIC_ANNOTATION_ID);
-									marker.setAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE,
-											concept);
-									marker.setAttribute(
-											ISemanticAnnotationMarker.SEMANTIC_SIMILARITY_ATTRIBUTE,
-											similarity);
-									marker.setAttribute(IMarker.MESSAGE, concept + "\n" + similarity);
-									marker.setAttribute(IMarker.CHAR_START, positions[0]);
-									marker.setAttribute(IMarker.CHAR_END, positions[1]);
-								}
-							}
-						}
-					} catch (CoreException e) {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-					}
+					final Job annotationJob = new AnnotationJob(text, editorPart);
+					annotationJob.schedule();
 				}
 			}
 		}

@@ -395,7 +395,8 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	private Map<String, Map<Object, Set<Object>>> getSimilarities(Map<String, Set<Object>> labels) {
 		final Map<String, Map<Object, Set<Object>>> res = new HashMap<String, Map<Object, Set<Object>>>();
 
-		for (ISemanticSimilarityProvider provider : similarityProviders) {
+		for (ISemanticSimilarityProvider provider : new ArrayList<ISemanticSimilarityProvider>(
+				similarityProviders)) {
 			final Map<String, Set<Object>> semanticSimilatiries = provider.getSemanticSimilarities(labels);
 			if (semanticSimilatiries != null) {
 				for (Entry<String, Set<Object>> similarityEntry : semanticSimilatiries.entrySet()) {

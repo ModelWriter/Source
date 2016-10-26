@@ -45,6 +45,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class IdeMappingUtilsTests {
 
+	/**
+	 * Test {@link ICurrentBaseListener}.
+	 * 
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
 	public static class TestCurrentBaseListener implements ICurrentBaseListener {
 		/**
 		 * Counts calls to {@link TestCurrentBaseListener#currentBaseChanged(IBase, IBase)}.
