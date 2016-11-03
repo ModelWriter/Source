@@ -79,6 +79,44 @@ import org.eclipse.ui.part.ViewPart;
 public class MappingView extends ViewPart {
 
 	/**
+	 * Selection changed Listener for {@link IBase} combo.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	private final class BaseComboSelectionChangedListener implements ISelectionChangedListener {
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)
+		 */
+		public void selectionChanged(SelectionChangedEvent event) {
+			final IBase oldBase = IdeMappingUtils.getCurentBase();
+			final IBase newBase = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
+			if (oldBase != null) {
+				for (ILocation child : oldBase.getContents()) {
+					deleteLocation(child);
+				}
+				try {
+					oldBase.save();
+				} catch (IOException e) {
+					if (Activator.getDefault() != null) {
+						Activator.getDefault().getLog().log(
+								new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to save base "
+										+ oldBase.getName(), e));
+					}
+				}
+			}
+			IdeMappingUtils.setCurrentBase(newBase);
+			if (newBase != null) {
+				for (ILocation child : newBase.getContents()) {
+					addLocation(child);
+				}
+			}
+		}
+	}
+
+	/**
 	 * Adds and removes location markers according to edited locations and changes in {@link IBase}.
 	 * 
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
@@ -493,29 +531,7 @@ public class MappingView extends ViewPart {
 		mappingCombo.setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
 		mappingCombo.setComparator(new ViewerComparator());
 		mappingCombo.setInput(MappingUtils.getMappingRegistry());
-		mappingCombo.addSelectionChangedListener(new ISelectionChangedListener() {
-
-			public void selectionChanged(SelectionChangedEvent event) {
-				final IBase oldBase = IdeMappingUtils.getCurentBase();
-				final IBase newBase = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
-				if (oldBase != null) {
-					for (ILocation child : oldBase.getContents()) {
-						deleteLocation(child);
-					}
-					try {
-						oldBase.save();
-					} catch (IOException e) {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to save base "
-										+ oldBase.getName(), e));
-					}
-				}
-				IdeMappingUtils.setCurrentBase(newBase);
-				for (ILocation child : newBase.getContents()) {
-					addLocation(child);
-				}
-			}
-		});
+		mappingCombo.addSelectionChangedListener(new BaseComboSelectionChangedListener());
 
 		return mappingCombo;
 	}

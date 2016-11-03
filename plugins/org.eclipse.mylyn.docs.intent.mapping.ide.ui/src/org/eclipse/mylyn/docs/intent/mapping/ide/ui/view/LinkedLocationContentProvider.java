@@ -236,7 +236,7 @@ public class LinkedLocationContentProvider extends AbstractLocationContentProvid
 		final Object[] res;
 
 		final Object[] childLocations = super.getChildren(parentElement);
-		if (provideLinks) {
+		if (provideLinks && parentElement instanceof ILocation) {
 			final List<ILink> childlinks = getchildLinks((ILocation)parentElement);
 			res = concat(childLocations, childlinks.toArray());
 		} else {

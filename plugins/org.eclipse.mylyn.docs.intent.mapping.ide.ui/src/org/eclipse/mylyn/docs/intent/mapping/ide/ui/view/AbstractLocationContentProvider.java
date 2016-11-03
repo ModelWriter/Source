@@ -89,6 +89,11 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	}
 
 	/**
+	 * Empty {@link Object} array.
+	 */
+	private static final Object[] EMPTY = new Object[0];
+
+	/**
 	 * The {@link List} of root {@link ILocation}.
 	 */
 	protected final List<ILocation> roots = new ArrayList<ILocation>();
@@ -319,7 +324,16 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
 	 */
 	public Object[] getChildren(Object parentElement) {
-		return locationForest.get(parentElement).toArray();
+		final Object[] res;
+
+		final List<ILocation> children = locationForest.get(parentElement);
+		if (children != null) {
+			res = children.toArray();
+		} else {
+			res = EMPTY;
+		}
+
+		return res;
 	}
 
 	/**
