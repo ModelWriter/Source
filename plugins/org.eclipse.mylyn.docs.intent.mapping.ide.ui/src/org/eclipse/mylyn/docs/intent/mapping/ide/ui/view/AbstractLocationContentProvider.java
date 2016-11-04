@@ -272,21 +272,23 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 		while (!currentLocations.isEmpty()) {
 			final Set<ILocation> nextLocations = new LinkedHashSet<ILocation>();
 			for (ILocation current : currentLocations) {
-				if (!listenedLocations.contains(current)) {
-					listenedLocations.add(current);
-					current.addListener(locationListener);
-				}
-				if (current.getContainer() instanceof ILocation) {
-					final ILocation container = (ILocation)current.getContainer();
-					List<ILocation> children = locationForest.get(container);
-					if (children == null) {
-						children = new ArrayList<ILocation>();
-						locationForest.put(container, children);
+				if (current != null) {
+					if (!listenedLocations.contains(current)) {
+						listenedLocations.add(current);
+						current.addListener(locationListener);
 					}
-					children.add(current);
-					nextLocations.add(container);
-				} else {
-					res.add(current);
+					if (current.getContainer() instanceof ILocation) {
+						final ILocation container = (ILocation)current.getContainer();
+						List<ILocation> children = locationForest.get(container);
+						if (children == null) {
+							children = new ArrayList<ILocation>();
+							locationForest.put(container, children);
+						}
+						children.add(current);
+						nextLocations.add(container);
+					} else {
+						res.add(current);
+					}
 				}
 
 			}
