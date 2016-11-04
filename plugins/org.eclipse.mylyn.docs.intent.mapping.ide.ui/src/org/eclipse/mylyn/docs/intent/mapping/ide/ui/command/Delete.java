@@ -134,7 +134,7 @@ public class Delete extends AbstractHandler {
 		final List<ILocation> locationsToDelete = new ArrayList<ILocation>();
 
 		for (Object data : selection) {
-			if (data instanceof IReport) {
+			if (data instanceof ILocation) {
 				locationsToDelete.add((ILocation)data);
 			}
 		}
