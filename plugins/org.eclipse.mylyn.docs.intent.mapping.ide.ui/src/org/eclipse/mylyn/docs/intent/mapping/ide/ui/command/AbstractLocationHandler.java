@@ -90,11 +90,12 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(Object evaluationContext) {
 		super.setEnabled(evaluationContext);
-		boolean enable = false;
+		boolean enable;
 
 		final ISelection selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getSelectionService().getSelection();
 		if (selection instanceof IStructuredSelection) {
+			enable = false;
 			for (Object selected : ((IStructuredSelection)selection).toList()) {
 				final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selected,
 						ILocationDescriptor.class);
@@ -105,10 +106,12 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 					}
 				}
 			}
-		} else {
+		} else if (selection != null) {
 			final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selection,
 					ILocationDescriptor.class);
 			enable = locationDescriptor != null && canHandleLocation(locationDescriptor);
+		} else {
+			enable = false;
 		}
 
 		setBaseEnabled(enable);
