@@ -933,7 +933,23 @@ public class MappingView extends ViewPart {
 	 */
 	private boolean areSameBase(IBase firstBase, IBase secondBase) {
 		// TODO change this when we work on same instances of IBase
-		return firstBase.getName().equals(secondBase.getName());
+		final boolean res;
+
+		if (firstBase == null) {
+			if (secondBase == null) {
+				res = true;
+			} else {
+				res = false;
+			}
+		} else {
+			if (secondBase == null) {
+				res = false;
+			} else {
+				res = firstBase.getName().equals(secondBase.getName());
+			}
+		}
+
+		return res;
 	}
 
 	/**
