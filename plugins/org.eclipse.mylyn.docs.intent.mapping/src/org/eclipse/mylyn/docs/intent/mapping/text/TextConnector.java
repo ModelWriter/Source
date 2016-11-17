@@ -93,17 +93,32 @@ public class TextConnector extends AbstractConnector {
 	 *            the {@link ITextContainer}
 	 * @param text
 	 *            the {@link ITextContainer#getText() text}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
 	 */
-	public static void updateTextContainer(ITextContainer container, String text) {
+	public static void updateTextContainer(ITextContainer container, String text)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final String oldText = container.getText();
 		container.setText(text);
 		if (oldText != null) {
 			final DiffMatch diff = MappingUtils.getDiffMatch(oldText, text);
 			for (ILocation child : container.getContents()) {
-				if (child instanceof ITextLocation) {
+				if (child instanceof ITextLocation && !child.isMarkedAsDeleted()) {
 					final ITextLocation location = (ITextLocation)child;
 					final int newStartOffset = diff.getIndex(location.getStartOffset());
 					final int newEndOffset = diff.getIndex(location.getEndOffset());
+					if (newStartOffset == newEndOffset) {
+						MappingUtils.markAsDeletedOrDelete(location, String.format(
+								"\"%s\" at (%d, %d) has been deleted.", oldText.substring(location
+										.getStartOffset(), location.getEndOffset()), location
+										.getStartOffset(), location.getEndOffset()));
+					}
 					location.setStartOffset(newStartOffset);
 					location.setEndOffset(newEndOffset);
 				}
@@ -122,7 +137,7 @@ public class TextConnector extends AbstractConnector {
 		final String text = ((ITextContainer)location.getContainer()).getText();
 		final int start = ((ITextLocation)location).getStartOffset();
 		final int end = ((ITextLocation)location).getEndOffset();
-		res = "\"" + text.substring(start, end) + "\"";
+		res = String.format("\"%s\"", text.substring(start, end));
 
 		return res;
 	}

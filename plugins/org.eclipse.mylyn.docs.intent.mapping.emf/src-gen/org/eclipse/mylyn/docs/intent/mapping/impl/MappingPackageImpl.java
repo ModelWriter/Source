@@ -212,6 +212,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
+	public EAttribute getLocation_MarkedAsDeleted() {
+		return (EAttribute)locationEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getLink() {
 		return linkEClass;
 	}
@@ -429,6 +438,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		createEReference(locationEClass, LOCATION__TARGET_LINKS);
 		createEReference(locationEClass, LOCATION__CONTAINER);
 		createEAttribute(locationEClass, LOCATION__TYPE);
+		createEAttribute(locationEClass, LOCATION__MARKED_AS_DELETED);
 
 		linkEClass = createEClass(LINK);
 		createEAttribute(linkEClass, LINK__DESCRIPTION);
@@ -513,6 +523,9 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 				!IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLocation_Type(), this.getType(), "type", null, 0, 1, Location.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLocation_MarkedAsDeleted(), ecorePackage.getEBoolean(), "markedAsDeleted", "false",
+				1, 1, Location.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(linkEClass, Link.class, "Link", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLink_Description(), ecorePackage.getEString(), "description", null, 1, 1,

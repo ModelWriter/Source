@@ -13,3 +13,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.mylyn.docs.intent.mapping.jena.ide,
  org.eclipse.mylyn.docs.intent.mapping.jena.ide.connector
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.eclipse.mylyn.docs.intent.mapping.jena.ide.Activator

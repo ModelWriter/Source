@@ -11,22 +11,16 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.tests;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.LocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ICurrentBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
 import org.eclipse.mylyn.docs.intent.mapping.tests.connector.ConnectorRegistryTests.TestLocation1;
 import org.junit.Before;
@@ -44,6 +38,28 @@ import static org.junit.Assert.assertTrue;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class IdeMappingUtilsTests {
+
+	/**
+	 * A test {@link IFileLocation}.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class TestFileLocation extends TestLocation implements IFileLocation {
+
+		/**
+		 * The full path.
+		 */
+		private String fullPath;
+
+		public String getFullPath() {
+			return fullPath;
+		}
+
+		public void setFullPath(String path) {
+			this.fullPath = path;
+		}
+
+	}
 
 	/**
 	 * Test {@link ICurrentBaseListener}.
@@ -313,57 +329,7 @@ public class IdeMappingUtilsTests {
 
 	@Test
 	public void getContainingFileLocation() {
-		final ILocation container = new IFileLocation() {
-
-			public List<ILocation> getContents() {
-				return new ArrayList<ILocation>();
-			}
-
-			public void setType(Serializable type) {
-				// nothing to do here
-			}
-
-			public void setContainer(ILocationContainer container) {
-				// nothing to do here
-			}
-
-			public void removeListener(ILocationListener listener) {
-				// nothing to do here
-			}
-
-			public Serializable getType() {
-				// nothing to do here
-				return null;
-			}
-
-			public List<ILink> getTargetLinks() {
-				// nothing to do here
-				return null;
-			}
-
-			public List<ILink> getSourceLinks() {
-				// nothing to do here
-				return null;
-			}
-
-			public ILocationContainer getContainer() {
-				// nothing to do here
-				return null;
-			}
-
-			public void addListener(ILocationListener listener) {
-				// nothing to do here
-			}
-
-			public void setFullPath(String path) {
-				// nothing to do here
-			}
-
-			public String getFullPath() {
-				// nothing to do here
-				return null;
-			}
-		};
+		final ILocation container = new TestFileLocation();
 		final ILocation location = new TestLocation1();
 		location.setContainer(container);
 

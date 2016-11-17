@@ -21,8 +21,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.ResourceConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
@@ -31,7 +35,11 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDe
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests.FileConnectorDelegateA.FileLocationA;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests.FileConnectorDelegateB.FileLocationB;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests.FileConnectorDelegateC.FileLocationC;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestReport;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests;
+import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextLocation;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -314,6 +322,39 @@ public class ResourceConnectorTests {
 		connector.initLocation(null, location, fileB);
 
 		assertEquals(location, connector.getLocation(container, fileB));
+	}
+
+	@Test
+	public void updateTextContainerDeleted() throws Exception {
+		final IBase base = new BaseRegistryTests.TestBase();
+		IdeMappingUtils.setCurrentBase(base);
+		base.getFactory().addDescriptor(IReport.class,
+				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		final ILocation target = new TestTextLocation();
+
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
+				new Path("TestProject/TestFolderToDelete"));
+		folder.create(true, true, new NullProgressMonitor());
+		TestResourceLocation location = new TestResourceLocation();
+		base.getContents().add(location);
+		location.setContainer(base);
+		final ILink link = new BaseElementFactoryTests.TestLink();
+		location.getTargetLinks().add(link);
+		link.setSource(location);
+		target.getSourceLinks().add(link);
+		link.setTarget(target);
+
+		connector.initLocation(null, location, folder);
+
+		folder.delete(true, new NullProgressMonitor());
+
+		assertEquals(1, base.getReports().size());
+		final IReport report = base.getReports().get(0);
+		assertEquals(link, report.getLink());
+		assertEquals("the resource /TestProject/TestFolderToDelete has been deleted.", report
+				.getDescription());
+
+		IdeMappingUtils.setCurrentBase(null);
 	}
 
 }

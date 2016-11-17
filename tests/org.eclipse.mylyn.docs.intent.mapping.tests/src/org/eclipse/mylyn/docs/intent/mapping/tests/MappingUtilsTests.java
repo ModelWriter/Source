@@ -12,6 +12,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.tests;
 
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
@@ -20,6 +21,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLink;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestReport;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
 import org.junit.Test;
 
@@ -279,8 +281,11 @@ public class MappingUtilsTests {
 	@Test
 	public void deleteLink() {
 		final ILink link = new BaseElementFactoryTests.TestLink();
+		final ILocation parent = new BaseElementFactoryTests.TestLocation();
 		final ILocation source = new BaseElementFactoryTests.TestLocation();
 		final ILocation target = new BaseElementFactoryTests.TestLocation();
+		source.setContainer(parent);
+		target.setContainer(parent);
 		link.setSource(source);
 		link.setTarget(target);
 
@@ -288,6 +293,48 @@ public class MappingUtilsTests {
 
 		assertNull(link.getSource());
 		assertNull(link.getTarget());
+		assertEquals(parent, source.getContainer());
+		assertEquals(parent, target.getContainer());
+	}
+
+	@Test
+	public void deleteLinkWithSourceMarkedAsDeleted() {
+		final ILink link = new BaseElementFactoryTests.TestLink();
+		final ILocation parent = new BaseElementFactoryTests.TestLocation();
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+		source.setContainer(parent);
+		source.setMarkedAsDeleted(true);
+		target.setContainer(parent);
+		link.setSource(source);
+		link.setTarget(target);
+
+		MappingUtils.deleteLink(link);
+
+		assertNull(link.getSource());
+		assertNull(link.getTarget());
+		assertNull(source.getContainer());
+		assertEquals(parent, target.getContainer());
+	}
+
+	@Test
+	public void deleteLinkWithTargetMarkedAsDeleted() {
+		final ILink link = new BaseElementFactoryTests.TestLink();
+		final ILocation parent = new BaseElementFactoryTests.TestLocation();
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+		source.setContainer(parent);
+		target.setContainer(parent);
+		target.setMarkedAsDeleted(true);
+		link.setSource(source);
+		link.setTarget(target);
+
+		MappingUtils.deleteLink(link);
+
+		assertNull(link.getSource());
+		assertNull(link.getTarget());
+		assertEquals(parent, source.getContainer());
+		assertNull(target.getContainer());
 	}
 
 	@Test(expected = java.lang.NullPointerException.class)
@@ -363,13 +410,31 @@ public class MappingUtilsTests {
 
 	@Test
 	public void deleteLocation() {
+		final ILocation root = new BaseElementFactoryTests.TestLocation();
 		final ILocation parent = new BaseElementFactoryTests.TestLocation();
 		final ILocation location = new BaseElementFactoryTests.TestLocation();
+		parent.setContainer(root);
 		location.setContainer(parent);
 
 		MappingUtils.deleteLocation(location);
 
 		assertNull(location.getContainer());
+		assertEquals(root, parent.getContainer());
+	}
+
+	@Test
+	public void deleteLocationWithContainerMarkedAsDeleted() {
+		final ILocation root = new BaseElementFactoryTests.TestLocation();
+		final ILocation parent = new BaseElementFactoryTests.TestLocation();
+		final ILocation location = new BaseElementFactoryTests.TestLocation();
+		parent.setContainer(root);
+		parent.setMarkedAsDeleted(true);
+		location.setContainer(parent);
+
+		MappingUtils.deleteLocation(location);
+
+		assertNull(location.getContainer());
+		assertNull(parent.getContainer());
 	}
 
 	@Test(expected = java.lang.NullPointerException.class)
@@ -392,6 +457,179 @@ public class MappingUtilsTests {
 
 		assertFalse(base.getReports().contains(report));
 		assertNull(report.getLink());
+	}
+
+	@Test
+	public void canCreateLinkSourceMarkedAsDeleted() {
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+
+		source.setMarkedAsDeleted(true);
+
+		assertFalse(MappingUtils.canCreateLink(source, target));
+	}
+
+	@Test
+	public void canCreateLinkTargetMarkedAsDeleted() {
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+
+		target.setMarkedAsDeleted(true);
+
+		assertFalse(MappingUtils.canCreateLink(source, target));
+	}
+
+	@Test
+	public void canCreateLinkSameSourceAndTarget() {
+		final ILocation location = new BaseElementFactoryTests.TestLocation();
+
+		assertFalse(MappingUtils.canCreateLink(location, location));
+	}
+
+	@Test
+	public void canCreateLinkExistingLink() {
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+		final ILink link = new BaseElementFactoryTests.TestLink();
+
+		source.getTargetLinks().add(link);
+		link.setSource(source);
+		target.getSourceLinks().add(link);
+		link.setTarget(target);
+
+		assertFalse(MappingUtils.canCreateLink(source, target));
+	}
+
+	@Test
+	public void canCreateLink() {
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+
+		assertTrue(MappingUtils.canCreateLink(source, target));
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void createLinkSourceMarkedAsDeleted() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+
+		source.setMarkedAsDeleted(true);
+
+		MappingUtils.createLink(source, target);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void createLinkTargetMarkedAsDeleted() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+
+		target.setMarkedAsDeleted(true);
+
+		MappingUtils.createLink(source, target);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void createLinkSameSourceAndTarget() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final ILocation location = new BaseElementFactoryTests.TestLocation();
+
+		MappingUtils.createLink(location, location);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void createLinkExistingLink() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+		final ILink link = new BaseElementFactoryTests.TestLink();
+
+		source.getTargetLinks().add(link);
+		link.setSource(source);
+		target.getSourceLinks().add(link);
+		link.setTarget(target);
+
+		MappingUtils.createLink(source, target);
+	}
+
+	@Test
+	public void createLink() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+		final IBase base = new TestBase();
+		base.getContents().add(source);
+		source.setContainer(base);
+		base.getContents().add(target);
+		target.setContainer(base);
+		base.getFactory().addDescriptor(ILink.class,
+				new BaseElementFactory.FactoryDescriptor<TestLink>(TestLink.class));
+
+		final ILink link = MappingUtils.createLink(source, target);
+
+		assertEquals(source, link.getSource());
+		assertEquals(target, link.getTarget());
+	}
+
+	@Test
+	public void markAsDeletedOrDeleteCanDelete() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final ILocation location = new BaseElementFactoryTests.TestLocation();
+		final IBase base = new TestBase();
+		location.setContainer(base);
+
+		MappingUtils.markAsDeletedOrDelete(location, "Test report.");
+
+		assertNull(location.getContainer());
+		assertEquals(0, base.getReports().size());
+	}
+
+	@Test
+	public void markAsDeletedOrDeleteCanTDelete() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final ILocation child = new BaseElementFactoryTests.TestLocation();
+		final ILocation location = new BaseElementFactoryTests.TestLocation();
+		final IBase base = new TestBase();
+		location.setContainer(base);
+		location.getContents().add(child);
+
+		MappingUtils.markAsDeletedOrDelete(location, "Test report.");
+
+		assertEquals(base, location.getContainer());
+		assertEquals(0, base.getReports().size());
+	}
+
+	@Test
+	public void markAsDeletedOrDeleteCanTDeleteWithLinks() throws InstantiationException,
+			IllegalAccessException, ClassNotFoundException {
+		final ILocation child = new BaseElementFactoryTests.TestLocation();
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation location = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+		final IBase base = new TestBase();
+		base.getFactory().addDescriptor(IReport.class,
+				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		source.setContainer(base);
+		location.setContainer(base);
+		target.setContainer(base);
+		location.getContents().add(child);
+		final ILink incomingLink = new BaseElementFactoryTests.TestLink();
+		incomingLink.setSource(source);
+		incomingLink.setTarget(location);
+		location.getSourceLinks().add(incomingLink);
+		final ILink outgoingLink = new BaseElementFactoryTests.TestLink();
+		outgoingLink.setSource(location);
+		outgoingLink.setTarget(target);
+		location.getTargetLinks().add(outgoingLink);
+
+		MappingUtils.markAsDeletedOrDelete(location, "Test report.");
+
+		assertEquals(base, location.getContainer());
+		assertEquals(2, base.getReports().size());
+		assertEquals("Test report.", base.getReports().get(0).getDescription());
+		assertEquals(incomingLink, base.getReports().get(0).getLink());
+		assertEquals("Test report.", base.getReports().get(1).getDescription());
+		assertEquals(outgoingLink, base.getReports().get(1).getLink());
 	}
 
 }

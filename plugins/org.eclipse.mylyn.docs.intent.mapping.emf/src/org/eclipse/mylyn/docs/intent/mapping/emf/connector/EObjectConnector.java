@@ -157,8 +157,17 @@ public class EObjectConnector extends AbstractConnector {
 	 *            the {@link IEObjectContainer}
 	 * @param resource
 	 *            the {@link Resource}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
 	 */
-	public static void updateEObjectContainer(IEObjectContainer container, Resource resource) {
+	public static void updateEObjectContainer(IEObjectContainer container, Resource resource)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		updateEObjectContainer(container, resource.getContents());
 	}
 
@@ -169,15 +178,24 @@ public class EObjectConnector extends AbstractConnector {
 	 *            the {@link IEObjectContainer}
 	 * @param eObjects
 	 *            the {@link List} of {@link EObject}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
 	 */
-	public static void updateEObjectContainer(IEObjectContainer container, List<EObject> eObjects) {
+	public static void updateEObjectContainer(IEObjectContainer container, List<EObject> eObjects)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final String newText = serialize(eObjects);
 		final String oldText = container.getText();
 		container.setText(newText);
 		if (oldText != null) {
 			final DiffMatch diff = MappingUtils.getDiffMatch(oldText, newText);
 			for (ILocation child : container.getContents()) {
-				if (child instanceof IEObjectLocation) {
+				if (child instanceof IEObjectLocation && !child.isMarkedAsDeleted()) {
 					final IEObjectLocation location = (IEObjectLocation)child;
 					final int newStartOffset = diff.getIndex(location.getStartOffset());
 					final int newEndOffset = diff.getIndex(location.getEndOffset());
@@ -185,9 +203,10 @@ public class EObjectConnector extends AbstractConnector {
 						location.setStartOffset(newStartOffset);
 						location.setEndOffset(newEndOffset);
 					} else {
-						// TODO at this point we might want to mark the location as deleted and keep its data
-						location.setStartOffset(-1);
-						location.setEndOffset(-1);
+						MappingUtils.markAsDeletedOrDelete(location, String.format(
+								"\"%s\" at (%d, %d) has been deleted.", oldText.substring(location
+										.getStartOffset(), location.getEndOffset()), location
+										.getStartOffset(), location.getEndOffset()));
 					}
 				}
 			}
@@ -335,19 +354,23 @@ public class EObjectConnector extends AbstractConnector {
 		final Object res;
 
 		final IEObjectLocation eObjLocation = (IEObjectLocation)location;
-		final Resource resource = (Resource)MappingUtils.getConnectorRegistry().getElement(
-				(ILocation)location.getContainer());
-		ITextAdapter nearestAdapter = null;
-		for (EObject root : resource.getContents()) {
-			final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(root);
-			if (textAdapter.getTextOffset() > eObjLocation.getStartOffset()) {
-				break;
-			} else {
-				nearestAdapter = textAdapter;
+		if (location.getContainer() != null) {
+			final Resource resource = (Resource)MappingUtils.getConnectorRegistry().getElement(
+					(ILocation)location.getContainer());
+			ITextAdapter nearestAdapter = null;
+			for (EObject root : resource.getContents()) {
+				final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(root);
+				if (textAdapter.getTextOffset() > eObjLocation.getStartOffset()) {
+					break;
+				} else {
+					nearestAdapter = textAdapter;
+				}
 			}
-		}
-		if (nearestAdapter != null) {
-			res = nearestAdapter.getElement(eObjLocation);
+			if (nearestAdapter != null) {
+				res = nearestAdapter.getElement(eObjLocation);
+			} else {
+				res = null;
+			}
 		} else {
 			res = null;
 		}

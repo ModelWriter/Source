@@ -122,6 +122,26 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	protected Serializable type = TYPE_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isMarkedAsDeleted() <em>Marked As Deleted</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see #isMarkedAsDeleted()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean MARKED_AS_DELETED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isMarkedAsDeleted() <em>Marked As Deleted</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see #isMarkedAsDeleted()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean markedAsDeleted = MARKED_AS_DELETED_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -262,6 +282,28 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * 
 	 * @generated
 	 */
+	public boolean isMarkedAsDeleted() {
+		return markedAsDeleted;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setMarkedAsDeleted(boolean newMarkedAsDeleted) {
+		boolean oldMarkedAsDeleted = markedAsDeleted;
+		markedAsDeleted = newMarkedAsDeleted;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.LOCATION__MARKED_AS_DELETED,
+					oldMarkedAsDeleted, markedAsDeleted));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -336,6 +378,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				return getContainer();
 			case MappingPackage.LOCATION__TYPE:
 				return getType();
+			case MappingPackage.LOCATION__MARKED_AS_DELETED:
+				return isMarkedAsDeleted();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -367,6 +411,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 			case MappingPackage.LOCATION__TYPE:
 				setType((Serializable)newValue);
 				return;
+			case MappingPackage.LOCATION__MARKED_AS_DELETED:
+				setMarkedAsDeleted((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -394,6 +441,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 			case MappingPackage.LOCATION__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
+			case MappingPackage.LOCATION__MARKED_AS_DELETED:
+				setMarkedAsDeleted(MARKED_AS_DELETED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -416,6 +466,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				return getContainer() != null;
 			case MappingPackage.LOCATION__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case MappingPackage.LOCATION__MARKED_AS_DELETED:
+				return markedAsDeleted != MARKED_AS_DELETED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -469,6 +521,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (type: ");
 		result.append(type);
+		result.append(", markedAsDeleted: ");
+		result.append(markedAsDeleted);
 		result.append(')');
 		return result.toString();
 	}
@@ -619,6 +673,14 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 						if (adapter instanceof LocationAdapter) {
 							((LocationAdapter)adapter).listener.containerChanged((ILocationContainer)msg
 									.getOldValue(), (ILocationContainer)msg.getNewValue());
+						}
+					}
+					break;
+				case MappingPackage.LOCATION__MARKED_AS_DELETED:
+					for (Adapter adapter : eAdapters) {
+						if (adapter instanceof LocationAdapter) {
+							((LocationAdapter)adapter).listener.markedAsDeletedChanged((Boolean)msg
+									.getNewValue());
 						}
 					}
 					break;

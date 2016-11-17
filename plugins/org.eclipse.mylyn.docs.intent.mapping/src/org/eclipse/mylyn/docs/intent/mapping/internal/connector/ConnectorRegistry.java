@@ -136,13 +136,20 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getName(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 	 */
 	public String getName(ILocation location) {
-		for (IConnector connector : getConnectors()) {
-			if (connector.canHandle(location)) {
-				return connector.getName(location);
+		String res;
+		if (!location.isMarkedAsDeleted()) {
+			res = null;
+			for (IConnector connector : getConnectors()) {
+				if (connector.canHandle(location)) {
+					res = connector.getName(location);
+					break;
+				}
 			}
+		} else {
+			res = "(deleted)";
 		}
 
-		return null;
+		return res;
 	}
 
 	/**
@@ -170,9 +177,11 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 *      java.lang.Object)
 	 */
 	public boolean updateLocation(ILocation location, Object element) {
-		for (IConnector connector : getConnectors()) {
-			if (connector.canHandle(location)) {
-				return connector.updateLocation(location, element);
+		if (!location.isMarkedAsDeleted()) {
+			for (IConnector connector : getConnectors()) {
+				if (connector.canHandle(location)) {
+					return connector.updateLocation(location, element);
+				}
 			}
 		}
 

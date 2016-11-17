@@ -69,6 +69,15 @@ public class TextFileConnectorDelegate extends AbstractFileConnectorDelegate {
 		} catch (IOException e) {
 			Activator.getDefault().getLog().log(
 					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		} catch (InstantiationException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		} catch (IllegalAccessException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		} catch (ClassNotFoundException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		}
 	}
 

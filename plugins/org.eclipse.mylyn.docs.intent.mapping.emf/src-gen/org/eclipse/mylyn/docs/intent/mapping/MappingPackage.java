@@ -146,13 +146,22 @@ public interface MappingPackage extends EPackage {
 	int LOCATION__TYPE = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LOCATION__MARKED_AS_DELETED = IEMF_BASE_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Location</em>' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 5;
+	int LOCATION_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Location</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
@@ -342,6 +351,15 @@ public interface MappingPackage extends EPackage {
 	int TEXT_LOCATION__TYPE = LOCATION__TYPE;
 
 	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_LOCATION__MARKED_AS_DELETED = LOCATION__MARKED_AS_DELETED;
+
+	/**
 	 * The feature id for the '<em><b>Start Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
@@ -430,6 +448,15 @@ public interface MappingPackage extends EPackage {
 	 * @ordered
 	 */
 	int EOBJECT_LOCATION__TYPE = TEXT_LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_LOCATION__MARKED_AS_DELETED = TEXT_LOCATION__MARKED_AS_DELETED;
 
 	/**
 	 * The feature id for the '<em><b>Start Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -623,6 +650,18 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLocation_Type();
+
+	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.Location#isMarkedAsDeleted <em>Marked As Deleted</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Marked As Deleted</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Location#isMarkedAsDeleted()
+	 * @see #getLocation()
+	 * @generated
+	 */
+	EAttribute getLocation_MarkedAsDeleted();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Link <em>Link</em>}'.
@@ -921,6 +960,14 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LOCATION__TYPE = eINSTANCE.getLocation_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Marked As Deleted</b></em>' attribute feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute LOCATION__MARKED_AS_DELETED = eINSTANCE.getLocation_MarkedAsDeleted();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.LinkImpl

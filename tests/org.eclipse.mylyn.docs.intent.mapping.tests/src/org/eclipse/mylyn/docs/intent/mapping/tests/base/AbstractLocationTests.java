@@ -19,7 +19,9 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test {@link ILocation}.
@@ -45,8 +47,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(1, location.getSourceLinks().size());
 		assertEquals(link, location.getSourceLinks().get(0));
 
-		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 1, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 1, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -71,8 +73,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(link1, location.getSourceLinks().get(0));
 		assertEquals(link2, location.getSourceLinks().get(1));
 
-		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 2, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 2, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -96,8 +98,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 
 		assertEquals(0, location.getSourceLinks().size());
 
-		assertTestLocationListener(listener, 0, 0, 0, 0, 1, 1, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 0, 1, 1, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -126,8 +128,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 
 		assertEquals(0, location.getSourceLinks().size());
 
-		assertTestLocationListener(listener, 0, 0, 0, 0, 2, 2, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 0, 2, 2, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -153,8 +155,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(0, location.getSourceLinks().size());
 		assertEquals(0, getBase().getContents().size());
 
-		assertTestLocationListener(listener, 0, 0, 0, 0, 1, 1, 2);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 0, 1, 1, 2, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -185,8 +187,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(0, location.getSourceLinks().size());
 		assertEquals(0, getBase().getContents().size());
 
-		assertTestLocationListener(listener, 0, 0, 0, 0, 2, 2, 2);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 0, 2, 2, 2, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -206,8 +208,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(1, location.getTargetLinks().size());
 		assertEquals(link, location.getTargetLinks().get(0));
 
-		assertTestLocationListener(listener, 0, 0, 0, 1, 0, 0, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 1, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -232,8 +234,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(link1, location.getTargetLinks().get(0));
 		assertEquals(link2, location.getTargetLinks().get(1));
 
-		assertTestLocationListener(listener, 0, 0, 0, 2, 0, 0, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 2, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -257,8 +259,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 
 		assertEquals(0, location.getTargetLinks().size());
 
-		assertTestLocationListener(listener, 0, 0, 1, 1, 0, 0, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 1, 1, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -287,8 +289,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 
 		assertEquals(0, location.getTargetLinks().size());
 
-		assertTestLocationListener(listener, 0, 0, 2, 2, 0, 0, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 2, 2, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -314,8 +316,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(0, location.getTargetLinks().size());
 		assertEquals(0, getBase().getContents().size());
 
-		assertTestLocationListener(listener, 0, 0, 1, 1, 0, 0, 2);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 1, 1, 0, 0, 2, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -346,8 +348,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(0, location.getTargetLinks().size());
 		assertEquals(0, getBase().getContents().size());
 
-		assertTestLocationListener(listener, 0, 0, 2, 2, 0, 0, 2);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 2, 2, 0, 0, 2, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -366,8 +368,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(1, location.getContents().size());
 		assertEquals(location1, location.getContents().get(0));
 
-		assertTestLocationListener(listener, 0, 1, 0, 0, 0, 0, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 1, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -392,8 +394,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		assertEquals(location1, location.getContents().get(0));
 		assertEquals(location2, location.getContents().get(1));
 
-		assertTestLocationListener(listener, 0, 2, 0, 0, 0, 0, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 2, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -417,8 +419,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 
 		assertEquals(0, location.getContents().size());
 
-		assertTestLocationListener(listener, 1, 1, 0, 0, 0, 0, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 1, 1, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -447,8 +449,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 
 		assertEquals(0, location.getContents().size());
 
-		assertTestLocationListener(listener, 2, 2, 0, 0, 0, 0, 0);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 2, 2, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -473,8 +475,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 
 		assertNull(location.getContainer());
 
-		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 0, 1);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 0, 1, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -491,8 +493,8 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 
 		assertEquals(container, location.getContainer());
 
-		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 0, 1);
-		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 0, 1, 0);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -520,6 +522,32 @@ public abstract class AbstractLocationTests extends AbstractMappingTests {
 		location.setType(null);
 
 		assertEquals(null, location.getType());
+	}
+
+	@Test
+	public void isMarkedAsDeletedDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final ILocation location = createLocation();
+
+		assertFalse(location.isMarkedAsDeleted());
+	}
+
+	@Test
+	public void setMarkedAsDeleted() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final TestLocationListener listener = new TestLocationListener();
+		final TestLocationListener removedListener = new TestLocationListener();
+
+		final ILocation location = createLocation();
+		location.addListener(listener);
+		location.addListener(removedListener);
+		location.removeListener(removedListener);
+
+		location.setMarkedAsDeleted(true);
+
+		assertTrue(location.isMarkedAsDeleted());
+		assertTestLocationListener(listener, 0, 0, 0, 0, 0, 0, 0, 1);
+		assertTestLocationListener(removedListener, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 }

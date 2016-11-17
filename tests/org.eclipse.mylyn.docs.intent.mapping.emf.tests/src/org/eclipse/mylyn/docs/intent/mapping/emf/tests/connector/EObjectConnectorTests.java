@@ -21,13 +21,21 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedTests.TestEObjectContainerConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedTests.TestEObjectContainerLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedTests.TestEObjectLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.ITestLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestReport;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests;
+import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextLocation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -74,7 +82,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void initLocationEObject() {
+	public void initLocationEObject() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
 		final Resource resource = new XMIResourceImpl();
@@ -102,7 +111,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void initLocationSetting() {
+	public void initLocationSetting() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
 		final Resource resource = new XMIResourceImpl();
@@ -298,7 +308,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void getLocationEObject() {
+	public void getLocationEObject() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
 		final Resource resource = new XMIResourceImpl();
@@ -321,7 +332,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void getLocationSetting() {
+	public void getLocationSetting() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
 		final Resource resource = new XMIResourceImpl();
@@ -340,6 +352,46 @@ public class EObjectConnectorTests extends EObjectConnector {
 		assertEquals(null, super.getLocation(container, EcorePackage.eINSTANCE.getEClass()));
 		assertEquals(location, super.getLocation(container, ((InternalEObject)EcorePackage.eINSTANCE
 				.getEClass()).eSetting(EcorePackage.eINSTANCE.getENamedElement_Name())));
+
+		MappingUtils.getConnectorRegistry().unregister(connector);
+	}
+
+	@Test
+	public void updateTextContainerDeleted() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(IReport.class,
+				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
+		container.setContainer(base);
+		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(eObjects);
+		container.setResource(resource);
+		updateEObjectContainer(container, resource);
+		final IEObjectLocation location = new TestEObjectLocation();
+		location.setContainer(container);
+		container.getContents().add(location);
+		final ILocation target = new TestTextLocation();
+		final ILink link = new BaseElementFactoryTests.TestLink();
+		location.getTargetLinks().add(link);
+		link.setSource(location);
+		target.getSourceLinks().add(link);
+		link.setTarget(target);
+
+		final TestEObjectContainerConnector connector = new TestEObjectContainerConnector();
+		MappingUtils.getConnectorRegistry().register(connector);
+
+		super.initLocation(container, location, EcorePackage.eINSTANCE.getEClass());
+
+		eObjects.remove(EcorePackage.eINSTANCE.getEClass());
+		super.updateEObjectContainer(container, eObjects);
+
+		assertEquals(1, base.getReports().size());
+		final IReport report = base.getReports().get(0);
+		assertEquals(link, report.getLink());
+		assertTrue(report.getDescription().contains("org.eclipse.emf.ecore.EClass"));
+		assertTrue(report.getDescription().contains("at (6860, 22773) has been deleted."));
 
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}

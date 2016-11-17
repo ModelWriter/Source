@@ -163,7 +163,7 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 		ILink res;
 
 		try {
-			if (!source.equals(target) && MappingUtils.getLink(source, target) == null) {
+			if (MappingUtils.canCreateLink(source, target)) {
 				res = MappingUtils.createLink(source, target);
 			} else {
 				res = null;

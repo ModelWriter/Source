@@ -77,6 +77,11 @@ public class BaseElementFactoryTests {
 		private final List<ILocation> contents = new ArrayList<ILocation>();
 
 		/**
+		 * Tells if the location is marked as deleted.
+		 */
+		private boolean markedAsDeleted;
+
+		/**
 		 * The {@link Object}.
 		 */
 		private Object object;
@@ -113,6 +118,8 @@ public class BaseElementFactoryTests {
 		public void setContainer(ILocationContainer container) {
 			if (container != null) {
 				container.getContents().add(this);
+			} else if (this.container != null) {
+				this.container.getContents().remove(this);
 			}
 			this.container = container;
 		}
@@ -140,6 +147,14 @@ public class BaseElementFactoryTests {
 
 		public void setType(Serializable type) {
 			// nothing to do here
+		}
+
+		public void setMarkedAsDeleted(boolean markedAsDeleted) {
+			this.markedAsDeleted = markedAsDeleted;
+		}
+
+		public boolean isMarkedAsDeleted() {
+			return markedAsDeleted;
 		}
 
 	}

@@ -47,6 +47,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Tests {@link EObjectConnector}.
@@ -270,7 +271,7 @@ public class EObjectConnectorParametrizedTests {
 
 	public void assertEObjectLocation(IEObjectLocation location, String expectedText, int expectedTextOffset,
 			EObject expectedEObject, EStructuralFeature expectedFeature, Object expectedValue) {
-		if (location.getStartOffset() < 0 && location.getEndOffset() < 0) {
+		if (location.getContainer() == null) {
 			assertEquals(expectedText, "");
 		} else {
 			assertEquals(expectedText, ((ITextContainer)location.getContainer()).getText().substring(
@@ -286,13 +287,13 @@ public class EObjectConnectorParametrizedTests {
 		} else if (element instanceof EObject) {
 			assertEquals(expectedEObject, element);
 		} else {
-			assertEquals(-1, location.getStartOffset());
-			assertEquals(-1, location.getEndOffset());
+			assertNull(location.getContainer());
 		}
 	}
 
 	@Test
-	public void updateEObjects() {
+	public void updateEObjects() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
@@ -324,7 +325,8 @@ public class EObjectConnectorParametrizedTests {
 	}
 
 	@Test
-	public void updateEObjectsPlusShift() {
+	public void updateEObjectsPlusShift() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
@@ -359,7 +361,8 @@ public class EObjectConnectorParametrizedTests {
 	}
 
 	@Test
-	public void updateEObjectsMinusShift() {
+	public void updateEObjectsMinusShift() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
@@ -397,7 +400,8 @@ public class EObjectConnectorParametrizedTests {
 	}
 
 	@Test
-	public void updateEObjectsAltered() {
+	public void updateEObjectsAltered() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
@@ -444,7 +448,8 @@ public class EObjectConnectorParametrizedTests {
 	}
 
 	@Test
-	public void updateEObjectsPlusShiftAltered() {
+	public void updateEObjectsPlusShiftAltered() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
@@ -494,7 +499,8 @@ public class EObjectConnectorParametrizedTests {
 	}
 
 	@Test
-	public void updateEObjectsMinusShiftAltered() {
+	public void updateEObjectsMinusShiftAltered() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
@@ -547,7 +553,8 @@ public class EObjectConnectorParametrizedTests {
 	}
 
 	@Test
-	public void updateEObjectsRemoved() {
+	public void updateEObjectsRemoved() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
@@ -557,7 +564,7 @@ public class EObjectConnectorParametrizedTests {
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final String expectedText = "";
-		final int expectedTextOffset = -1;
+		final int expectedTextOffset = location.getStartOffset();
 		final EObject expectedEObject = null;
 		final EStructuralFeature expectedFeature = null;
 		final Object expectedValue = null;
@@ -578,7 +585,8 @@ public class EObjectConnectorParametrizedTests {
 	}
 
 	@Test
-	public void updateEObjectsPlusShiftRemoved() {
+	public void updateEObjectsPlusShiftRemoved() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
@@ -588,7 +596,7 @@ public class EObjectConnectorParametrizedTests {
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final String expectedText = "";
-		final int expectedTextOffset = -1;
+		final int expectedTextOffset = location.getStartOffset();
 		final EObject expectedEObject = null;
 		final EStructuralFeature expectedFeature = null;
 		final Object expectedValue = null;
@@ -611,7 +619,8 @@ public class EObjectConnectorParametrizedTests {
 	}
 
 	@Test
-	public void updateEObjectsMinusShiftRemoved() {
+	public void updateEObjectsMinusShiftRemoved() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
@@ -621,7 +630,7 @@ public class EObjectConnectorParametrizedTests {
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final String expectedText = "";
-		final int expectedTextOffset = -1;
+		final int expectedTextOffset = location.getStartOffset();
 		final EObject expectedEObject = null;
 		final EStructuralFeature expectedFeature = null;
 		final Object expectedValue = null;
@@ -644,14 +653,16 @@ public class EObjectConnectorParametrizedTests {
 				expectedValue);
 	}
 
-	private String getText(List<EObject> eObjects) {
+	private String getText(List<EObject> eObjects) throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		EObjectConnector.updateEObjectContainer(container, eObjects);
 
 		return container.getText();
 	}
 
-	private String getText(EObject eObject, EStructuralFeature feature, Object value) {
+	private String getText(EObject eObject, EStructuralFeature feature, Object value)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		List<EObject> eObjects = new ArrayList<EObject>();
 		eObjects.add(eObject);

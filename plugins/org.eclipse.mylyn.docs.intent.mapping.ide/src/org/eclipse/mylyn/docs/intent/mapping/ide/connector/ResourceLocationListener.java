@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -202,7 +203,25 @@ public class ResourceLocationListener implements IResourceChangeListener {
 				movedResources.put(delta.getResource().getFullPath(), delta.getResource());
 			}
 		} else {
-			// TODO mark as deleted
+			// TODO we implicitly decide to have a flat structure of location here... we probably don't want
+			// to do
+			// that
+			final ILocation location = resourceConnector.getLocation(base, delta.getResource());
+			if (location != null) {
+				try {
+					MappingUtils.markAsDeletedOrDelete(location, "the resource "
+							+ delta.getResource().getFullPath().toString() + " has been deleted.");
+				} catch (InstantiationException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+				} catch (IllegalAccessException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+				} catch (ClassNotFoundException e) {
+					Activator.getDefault().getLog().log(
+							new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+				}
+			}
 		}
 	}
 
@@ -243,7 +262,7 @@ public class ResourceLocationListener implements IResourceChangeListener {
 		// TODO we implicitly decide to have a flat structure of location here... we probably don't want to do
 		// that
 		final ILocation location = resourceConnector.getLocation(base, resource);
-		if (location != null) {
+		if (location != null && !location.isMarkedAsDeleted()) {
 			resourceConnector.updateLocation(location, resource);
 		}
 		updateKnownDescriptors(resource);
@@ -263,7 +282,7 @@ public class ResourceLocationListener implements IResourceChangeListener {
 		// TODO we implicitly decide to have a flat structure of location here... we probably don't want to do
 		// that
 		final ILocation location = resourceConnector.getLocation(base, source);
-		if (location != null) {
+		if (location != null && !location.isMarkedAsDeleted()) {
 			resourceConnector.updateLocation(location, target);
 		}
 		moveKnownDescriptor(source, target);

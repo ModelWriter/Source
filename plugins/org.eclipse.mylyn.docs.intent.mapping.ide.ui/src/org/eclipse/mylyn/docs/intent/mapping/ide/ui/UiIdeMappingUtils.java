@@ -54,15 +54,17 @@ public final class UiIdeMappingUtils {
 	 *            the {@link ILocation} to show
 	 */
 	public static void showLocation(ILocation location) {
-		final IMarker marker = IdeMappingUtils.getOrCreateMarker(location);
-		if (marker != null) {
-			showMarker(marker);
-		} else {
-			final IMarker createdMarker = IdeMappingUtils.getOrCreateMarker(location);
-			if (createdMarker != null) {
-				showMarker(createdMarker);
+		if (!location.isMarkedAsDeleted()) {
+			final IMarker marker = IdeMappingUtils.getOrCreateMarker(location);
+			if (marker != null) {
+				showMarker(marker);
+			} else {
+				final IMarker createdMarker = IdeMappingUtils.getOrCreateMarker(location);
+				if (createdMarker != null) {
+					showMarker(createdMarker);
+				}
+				IdeMappingUtils.deleteMarker(location);
 			}
-			IdeMappingUtils.deleteMarker(location);
 		}
 	}
 

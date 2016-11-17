@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.adapter;
 
-import java.io.IOException;
-
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -49,7 +47,7 @@ public class EObjectLocationToMarkerAdapterFactoryTests {
 	private static final EObjectLocationToMarkerAdapterFactory FACTORY = new EObjectLocationToMarkerAdapterFactory();
 
 	@Test
-	public void getAdapter() throws CoreException, IOException {
+	public void getAdapter() throws Exception {
 		final IProject project = createProject();
 		final ResourceSet rs = new ResourceSetImpl();
 		final org.eclipse.emf.ecore.resource.Resource r = rs.createResource(URI.createPlatformResourceURI(

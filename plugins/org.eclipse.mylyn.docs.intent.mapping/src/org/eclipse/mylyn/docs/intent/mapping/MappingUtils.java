@@ -343,6 +343,23 @@ public final class MappingUtils {
 	}
 
 	/**
+	 * Tells if an {@link ILink} can be {@link MappingUtils#createLink(ILocation, ILocation) created} between
+	 * the given {@link ILocation source} and {@link ILocation target}.
+	 * 
+	 * @param source
+	 *            the source {@link ILocation}
+	 * @param target
+	 *            the target {@link ILocation}
+	 * @return <code>true</code> if an {@link ILink} can be
+	 *         {@link MappingUtils#createLink(ILocation, ILocation) created} between the given
+	 *         {@link ILocation source} and {@link ILocation target}, <code>false</code> otherwise
+	 */
+	public static boolean canCreateLink(ILocation source, ILocation target) {
+		return !source.isMarkedAsDeleted() && !target.isMarkedAsDeleted() && !source.equals(target)
+				&& MappingUtils.getLink(source, target) == null;
+	}
+
+	/**
 	 * Creates an {@link ILink} between the given {@link ILink#getSource() source} and
 	 * {@link ILink#getTarget() target}.
 	 * 
@@ -364,13 +381,13 @@ public final class MappingUtils {
 			IllegalAccessException, ClassNotFoundException {
 		final ILink res;
 
-		if (!source.equals(target)) {
+		if (canCreateLink(source, target)) {
 			final IBase base = getBase(source);
 			res = base.getFactory().createElement(ILink.class);
 			res.setSource(source);
 			res.setTarget(target);
 		} else {
-			throw new IllegalStateException("Can't link a Location to itself.");
+			throw new IllegalStateException("can't create the Link.");
 		}
 
 		return res;
@@ -450,8 +467,16 @@ public final class MappingUtils {
 	 */
 	public static void deleteLink(ILink link) {
 		if (canDeleteLink(link)) {
+			final ILocation source = link.getSource();
 			link.setSource(null);
+			if (source != null && source.isMarkedAsDeleted() && canDeleteLocation(source)) {
+				deleteLocation(source);
+			}
+			final ILocation target = link.getTarget();
 			link.setTarget(null);
+			if (target != null && target.isMarkedAsDeleted() && canDeleteLocation(target)) {
+				deleteLocation(target);
+			}
 		} else {
 			throw new IllegalStateException("can't delete a link with report.");
 		}
@@ -477,7 +502,12 @@ public final class MappingUtils {
 	 */
 	public static void deleteLocation(ILocation location) {
 		if (canDeleteLocation(location)) {
+			final ILocationContainer container = location.getContainer();
 			location.setContainer(null);
+			if (container instanceof ILocation && ((ILocation)container).isMarkedAsDeleted()
+					&& canDeleteLocation((ILocation)container)) {
+				deleteLocation((ILocation)container);
+			}
 		} else {
 			throw new IllegalStateException("can't delete a location with links or contained locations.");
 		}
@@ -493,6 +523,47 @@ public final class MappingUtils {
 		final IBase base = getBase(report.getLink().getSource());
 		base.getReports().remove(report);
 		report.setLink(null);
+	}
+
+	/**
+	 * {@link MappingUtils#deleteLocation(ILocation) Deletes} if
+	 * {@link MappingUtils#canDeleteLocation(ILocation) possible} or
+	 * {@link ILocation#setMarkedAsDeleted(boolean) mark as deleted} the given location. In the latest case an
+	 * {@link IReport} is created with the given {@link IReport#getDescription() description}.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @param reportDesription
+	 *            the {@link IReport} {@link IReport#getDescription() description}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
+	 */
+	public static void markAsDeletedOrDelete(ILocation location, String reportDesription)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		if (MappingUtils.canDeleteLocation(location)) {
+			MappingUtils.deleteLocation(location);
+		} else {
+			final IBase base = MappingUtils.getBase(location);
+			location.setMarkedAsDeleted(true);
+			for (ILink link : location.getSourceLinks()) {
+				final IReport report = base.getFactory().createElement(IReport.class);
+				report.setLink(link);
+				report.setDescription(reportDesription);
+				base.getReports().add(report);
+			}
+			for (ILink link : location.getTargetLinks()) {
+				final IReport report = base.getFactory().createElement(IReport.class);
+				report.setLink(link);
+				report.setDescription(reportDesription);
+				base.getReports().add(report);
+			}
+		}
 	}
 
 }

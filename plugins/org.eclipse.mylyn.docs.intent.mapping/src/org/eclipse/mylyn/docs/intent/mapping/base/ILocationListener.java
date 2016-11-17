@@ -71,6 +71,15 @@ public interface ILocationListener extends ILocationContainerListener {
 			// nothing to do here
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#markedAsDeletedChanged(boolean)
+		 */
+		public void markedAsDeletedChanged(boolean newValue) {
+			// nothing to do here
+		}
+
 	}
 
 	/**
@@ -106,7 +115,7 @@ public interface ILocationListener extends ILocationContainerListener {
 	void targetLinkRemoved(ILink link);
 
 	/**
-	 * Notifies when the {@link ILocation#getContainer() container} {@link IScope} has changed.
+	 * Notifies when the {@link ILocation#getContainer() container} {@link ILocationContainer} has changed.
 	 * 
 	 * @param oldContainer
 	 *            the old {@link ILocationContainer}
@@ -114,5 +123,13 @@ public interface ILocationListener extends ILocationContainerListener {
 	 *            the new {@link ILocationContainer}
 	 */
 	void containerChanged(ILocationContainer oldContainer, ILocationContainer newContainer);
+
+	/**
+	 * Notifies when the {@link ILocation#isMarkedAsDeleted() marked as deleted} has changed.
+	 * 
+	 * @param newValue
+	 *            the new value
+	 */
+	void markedAsDeletedChanged(boolean newValue);
 
 }

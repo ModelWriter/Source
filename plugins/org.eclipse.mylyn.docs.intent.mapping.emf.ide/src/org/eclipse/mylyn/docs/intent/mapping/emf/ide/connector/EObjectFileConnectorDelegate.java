@@ -15,7 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
 import org.eclipse.emf.common.util.URI;
@@ -25,6 +27,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.AbstractFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 
@@ -71,8 +74,18 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 		final Resource resource = rs.getResource(URI.createPlatformResourceURI(element.getFullPath()
 				.toPortableString(), true), true);
 		knownResrouces.put(location.getFullPath(), resource);
-		EObjectConnector.updateEObjectContainer((IEObjectContainer)location, resource);
-
+		try {
+			EObjectConnector.updateEObjectContainer((IEObjectContainer)location, resource);
+		} catch (InstantiationException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		} catch (IllegalAccessException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		} catch (ClassNotFoundException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		}
 	}
 
 	/**

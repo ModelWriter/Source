@@ -94,8 +94,17 @@ public class RdfConnector extends AbstractConnector {
 	 *            the {@link IRdfContainer}
 	 * @param resources
 	 *            the {@link List} of {@link Resource}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
 	 */
-	public static void updateRdfContainer(IRdfContainer container, List<Resource> resources) {
+	public static void updateRdfContainer(IRdfContainer container, List<Resource> resources)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final Set<String> newURIs = new HashSet<String>();
 		for (Resource resource : resources) {
 			newURIs.add(resource.getURI());
@@ -104,7 +113,8 @@ public class RdfConnector extends AbstractConnector {
 		for (ILocation child : container.getContents()) {
 			if (child instanceof IRdfLocation) {
 				if (!newURIs.contains(((IRdfLocation)child).getURI())) {
-					// TODO mark child as deleted
+					MappingUtils.markAsDeletedOrDelete(child, ((IRdfLocation)child).getURI().toString()
+							+ " doesn't longer.");
 				}
 			}
 		}

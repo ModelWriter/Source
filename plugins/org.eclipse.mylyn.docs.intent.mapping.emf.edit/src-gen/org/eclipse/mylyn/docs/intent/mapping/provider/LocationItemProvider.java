@@ -64,6 +64,7 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 
 			addSourceLinksPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
+			addMarkedAsDeletedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -94,6 +95,21 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 				getString("_UI_PropertyDescriptor_description", "_UI_Location_type_feature",
 						"_UI_Location_type"), MappingPackage.Literals.LOCATION__TYPE, true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Marked As Deleted feature. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected void addMarkedAsDeletedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_Location_markedAsDeleted_feature"), getString(
+						"_UI_PropertyDescriptor_description", "_UI_Location_markedAsDeleted_feature",
+						"_UI_Location_type"), MappingPackage.Literals.LOCATION__MARKED_AS_DELETED, true,
+				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -153,6 +169,7 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 
 		switch (notification.getFeatureID(Location.class)) {
 			case MappingPackage.LOCATION__TYPE:
+			case MappingPackage.LOCATION__MARKED_AS_DELETED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false,
 						true));
 				return;

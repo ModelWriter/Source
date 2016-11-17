@@ -12,6 +12,8 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping;
 
+import java.io.Serializable;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
@@ -96,8 +98,8 @@ public interface Location extends IEMFBaseElement, LocationContainer, ILocation 
 
 	/**
 	 * Returns the value of the '<em><b>Container</b></em>' container reference. It is bidirectional and its
-	 * opposite is '{@link org.eclipse.mylyn.docs.intent.mapping.Location#getContents <em>Contents</em>}'.
-	 * <!-- begin-user-doc -->
+	 * opposite is '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer#getContents
+	 * <em>Contents</em>}'. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Container</em>' container reference isn't clear, there really should be more
 	 * of a description here...
@@ -105,9 +107,9 @@ public interface Location extends IEMFBaseElement, LocationContainer, ILocation 
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Container</em>' container reference.
-	 * @see #setContainer(Location)
+	 * @see #setContainer(LocationContainer)
 	 * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getLocation_Container()
-	 * @see org.eclipse.mylyn.docs.intent.mapping.Location#getContents
+	 * @see org.eclipse.mylyn.docs.intent.mapping.LocationContainer#getContents
 	 * @model opposite="contents" transient="false"
 	 * @generated
 	 */
@@ -123,5 +125,60 @@ public interface Location extends IEMFBaseElement, LocationContainer, ILocation 
 	 * @generated
 	 */
 	void setContainer(LocationContainer value);
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Type</em>' attribute isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see #setType(Serializable)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getLocation_Type()
+	 * @model dataType="org.eclipse.mylyn.docs.intent.mapping.Type"
+	 * @generated
+	 */
+	Serializable getType();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.Location#getType <em>Type</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Type</em>' attribute.
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(Serializable value);
+
+	/**
+	 * Returns the value of the '<em><b>Marked As Deleted</b></em>' attribute. The default value is
+	 * <code>"false"</code>. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Marked As Deleted</em>' attribute isn't clear, there really should be more
+	 * of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Marked As Deleted</em>' attribute.
+	 * @see #setMarkedAsDeleted(boolean)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getLocation_MarkedAsDeleted()
+	 * @model default="false" required="true"
+	 * @generated
+	 */
+	boolean isMarkedAsDeleted();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.Location#isMarkedAsDeleted
+	 * <em>Marked As Deleted</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Marked As Deleted</em>' attribute.
+	 * @see #isMarkedAsDeleted()
+	 * @generated
+	 */
+	void setMarkedAsDeleted(boolean value);
 
 } // Location

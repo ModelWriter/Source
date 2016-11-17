@@ -84,4 +84,19 @@ public interface ILocation extends IMappingElement, ILocationContainer, IBaseEle
 	 */
 	void setType(Serializable type);
 
+	/**
+	 * Sets mark the location as deleted.
+	 * 
+	 * @param markedAsDeleted
+	 *            if <code>true</code> mark the location as deleted
+	 */
+	void setMarkedAsDeleted(boolean markedAsDeleted);
+
+	/**
+	 * Tells if the location is marked as deleted.
+	 * 
+	 * @return <code>true</code> if the location is marked as deleted, <code>false</code> otherwise
+	 */
+	boolean isMarkedAsDeleted();
+
 }

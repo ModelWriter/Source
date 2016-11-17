@@ -15,6 +15,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mapping.ecore#//Location/targetLinks"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference mapping.ecore#//Location/container"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Location/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Location/markedAsDeleted"/>
     </genClasses>
     <genClasses ecoreClass="mapping.ecore#//Link">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Link/description"/>

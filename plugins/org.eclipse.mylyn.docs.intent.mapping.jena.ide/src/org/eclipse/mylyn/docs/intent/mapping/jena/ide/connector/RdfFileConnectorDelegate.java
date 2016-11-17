@@ -24,13 +24,16 @@ import java.util.Map;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.AbstractFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.jena.IRdfContainer;
 import org.eclipse.mylyn.docs.intent.mapping.jena.connector.RdfConnector;
+import org.eclipse.mylyn.docs.intent.mapping.jena.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.jena.ide.IRdfFileLocation;
 
 /**
@@ -132,7 +135,18 @@ public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 			}
 		}
 
-		RdfConnector.updateRdfContainer((IRdfContainer)location, concepts);
+		try {
+			RdfConnector.updateRdfContainer((IRdfContainer)location, concepts);
+		} catch (InstantiationException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		} catch (IllegalAccessException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		} catch (ClassNotFoundException e) {
+			Activator.getDefault().getLog().log(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		}
 	}
 
 	/**

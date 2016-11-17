@@ -11,8 +11,15 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.text;
 
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.ITestLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestReport;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextContainerLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
@@ -90,5 +97,34 @@ public class TextConnectorTests extends TextConnector {
 		super.initLocation(container, location, new TextRegion("cd", 2, 4));
 
 		assertEquals("\"cd\"", super.getName(location));
+	}
+
+	@Test
+	public void updateTextContainerDeleted() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(IReport.class,
+				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		final ITextContainer container = new TestTextContainerLocation();
+		container.setContainer(base);
+		container.setText("abcdefgh");
+		final ITextLocation location = new TestTextLocation();
+		location.setContainer(container);
+		container.getContents().add(location);
+		final ILocation target = new TestTextLocation();
+		final ILink link = new BaseElementFactoryTests.TestLink();
+		location.getTargetLinks().add(link);
+		link.setSource(location);
+		target.getSourceLinks().add(link);
+		link.setTarget(target);
+
+		super.initLocation(container, location, new TextRegion("cd", 2, 4));
+
+		super.updateTextContainer(container, "abefgh");
+
+		assertEquals(1, base.getReports().size());
+		final IReport report = base.getReports().get(0);
+		assertEquals(link, report.getLink());
+		assertEquals("\"cd\" at (2, 4) has been deleted.", report.getDescription());
 	}
 }
