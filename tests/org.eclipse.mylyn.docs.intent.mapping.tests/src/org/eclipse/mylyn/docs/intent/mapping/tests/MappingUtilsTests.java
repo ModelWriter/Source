@@ -632,4 +632,36 @@ public class MappingUtilsTests {
 		assertEquals(outgoingLink, base.getReports().get(1).getLink());
 	}
 
+	@Test
+	public void markAsChanged() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		final ILocation child = new BaseElementFactoryTests.TestLocation();
+		final ILocation source = new BaseElementFactoryTests.TestLocation();
+		final ILocation location = new BaseElementFactoryTests.TestLocation();
+		final ILocation target = new BaseElementFactoryTests.TestLocation();
+		final IBase base = new TestBase();
+		base.getFactory().addDescriptor(IReport.class,
+				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		source.setContainer(base);
+		location.setContainer(base);
+		target.setContainer(base);
+		location.getContents().add(child);
+		final ILink incomingLink = new BaseElementFactoryTests.TestLink();
+		incomingLink.setSource(source);
+		incomingLink.setTarget(location);
+		location.getSourceLinks().add(incomingLink);
+		final ILink outgoingLink = new BaseElementFactoryTests.TestLink();
+		outgoingLink.setSource(location);
+		outgoingLink.setTarget(target);
+		location.getTargetLinks().add(outgoingLink);
+
+		MappingUtils.markAsChanged(location, "Test report.");
+
+		assertEquals(base, location.getContainer());
+		assertEquals(2, base.getReports().size());
+		assertEquals("Test report.", base.getReports().get(0).getDescription());
+		assertEquals(incomingLink, base.getReports().get(0).getLink());
+		assertEquals("Test report.", base.getReports().get(1).getDescription());
+		assertEquals(outgoingLink, base.getReports().get(1).getLink());
+	}
+
 }

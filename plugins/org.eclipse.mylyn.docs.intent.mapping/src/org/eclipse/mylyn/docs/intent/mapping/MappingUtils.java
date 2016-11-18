@@ -533,7 +533,7 @@ public final class MappingUtils {
 	 * 
 	 * @param location
 	 *            the {@link ILocation}
-	 * @param reportDesription
+	 * @param reportDescription
 	 *            the {@link IReport} {@link IReport#getDescription() description}
 	 * @throws IllegalAccessException
 	 *             if the class or its nullary constructor is not accessible.
@@ -544,26 +544,71 @@ public final class MappingUtils {
 	 * @throws ClassNotFoundException
 	 *             if the {@link Class} can't be found
 	 */
-	public static void markAsDeletedOrDelete(ILocation location, String reportDesription)
+	public static void markAsDeletedOrDelete(ILocation location, String reportDescription)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		if (MappingUtils.canDeleteLocation(location)) {
 			MappingUtils.deleteLocation(location);
 		} else {
-			final IBase base = MappingUtils.getBase(location);
 			location.setMarkedAsDeleted(true);
-			for (ILink link : location.getSourceLinks()) {
-				final IReport report = base.getFactory().createElement(IReport.class);
-				report.setLink(link);
-				report.setDescription(reportDesription);
-				base.getReports().add(report);
-			}
-			for (ILink link : location.getTargetLinks()) {
-				final IReport report = base.getFactory().createElement(IReport.class);
-				report.setLink(link);
-				report.setDescription(reportDesription);
-				base.getReports().add(report);
-			}
+			markAsChanged(location, reportDescription);
 		}
+	}
+
+	/**
+	 * Marks the given location as changed and {@link IReport} are created.
+	 * 
+	 * @param location
+	 *            the {@link ILocation}
+	 * @param reportDescription
+	 *            the {@link IReport} {@link IReport#getDescription() description}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
+	 */
+	public static void markAsChanged(ILocation location, String reportDescription)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		final IBase base = MappingUtils.getBase(location);
+		for (ILink link : location.getSourceLinks()) {
+			createReport(base, link, reportDescription);
+		}
+		for (ILink link : location.getTargetLinks()) {
+			createReport(base, link, reportDescription);
+		}
+	}
+
+	/**
+	 * Creates an {@link IReport} for the given {@link ILink} with the given description.
+	 * 
+	 * @param base
+	 *            the IBase
+	 * @param link
+	 *            the {@link ILink}
+	 * @param reportDescription
+	 *            the {@link IReport} {@link IReport#getDescription() description}
+	 * @return the created {@link IReport}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
+	 */
+	private static IReport createReport(final IBase base, ILink link, String reportDescription)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		final IReport res = base.getFactory().createElement(IReport.class);
+
+		res.setLink(link);
+		res.setDescription(reportDescription);
+		base.getReports().add(res);
+
+		return res;
 	}
 
 }

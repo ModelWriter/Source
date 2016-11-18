@@ -30,6 +30,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests {@link TextConnector}.
@@ -122,9 +123,39 @@ public class TextConnectorTests extends TextConnector {
 
 		super.updateTextContainer(container, "abefgh");
 
+		assertTrue(location.isMarkedAsDeleted());
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);
 		assertEquals(link, report.getLink());
 		assertEquals("\"cd\" at (2, 4) has been deleted.", report.getDescription());
+	}
+
+	@Test
+	public void updateTextContainerChanged() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(IReport.class,
+				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		final ITextContainer container = new TestTextContainerLocation();
+		container.setContainer(base);
+		container.setText("abcdefgh");
+		final ITextLocation location = new TestTextLocation();
+		location.setContainer(container);
+		container.getContents().add(location);
+		final ILocation target = new TestTextLocation();
+		final ILink link = new BaseElementFactoryTests.TestLink();
+		location.getTargetLinks().add(link);
+		link.setSource(location);
+		target.getSourceLinks().add(link);
+		link.setTarget(target);
+
+		super.initLocation(container, location, new TextRegion("cd", 2, 4));
+
+		super.updateTextContainer(container, "abc1defgh");
+
+		assertEquals(1, base.getReports().size());
+		final IReport report = base.getReports().get(0);
+		assertEquals(link, report.getLink());
+		assertEquals("\"cd\" at (2, 4) has been changed to \"c1d\" at (2, 5).", report.getDescription());
 	}
 }

@@ -197,19 +197,53 @@ public class EObjectConnector extends AbstractConnector {
 			for (ILocation child : container.getContents()) {
 				if (child instanceof IEObjectLocation && !child.isMarkedAsDeleted()) {
 					final IEObjectLocation location = (IEObjectLocation)child;
-					final int newStartOffset = diff.getIndex(location.getStartOffset());
-					final int newEndOffset = diff.getIndex(location.getEndOffset());
-					if (isValidOffsets(newText, location.getFeatureName(), newStartOffset, newEndOffset)) {
-						location.setStartOffset(newStartOffset);
-						location.setEndOffset(newEndOffset);
-					} else {
-						MappingUtils.markAsDeletedOrDelete(location, String.format(
-								"\"%s\" at (%d, %d) has been deleted.", oldText.substring(location
-										.getStartOffset(), location.getEndOffset()), location
-										.getStartOffset(), location.getEndOffset()));
-					}
+					updateEObjectLocation(newText, oldText, diff, location);
 				}
 			}
+		}
+	}
+
+	/**
+	 * Updates the given {@link IEObjectLocation}.
+	 * 
+	 * @param newText
+	 *            the old text
+	 * @param oldText
+	 *            the new text
+	 * @param diff
+	 *            the {@link DiffMatch}
+	 * @param eObjectlocation
+	 *            the {@link IEObjectLocation}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
+	 */
+	private static void updateEObjectLocation(final String newText, final String oldText,
+			final DiffMatch diff, final IEObjectLocation eObjectlocation) throws InstantiationException,
+			IllegalAccessException, ClassNotFoundException {
+		final int newStartOffset = diff.getIndex(eObjectlocation.getStartOffset());
+		final int newEndOffset = diff.getIndex(eObjectlocation.getEndOffset());
+		final String oldValue = oldText.substring(eObjectlocation.getStartOffset(), eObjectlocation
+				.getEndOffset());
+		if (isValidOffsets(newText, eObjectlocation.getFeatureName(), newStartOffset, newEndOffset)) {
+			final String newValue = newText.substring(newStartOffset, newEndOffset);
+			eObjectlocation.setStartOffset(newStartOffset);
+			eObjectlocation.setEndOffset(newEndOffset);
+			if (!oldValue.equals(newValue)) {
+				MappingUtils.markAsChanged(eObjectlocation, String.format(
+						"\"%s\" at (%d, %d) has been changed to \"%s\" at (%d, %d).", oldValue,
+						eObjectlocation.getStartOffset(), eObjectlocation.getEndOffset(), newValue,
+						newStartOffset, newEndOffset));
+			}
+		} else {
+			MappingUtils.markAsDeletedOrDelete(eObjectlocation, String.format(
+					"\"%s\" at (%d, %d) has been deleted.", oldValue, eObjectlocation.getStartOffset(),
+					eObjectlocation.getEndOffset()));
 		}
 	}
 

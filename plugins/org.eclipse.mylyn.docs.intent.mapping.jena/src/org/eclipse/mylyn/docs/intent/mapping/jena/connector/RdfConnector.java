@@ -116,6 +116,7 @@ public class RdfConnector extends AbstractConnector {
 					MappingUtils.markAsDeletedOrDelete(child, ((IRdfLocation)child).getURI().toString()
 							+ " doesn't longer.");
 				}
+				// TODO detect and handle change
 			}
 		}
 	}

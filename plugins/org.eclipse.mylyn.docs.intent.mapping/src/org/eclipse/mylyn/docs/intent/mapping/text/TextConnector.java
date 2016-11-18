@@ -113,11 +113,18 @@ public class TextConnector extends AbstractConnector {
 					final ITextLocation location = (ITextLocation)child;
 					final int newStartOffset = diff.getIndex(location.getStartOffset());
 					final int newEndOffset = diff.getIndex(location.getEndOffset());
+					final String oldValue = oldText.substring(location.getStartOffset(), location
+							.getEndOffset());
+					final String newValue = text.substring(newStartOffset, newEndOffset);
 					if (newStartOffset == newEndOffset) {
 						MappingUtils.markAsDeletedOrDelete(location, String.format(
-								"\"%s\" at (%d, %d) has been deleted.", oldText.substring(location
-										.getStartOffset(), location.getEndOffset()), location
-										.getStartOffset(), location.getEndOffset()));
+								"\"%s\" at (%d, %d) has been deleted.", oldValue, location.getStartOffset(),
+								location.getEndOffset()));
+					} else if (!oldValue.equals(newValue)) {
+						MappingUtils.markAsChanged(location, String.format(
+								"\"%s\" at (%d, %d) has been changed to \"%s\" at (%d, %d).", oldValue,
+								location.getStartOffset(), location.getEndOffset(), newValue, newStartOffset,
+								newEndOffset));
 					}
 					location.setStartOffset(newStartOffset);
 					location.setEndOffset(newEndOffset);

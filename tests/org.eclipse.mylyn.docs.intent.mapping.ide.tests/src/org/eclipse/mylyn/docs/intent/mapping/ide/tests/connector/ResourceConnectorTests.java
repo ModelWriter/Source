@@ -325,7 +325,7 @@ public class ResourceConnectorTests {
 	}
 
 	@Test
-	public void updateTextContainerDeleted() throws Exception {
+	public void updateDeleted() throws Exception {
 		final IBase base = new BaseRegistryTests.TestBase();
 		IdeMappingUtils.setCurrentBase(base);
 		base.getFactory().addDescriptor(IReport.class,
@@ -348,10 +348,44 @@ public class ResourceConnectorTests {
 
 		folder.delete(true, new NullProgressMonitor());
 
+		assertTrue(location.isMarkedAsDeleted());
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);
 		assertEquals(link, report.getLink());
 		assertEquals("the resource /TestProject/TestFolderToDelete has been deleted.", report
+				.getDescription());
+
+		IdeMappingUtils.setCurrentBase(null);
+	}
+
+	@Test
+	public void updateChanged() throws Exception {
+		final IBase base = new BaseRegistryTests.TestBase();
+		IdeMappingUtils.setCurrentBase(base);
+		base.getFactory().addDescriptor(IReport.class,
+				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		final ILocation target = new TestTextLocation();
+
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
+				new Path("TestProject/TestFolderToMove"));
+		folder.create(true, true, new NullProgressMonitor());
+		TestResourceLocation location = new TestResourceLocation();
+		base.getContents().add(location);
+		location.setContainer(base);
+		final ILink link = new BaseElementFactoryTests.TestLink();
+		location.getTargetLinks().add(link);
+		link.setSource(location);
+		target.getSourceLinks().add(link);
+		link.setTarget(target);
+
+		connector.initLocation(null, location, folder);
+
+		folder.move(new Path("TestFolderMoved"), true, new NullProgressMonitor());
+
+		assertEquals(1, base.getReports().size());
+		final IReport report = base.getReports().get(0);
+		assertEquals(link, report.getLink());
+		assertEquals("/TestProject/TestFolderToMove moved to /TestProject/TestFolderMoved", report
 				.getDescription());
 
 		IdeMappingUtils.setCurrentBase(null);

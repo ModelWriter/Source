@@ -264,6 +264,18 @@ public class ResourceLocationListener implements IResourceChangeListener {
 		final ILocation location = resourceConnector.getLocation(base, resource);
 		if (location != null && !location.isMarkedAsDeleted()) {
 			resourceConnector.updateLocation(location, resource);
+			try {
+				MappingUtils.markAsChanged(location, "Content changed.");
+			} catch (InstantiationException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+			} catch (IllegalAccessException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+			} catch (ClassNotFoundException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+			}
 		}
 		updateKnownDescriptors(resource);
 	}
@@ -284,6 +296,19 @@ public class ResourceLocationListener implements IResourceChangeListener {
 		final ILocation location = resourceConnector.getLocation(base, source);
 		if (location != null && !location.isMarkedAsDeleted()) {
 			resourceConnector.updateLocation(location, target);
+			try {
+				MappingUtils.markAsChanged(location, String.format("%s moved to %s", source.getFullPath()
+						.toPortableString(), target.getFullPath().toPortableString()));
+			} catch (InstantiationException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+			} catch (IllegalAccessException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+			} catch (ClassNotFoundException e) {
+				Activator.getDefault().getLog().log(
+						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+			}
 		}
 		moveKnownDescriptor(source, target);
 	}

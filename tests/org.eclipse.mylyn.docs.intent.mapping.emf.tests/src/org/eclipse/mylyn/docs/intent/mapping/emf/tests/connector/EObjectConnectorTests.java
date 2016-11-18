@@ -357,7 +357,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void updateTextContainerDeleted() throws InstantiationException, IllegalAccessException,
+	public void updateEObjectContainerDeleted() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final IBase base = new BaseRegistryTests.TestBase();
 		base.getFactory().addDescriptor(IReport.class,
@@ -387,12 +387,55 @@ public class EObjectConnectorTests extends EObjectConnector {
 		eObjects.remove(EcorePackage.eINSTANCE.getEClass());
 		super.updateEObjectContainer(container, eObjects);
 
+		assertTrue(location.isMarkedAsDeleted());
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);
 		assertEquals(link, report.getLink());
 		assertTrue(report.getDescription().contains("org.eclipse.emf.ecore.EClass"));
 		assertTrue(report.getDescription().contains("at (6860, 22773) has been deleted."));
 
+		MappingUtils.getConnectorRegistry().unregister(connector);
+	}
+
+	@Test
+	public void updateEObjectContainerChanged() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(IReport.class,
+				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
+		container.setContainer(base);
+		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
+		final Resource resource = new XMIResourceImpl();
+		resource.getContents().addAll(eObjects);
+		container.setResource(resource);
+		updateEObjectContainer(container, resource);
+		final IEObjectLocation location = new TestEObjectLocation();
+		location.setContainer(container);
+		container.getContents().add(location);
+		final ILocation target = new TestTextLocation();
+		final ILink link = new BaseElementFactoryTests.TestLink();
+		location.getTargetLinks().add(link);
+		link.setSource(location);
+		target.getSourceLinks().add(link);
+		link.setTarget(target);
+
+		final TestEObjectContainerConnector connector = new TestEObjectContainerConnector();
+		MappingUtils.getConnectorRegistry().register(connector);
+
+		super.initLocation(container, location, EcorePackage.eINSTANCE.getEClass());
+
+		EcorePackage.eINSTANCE.getEClass().setName("NewName");
+		super.updateEObjectContainer(container, eObjects);
+
+		assertEquals(1, base.getReports().size());
+		final IReport report = base.getReports().get(0);
+		assertEquals(link, report.getLink());
+		assertTrue(report.getDescription().contains("org.eclipse.emf.ecore.EClass"));
+		assertTrue(report.getDescription().contains(" at (6860, 22774) has been changed to "));
+		assertTrue(report.getDescription().contains(" at (6860, 22774)."));
+
+		EcorePackage.eINSTANCE.getEClass().setName("EClass");
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}
 
