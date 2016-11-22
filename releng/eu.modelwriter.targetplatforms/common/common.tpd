@@ -5,7 +5,3 @@ with source requirements
 location Apache-Jena "http://ghillairet.github.com/p2" {
 	org.apache.jena.feature.feature.group lazy
 }
-
-location RMF "http://download.eclipse.org/rmf/updates/releases" {
-	org.eclipse.rmf.reqif10 lazy
-}

@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="ModelWriter Neon Target Platform" sequenceNumber="1479808766">
+<target name="ModelWriter Kepler Target Platform" sequenceNumber="1479808766">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.jena.feature.feature.group" version="0.0.0"/>
       <repository id="Apache-Jena" location="http://ghillairet.github.com/p2"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.ui" version="0.0.0"/>
       <unit id="org.eclipse.platform.sdk" version="0.0.0"/>
-      <unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0"/>
-      <unit id="org.eclipse.ui.views.log" version="0.0.0"/>
-      <unit id="org.eclipse.epp.mpc.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.core.runtime" version="0.0.0"/>
       <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
-      <unit id="org.junit" version="4.12.0.v201504281640"/>
+      <unit id="org.junit" version="4.11.0.v201303080030"/>
       <unit id="org.slf4j.api" version="0.0.0"/>
       <unit id="org.apache.xerces" version="0.0.0"/>
-      <repository location="http://download.eclipse.org/releases/neon"/>
+      <repository location="http://download.eclipse.org/releases/kepler"/>
     </location>
   </locations>
 </target>

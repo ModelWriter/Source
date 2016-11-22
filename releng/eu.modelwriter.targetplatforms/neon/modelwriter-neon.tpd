@@ -7,15 +7,14 @@ with source requirements
 location "http://download.eclipse.org/releases/neon" {
 	org.eclipse.ui lazy
 	org.eclipse.platform.sdk lazy
+	org.eclipse.equinox.executable.feature.group lazy
+	org.eclipse.ui.views.log lazy
+	org.eclipse.epp.mpc.feature.group lazy
 	org.eclipse.core.runtime lazy
 	org.eclipse.emf.sdk.feature.group lazy
 	
 	org.junit [4.0.0,5.0.0)
 
-	org.eclipse.mylyn.wikitext.core lazy
-	org.eclipse.mylyn.wikitext.markdown.core lazy
-	org.eclipse.mylyn.wikitext.tests lazy
-	
 	org.slf4j.api lazy
 	org.apache.xerces lazy
 }
