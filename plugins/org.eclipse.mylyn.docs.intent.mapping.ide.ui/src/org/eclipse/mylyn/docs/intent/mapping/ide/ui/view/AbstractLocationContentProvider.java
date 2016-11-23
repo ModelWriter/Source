@@ -140,6 +140,17 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 			currentViewer.refresh();
 		}
 
+		@Override
+		public void markedAsDeletedChanged(boolean newValue) {
+			update();
+			currentViewer.refresh();
+		}
+
+		public void changed(String reportDescription) {
+			update();
+			currentViewer.refresh();
+		}
+
 	};
 
 	/**

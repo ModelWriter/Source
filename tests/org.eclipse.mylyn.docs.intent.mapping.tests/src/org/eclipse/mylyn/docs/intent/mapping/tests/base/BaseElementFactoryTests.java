@@ -107,6 +107,10 @@ public class BaseElementFactoryTests {
 			// nothing to do here
 		}
 
+		public void change(String reportDescription) {
+			// nothing to do here
+		}
+
 		public List<ILink> getSourceLinks() {
 			return sourceLinks;
 		}

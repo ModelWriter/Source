@@ -99,4 +99,12 @@ public interface ILocation extends IMappingElement, ILocationContainer, IBaseEle
 	 */
 	boolean isMarkedAsDeleted();
 
+	/**
+	 * Change the {@link ILocation}.
+	 * 
+	 * @param reportDescription
+	 *            the {@link IReport} {@link IReport#getDescription() description}
+	 */
+	void change(String reportDescription);
+
 }

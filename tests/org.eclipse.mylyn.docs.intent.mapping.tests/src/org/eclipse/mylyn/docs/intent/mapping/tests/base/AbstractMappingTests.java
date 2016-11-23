@@ -230,6 +230,11 @@ public abstract class AbstractMappingTests {
 		private int containerChanged;
 
 		/**
+		 * Number of time {@link TestLocationListener#changed(String)} has been called.
+		 */
+		private int changed;
+
+		/**
 		 * Number of time {@link TestLocationListener#markedAsDeletedChanged(boolean)} has been called.
 		 */
 		private int markedAsDeletedChanged;
@@ -264,6 +269,10 @@ public abstract class AbstractMappingTests {
 
 		public void markedAsDeletedChanged(boolean newValue) {
 			markedAsDeletedChanged++;
+		}
+
+		public void changed(String reportDescription) {
+			changed++;
 		}
 
 	}
@@ -312,7 +321,7 @@ public abstract class AbstractMappingTests {
 	// CHECKSTYLE:OFF
 	protected void assertTestLocationListener(TestLocationListener listener, int contentLocationRemoved,
 			int contentLocationAdded, int targetLinkRemoved, int targetLinkAdded, int sourceLinkRemoved,
-			int sourceLinkAdded, int containerChanged, int markedAsDeletedChanged) {
+			int sourceLinkAdded, int containerChanged, int markedAsDeletedChanged, int changed) {
 		assertEquals(contentLocationRemoved, listener.contentsLocationRemoved);
 		assertEquals(contentLocationAdded, listener.contentsLocationAdded);
 		assertEquals(targetLinkRemoved, listener.targetLinkRemoved);
@@ -321,6 +330,7 @@ public abstract class AbstractMappingTests {
 		assertEquals(sourceLinkAdded, listener.sourceLinkAdded);
 		assertEquals(containerChanged, listener.containerChanged);
 		assertEquals(markedAsDeletedChanged, listener.markedAsDeletedChanged);
+		assertEquals(changed, listener.changed);
 	}
 
 	// CHECKSTYLE:ON

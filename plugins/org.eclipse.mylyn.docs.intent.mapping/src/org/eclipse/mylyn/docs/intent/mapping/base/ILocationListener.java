@@ -80,6 +80,15 @@ public interface ILocationListener extends ILocationContainerListener {
 			// nothing to do here
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener#changed(java.lang.String)
+		 */
+		public void changed(String reportDescription) {
+			// nothing to do here
+		}
+
 	}
 
 	/**
@@ -131,5 +140,13 @@ public interface ILocationListener extends ILocationContainerListener {
 	 *            the new value
 	 */
 	void markedAsDeletedChanged(boolean newValue);
+
+	/**
+	 * Notifies when the location has been {@link ILocation#change(String) changed}.
+	 * 
+	 * @param reportDescription
+	 *            the {@link IReport} {@link IReport#getDescription() description}
+	 */
+	void changed(String reportDescription);
 
 }

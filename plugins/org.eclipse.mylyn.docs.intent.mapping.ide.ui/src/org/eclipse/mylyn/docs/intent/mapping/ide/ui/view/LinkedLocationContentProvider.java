@@ -72,7 +72,6 @@ public class LinkedLocationContentProvider extends AbstractLocationContentProvid
 				currentViewer.refresh();
 				link.removeListener(this);
 			}
-
 		}
 
 		@Override

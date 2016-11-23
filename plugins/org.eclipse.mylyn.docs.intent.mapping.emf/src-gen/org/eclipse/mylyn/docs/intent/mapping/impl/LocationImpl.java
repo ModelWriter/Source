@@ -715,4 +715,19 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#change(java.lang.String)
+	 * @generated NOT
+	 */
+	public void change(String reportDescription) {
+		final List<Adapter> eAdapters = new ArrayList<Adapter>(eAdapters());
+		for (Adapter adapter : eAdapters) {
+			if (adapter instanceof LocationAdapter) {
+				((LocationAdapter)adapter).listener.changed(reportDescription);
+			}
+		}
+	}
+
 } // LocationImpl
