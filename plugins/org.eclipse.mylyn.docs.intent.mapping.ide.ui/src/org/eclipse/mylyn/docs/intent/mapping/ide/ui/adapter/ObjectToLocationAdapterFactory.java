@@ -189,8 +189,13 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 						.getLocationDescriptor(null, file);
 				final int start = selection.getOffset();
 				final Integer end = start + selection.getLength();
-				final TextRegion region = new TextRegion(content.substring(start, end), start, end);
-				res = MappingUtils.getConnectorRegistry().getLocationDescriptor(containerDescriptor, region);
+				if (start > -1 && end < content.length()) {
+					final TextRegion region = new TextRegion(content.substring(start, end), start, end);
+					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(containerDescriptor,
+							region);
+				} else {
+					res = null;
+				}
 			} catch (IOException e) {
 				Activator.getDefault().getLog().log(
 						new Status(IStatus.ERROR, Activator.PLUGIN_ID, "can't read content "
