@@ -44,12 +44,11 @@
     <module>releng/eu.modelwriter.targetplatforms/neon</module>
     <module>releng/eu.modelwriter.targetplatforms/mars</module>
     <module>releng/eu.modelwriter.targetplatforms/luna</module>
-    <!--
     <module>releng/eu.modelwriter.targetplatforms/kepler</module>
     <module>releng/eu.modelwriter.targetplatforms/juno</module>
     <module>releng/eu.modelwriter.targetplatforms/indigo</module>
     <module>releng/eu.modelwriter.targetplatforms/helios</module>
--->
+
     <module>features/eu.modelwriter.feature</module>
     <module>plugins/eu.modelwriter.ide.ui</module>
     <!-- TODO <module>tests/eu.modelwriter.ide.ui.tests</module> -->
@@ -69,7 +68,6 @@
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.ide</module>
     <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui</module>
-    <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.emf.ide.ui.tests</module> -->
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena</module>
     <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.tests</module> -->
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena.ide</module>
@@ -105,9 +103,16 @@
     <module>plugins/eu.modelwriter.semantic.jena.ide</module>
     <module>tests/eu.modelwriter.semantic.jena.ide.tests</module>
     
+    <!-- EPL and GPL update sites -->
     <module>releng/eu.modelwriter.updatesite</module>
     <module>releng/eu.modelwriter.gpl.updatesite</module>
-  </modules>
+
+    <!-- product and product tests -->
+    <module>features/eu.modelwriter.product.feature</module>
+    <module>releng/eu.modelwriter.branding</module>
+    <module>releng/eu.modelwriter.product</module>
+    <module>tests/eu.modelwriter.product.tests</module>
+  </modules>	
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -331,7 +336,7 @@
     <profile>
       <id>platform-mars</id>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <activeByDefault>false</activeByDefault>
         <property>
           <name>platform-version-name</name>
           <value>mars</value>

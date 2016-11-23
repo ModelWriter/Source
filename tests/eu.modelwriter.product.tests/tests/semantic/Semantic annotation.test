@@ -1,0 +1,42 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: Semantic annotation
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _jcR7sJ0fZeaWfrfP4o-y5Q
+Runtime-Version: 2.1.0.201606221726
+Save-Time: 11/2/16 11:16 AM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+with [get-view Semantic] {
+    get-tab-folder | get-tab-item "Similarity Provider" | click
+    with [get-tree] {
+        get-item Identity | check
+        select Identity
+    }
+    get-tab-folder | get-tab-item Provider | click
+    with [get-tree] {
+        get-item Jena | check
+        select Jena
+    }
+    get-tab-folder | get-tab-item Base | click
+    with [get-tree] {
+        get-item "\\/test\\/shakespeare.owl" | check
+        select "\\/test\\/shakespeare.owl"
+    }
+}
+with [get-view Navigator | get-tree] {
+    select "test/shakespeare.txt" | click -default
+    select "test/shakespeare.txt" | double-click
+}
+
+get-editor "shakespeare.txt" | get-left-ruler | get-ruler-column AnnotationColumn | hover-ruler -line 4
+get-window -from "Information Window" | get-editbox | get-property text 
+    | equals "http://www.workingontologist.org/Examples/Chapter3/shakespeare.owl#Hamlet\n"
+    + "Identity" | verify-true
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

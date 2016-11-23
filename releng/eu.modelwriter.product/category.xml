@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="eu.modelwriter.product.feature" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+   <category-def name="eu.modelwriter" label="ModelWriter">
+      <description>
+         [Enter Catergory Description here.]
+      </description>
+   </category-def>
+</site>

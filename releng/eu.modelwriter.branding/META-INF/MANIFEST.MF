@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ModelWriter Branding
+Bundle-SymbolicName: eu.modelwriter.branding;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Obeo
+Require-Bundle: org.eclipse.ui.intro.universal,
+ org.eclipse.ui.intro;bundle-version="3.4.200",
+ org.eclipse.ui
+Bundle-Localization: plugin

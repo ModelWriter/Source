@@ -1,0 +1,55 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: Create link from semantic annotation
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _jcR7sJ0fEeaWfrfP4o-y5Q
+Runtime-Version: 2.1.0.201606221726
+Save-Time: 11/22/16 3:34 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+with [get-view Mapping] {
+    get-combo -after [get-label "Mapping base:"] | select test
+    get-tab-folder | get-tab-item Document | click
+}
+with [get-view Navigator | get-tree] {
+    select "test/shakespeare.txt" | click -default
+    select "test/shakespeare.txt" | double-click
+}
+with [get-view Semantic] {
+    get-tab-folder | get-tab-item "Similarity Provider" | click
+    with [get-tree] {
+        get-item Identity | check
+        select Identity
+    }
+    get-tab-folder | get-tab-item Provider | click
+    with [get-tree] {
+        get-item Jena | check
+        select Jena
+    }
+    get-tab-folder | get-tab-item Base | click
+    with [get-tree] {
+        get-item "\\/test\\/shakespeare.owl" | check
+        select "\\/test\\/shakespeare.owl"
+    }
+}
+get-editor "shakespeare.txt" | get-left-ruler | get-ruler-column AnnotationColumn | hover-ruler -line 4
+with [get-editor "shakespeare.txt"] {
+    get-text-viewer | set-caret-pos 8 11
+    get-left-ruler 
+        | get-menu "Mapping/Create link from Hamlet to http:\\/\\/www.workingontologist.org\\/Examples\\/Chapter3\\/shakespeare.owl#Hamlet." 
+        | click
+}
+with [get-view Mapping | get-tree -after [get-label "Outgoing Links"]] {
+    get-item "\\/test\\/shakespeare.owl/http:\\/\\/www.workingontologist.org\\/Examples\\/Chapter3\\/shakespeare.owl#Hamlet/\"Hamlet\"" 
+        | get-property "columns[0]" | equals "\"Hamlet\"" | verify-true
+    get-item "\\/test\\/shakespeare.owl/http:\\/\\/www.workingontologist.org\\/Examples\\/Chapter3\\/shakespeare.owl#Hamlet/\"Hamlet\"" 
+        | get-property "columns[1]" 
+        | equals "http://www.workingontologist.org/Examples/Chapter3/shakespeare.owl#Hamlet" | verify-true
+}
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

@@ -1,0 +1,35 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: Add to location pool from selection
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _VwHNoKG0Eea__8ecebJRnQ
+Runtime-Version: 2.1.0.201606221726
+Save-Time: 11/3/16 2:42 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+with [get-view "Location Pool" | get-tree] {
+    key-type "M1+a"
+    key-type Del
+}
+get-view Mapping | get-combo -after [get-label "Mapping base:"] | select test
+with [get-view Navigator | get-tree] {
+    select "test/test2.txt" | click -default
+    select "test/test2.txt" | double-click
+}
+with [get-editor "test2.txt" | get-text-viewer] {
+    set-caret-pos 1 6
+    select-range 1 5 1 6
+    get-menu "Mapping/Add Location to Pool" | click
+}
+with [get-view "Location Pool" | get-tree] {
+    get-item c | get-property caption | equals c | verify-true
+    get-item c | get-property checked | equals false | verify-true
+}
+get-editor "test2.txt" | get-text-viewer | set-caret-pos 1 12
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

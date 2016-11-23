@@ -1,0 +1,39 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: Delete report from Mapping View/Report
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _EQm0gKKeEea4eqFW9hOBlg
+Runtime-Version: 2.1.0.201606221726
+Save-Time: 11/4/16 3:52 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+get-view Mapping | get-combo -after [get-label "Mapping base:"] | select test
+with [get-view Navigator | get-tree] {
+    select "test/test2.txt" | click -default
+    select "test/test2.txt" | double-click
+}
+with [get-editor "test2.txt" | get-text-viewer] {
+    set-caret-pos 1 6
+    select-range 1 5 1 6
+}
+get-view Navigator | get-tree | select "test/test2.txt"
+get-editor "test2.txt" | click
+with [get-view Mapping] {
+    get-tab-folder | get-tab-item Report | click
+}
+with [get-view Mapping | get-tree] {
+    select "\\/test\\/test1.txt/\"1\"/\"1\"/Report1"
+    get-menu "Mapping/Delete" | click
+    get-items | foreach {
+      get-property caption | equals "\\/test\\/test1.txt" | verify-false 
+      get-property caption | equals "\"1\"" | verify-false 
+      get-property caption | equals "Report1" | verify-false 
+    }
+}
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

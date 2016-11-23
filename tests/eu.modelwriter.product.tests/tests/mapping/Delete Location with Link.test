@@ -1,0 +1,73 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: Delete Location with Link
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _oxvzcLDGEeaTDapXsE3cXA
+Runtime-Version: 2.1.0.201606221726
+Save-Time: 11/23/16 10:03 AM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+with [get-view Navigator | get-tree] {
+    select "test/shakespeare.txt" | click -default
+    select "test/shakespeare.txt" | double-click
+}
+get-view Mapping | get-combo -after [get-label "Mapping base:"] | select test
+with [get-view "Location Pool" | get-tree] {
+    key-type "M1+a"
+    key-type Del
+}
+with [get-editor "shakespeare.txt" | get-text-viewer] {
+    set-caret-pos 14 1
+    set-caret-pos 14 2
+    select-range 14 1 14 21
+    get-menu "Mapping/Add Location to Pool" | click
+}
+with [get-view "Location Pool" | get-tree] {
+    get-item "Shakespearean comedy" | check
+    select "Shakespearean comedy"
+}
+with [get-editor "shakespeare.txt" | get-text-viewer] {
+    set-caret-pos 20 5
+    select-range 20 4 20 23
+}
+get-view Mapping | get-combo -after [get-label "Mapping base:"] | select test
+with [get-editor "shakespeare.txt" | get-text-viewer] {
+    get-menu "Mapping/Link location as source" | click
+}
+with [get-editor "shakespeare.txt" | get-text-viewer] {
+    set-caret-pos 21 1
+    select-range 20 1 21 1
+    key-type BackSpace
+    key-type "M1+s"
+}
+get-view Mapping | get-tab-folder | get-tab-item Report | click
+with [get-view Mapping | get-tree] {
+    get-item "\\/test\\/shakespeare.txt/\\(deleted\\)/\\(deleted\\)" | get-property "columns[0]" | equals "(deleted)" 
+        | verify-true
+    get-item "\\/test\\/shakespeare.txt/\\(deleted\\)/\\(deleted\\)" | get-property "columns[1]" 
+        | equals "\"Shakespearean comedy\"" | verify-true
+    get-item "\\/test\\/shakespeare.txt/\\(deleted\\)/\\(deleted\\)/\"Measure for Measure\" at \\(345, 364\\) has been deleted." 
+        | get-property caption | equals "\"Measure for Measure\" at (345, 364) has been deleted." | verify-true
+}
+get-view Mapping | get-tab-folder | get-tab-item Document | click
+with [get-view Mapping] {
+    with [get-tree] {
+        get-item "\\(deleted\\)/\\(deleted\\)" | get-property "columns[0]" 
+            | equals "(deleted)" | verify-true
+        get-item "\\(deleted\\)/\\(deleted\\)" | get-property "columns[1]" 
+            | equals "\"Shakespearean comedy\"" | verify-true
+    }
+    with [get-tree -after [get-label "Outgoing Links"]] {
+        get-item "\"Shakespearean comedy\"/(deleted)" | get-property "columns[0]" 
+            | equals "(deleted)" | verify-true
+        get-item "\"Shakespearean comedy\"/(deleted)" | get-property "columns[1]" 
+            | equals "\"Shakespearean comedy\"" | verify-true
+    }
+}
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
