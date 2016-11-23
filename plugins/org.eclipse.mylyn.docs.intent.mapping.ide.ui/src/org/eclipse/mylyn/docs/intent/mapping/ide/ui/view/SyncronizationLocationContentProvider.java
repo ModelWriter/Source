@@ -14,10 +14,13 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.base.IReportListener;
 
 /**
  * Provide {@link ILink linked} {@link ILocation} for a given {@link ILocation}.
@@ -27,11 +30,56 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 public class SyncronizationLocationContentProvider extends AbstractLocationContentProvider {
 
 	/**
+	 * Refresh the current viewer when the {@link IReport} change.
+	 */
+	private final IReportListener reportListener = new IReportListener.Stub() {
+
+		public void descriptionChanged(String oldDescription, String newDescription) {
+			update();
+			currentViewer.refresh();
+		}
+
+		public void linkChanged(ILink oldLink, ILink newLink) {
+			update();
+			currentViewer.refresh();
+		}
+	};
+
+	/**
+	 * Refresh the current viewer when the current {@link IBase} {@link IBase#getReports() reports} change.
+	 */
+	private final IBaseListener baseListener = new IBaseListener.Stub() {
+
+		public void reportAdded(IReport report) {
+			update();
+			currentViewer.refresh();
+			report.addListener(reportListener);
+		}
+
+		public void reportRemoved(IReport report) {
+			update();
+			currentViewer.refresh();
+			report.removeListener(reportListener);
+		}
+	};
+
+	/**
 	 * Constructor.
 	 */
 	public SyncronizationLocationContentProvider() {
 		super();
 		showReport = true;
+	}
+
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		if (oldInput instanceof IBase) {
+			((IBase)oldInput).removeListener(baseListener);
+		}
+		if (newInput instanceof IBase) {
+			((IBase)newInput).addListener(baseListener);
+		}
+		super.inputChanged(viewer, oldInput, newInput);
 	}
 
 	@Override
