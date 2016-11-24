@@ -51,6 +51,7 @@ deploy:
   on:
     branch: master
     repo: ModelWriter/Source
+    condition: "$PROFILE" == *"product"*
 ###### Release ######
 - provider: s3
   access_key_id: AKIAJFIXOUR3SFD7OGMA
@@ -66,4 +67,5 @@ deploy:
     tags: true
     all_branches: true
     repo: ModelWriter/Source
+    condition: "$PROFILE" == *"product"*
 
