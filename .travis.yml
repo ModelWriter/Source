@@ -32,7 +32,7 @@ script:
 - mvn clean package -e -P$PROFILE
 - chmod a+x prepare-deploy-local-dir.sh
 - if [[ $PROFILE == *"product"* ]]; then ./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/nightly; fi
-- if [[ "$TRAVIS_TAG" != "" -a $PROFILE == *"product"* ]]; then ./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/$TRAVIS_TAG; fi
+- if [[ "$TRAVIS_TAG" != "" ]] && [[ "$PROFILE" == *"product"* ]]; then ./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/$TRAVIS_TAG; fi
 after_script:
 - chmod a+x travis-promote.sh
 - "./travis-promote.sh"
