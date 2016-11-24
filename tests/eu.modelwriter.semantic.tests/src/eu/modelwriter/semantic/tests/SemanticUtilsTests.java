@@ -20,8 +20,8 @@ import eu.modelwriter.semantic.SemanticUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests {@link SemanticUtils}.
@@ -42,7 +42,7 @@ public class SemanticUtilsTests {
 		final ISemanticAnnotator annotator1 = SemanticUtils.getSemanticAnnotator();
 		final ISemanticAnnotator annotator2 = SemanticUtils.getSemanticAnnotator();
 
-		assertNotEquals(annotator1, annotator2);
+		assertTrue(annotator1 != annotator2);
 	}
 
 	@Test

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="ModelWriter Luna Target Platform" sequenceNumber="1479808766">
+<target name="ModelWriter Luna Target Platform" sequenceNumber="1479996020">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.jena.feature.feature.group" version="0.0.0"/>

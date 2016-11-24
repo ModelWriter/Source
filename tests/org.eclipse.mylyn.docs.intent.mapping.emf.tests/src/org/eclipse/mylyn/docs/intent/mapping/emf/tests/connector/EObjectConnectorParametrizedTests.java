@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector;
 
+import anydsl.AnydslPackage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -187,35 +189,35 @@ public class EObjectConnectorParametrizedTests {
 		this.altered = altered;
 	}
 
-	@Parameters(name = "{index}")
+	@Parameters
 	public static Iterable<Object[][]> data() {
 		return Arrays.asList(new Object[][][] {
-				{ {EcorePackage.eINSTANCE.getEClassifiers().get(7), null, null, },
+				{ {AnydslPackage.eINSTANCE.getEClassifiers().get(7), null, null, },
 						{createEClass(), null, null, }, },
-				{ {EcorePackage.eINSTANCE.getEClassifiers().get(10), null, null, },
+				{ {AnydslPackage.eINSTANCE.getEClassifiers().get(10), null, null, },
 						{createEClass(), null, null, }, },
 				{
-						{((EClass)EcorePackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
+						{((EClass)AnydslPackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
 								null, null, }, {createEOperation(), null, null, }, },
 				{
-						{EcorePackage.eINSTANCE.getEClassifiers().get(7),
-								EcorePackage.eINSTANCE.getENamedElement_Name(), "EFactory", },
-						{EcorePackage.eINSTANCE.getEClassifiers().get(7),
+						{AnydslPackage.eINSTANCE.getEClassifiers().get(7),
+								EcorePackage.eINSTANCE.getENamedElement_Name(), "Restaurant", },
+						{AnydslPackage.eINSTANCE.getEClassifiers().get(7),
 								EcorePackage.eINSTANCE.getENamedElement_Name(), "ESomethingElse", }, },
 
 				{
-						{((EClass)EcorePackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
-								EcorePackage.eINSTANCE.getENamedElement_Name(), "eContainingFeature", },
-						{((EClass)EcorePackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
+						{((EClass)AnydslPackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
+								EcorePackage.eINSTANCE.getENamedElement_Name(), "setCaliber", },
+						{((EClass)AnydslPackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
 								EcorePackage.eINSTANCE.getENamedElement_Name(), "someEOperation", }, },
 
 				{
-						{EcorePackage.eINSTANCE.getEClass_Abstract(),
+						{AnydslPackage.eINSTANCE.getNamedElement_Name(),
 								EcorePackage.eINSTANCE.getETypedElement_EType(),
-								EcorePackage.eINSTANCE.getEBoolean(), },
-						{EcorePackage.eINSTANCE.getEClass_Abstract(),
+								AnydslPackage.eINSTANCE.getSingleString(), },
+						{AnydslPackage.eINSTANCE.getNamedElement_Name(),
 								EcorePackage.eINSTANCE.getETypedElement_EType(),
-								EcorePackage.eINSTANCE.getEBooleanObject(), }, }, });
+								AnydslPackage.eINSTANCE.getCountryData(), }, }, });
 	}
 
 	@BeforeClass
@@ -296,7 +298,7 @@ public class EObjectConnectorParametrizedTests {
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
-		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
 		EObjectConnector.updateEObjectContainer(container, testEObjects);
@@ -329,7 +331,7 @@ public class EObjectConnectorParametrizedTests {
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
-		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
 		EObjectConnector.updateEObjectContainer(container, testEObjects);
@@ -365,7 +367,7 @@ public class EObjectConnectorParametrizedTests {
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
-		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
 		EObjectConnector.updateEObjectContainer(container, testEObjects);
@@ -404,7 +406,7 @@ public class EObjectConnectorParametrizedTests {
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
-		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		if (!copier.containsKey(altered[0])) {
 			copier.copy((EObject)altered[0]);
 		}
@@ -452,7 +454,7 @@ public class EObjectConnectorParametrizedTests {
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
-		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		if (!copier.containsKey(altered[0])) {
 			copier.copy((EObject)altered[0]);
 		}
@@ -503,7 +505,7 @@ public class EObjectConnectorParametrizedTests {
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
-		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		if (!copier.containsKey(altered[0])) {
 			copier.copy((EObject)altered[0]);
 		}
@@ -557,7 +559,7 @@ public class EObjectConnectorParametrizedTests {
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
-		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
 		EObjectConnector.updateEObjectContainer(container, testEObjects);
@@ -589,7 +591,7 @@ public class EObjectConnectorParametrizedTests {
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
-		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
 		EObjectConnector.updateEObjectContainer(container, testEObjects);
@@ -623,7 +625,7 @@ public class EObjectConnectorParametrizedTests {
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
-		EPackage copy = (EPackage)copier.copy(EcorePackage.eINSTANCE);
+		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
 		EObjectConnector.updateEObjectContainer(container, testEObjects);

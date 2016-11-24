@@ -11,9 +11,12 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector;
 
+import anydsl.AnydslPackage;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -67,7 +70,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	@Test
 	public void getLocationTypeEObject() {
 		final Class<? extends ILocation> type = getLocationType(TestEObjectContainerLocation.class,
-				EcorePackage.eINSTANCE);
+				AnydslPackage.eINSTANCE);
 
 		assertEquals(IEObjectLocation.class, type);
 	}
@@ -75,7 +78,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	@Test
 	public void getLocationTypeESetting() {
 		final Class<? extends ILocation> type = getLocationType(TestEObjectContainerLocation.class,
-				((InternalEObject)EcorePackage.eINSTANCE.getEClass()).eSetting(EcorePackage.eINSTANCE
+				((InternalEObject)AnydslPackage.eINSTANCE.getProducer()).eSetting(EcorePackage.eINSTANCE
 						.getENamedElement_Name()));
 
 		assertEquals(IEObjectLocation.class, type);
@@ -85,8 +88,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	public void initLocationEObject() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
-		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		final Resource resource = new XMIResourceImpl();
+		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
+		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
 		updateEObjectContainer(container, resource);
@@ -97,13 +100,13 @@ public class EObjectConnectorTests extends EObjectConnector {
 		MappingUtils.getConnectorRegistry().register(testEObjectContainerConnector);
 		final EObjectConnector eObjectConnector = new EObjectConnector();
 		MappingUtils.getConnectorRegistry().register(eObjectConnector);
-		super.initLocation(container, location, EcorePackage.eINSTANCE.getEClass());
+		super.initLocation(container, location, AnydslPackage.eINSTANCE.getProducer());
 
-		assertEquals(6860, location.getStartOffset());
-		assertEquals(22773, location.getEndOffset());
+		assertEquals(4094, location.getStartOffset());
+		assertEquals(6570, location.getEndOffset());
 		final Object element = eObjectConnector.getElement(location);
 		assertTrue(element instanceof EObject);
-		assertEquals(EcorePackage.eINSTANCE.getEClass(), element);
+		assertEquals(AnydslPackage.eINSTANCE.getProducer(), element);
 		assertNull(location.getFeatureName());
 
 		MappingUtils.getConnectorRegistry().unregister(testEObjectContainerConnector);
@@ -114,8 +117,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	public void initLocationSetting() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
-		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		final Resource resource = new XMIResourceImpl();
+		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
+		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
 		updateEObjectContainer(container, resource);
@@ -126,18 +129,18 @@ public class EObjectConnectorTests extends EObjectConnector {
 		MappingUtils.getConnectorRegistry().register(testEObjectContainerConnector);
 		final EObjectConnector eObjectConnector = new EObjectConnector();
 		MappingUtils.getConnectorRegistry().register(eObjectConnector);
-		super.initLocation(container, location, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
+		super.initLocation(container, location, ((InternalEObject)AnydslPackage.eINSTANCE.getProducer())
 				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name()));
 
-		assertEquals("name:EClass", container.getText().substring(location.getStartOffset(),
+		assertEquals("name:Producer", container.getText().substring(location.getStartOffset(),
 				location.getEndOffset()));
-		assertEquals(6866, location.getStartOffset());
+		assertEquals(4100, location.getStartOffset());
 		final Object element = eObjectConnector.getElement(location);
 		assertTrue(element instanceof Setting);
-		assertEquals(EcorePackage.eINSTANCE.getEClass(), ((Setting)element).getEObject());
+		assertEquals(AnydslPackage.eINSTANCE.getProducer(), ((Setting)element).getEObject());
 		assertEquals(EcorePackage.eINSTANCE.getENamedElement_Name(), ((Setting)element)
 				.getEStructuralFeature());
-		assertEquals("EClass", ((Setting)element).get(true));
+		assertEquals("Producer", ((Setting)element).get(true));
 		assertEquals(EcorePackage.eINSTANCE.getENamedElement_Name().getName(), location.getFeatureName());
 
 		MappingUtils.getConnectorRegistry().unregister(testEObjectContainerConnector);
@@ -213,7 +216,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 0;
 		final int endOffset = 9;
 
-		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -223,7 +226,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 20;
 		final int endOffset = 29;
 
-		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -233,7 +236,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 1;
 		final int endOffset = 10;
 
-		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -243,7 +246,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 1;
 		final int endOffset = 1;
 
-		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -253,7 +256,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 1;
 		final int endOffset = 26;
 
-		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -263,7 +266,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 1;
 		final int endOffset = 10;
 
-		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -273,7 +276,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 1;
 		final int endOffset = 10;
 
-		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -283,7 +286,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 1;
 		final int endOffset = 10;
 
-		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -293,7 +296,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 1;
 		final int endOffset = 10;
 
-		assertFalse(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -303,7 +306,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final int startOffset = 1;
 		final int endOffset = 10;
 
-		assertTrue(isValidOffsets(text, EcorePackage.eINSTANCE.getENamedElement_Name().getName(),
+		assertTrue(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
 				startOffset, endOffset));
 	}
 
@@ -311,8 +314,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	public void getLocationEObject() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
-		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		final Resource resource = new XMIResourceImpl();
+		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
+		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
 		updateEObjectContainer(container, resource);
@@ -322,11 +325,11 @@ public class EObjectConnectorTests extends EObjectConnector {
 
 		final TestEObjectContainerConnector connector = new TestEObjectContainerConnector();
 		MappingUtils.getConnectorRegistry().register(connector);
-		super.initLocation(container, location, EcorePackage.eINSTANCE.getEClass());
+		super.initLocation(container, location, AnydslPackage.eINSTANCE.getProducer());
 
-		assertEquals(location, super.getLocation(container, EcorePackage.eINSTANCE.getEClass()));
-		assertEquals(null, super.getLocation(container, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
-				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name())));
+		assertEquals(location, super.getLocation(container, AnydslPackage.eINSTANCE.getProducer()));
+		assertEquals(null, super.getLocation(container, ((InternalEObject)AnydslPackage.eINSTANCE
+				.getProducer()).eSetting(EcorePackage.eINSTANCE.getENamedElement_Name())));
 
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}
@@ -335,8 +338,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	public void getLocationSetting() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
-		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		final Resource resource = new XMIResourceImpl();
+		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
+		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
 		updateEObjectContainer(container, resource);
@@ -346,12 +349,12 @@ public class EObjectConnectorTests extends EObjectConnector {
 
 		final TestEObjectContainerConnector connector = new TestEObjectContainerConnector();
 		MappingUtils.getConnectorRegistry().register(connector);
-		super.initLocation(container, location, ((InternalEObject)EcorePackage.eINSTANCE.getEClass())
+		super.initLocation(container, location, ((InternalEObject)AnydslPackage.eINSTANCE.getProducer())
 				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name()));
 
-		assertEquals(null, super.getLocation(container, EcorePackage.eINSTANCE.getEClass()));
-		assertEquals(location, super.getLocation(container, ((InternalEObject)EcorePackage.eINSTANCE
-				.getEClass()).eSetting(EcorePackage.eINSTANCE.getENamedElement_Name())));
+		assertEquals(null, super.getLocation(container, AnydslPackage.eINSTANCE.getProducer()));
+		assertEquals(location, super.getLocation(container, ((InternalEObject)AnydslPackage.eINSTANCE
+				.getProducer()).eSetting(EcorePackage.eINSTANCE.getENamedElement_Name())));
 
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}
@@ -364,8 +367,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		container.setContainer(base);
-		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		final Resource resource = new XMIResourceImpl();
+		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
+		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
 		updateEObjectContainer(container, resource);
@@ -382,17 +385,17 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final TestEObjectContainerConnector connector = new TestEObjectContainerConnector();
 		MappingUtils.getConnectorRegistry().register(connector);
 
-		super.initLocation(container, location, EcorePackage.eINSTANCE.getEClass());
+		super.initLocation(container, location, AnydslPackage.eINSTANCE.getProducer());
 
-		eObjects.remove(EcorePackage.eINSTANCE.getEClass());
+		eObjects.remove(AnydslPackage.eINSTANCE.getProducer());
 		super.updateEObjectContainer(container, eObjects);
 
 		assertTrue(location.isMarkedAsDeleted());
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);
 		assertEquals(link, report.getLink());
-		assertTrue(report.getDescription().contains("org.eclipse.emf.ecore.EClass"));
-		assertTrue(report.getDescription().contains("at (6860, 22773) has been deleted."));
+		assertTrue(report.getDescription().contains("anydsl.Producer"));
+		assertTrue(report.getDescription().contains("at (4094, 6570) has been deleted."));
 
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}
@@ -405,8 +408,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		container.setContainer(base);
-		final List<EObject> eObjects = new ArrayList<EObject>(EcorePackage.eINSTANCE.eContents());
-		final Resource resource = new XMIResourceImpl();
+		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
+		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
 		updateEObjectContainer(container, resource);
@@ -423,19 +426,19 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final TestEObjectContainerConnector connector = new TestEObjectContainerConnector();
 		MappingUtils.getConnectorRegistry().register(connector);
 
-		super.initLocation(container, location, EcorePackage.eINSTANCE.getEClass());
+		super.initLocation(container, location, AnydslPackage.eINSTANCE.getProducer());
 
-		EcorePackage.eINSTANCE.getEClass().setName("NewName");
+		AnydslPackage.eINSTANCE.getProducer().setName("NewName");
 		super.updateEObjectContainer(container, eObjects);
 
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);
 		assertEquals(link, report.getLink());
-		assertTrue(report.getDescription().contains("org.eclipse.emf.ecore.EClass"));
-		assertTrue(report.getDescription().contains(" at (6860, 22774) has been changed to "));
-		assertTrue(report.getDescription().contains(" at (6860, 22774)."));
+		assertTrue(report.getDescription().contains("anydsl.Producer"));
+		assertTrue(report.getDescription().contains(" at (4094, 6569) has been changed to "));
+		assertTrue(report.getDescription().contains(" at (4094, 6569)."));
 
-		EcorePackage.eINSTANCE.getEClass().setName("EClass");
+		AnydslPackage.eINSTANCE.getProducer().setName("Producer");
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}
 

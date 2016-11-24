@@ -149,7 +149,7 @@ public class TextConnectorParametrizedTests {
 		}
 	}
 
-	@Parameters(name = "{0}")
+	@Parameters
 	public static Iterable<String[]> data() {
 		return Arrays
 				.asList(new String[][] {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Test -->
+      <package
+            uri="test"
+            class="test.TestPackage"
+            genModel="model/Test.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated anydsl -->
+      <package
+            uri="http://www.eclipse.org/acceleo/anydsl"
+            class="anydsl.AnydslPackage"
+            genModel="model/anydsl.genmodel"/>
+   </extension>
+
+</plugin>

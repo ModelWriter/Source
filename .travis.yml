@@ -3,6 +3,13 @@ env:
   global:
   - DISPLAY=:99.0
   - MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx2048m -Xms1024m"
+  matrix:
+  - PROFILE=platform-indigo
+  - PROFILE=platform-juno
+  - PROFILE=platform-kepler
+  - PROFILE=platform-luna
+  - PROFILE=platform-mars
+  - PROFILE=platform-neon,product
 jdk:
 - oraclejdk8
 sudo: false
@@ -14,11 +21,18 @@ addons:
     packages:
     - metacity
 install: true
+before_script:
+- export SWT_GTK3=0
+- /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1440x900x16
+- sh -e /etc/init.d/xvfb start
+- sleep 10
+- metacity --sm-disable --replace &
+- sleep 10
 script:
-- mvn clean package -e
+- mvn clean package -e -P$PROFILE
 - chmod a+x prepare-deploy-local-dir.sh
-- "./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/nightly"
-- if [[ "$TRAVIS_TAG" != "" ]]; then ./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/$TRAVIS_TAG; fi
+- if [[ $PROFILE == *"product"* ]]; then ./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/nightly; fi
+- if [[ "$TRAVIS_TAG" != "" -a $PROFILE == *"product"* ]]; then ./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/$TRAVIS_TAG; fi
 after_script:
 - chmod a+x travis-promote.sh
 - "./travis-promote.sh"

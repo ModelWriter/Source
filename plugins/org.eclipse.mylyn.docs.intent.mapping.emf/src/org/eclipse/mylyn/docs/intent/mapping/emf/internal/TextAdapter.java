@@ -19,6 +19,7 @@ import java.util.Map.Entry;
 
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -177,7 +178,8 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 		map.put(value, offsets);
 		if (eFeature instanceof EReference && ((EReference)eFeature).isContainment()) {
 			if (value instanceof EObject) {
-				final ITextAdapter textAdapter = EObjectConnector.getTextAdapter((EObject)value);
+				final EObject eObject = (EObject)value;
+				final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(eObject);
 				builder.append(START_EOBJECT);
 				textAdapter.setTextOffset(getTextOffset() + builder.length());
 				offsets[0] = getTextOffset() + builder.length();
@@ -188,12 +190,20 @@ public class TextAdapter extends AdapterImpl implements ITextAdapter {
 			}
 		} else {
 			final String stringValue;
-			if (eFeature.getEType() == EcorePackage.eINSTANCE.getEEnumerator()) {
+			if (eFeature.getEType() == EcorePackage.eINSTANCE.getEEnumerator()
+					|| value instanceof EEnumLiteral) {
 				stringValue = value.toString();
 			} else if (eFeature.getEType() instanceof EDataType) {
 				stringValue = EcoreUtil.convertToString((EDataType)eFeature.getEType(), value);
 			} else if (value instanceof EObject) {
-				stringValue = EcoreUtil.getURI((EObject)value).toString();
+				final EObject eObject = (EObject)value;
+				if (eObject.eResource() == null) {
+					stringValue = "not in resource EObject.";
+				} else if (eObject.eResource().getURI() != null) {
+					stringValue = EcoreUtil.getURI(eObject).toString();
+				} else {
+					stringValue = eObject.eResource().getURIFragment(eObject);
+				}
 			} else if (value != null) {
 				throw new IllegalStateException("don't know what to do with " + value);
 			} else {
