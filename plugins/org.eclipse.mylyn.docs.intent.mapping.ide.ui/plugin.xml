@@ -157,6 +157,33 @@
                   </with>
                </visibleWhen>
             </command>
+            <command
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.describe"
+                  label="Describe"
+                  style="push"
+                  tooltip="Describe the selected Link or Report">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <or>
+                           <instanceof
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.ILink">
+                           </instanceof>
+                           <instanceof
+                                 value="org.eclipse.mylyn.docs.intent.mapping.base.IReport">
+                           </instanceof>
+                        </or>
+                     </iterate>
+                     <count
+                           value="1">
+                     </count>
+                  </with>
+               </visibleWhen>
+            </command>
          </menu>
       </menuContribution>
    </extension>
@@ -181,6 +208,10 @@
       <handler
             class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.Delete"
             commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.delete">
+      </handler>
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.Describe"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.describe">
       </handler>
    </extension>
    <extension
@@ -209,6 +240,11 @@
             description="Deletes the selection"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.delete"
             name="Delete">
+      </command>
+      <command
+            description="Describe the selected Link or Report"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.describe"
+            name="Describe">
       </command>
    </extension>
    <extension

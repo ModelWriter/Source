@@ -75,9 +75,15 @@ public class SyncronizationLocationContentProvider extends AbstractLocationConte
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		if (oldInput instanceof IBase) {
 			((IBase)oldInput).removeListener(baseListener);
+			for (IReport report : ((IBase)oldInput).getReports()) {
+				report.removeListener(reportListener);
+			}
 		}
 		if (newInput instanceof IBase) {
 			((IBase)newInput).addListener(baseListener);
+			for (IReport report : ((IBase)newInput).getReports()) {
+				report.addListener(reportListener);
+			}
 		}
 		super.inputChanged(viewer, oldInput, newInput);
 	}
