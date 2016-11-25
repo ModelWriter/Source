@@ -622,8 +622,32 @@ public final class MappingUtils {
 	/**
 	 * Creates an {@link IReport} for the given {@link ILink} with the given description.
 	 * 
+	 * @param link
+	 *            the {@link ILink}
+	 * @param reportDescription
+	 *            the {@link IReport} {@link IReport#getDescription() description}
+	 * @return the created {@link IReport}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason.
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
+	 */
+	public static IReport createReport(ILink link, String reportDescription) throws InstantiationException,
+			IllegalAccessException, ClassNotFoundException {
+		final IBase base = MappingUtils.getBase(link.getSource());
+
+		return createReport(base, link, reportDescription);
+	}
+
+	/**
+	 * Creates an {@link IReport} for the given {@link ILink} with the given description.
+	 * 
 	 * @param base
-	 *            the IBase
+	 *            the {@link IBase}
 	 * @param link
 	 *            the {@link ILink}
 	 * @param reportDescription

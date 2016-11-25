@@ -106,6 +106,15 @@ public class MappingLabelProvider extends BaseLabelProvider implements ILabelPro
 	 * @see org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider#getStyledText(java.lang.Object)
 	 */
 	public StyledString getStyledText(Object element) {
-		return new StyledString(getText(element));
+		final String text = getText(element);
+		final StyledString res;
+
+		if (text == null) {
+			res = new StyledString();
+		} else {
+			res = new StyledString(text);
+		}
+
+		return res;
 	}
 }

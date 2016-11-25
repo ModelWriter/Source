@@ -184,6 +184,28 @@
                   </with>
                </visibleWhen>
             </command>
+            <command
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addReport"
+                  label="Add Report"
+                  style="push"
+                  tooltip="Add a Report to the selected Link">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <instanceof
+                              value="org.eclipse.mylyn.docs.intent.mapping.base.ILink">
+                        </instanceof>
+                     </iterate>
+                     <count
+                           value="1">
+                     </count>
+                  </with>
+               </visibleWhen>
+            </command>
          </menu>
       </menuContribution>
    </extension>
@@ -212,6 +234,10 @@
       <handler
             class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.Describe"
             commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.describe">
+      </handler>
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.AddReport"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addReport">
       </handler>
    </extension>
    <extension
@@ -245,6 +271,11 @@
             description="Describe the selected Link or Report"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.describe"
             name="Describe">
+      </command>
+      <command
+            description="Add a Report to selected Link"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addReport"
+            name="Add Report">
       </command>
    </extension>
    <extension
