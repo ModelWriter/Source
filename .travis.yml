@@ -31,7 +31,7 @@ before_script:
 script:
 - mvn clean package -e -P$PROFILE
 - chmod a+x prepare-deploy-local-dir.sh
-- if [[ $PROFILE == *"updatesites"* ]]; then ./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/nightly; export UPDATE_SITES = true; fi
+- if [[ $PROFILE == *"updatesites"* ]]; then ./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/nightly; export UPDATE_SITES=true; fi
 - if [[ "$TRAVIS_TAG" != "" ]] && [[ "$PROFILE" == *"updatesites"* ]]; then ./prepare-deploy-local-dir.sh $TRAVIS_BUILD_DIR/$TRAVIS_TAG; fi
 after_script:
 - if [[ "$PROFILE" == *"updatesites"* ]]; then chmod a+x travis-promote.sh; fi
