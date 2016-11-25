@@ -297,7 +297,7 @@
   </build>
   <profiles>
     <profile>
-      <id>product</id>
+      <id>updatesites</id>
       <activation>
         <activeByDefault>false</activeByDefault>
         <property>
@@ -309,6 +309,18 @@
         <!-- EPL and GPL update sites -->
         <module>releng/eu.modelwriter.updatesite</module>
         <module>releng/eu.modelwriter.gpl.updatesite</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>product</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>product</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <modules>
         <!-- product and product tests -->
         <module>features/eu.modelwriter.product.feature</module>
         <module>releng/eu.modelwriter.branding</module>
