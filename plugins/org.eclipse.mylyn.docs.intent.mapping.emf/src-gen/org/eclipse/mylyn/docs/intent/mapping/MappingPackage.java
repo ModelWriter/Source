@@ -412,7 +412,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__CONTENTS = TEXT_LOCATION__CONTENTS;
+	int EOBJECT_LOCATION__CONTENTS = LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
@@ -421,7 +421,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__SOURCE_LINKS = TEXT_LOCATION__SOURCE_LINKS;
+	int EOBJECT_LOCATION__SOURCE_LINKS = LOCATION__SOURCE_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
@@ -430,7 +430,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__TARGET_LINKS = TEXT_LOCATION__TARGET_LINKS;
+	int EOBJECT_LOCATION__TARGET_LINKS = LOCATION__TARGET_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
@@ -439,7 +439,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__CONTAINER = TEXT_LOCATION__CONTAINER;
+	int EOBJECT_LOCATION__CONTAINER = LOCATION__CONTAINER;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -447,7 +447,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__TYPE = TEXT_LOCATION__TYPE;
+	int EOBJECT_LOCATION__TYPE = LOCATION__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -456,25 +456,16 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__MARKED_AS_DELETED = TEXT_LOCATION__MARKED_AS_DELETED;
+	int EOBJECT_LOCATION__MARKED_AS_DELETED = LOCATION__MARKED_AS_DELETED;
 
 	/**
-	 * The feature id for the '<em><b>Start Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * The feature id for the '<em><b>URI Fragment</b></em>' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__START_OFFSET = TEXT_LOCATION__START_OFFSET;
-
-	/**
-	 * The feature id for the '<em><b>End Offset</b></em>' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EOBJECT_LOCATION__END_OFFSET = TEXT_LOCATION__END_OFFSET;
+	int EOBJECT_LOCATION__URI_FRAGMENT = LOCATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Feature Name</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -483,7 +474,15 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__FEATURE_NAME = TEXT_LOCATION_FEATURE_COUNT + 0;
+	int EOBJECT_LOCATION__FEATURE_NAME = LOCATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Index</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_LOCATION__INDEX = LOCATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>EObject Location</em>' class. <!-- begin-user-doc -->
@@ -492,7 +491,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION_FEATURE_COUNT = TEXT_LOCATION_FEATURE_COUNT + 1;
+	int EOBJECT_LOCATION_FEATURE_COUNT = LOCATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>EObject Location</em>' class. <!-- begin-user-doc --> <!--
@@ -501,7 +500,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION_OPERATION_COUNT = TEXT_LOCATION_OPERATION_COUNT + 0;
+	int EOBJECT_LOCATION_OPERATION_COUNT = LOCATION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer
@@ -820,6 +819,18 @@ public interface MappingPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getURIFragment <em>URI Fragment</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>URI Fragment</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getURIFragment()
+	 * @see #getEObjectLocation()
+	 * @generated
+	 */
+	EAttribute getEObjectLocation_URIFragment();
+
+	/**
+	 * Returns the meta object for the attribute '
 	 * {@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getFeatureName <em>Feature Name</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -829,6 +840,18 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getEObjectLocation_FeatureName();
+
+	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getIndex <em>Index</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Index</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getIndex()
+	 * @see #getEObjectLocation()
+	 * @generated
+	 */
+	EAttribute getEObjectLocation_Index();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer
@@ -1094,12 +1117,28 @@ public interface MappingPackage extends EPackage {
 		EClass EOBJECT_LOCATION = eINSTANCE.getEObjectLocation();
 
 		/**
+		 * The meta object literal for the '<em><b>URI Fragment</b></em>' attribute feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute EOBJECT_LOCATION__URI_FRAGMENT = eINSTANCE.getEObjectLocation_URIFragment();
+
+		/**
 		 * The meta object literal for the '<em><b>Feature Name</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute EOBJECT_LOCATION__FEATURE_NAME = eINSTANCE.getEObjectLocation_FeatureName();
+
+		/**
+		 * The meta object literal for the '<em><b>Index</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute EOBJECT_LOCATION__INDEX = eINSTANCE.getEObjectLocation_Index();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer

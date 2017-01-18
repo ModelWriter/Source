@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf;
 
-import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 
 /**
  * An {@link org.eclipse.mylyn.docs.intent.mapping.base.ILocation ILocation} for
@@ -19,7 +19,26 @@ import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface IEObjectLocation extends ITextLocation {
+public interface IEObjectLocation extends ILocation {
+
+	/**
+	 * Gets the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
+	 * relative to {@link IEObjectLocation#getContainer() container}.
+	 * 
+	 * @return the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
+	 *         relative to {@link IEObjectLocation#getContainer() container}
+	 */
+	String getURIFragment();
+
+	/**
+	 * Sets the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
+	 * relative to {@link IEObjectLocation#getContainer() container}.
+	 * 
+	 * @param uriFragment
+	 *            the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
+	 *            relative to {@link IEObjectLocation#getContainer() container}
+	 */
+	void setURIFragment(String uriFragment);
 
 	/**
 	 * Sets the {@link org.eclipse.emf.ecore.EStructuralFeature#getName() feature name}.
@@ -37,5 +56,20 @@ public interface IEObjectLocation extends ITextLocation {
 	 *         <code>null</code> otherwise
 	 */
 	String getFeatureName();
+
+	/**
+	 * Gets the index in the {@link #getFeatureName() feature}.
+	 * 
+	 * @return the index in the {@link #getFeatureName() feature}
+	 */
+	int getIndex();
+
+	/**
+	 * Sets the index in the {@link #getFeatureName() feature}.
+	 * 
+	 * @param index
+	 *            the index in the {@link #getFeatureName() feature}
+	 */
+	void setIndex(int index);
 
 }

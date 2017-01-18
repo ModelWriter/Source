@@ -123,8 +123,6 @@ public class IdeSwitch<T> extends Switch<T> {
 				EObjectFileLocation eObjectFileLocation = (EObjectFileLocation)theEObject;
 				T result = caseEObjectFileLocation(eObjectFileLocation);
 				if (result == null)
-					result = caseTextFileLocation(eObjectFileLocation);
-				if (result == null)
 					result = caseFileLocation(eObjectFileLocation);
 				if (result == null)
 					result = caseResourceLocation(eObjectFileLocation);

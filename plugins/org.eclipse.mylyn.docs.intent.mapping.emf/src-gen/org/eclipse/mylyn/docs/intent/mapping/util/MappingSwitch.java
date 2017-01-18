@@ -130,8 +130,6 @@ public class MappingSwitch<T> extends Switch<T> {
 				EObjectLocation eObjectLocation = (EObjectLocation)theEObject;
 				T result = caseEObjectLocation(eObjectLocation);
 				if (result == null)
-					result = caseTextLocation(eObjectLocation);
-				if (result == null)
 					result = caseLocation(eObjectLocation);
 				if (result == null)
 					result = caseIEMFBaseElement(eObjectLocation);

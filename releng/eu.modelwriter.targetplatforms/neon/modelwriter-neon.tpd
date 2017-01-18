@@ -17,5 +17,6 @@ location "http://download.eclipse.org/releases/neon" {
 
 	org.slf4j.api lazy
 	org.apache.xerces lazy
+	
+	org.eclipse.emf.compare lazy
 }
-

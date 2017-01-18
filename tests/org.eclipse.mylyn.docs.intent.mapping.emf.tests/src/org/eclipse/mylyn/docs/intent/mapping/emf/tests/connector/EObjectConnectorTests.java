@@ -42,7 +42,6 @@ import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrize
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -85,8 +84,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void initLocationEObject() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void initLocationEObject() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
 		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
@@ -102,8 +100,6 @@ public class EObjectConnectorTests extends EObjectConnector {
 		MappingUtils.getConnectorRegistry().register(eObjectConnector);
 		super.initLocation(container, location, AnydslPackage.eINSTANCE.getProducer());
 
-		assertEquals(4094, location.getStartOffset());
-		assertEquals(6570, location.getEndOffset());
 		final Object element = eObjectConnector.getElement(location);
 		assertTrue(element instanceof EObject);
 		assertEquals(AnydslPackage.eINSTANCE.getProducer(), element);
@@ -114,8 +110,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void initLocationSetting() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void initLocationSetting() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
 		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
@@ -132,9 +127,6 @@ public class EObjectConnectorTests extends EObjectConnector {
 		super.initLocation(container, location, ((InternalEObject)AnydslPackage.eINSTANCE.getProducer())
 				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name()));
 
-		assertEquals("name:Producer", container.getText().substring(location.getStartOffset(),
-				location.getEndOffset()));
-		assertEquals(4100, location.getStartOffset());
 		final Object element = eObjectConnector.getElement(location);
 		assertTrue(element instanceof Setting);
 		assertEquals(AnydslPackage.eINSTANCE.getProducer(), ((Setting)element).getEObject());
@@ -148,171 +140,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void isValidOffsetsEObjectMismatchedStartShorter() {
-		final String text = "xxxx<<<<\n";
-		final int startOffset = 0;
-		final int endOffset = 9;
-
-		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsEObjectMismatchedStartLonger() {
-		final String text = "yyyyyyyyyyyyyyyyyyyyxxxx<<<<\n";
-		final int startOffset = 20;
-		final int endOffset = 29;
-
-		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsEObjectMismatchedStartSameLength() {
-		final String text = "yyyyyxxxx<<<<\n";
-		final int startOffset = 0;
-		final int endOffset = 14;
-
-		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsEObjectMismatchedEndShorter() {
-		final String text = ">>>>\nxxxx";
-		final int startOffset = 0;
-		final int endOffset = 9;
-
-		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsEObjectMismatchedEndLonger() {
-		final String text = ">>>>\nxxxxyyyyyyyyyyyyyyyyyyyy";
-		final int startOffset = 0;
-		final int endOffset = 14;
-
-		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsEObjectMismatchedEndSameLenght() {
-		final String text = ">>>>\nxxxxyyyyy";
-		final int startOffset = 0;
-		final int endOffset = 14;
-
-		assertFalse(isValidOffsets(text, null, startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsEObject() {
-		final String text = ">>>>\nxxxx<<<<\n";
-		final int startOffset = 0;
-		final int endOffset = 14;
-
-		assertTrue(isValidOffsets(text, null, startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSettingMismatchedStartShorter() {
-		final String text = "name:xxxx:\n";
-		final int startOffset = 0;
-		final int endOffset = 9;
-
-		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSettingMismatchedStartLonger() {
-		final String text = "yyyyyyyyyyyyyyyyyyyyname:xxxx:\n";
-		final int startOffset = 20;
-		final int endOffset = 29;
-
-		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSettingMismatchedStartSameLength() {
-		final String text = "yname:xxxx:\n";
-		final int startOffset = 1;
-		final int endOffset = 10;
-
-		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSettingMismatchedFeatureShorter() {
-		final String text = "::\n";
-		final int startOffset = 1;
-		final int endOffset = 1;
-
-		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSettingMismatchedFeatureLonger() {
-		final String text = ":yyyyyyyyyyyyyyyyyyyy:xxxx:\n";
-		final int startOffset = 1;
-		final int endOffset = 26;
-
-		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSettingMismatchedFeatureSameLenght() {
-		final String text = ":yyyyyxxxx:\n";
-		final int startOffset = 1;
-		final int endOffset = 10;
-
-		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSettingMismatchedEndShorter() {
-		final String text = ":name:xxxx";
-		final int startOffset = 1;
-		final int endOffset = 10;
-
-		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSettingMismatchedEndLonger() {
-		final String text = ":name:xxxxyyyyyyyyyyyyyyyyyyyy";
-		final int startOffset = 1;
-		final int endOffset = 10;
-
-		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSettingMismatchedEndSameLenght() {
-		final String text = ":name:xxxxyy";
-		final int startOffset = 1;
-		final int endOffset = 10;
-
-		assertFalse(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void isValidOffsetsSetting() {
-		final String text = ":name:xxxx:\n";
-		final int startOffset = 1;
-		final int endOffset = 10;
-
-		assertTrue(isValidOffsets(text, AnydslPackage.eINSTANCE.getNamedElement_Name().getName(),
-				startOffset, endOffset));
-	}
-
-	@Test
-	public void getLocationEObject() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void getLocationEObject() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
 		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
@@ -335,8 +163,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void getLocationSetting() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void getLocationSetting() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final List<EObject> eObjects = new ArrayList<EObject>(AnydslPackage.eINSTANCE.eContents());
 		final Resource resource = new XMIResourceImpl(URI.createFileURI("test.xmi"));
@@ -360,8 +187,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 	}
 
 	@Test
-	public void updateEObjectContainerDeleted() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectContainerDeleted() throws Exception {
 		final IBase base = new BaseRegistryTests.TestBase();
 		base.getFactory().addDescriptor(IReport.class,
 				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
@@ -374,7 +200,6 @@ public class EObjectConnectorTests extends EObjectConnector {
 		updateEObjectContainer(container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
-		container.getContents().add(location);
 		final ILocation target = new TestTextLocation();
 		final ILink link = new BaseElementFactoryTests.TestLink();
 		location.getTargetLinks().add(link);
@@ -387,22 +212,20 @@ public class EObjectConnectorTests extends EObjectConnector {
 
 		super.initLocation(container, location, AnydslPackage.eINSTANCE.getProducer());
 
-		eObjects.remove(AnydslPackage.eINSTANCE.getProducer());
-		super.updateEObjectContainer(container, eObjects);
+		resource.getContents().remove(AnydslPackage.eINSTANCE.getProducer());
+		super.updateEObjectContainer(container, resource);
 
 		assertTrue(location.isMarkedAsDeleted());
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);
 		assertEquals(link, report.getLink());
-		assertTrue(report.getDescription().contains("anydsl.Producer"));
-		assertTrue(report.getDescription().contains("at (4094, 6570) has been deleted."));
+		assertEquals("/3 has been deleted.", report.getDescription());
 
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}
 
 	@Test
-	public void updateEObjectContainerChanged() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectContainerChanged() throws Exception {
 		final IBase base = new BaseRegistryTests.TestBase();
 		base.getFactory().addDescriptor(IReport.class,
 				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
@@ -415,7 +238,6 @@ public class EObjectConnectorTests extends EObjectConnector {
 		updateEObjectContainer(container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
-		container.getContents().add(location);
 		final ILocation target = new TestTextLocation();
 		final ILink link = new BaseElementFactoryTests.TestLink();
 		location.getTargetLinks().add(link);
@@ -429,14 +251,12 @@ public class EObjectConnectorTests extends EObjectConnector {
 		super.initLocation(container, location, AnydslPackage.eINSTANCE.getProducer());
 
 		AnydslPackage.eINSTANCE.getProducer().setName("NewName");
-		super.updateEObjectContainer(container, eObjects);
+		super.updateEObjectContainer(container, resource);
 
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);
 		assertEquals(link, report.getLink());
-		assertTrue(report.getDescription().contains("anydsl.Producer"));
-		assertTrue(report.getDescription().contains(" at (4094, 6569) has been changed to "));
-		assertTrue(report.getDescription().contains(" at (4094, 6569)."));
+		assertEquals("/3 has been deleted.", report.getDescription());
 
 		AnydslPackage.eINSTANCE.getProducer().setName("Producer");
 		MappingUtils.getConnectorRegistry().unregister(connector);

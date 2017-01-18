@@ -347,8 +347,26 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	public EAttribute getEObjectLocation_FeatureName() {
+	public EAttribute getEObjectLocation_URIFragment() {
 		return (EAttribute)eObjectLocationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getEObjectLocation_FeatureName() {
+		return (EAttribute)eObjectLocationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getEObjectLocation_Index() {
+		return (EAttribute)eObjectLocationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -458,7 +476,9 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		createEAttribute(textLocationEClass, TEXT_LOCATION__END_OFFSET);
 
 		eObjectLocationEClass = createEClass(EOBJECT_LOCATION);
+		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__URI_FRAGMENT);
 		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__FEATURE_NAME);
+		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__INDEX);
 
 		locationContainerEClass = createEClass(LOCATION_CONTAINER);
 		createEReference(locationContainerEClass, LOCATION_CONTAINER__CONTENTS);
@@ -505,7 +525,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		baseEClass.getESuperTypes().add(this.getIEMFBaseElement());
 		baseEClass.getESuperTypes().add(this.getLocationContainer());
 		textLocationEClass.getESuperTypes().add(this.getLocation());
-		eObjectLocationEClass.getESuperTypes().add(this.getTextLocation());
+		eObjectLocationEClass.getESuperTypes().add(this.getLocation());
 		reportEClass.getESuperTypes().add(this.getIEMFBaseElement());
 
 		// Initialize classes, features, and operations; add parameters
@@ -565,8 +585,14 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 
 		initEClass(eObjectLocationEClass, EObjectLocation.class, "EObjectLocation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEObjectLocation_URIFragment(), ecorePackage.getEString(), "URIFragment", null, 1,
+				1, EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEObjectLocation_FeatureName(), ecorePackage.getEString(), "featureName", null, 0,
 				1, EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEObjectLocation_Index(), ecorePackage.getEInt(), "index", "0", 1, 1,
+				EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(locationContainerEClass, LocationContainer.class, "LocationContainer", IS_ABSTRACT,

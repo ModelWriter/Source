@@ -11,13 +11,28 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf;
 
-import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 
 /**
  * {@link org.eclipse.emf.ecore.resource.Resource Resource} container.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface IEObjectContainer extends ITextContainer {
+public interface IEObjectContainer extends ILocation {
+
+	/**
+	 * Gets the XMI contents.
+	 * 
+	 * @return the XMI contents
+	 */
+	String getXMIContent();
+
+	/**
+	 * Sets the XMI contents.
+	 * 
+	 * @param xmiContent
+	 *            the XMI contents
+	 */
+	void setXMIContent(String xmiContent);
 
 }

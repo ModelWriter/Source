@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter;
 import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.EObjectLocationToMarkerAdapterFactory;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker.IEObjectLocationMaker;
@@ -63,8 +62,7 @@ public class EObjectLocationToMarkerAdapterFactoryTests {
 		container.setFullPath("/test/test.xmi");
 
 		final IEObjectLocation location = new EObjectConnectorParametrizedTests.TestEObjectLocation();
-		final ITextAdapter adapter = EObjectConnector.getTextAdapter(ePackage);
-		adapter.setLocationFromEObject(location);
+		location.setURIFragment(ePackage.eResource().getURIFragment(ePackage));
 		container.getContents().add(location);
 		location.setContainer(container);
 

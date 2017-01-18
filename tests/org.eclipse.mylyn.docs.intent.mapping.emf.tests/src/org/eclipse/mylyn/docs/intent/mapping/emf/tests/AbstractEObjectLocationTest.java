@@ -12,7 +12,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.emf.tests;
 
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractTextLocationTests;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractLocationTests;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNull;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public abstract class AbstractEObjectLocationTest extends AbstractTextLocationTests {
+public abstract class AbstractEObjectLocationTest extends AbstractLocationTests {
 
 	@Override
 	protected IEObjectLocation createLocation() throws InstantiationException, IllegalAccessException,
@@ -32,7 +32,35 @@ public abstract class AbstractEObjectLocationTest extends AbstractTextLocationTe
 	}
 
 	@Test
-	public void setSettingFalse() throws InstantiationException, IllegalAccessException,
+	public void setURIFragmentNull() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		IEObjectLocation location = createLocation();
+
+		location.setURIFragment(null);
+
+		assertNull(location.getURIFragment());
+	}
+
+	@Test
+	public void setURIFragment() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		IEObjectLocation location = createLocation();
+
+		location.setURIFragment("someFeature");
+
+		assertEquals("someFeature", location.getURIFragment());
+	}
+
+	@Test
+	public void getURIFragmentDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		IEObjectLocation location = createLocation();
+
+		assertNull(location.getURIFragment());
+	}
+
+	@Test
+	public void setFeatureNameNull() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
@@ -42,7 +70,7 @@ public abstract class AbstractEObjectLocationTest extends AbstractTextLocationTe
 	}
 
 	@Test
-	public void setSettingTrue() throws InstantiationException, IllegalAccessException,
+	public void setFeatureName() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 
@@ -52,7 +80,7 @@ public abstract class AbstractEObjectLocationTest extends AbstractTextLocationTe
 	}
 
 	@Test
-	public void isSettingDefault() throws InstantiationException, IllegalAccessException,
+	public void getFeatureNameDefault() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		IEObjectLocation location = createLocation();
 

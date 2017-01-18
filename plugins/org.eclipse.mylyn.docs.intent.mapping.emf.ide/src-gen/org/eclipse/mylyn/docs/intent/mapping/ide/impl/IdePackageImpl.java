@@ -182,6 +182,15 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 	 * 
 	 * @generated
 	 */
+	public EAttribute getEObjectFileLocation_XMIContent() {
+		return (EAttribute)eObjectFileLocationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public IdeFactory getIdeFactory() {
 		return (IdeFactory)getEFactoryInstance();
 	}
@@ -214,6 +223,7 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 		createEAttribute(textFileLocationEClass, TEXT_FILE_LOCATION__TEXT);
 
 		eObjectFileLocationEClass = createEClass(EOBJECT_FILE_LOCATION);
+		createEAttribute(eObjectFileLocationEClass, EOBJECT_FILE_LOCATION__XMI_CONTENT);
 	}
 
 	/**
@@ -251,7 +261,7 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 		resourceLocationEClass.getESuperTypes().add(theMappingPackage.getLocation());
 		fileLocationEClass.getESuperTypes().add(this.getResourceLocation());
 		textFileLocationEClass.getESuperTypes().add(this.getFileLocation());
-		eObjectFileLocationEClass.getESuperTypes().add(this.getTextFileLocation());
+		eObjectFileLocationEClass.getESuperTypes().add(this.getFileLocation());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(resourceLocationEClass, ResourceLocation.class, "ResourceLocation", !IS_ABSTRACT,
@@ -271,6 +281,9 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 
 		initEClass(eObjectFileLocationEClass, EObjectFileLocation.class, "EObjectFileLocation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEObjectFileLocation_XMIContent(), ecorePackage.getEString(), "XMIContent", null, 1,
+				1, EObjectFileLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

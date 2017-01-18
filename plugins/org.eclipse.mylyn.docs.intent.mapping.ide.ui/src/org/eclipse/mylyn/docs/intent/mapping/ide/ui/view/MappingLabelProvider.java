@@ -117,4 +117,5 @@ public class MappingLabelProvider extends BaseLabelProvider implements ILabelPro
 
 		return res;
 	}
+
 }

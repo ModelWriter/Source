@@ -54,32 +54,14 @@ public class EObjectFileConnectorDelegateTests {
 	public static class TestEObjectFileLocation extends TestResourceLocation implements IEObjectFileLocation {
 
 		/**
-		 * The text content.
+		 * The XMI content.
 		 */
-		private String text;
+		private String xmiContent;
 
 		/**
 		 * The {@link Resource}.
 		 */
 		private Resource resource;
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer#setText(java.lang.String)
-		 */
-		public void setText(String text) {
-			this.text = text;
-		}
-
-		/**
-		 * {@inheritDoc}
-		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer#getText()
-		 */
-		public String getText() {
-			return text;
-		}
 
 		public void setResource(Resource resource) {
 			this.resource = resource;
@@ -87,6 +69,14 @@ public class EObjectFileConnectorDelegateTests {
 
 		public Resource getResrouce() {
 			return resource;
+		}
+
+		public String getXMIContent() {
+			return xmiContent;
+		}
+
+		public void setXMIContent(String content) {
+			this.xmiContent = content;
 		}
 
 	}
@@ -153,7 +143,7 @@ public class EObjectFileConnectorDelegateTests {
 
 		delegate.initLocation(location, file);
 
-		assertEquals(555, location.getText().length());
+		assertEquals(180, location.getXMIContent().length());
 	}
 
 	@Test

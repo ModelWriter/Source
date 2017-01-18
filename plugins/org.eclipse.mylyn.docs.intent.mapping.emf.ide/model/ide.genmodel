@@ -18,6 +18,8 @@
     <genClasses ecoreClass="ide.ecore#//TextFileLocation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ide.ecore#//TextFileLocation/text"/>
     </genClasses>
-    <genClasses ecoreClass="ide.ecore#//EObjectFileLocation"/>
+    <genClasses ecoreClass="ide.ecore#//EObjectFileLocation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ide.ecore#//EObjectFileLocation/XMIContent"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -16,6 +16,9 @@
               <children xmi:type="notation:Node" xmi:id="_a-RHID6kEeaW46TWXHz9iw" type="3010" element="_a8u2ED6kEeaW46TWXHz9iw">
                 <layoutConstraint xmi:type="notation:Location" xmi:id="_a-RHIT6kEeaW46TWXHz9iw"/>
               </children>
+              <children xmi:type="notation:Node" xmi:id="_Hy_XkMHWEeangZPFpBYoMg" type="3010" element="_Hyav0MHWEeangZPFpBYoMg">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_Hy_XkcHWEeangZPFpBYoMg"/>
+              </children>
               <styles xmi:type="notation:SortingStyle" xmi:id="_G7VMxQkjEeWFVOi_8hW2kQ"/>
               <styles xmi:type="notation:FilteringStyle" xmi:id="_G7VMxgkjEeWFVOi_8hW2kQ"/>
             </children>
@@ -241,6 +244,11 @@
               <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_blue']"/>
             </endLabelStyleDescription>
           </computedStyleDescriptions>
+          <computedStyleDescriptions xmi:type="style:BundledImageDescription" xmi:id="_HydMEMHWEeangZPFpBYoMg" labelFormat="bold" labelExpression="service:render" labelAlignment="LEFT" tooltipExpression="service:renderTooltip" sizeComputationExpression="1">
+            <borderColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </computedStyleDescriptions>
           <cache xmi:type="diagram:DiagramElementMapping2ModelElement" xmi:id="_JZKEoAkkEeWFVOi_8hW2kQ">
             <key xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
             <value xmi:type="diagram:ModelElement2ViewVariable" xmi:id="_QQUsYAnKEeWATYXIsIrDKQ">
@@ -264,6 +272,14 @@
               <value xmi:type="diagram:ViewVariable2ContainerVariable" xmi:id="_hanQ4T-TEeatdPECk4x2fg" key="_hamCwD-TEeatdPECk4x2fg">
                 <value xmi:type="diagram:ContainerVariable2StyleDescription" xmi:id="_han38D-TEeatdPECk4x2fg" value="_hanQ4j-TEeatdPECk4x2fg">
                   <key xmi:type="ecore:EClass" href="mapping.ecore#//Report"/>
+                </value>
+              </value>
+            </value>
+            <value xmi:type="diagram:ModelElement2ViewVariable" xmi:id="_HyclAMHWEeangZPFpBYoMg">
+              <key xmi:type="ecore:EAttribute" href="mapping.ecore#//Location/markedAsDeleted"/>
+              <value xmi:type="diagram:ViewVariable2ContainerVariable" xmi:id="_HyclAcHWEeangZPFpBYoMg" key="_Hyav0MHWEeangZPFpBYoMg">
+                <value xmi:type="diagram:ContainerVariable2StyleDescription" xmi:id="_HydMEcHWEeangZPFpBYoMg" value="_HydMEMHWEeangZPFpBYoMg">
+                  <key xmi:type="ecore:EClass" href="mapping.ecore#//Location"/>
                 </value>
               </value>
             </value>
@@ -322,6 +338,16 @@
             <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
             <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_a8xSUj6kEeaW46TWXHz9iw"/>
             <color xmi:type="viewpoint:RGBValues" xmi:id="_a8x5YD6kEeaW46TWXHz9iw"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_Hyav0MHWEeangZPFpBYoMg" name="markedAsDeleted : EBoolean = false" tooltipText="">
+          <target xmi:type="ecore:EAttribute" href="mapping.ecore#//Location/markedAsDeleted"/>
+          <semanticElements xmi:type="ecore:EAttribute" href="mapping.ecore#//Location/markedAsDeleted"/>
+          <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_HydzIMHWEeangZPFpBYoMg" labelFormat="bold" labelAlignment="LEFT" description="_HydMEMHWEeangZPFpBYoMg">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_HydzIcHWEeangZPFpBYoMg"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_HydzIsHWEeangZPFpBYoMg"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_HydzI8HWEeangZPFpBYoMg"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
         </ownedElements>

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
@@ -36,11 +37,8 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.ITextAdapter;
 import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
-import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextContainerLocation;
-import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests.TestTextLocation;
-import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -64,7 +62,12 @@ public class EObjectConnectorParametrizedTests {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class TestEObjectContainerLocation extends TestTextContainerLocation implements IEObjectContainer {
+	public static class TestEObjectContainerLocation extends TestLocation implements IEObjectContainer {
+
+		/**
+		 * The XMI content.
+		 */
+		private String xmiContent;
 
 		/**
 		 * The {@link Resource}.
@@ -77,6 +80,14 @@ public class EObjectConnectorParametrizedTests {
 
 		public Resource getResource() {
 			return resource;
+		}
+
+		public String getXMIContent() {
+			return xmiContent;
+		}
+
+		public void setXMIContent(String content) {
+			this.xmiContent = content;
 		}
 
 	}
@@ -145,12 +156,30 @@ public class EObjectConnectorParametrizedTests {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class TestEObjectLocation extends TestTextLocation implements IEObjectLocation {
+	public static class TestEObjectLocation extends TestLocation implements IEObjectLocation {
+
+		/**
+		 * the URI fragment.
+		 */
+		private String uriFragment;
 
 		/**
 		 * The {@link EStructuralFeature#getName() feature name}.
 		 */
 		private String featureName;
+
+		/**
+		 * The index in the {@link EStructuralFeature#getName() feature}.
+		 */
+		private int index;
+
+		public String getURIFragment() {
+			return uriFragment;
+		}
+
+		public void setURIFragment(String fragment) {
+			this.uriFragment = fragment;
+		}
 
 		public void setFeatureName(String featureName) {
 			this.featureName = featureName;
@@ -158,6 +187,14 @@ public class EObjectConnectorParametrizedTests {
 
 		public String getFeatureName() {
 			return featureName;
+		}
+
+		public int getIndex() {
+			return index;
+		}
+
+		public void setIndex(int index) {
+			this.index = index;
 		}
 
 	}
@@ -212,6 +249,12 @@ public class EObjectConnectorParametrizedTests {
 								EcorePackage.eINSTANCE.getENamedElement_Name(), "someEOperation", }, },
 
 				{
+						{AnydslPackage.eINSTANCE.getFood(), EcorePackage.eINSTANCE.getEClass_EOperations(),
+								AnydslPackage.eINSTANCE.getFood__PreferredColor(), },
+						{AnydslPackage.eINSTANCE.getFood(), EcorePackage.eINSTANCE.getEClass_EOperations(),
+								createEOperation(), }, },
+
+				{
 						{AnydslPackage.eINSTANCE.getNamedElement_Name(),
 								EcorePackage.eINSTANCE.getETypedElement_EType(),
 								AnydslPackage.eINSTANCE.getSingleString(), },
@@ -252,7 +295,7 @@ public class EObjectConnectorParametrizedTests {
 		final IEObjectLocation res = new TestEObjectLocation();
 
 		final EObject eObject = copier.get(original[0]);
-		final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(eObject);
+		res.setURIFragment(eObject.eResource().getURIFragment(eObject));
 		if (original[1] != null) {
 			final EStructuralFeature feature = (EStructuralFeature)original[1];
 			final Object value;
@@ -261,25 +304,20 @@ public class EObjectConnectorParametrizedTests {
 			} else {
 				value = original[2];
 			}
-			textAdapter.setLocationFromEObject(res, feature, value);
-		} else {
-			textAdapter.setLocationFromEObject(res);
+			if (feature.isMany()) {
+				res.setIndex(((List<?>)eObject.eGet(feature)).indexOf(value));
+			} else {
+				res.setIndex(0);
+			}
+			res.setFeatureName(feature.getName());
 		}
-		container.getContents().add(res);
 		res.setContainer(container);
 
 		return res;
 	}
 
-	public void assertEObjectLocation(IEObjectLocation location, String expectedText, int expectedTextOffset,
-			EObject expectedEObject, EStructuralFeature expectedFeature, Object expectedValue) {
-		if (location.getContainer() == null) {
-			assertEquals(expectedText, "");
-		} else {
-			assertEquals(expectedText, ((ITextContainer)location.getContainer()).getText().substring(
-					location.getStartOffset(), location.getEndOffset()));
-		}
-		assertEquals(expectedTextOffset, location.getStartOffset());
+	public void assertEObjectLocation(IEObjectLocation location, EObject expectedEObject,
+			EStructuralFeature expectedFeature, Object expectedValue) {
 		final Object element = MappingUtils.getConnectorRegistry().getElement(location);
 		if (element instanceof Setting) {
 			final Setting setting = (Setting)element;
@@ -294,19 +332,17 @@ public class EObjectConnectorParametrizedTests {
 	}
 
 	@Test
-	public void updateEObjects() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjects() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, testEObjects);
+		final Resource initialResource = new XMIResourceImpl(URI.createURI("initialResource"));
+		initialResource.getContents().addAll(testEObjects);
+		EObjectConnector.updateEObjectContainer(container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
-		final String expectedText = ((ITextContainer)location.getContainer()).getText().substring(
-				location.getStartOffset(), location.getEndOffset());
-		final int expectedTextOffset = location.getStartOffset();
 		final EObject expectedEObject = copier.get(original[0]);
 		final EStructuralFeature expectedFeature = (EStructuralFeature)original[1];
 		final Object expectedValue;
@@ -317,31 +353,27 @@ public class EObjectConnectorParametrizedTests {
 		}
 
 		List<EObject> newEObjects = testEObjects;
-		EObjectConnector.updateEObjectContainer(container, newEObjects);
-		final Resource resource = new XMIResourceImpl();
-		resource.getContents().addAll(newEObjects);
-		container.setResource(resource);
+		final Resource newResource = new XMIResourceImpl(URI.createURI("newResource"));
+		newResource.getContents().addAll(newEObjects);
 
-		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
-				expectedValue);
+		EObjectConnector.updateEObjectContainer(container, newResource);
+		container.setResource(newResource);
+
+		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
 	}
 
 	@Test
-	public void updateEObjectsPlusShift() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectsPlusShift() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, testEObjects);
+		final Resource initialResource = new XMIResourceImpl(URI.createURI("initialResource"));
+		initialResource.getContents().addAll(testEObjects);
+		EObjectConnector.updateEObjectContainer(container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
-		final String expectedText = ((ITextContainer)location.getContainer()).getText().substring(
-				location.getStartOffset(), location.getEndOffset());
-		final int offset = getText(new ArrayList<EObject>(MappingPackage.eINSTANCE.getEClassifiers()))
-				.length();
-		final int expectedTextOffset = location.getStartOffset() + offset;
 		final EObject expectedEObject = copier.get(original[0]);
 		final EStructuralFeature expectedFeature = (EStructuralFeature)original[1];
 		final Object expectedValue;
@@ -353,33 +385,27 @@ public class EObjectConnectorParametrizedTests {
 
 		List<EObject> newEObjects = new ArrayList<EObject>(MappingPackage.eINSTANCE.getEClassifiers());
 		newEObjects.addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, newEObjects);
-		final Resource resource = new XMIResourceImpl();
-		resource.getContents().addAll(newEObjects);
-		container.setResource(resource);
+		final Resource newResource = new XMIResourceImpl(URI.createURI("newResource"));
+		newResource.getContents().addAll(newEObjects);
 
-		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
-				expectedValue);
+		EObjectConnector.updateEObjectContainer(container, newResource);
+		container.setResource(newResource);
+
+		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
 	}
 
 	@Test
-	public void updateEObjectsMinusShift() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectsMinusShift() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, testEObjects);
+		final Resource initialResource = new XMIResourceImpl(URI.createURI("initialResource"));
+		initialResource.getContents().addAll(testEObjects);
+		EObjectConnector.updateEObjectContainer(container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
-		final String expectedText = ((ITextContainer)location.getContainer()).getText().substring(
-				location.getStartOffset(), location.getEndOffset());
-		ArrayList<EObject> removedEObjects = new ArrayList<EObject>();
-		removedEObjects.add(testEObjects.get(0));
-		removedEObjects.add(testEObjects.get(1));
-		final int offset = getText(removedEObjects).length();
-		final int expectedTextOffset = location.getStartOffset() - offset;
 		final EObject expectedEObject = copier.get(original[0]);
 		final EStructuralFeature expectedFeature = (EStructuralFeature)original[1];
 		final Object expectedValue;
@@ -392,18 +418,17 @@ public class EObjectConnectorParametrizedTests {
 		List<EObject> newEObjects = new ArrayList<EObject>(testEObjects);
 		newEObjects.remove(0);
 		newEObjects.remove(0);
-		EObjectConnector.updateEObjectContainer(container, newEObjects);
-		final Resource resource = new XMIResourceImpl();
-		resource.getContents().addAll(newEObjects);
-		container.setResource(resource);
+		final Resource newResource = new XMIResourceImpl(URI.createURI("newResource"));
+		newResource.getContents().addAll(newEObjects);
 
-		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
-				expectedValue);
+		EObjectConnector.updateEObjectContainer(container, newResource);
+		container.setResource(newResource);
+
+		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
 	}
 
 	@Test
-	public void updateEObjectsAltered() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectsAltered() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
@@ -412,10 +437,11 @@ public class EObjectConnectorParametrizedTests {
 		}
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, testEObjects);
+		final Resource initialResource = new XMIResourceImpl(URI.createURI("initialResource"));
+		initialResource.getContents().addAll(testEObjects);
+		EObjectConnector.updateEObjectContainer(container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
-		final int expectedTextOffset = location.getStartOffset();
 		final EObject expectedEObject = copier.get(altered[0]);
 		final EStructuralFeature expectedFeature = (EStructuralFeature)altered[1];
 		final Object expectedValue;
@@ -428,30 +454,17 @@ public class EObjectConnectorParametrizedTests {
 		List<EObject> newEObjects = testEObjects;
 		newEObjects = alterEObjects(copier, newEObjects);
 
-		final String expectedText;
-		if (original[1] == null) {
-			final ArrayList<EObject> alteredEObjects = new ArrayList<EObject>();
-			alteredEObjects.add(copier.get(altered[0]));
-			expectedText = getText(alteredEObjects);
-		} else if (altered[2] instanceof EObject) {
-			expectedText = getText(copier.get(altered[0]), (EStructuralFeature)altered[1], copier
-					.get(altered[2]));
-		} else {
-			expectedText = getText(copier.get(altered[0]), (EStructuralFeature)altered[1], altered[2]);
-		}
+		final Resource newResource = new XMIResourceImpl(URI.createURI("newResource"));
+		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newEObjects);
-		final Resource resource = new XMIResourceImpl();
-		resource.getContents().addAll(newEObjects);
-		container.setResource(resource);
+		EObjectConnector.updateEObjectContainer(container, newResource);
+		container.setResource(newResource);
 
-		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
-				expectedValue);
+		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
 	}
 
 	@Test
-	public void updateEObjectsPlusShiftAltered() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectsPlusShiftAltered() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
@@ -460,12 +473,11 @@ public class EObjectConnectorParametrizedTests {
 		}
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, testEObjects);
+		final Resource initialResource = new XMIResourceImpl(URI.createURI("initialResource"));
+		initialResource.getContents().addAll(testEObjects);
+		EObjectConnector.updateEObjectContainer(container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
-		final int offset = getText(new ArrayList<EObject>(MappingPackage.eINSTANCE.getEClassifiers()))
-				.length();
-		final int expectedTextOffset = location.getStartOffset() + offset;
 		final EObject expectedEObject = copier.get(altered[0]);
 		final EStructuralFeature expectedFeature = (EStructuralFeature)original[1];
 		final Object expectedValue;
@@ -479,30 +491,17 @@ public class EObjectConnectorParametrizedTests {
 		newEObjects.addAll(testEObjects);
 		newEObjects = alterEObjects(copier, newEObjects);
 
-		final String expectedText;
-		if (original[1] == null) {
-			final ArrayList<EObject> alteredEObjects = new ArrayList<EObject>();
-			alteredEObjects.add(copier.get(altered[0]));
-			expectedText = getText(alteredEObjects);
-		} else if (altered[2] instanceof EObject) {
-			expectedText = getText(copier.get(altered[0]), (EStructuralFeature)altered[1], copier
-					.get(altered[2]));
-		} else {
-			expectedText = getText(copier.get(altered[0]), (EStructuralFeature)altered[1], altered[2]);
-		}
+		final Resource newResource = new XMIResourceImpl(URI.createURI("newResource"));
+		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newEObjects);
-		final Resource resource = new XMIResourceImpl();
-		resource.getContents().addAll(newEObjects);
-		container.setResource(resource);
+		EObjectConnector.updateEObjectContainer(container, newResource);
+		container.setResource(newResource);
 
-		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
-				expectedValue);
+		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
 	}
 
 	@Test
-	public void updateEObjectsMinusShiftAltered() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectsMinusShiftAltered() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
@@ -511,14 +510,11 @@ public class EObjectConnectorParametrizedTests {
 		}
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, testEObjects);
+		final Resource initialResource = new XMIResourceImpl(URI.createURI("initialResource"));
+		initialResource.getContents().addAll(testEObjects);
+		EObjectConnector.updateEObjectContainer(container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
-		ArrayList<EObject> removedEObjects = new ArrayList<EObject>();
-		removedEObjects.add(testEObjects.get(0));
-		removedEObjects.add(testEObjects.get(1));
-		final int offset = getText(removedEObjects).length();
-		final int expectedTextOffset = location.getStartOffset() - offset;
 		final EObject expectedEObject = copier.get(altered[0]);
 		final EStructuralFeature expectedFeature = (EStructuralFeature)original[1];
 		final Object expectedValue;
@@ -533,40 +529,27 @@ public class EObjectConnectorParametrizedTests {
 		newEObjects.remove(0);
 		newEObjects = alterEObjects(copier, newEObjects);
 
-		final String expectedText;
-		if (original[1] == null) {
-			final ArrayList<EObject> alteredEObjects = new ArrayList<EObject>();
-			alteredEObjects.add(copier.get(altered[0]));
-			expectedText = getText(alteredEObjects);
-		} else if (altered[2] instanceof EObject) {
-			expectedText = getText(copier.get(altered[0]), (EStructuralFeature)altered[1], copier
-					.get(altered[2]));
-		} else {
-			expectedText = getText(copier.get(altered[0]), (EStructuralFeature)altered[1], altered[2]);
-		}
+		final Resource newResource = new XMIResourceImpl(URI.createURI("newResource"));
+		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newEObjects);
-		final Resource resource = new XMIResourceImpl();
-		resource.getContents().addAll(newEObjects);
-		container.setResource(resource);
+		EObjectConnector.updateEObjectContainer(container, newResource);
+		container.setResource(newResource);
 
-		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
-				expectedValue);
+		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
 	}
 
 	@Test
-	public void updateEObjectsRemoved() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectsRemoved() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, testEObjects);
+		final Resource initialResource = new XMIResourceImpl(URI.createURI("initialResource"));
+		initialResource.getContents().addAll(testEObjects);
+		EObjectConnector.updateEObjectContainer(container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
-		final String expectedText = "";
-		final int expectedTextOffset = location.getStartOffset();
 		final EObject expectedEObject = null;
 		final EStructuralFeature expectedFeature = null;
 		final Object expectedValue = null;
@@ -577,28 +560,27 @@ public class EObjectConnectorParametrizedTests {
 		} else {
 			EcoreUtil.delete(copier.get(original[0]));
 		}
-		EObjectConnector.updateEObjectContainer(container, newEObjects);
-		final Resource resource = new XMIResourceImpl();
-		resource.getContents().addAll(newEObjects);
-		container.setResource(resource);
+		final Resource newResource = new XMIResourceImpl(URI.createURI("newResource"));
+		newResource.getContents().addAll(newEObjects);
 
-		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
-				expectedValue);
+		EObjectConnector.updateEObjectContainer(container, newResource);
+		container.setResource(newResource);
+
+		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
 	}
 
 	@Test
-	public void updateEObjectsPlusShiftRemoved() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectsPlusShiftRemoved() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, testEObjects);
+		final Resource initialResource = new XMIResourceImpl(URI.createURI("initialResource"));
+		initialResource.getContents().addAll(testEObjects);
+		EObjectConnector.updateEObjectContainer(container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
-		final String expectedText = "";
-		final int expectedTextOffset = location.getStartOffset();
 		final EObject expectedEObject = null;
 		final EStructuralFeature expectedFeature = null;
 		final Object expectedValue = null;
@@ -611,28 +593,27 @@ public class EObjectConnectorParametrizedTests {
 		}
 
 		newEObjects.addAll(0, MappingPackage.eINSTANCE.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, newEObjects);
-		final Resource resource = new XMIResourceImpl();
-		resource.getContents().addAll(newEObjects);
-		container.setResource(resource);
+		final Resource newResource = new XMIResourceImpl(URI.createURI("newResource"));
+		newResource.getContents().addAll(newEObjects);
 
-		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
-				expectedValue);
+		EObjectConnector.updateEObjectContainer(container, newResource);
+		container.setResource(newResource);
+
+		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
 	}
 
 	@Test
-	public void updateEObjectsMinusShiftRemoved() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateEObjectsMinusShiftRemoved() throws Exception {
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		final Copier copier = new Copier();
 		EPackage copy = (EPackage)copier.copy(AnydslPackage.eINSTANCE);
 		copier.copyReferences();
 		final List<EObject> testEObjects = new ArrayList<EObject>(copy.getEClassifiers());
-		EObjectConnector.updateEObjectContainer(container, testEObjects);
+		final Resource initialResource = new XMIResourceImpl(URI.createURI("initialResource"));
+		initialResource.getContents().addAll(testEObjects);
+		EObjectConnector.updateEObjectContainer(container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
-		final String expectedText = "";
-		final int expectedTextOffset = location.getStartOffset();
 		final EObject expectedEObject = null;
 		final EStructuralFeature expectedFeature = null;
 		final Object expectedValue = null;
@@ -646,33 +627,13 @@ public class EObjectConnectorParametrizedTests {
 
 		newEObjects.remove(0);
 		newEObjects.remove(0);
-		EObjectConnector.updateEObjectContainer(container, newEObjects);
-		final Resource resource = new XMIResourceImpl();
-		resource.getContents().addAll(newEObjects);
-		container.setResource(resource);
+		final Resource newResource = new XMIResourceImpl(URI.createURI("newResource"));
+		newResource.getContents().addAll(newEObjects);
 
-		assertEObjectLocation(location, expectedText, expectedTextOffset, expectedEObject, expectedFeature,
-				expectedValue);
-	}
+		EObjectConnector.updateEObjectContainer(container, newResource);
+		container.setResource(newResource);
 
-	private String getText(List<EObject> eObjects) throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
-		EObjectConnector.updateEObjectContainer(container, eObjects);
-
-		return container.getText();
-	}
-
-	private String getText(EObject eObject, EStructuralFeature feature, Object value)
-			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
-		List<EObject> eObjects = new ArrayList<EObject>();
-		eObjects.add(eObject);
-		EObjectConnector.updateEObjectContainer(container, eObjects);
-		final ITextAdapter textAdapter = EObjectConnector.getTextAdapter(eObject);
-		final int[] offsets = textAdapter.getOffsets(feature, value);
-
-		return container.getText().substring(offsets[0], offsets[1]);
+		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
 	}
 
 	private List<EObject> alterEObjects(Copier copier, List<EObject> eObjects) {
@@ -697,7 +658,7 @@ public class EObjectConnectorParametrizedTests {
 				List<Object> list = (List<Object>)copier.get(original[0]).eGet(feature);
 				final int index = list.indexOf(copier.get(original[2]));
 				list.remove(index);
-				list.add(index, copier.get(altered[2]));
+				list.add(index, altered[2]);
 			} else {
 				if (altered[2] instanceof EObject) {
 					copier.get(original[0]).eSet(feature, copier.get(altered[2]));

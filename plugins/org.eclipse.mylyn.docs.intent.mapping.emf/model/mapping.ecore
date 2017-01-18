@@ -35,8 +35,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="endOffset" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="-1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EObjectLocation" eSuperTypes="#//TextLocation">
+  <eClassifiers xsi:type="ecore:EClass" name="EObjectLocation" eSuperTypes="#//Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="URIFragment" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="0"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Type" instanceClassName="java.io.Serializable"/>
   <eClassifiers xsi:type="ecore:EClass" name="LocationContainer" abstract="true" interface="true">

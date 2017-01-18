@@ -20,7 +20,8 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocati
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getEObjects <em>EObjects</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent <em>XMI Content
+ * </em>}</li>
  * </ul>
  * </p>
  *
@@ -28,5 +29,33 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocati
  * @model
  * @generated NOT
  */
-public interface EObjectFileLocation extends TextFileLocation, IEObjectFileLocation {
+public interface EObjectFileLocation extends FileLocation, IEObjectFileLocation {
+
+	/**
+	 * Returns the value of the '<em><b>XMI Content</b></em>' attribute. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>XMI Content</em>' attribute isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>XMI Content</em>' attribute.
+	 * @see #setXMIContent(String)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage#getEObjectFileLocation_XMIContent()
+	 * @model required="true"
+	 * @generated
+	 */
+	String getXMIContent();
+
+	/**
+	 * Sets the value of the '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent
+	 * <em>XMI Content</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>XMI Content</em>' attribute.
+	 * @see #getXMIContent()
+	 * @generated
+	 */
+	void setXMIContent(String value);
 } // EObjectFileLocation

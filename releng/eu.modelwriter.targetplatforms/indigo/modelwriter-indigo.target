@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="ModelWriter Indigo Target Platform" sequenceNumber="1479809006">
+<target name="ModelWriter Indigo Target Platform" sequenceNumber="1484644971">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.jena.feature.feature.group" version="0.0.0"/>
       <repository id="Apache-Jena" location="http://ghillairet.github.com/p2"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="com.google.guava" version="15.0.0.v201403281430"/>
+      <repository id="Orbit" location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.sdk" version="0.0.0"/>
@@ -14,6 +18,7 @@
       <unit id="org.junit" version="4.8.2.v4_8_2_v20110321-1705"/>
       <unit id="org.slf4j.api" version="0.0.0"/>
       <unit id="org.apache.xerces" version="0.0.0"/>
+      <unit id="org.eclipse.emf.compare" version="0.0.0"/>
       <repository location="http://download.eclipse.org/releases/indigo"/>
     </location>
   </locations>

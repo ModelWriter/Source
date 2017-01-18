@@ -117,6 +117,15 @@ public interface IdePackage extends EPackage {
 	int RESOURCE_LOCATION__TYPE = MappingPackage.LOCATION__TYPE;
 
 	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int RESOURCE_LOCATION__MARKED_AS_DELETED = MappingPackage.LOCATION__MARKED_AS_DELETED;
+
+	/**
 	 * The feature id for the '<em><b>Full Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
@@ -196,6 +205,15 @@ public interface IdePackage extends EPackage {
 	 * @ordered
 	 */
 	int FILE_LOCATION__TYPE = RESOURCE_LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_LOCATION__MARKED_AS_DELETED = RESOURCE_LOCATION__MARKED_AS_DELETED;
 
 	/**
 	 * The feature id for the '<em><b>Full Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -279,6 +297,15 @@ public interface IdePackage extends EPackage {
 	int TEXT_FILE_LOCATION__TYPE = FILE_LOCATION__TYPE;
 
 	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_FILE_LOCATION__MARKED_AS_DELETED = FILE_LOCATION__MARKED_AS_DELETED;
+
+	/**
 	 * The feature id for the '<em><b>Full Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
@@ -331,7 +358,7 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION__CONTENTS = TEXT_FILE_LOCATION__CONTENTS;
+	int EOBJECT_FILE_LOCATION__CONTENTS = FILE_LOCATION__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
@@ -340,7 +367,7 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION__SOURCE_LINKS = TEXT_FILE_LOCATION__SOURCE_LINKS;
+	int EOBJECT_FILE_LOCATION__SOURCE_LINKS = FILE_LOCATION__SOURCE_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
@@ -349,7 +376,7 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION__TARGET_LINKS = TEXT_FILE_LOCATION__TARGET_LINKS;
+	int EOBJECT_FILE_LOCATION__TARGET_LINKS = FILE_LOCATION__TARGET_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
@@ -358,7 +385,7 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION__CONTAINER = TEXT_FILE_LOCATION__CONTAINER;
+	int EOBJECT_FILE_LOCATION__CONTAINER = FILE_LOCATION__CONTAINER;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -366,7 +393,16 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION__TYPE = TEXT_FILE_LOCATION__TYPE;
+	int EOBJECT_FILE_LOCATION__TYPE = FILE_LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_FILE_LOCATION__MARKED_AS_DELETED = FILE_LOCATION__MARKED_AS_DELETED;
 
 	/**
 	 * The feature id for the '<em><b>Full Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -375,15 +411,16 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION__FULL_PATH = TEXT_FILE_LOCATION__FULL_PATH;
+	int EOBJECT_FILE_LOCATION__FULL_PATH = FILE_LOCATION__FULL_PATH;
 
 	/**
-	 * The feature id for the '<em><b>Text</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>XMI Content</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION__TEXT = TEXT_FILE_LOCATION__TEXT;
+	int EOBJECT_FILE_LOCATION__XMI_CONTENT = FILE_LOCATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>EObject File Location</em>' class. <!-- begin-user-doc
@@ -392,7 +429,7 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION_FEATURE_COUNT = TEXT_FILE_LOCATION_FEATURE_COUNT + 0;
+	int EOBJECT_FILE_LOCATION_FEATURE_COUNT = FILE_LOCATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>EObject File Location</em>' class. <!-- begin-user-doc --> <!--
@@ -401,7 +438,7 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_FILE_LOCATION_OPERATION_COUNT = TEXT_FILE_LOCATION_OPERATION_COUNT + 0;
+	int EOBJECT_FILE_LOCATION_OPERATION_COUNT = FILE_LOCATION_OPERATION_COUNT + 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.ide.ResourceLocation
@@ -467,6 +504,18 @@ public interface IdePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getEObjectFileLocation();
+
+	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent
+	 * <em>XMI Content</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>XMI Content</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent()
+	 * @see #getEObjectFileLocation()
+	 * @generated
+	 */
+	EAttribute getEObjectFileLocation_XMIContent();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc
@@ -550,6 +599,14 @@ public interface IdePackage extends EPackage {
 		 * @generated
 		 */
 		EClass EOBJECT_FILE_LOCATION = eINSTANCE.getEObjectFileLocation();
+
+		/**
+		 * The meta object literal for the '<em><b>XMI Content</b></em>' attribute feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute EOBJECT_FILE_LOCATION__XMI_CONTENT = eINSTANCE.getEObjectFileLocation_XMIContent();
 
 	}
 

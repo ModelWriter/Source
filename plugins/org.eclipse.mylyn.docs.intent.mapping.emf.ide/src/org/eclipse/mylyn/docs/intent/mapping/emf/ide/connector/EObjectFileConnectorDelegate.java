@@ -76,13 +76,9 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 		knownResrouces.put(location.getFullPath(), resource);
 		try {
 			EObjectConnector.updateEObjectContainer((IEObjectContainer)location, resource);
-		} catch (InstantiationException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-		} catch (IllegalAccessException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
-		} catch (ClassNotFoundException e) {
+			// CHECKSTYLE:OFF
+		} catch (Exception e) {
+			// CHECKSTYLE:ON
 			Activator.getDefault().getLog().log(
 					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 		}
