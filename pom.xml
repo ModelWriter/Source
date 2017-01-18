@@ -45,8 +45,6 @@
     <module>releng/eu.modelwriter.targetplatforms/mars</module>
     <module>releng/eu.modelwriter.targetplatforms/luna</module>
     <module>releng/eu.modelwriter.targetplatforms/kepler</module>
-    <module>releng/eu.modelwriter.targetplatforms/juno</module>
-    <module>releng/eu.modelwriter.targetplatforms/indigo</module>
 
     <module>features/eu.modelwriter.feature</module>
     <module>plugins/eu.modelwriter.ide.ui</module>
