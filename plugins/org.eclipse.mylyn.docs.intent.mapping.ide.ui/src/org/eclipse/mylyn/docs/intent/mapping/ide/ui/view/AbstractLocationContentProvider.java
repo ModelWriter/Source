@@ -26,6 +26,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILinkListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * Abstract {@link ILocation} {@link ITreeContentProvider}.
@@ -49,7 +50,7 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 		 */
 		public void sourceChanged(ILocation oldSource, ILocation newSource) {
 			update();
-			currentViewer.refresh();
+			refresh();
 		}
 
 		/**
@@ -60,7 +61,7 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 		 */
 		public void targetChanged(ILocation oldTarget, ILocation newTarget) {
 			update();
-			currentViewer.refresh();
+			refresh();
 		}
 
 		/**
@@ -71,7 +72,7 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 		public void reportAdded(org.eclipse.mylyn.docs.intent.mapping.base.IReport report) {
 			if (showReport) {
 				update();
-				currentViewer.refresh();
+				refresh();
 			}
 		}
 
@@ -83,9 +84,10 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 		public void reportRemoved(org.eclipse.mylyn.docs.intent.mapping.base.IReport report) {
 			if (showReport) {
 				update();
-				currentViewer.refresh();
+				refresh();
 			}
 		}
+
 	}
 
 	/**
@@ -137,18 +139,18 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 		@Override
 		public void containerChanged(ILocationContainer oldContainer, ILocationContainer newContainer) {
 			update();
-			currentViewer.refresh();
+			refresh();
 		}
 
 		@Override
 		public void markedAsDeletedChanged(boolean newValue) {
 			update();
-			currentViewer.refresh();
+			refresh();
 		}
 
 		public void changed(String reportDescription) {
 			update();
-			currentViewer.refresh();
+			refresh();
 		}
 
 	};
@@ -157,6 +159,24 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	 * The {@link Set} of listened {@link ILocation}.
 	 */
 	protected Set<ILocation> listenedLocations = new HashSet<ILocation>();
+
+	/**
+	 * Refresh the {@link Viewer}.
+	 */
+	private void refresh() {
+		if (!currentViewer.getControl().isDisposed()) {
+			if (Display.getDefault().getThread() == Thread.currentThread()) {
+				currentViewer.refresh();
+			} else {
+				Display.getDefault().asyncExec(new Runnable() {
+
+					public void run() {
+						currentViewer.refresh();
+					}
+				});
+			}
+		}
+	}
 
 	/**
 	 * {@inheritDoc}

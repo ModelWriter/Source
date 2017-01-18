@@ -21,6 +21,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReportListener;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * Provide {@link ILink linked} {@link ILocation} for a given {@link ILocation}.
@@ -36,12 +37,12 @@ public class SyncronizationLocationContentProvider extends AbstractLocationConte
 
 		public void descriptionChanged(String oldDescription, String newDescription) {
 			update();
-			currentViewer.refresh();
+			refresh();
 		}
 
 		public void linkChanged(ILink oldLink, ILink newLink) {
 			update();
-			currentViewer.refresh();
+			refresh();
 		}
 	};
 
@@ -52,13 +53,13 @@ public class SyncronizationLocationContentProvider extends AbstractLocationConte
 
 		public void reportAdded(IReport report) {
 			update();
-			currentViewer.refresh();
+			refresh();
 			report.addListener(reportListener);
 		}
 
 		public void reportRemoved(IReport report) {
 			update();
-			currentViewer.refresh();
+			refresh();
 			report.removeListener(reportListener);
 		}
 	};
@@ -69,6 +70,24 @@ public class SyncronizationLocationContentProvider extends AbstractLocationConte
 	public SyncronizationLocationContentProvider() {
 		super();
 		showReport = true;
+	}
+
+	/**
+	 * Refresh the {@link Viewer}.
+	 */
+	private void refresh() {
+		if (!currentViewer.getControl().isDisposed()) {
+			if (Display.getDefault().getThread() == Thread.currentThread()) {
+				currentViewer.refresh();
+			} else {
+				Display.getDefault().asyncExec(new Runnable() {
+
+					public void run() {
+						currentViewer.refresh();
+					}
+				});
+			}
+		}
 	}
 
 	@Override
