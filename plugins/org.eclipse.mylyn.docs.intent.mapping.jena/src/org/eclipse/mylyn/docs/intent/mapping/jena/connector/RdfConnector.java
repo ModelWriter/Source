@@ -11,13 +11,12 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.jena.connector;
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.Resource;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Resource;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;

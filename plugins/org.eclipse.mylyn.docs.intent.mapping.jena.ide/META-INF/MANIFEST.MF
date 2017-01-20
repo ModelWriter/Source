@@ -6,11 +6,11 @@ Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.docs.intent.mapping.jena,
  org.eclipse.mylyn.docs.intent.mapping,
- org.apache.jena,
+ org.apache.jena;bundle-version="3.1.1",
  org.eclipse.mylyn.docs.intent.mapping.ide,
  org.eclipse.core.resources,
  org.eclipse.core.contenttype
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.mylyn.docs.intent.mapping.jena.ide,
  org.eclipse.mylyn.docs.intent.mapping.jena.ide.connector
 Bundle-ActivationPolicy: lazy

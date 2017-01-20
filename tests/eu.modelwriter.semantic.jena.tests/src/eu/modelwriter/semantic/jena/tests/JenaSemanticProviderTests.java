@@ -9,18 +9,17 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package eu.modelwriter.semantic.tests;
-
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.vocabulary.RDFS;
+package eu.modelwriter.semantic.jena.tests;
 
 import eu.modelwriter.semantic.jena.JenaSemanticProvider;
 
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.vocabulary.RDFS;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

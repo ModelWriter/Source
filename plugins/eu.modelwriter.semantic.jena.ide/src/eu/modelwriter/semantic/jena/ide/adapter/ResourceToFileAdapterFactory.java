@@ -11,10 +11,9 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.jena.ide.adapter;
 
-import com.hp.hpl.jena.rdf.model.Resource;
-
 import eu.modelwriter.semantic.jena.ide.SemanticBaseListener;
 
+import org.apache.jena.rdf.model.Resource;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdapterFactory;
 

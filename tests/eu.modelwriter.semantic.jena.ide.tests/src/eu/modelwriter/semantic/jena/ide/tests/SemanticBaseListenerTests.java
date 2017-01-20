@@ -11,11 +11,6 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.jena.ide.tests;
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.vocabulary.VCARD;
-
 import eu.modelwriter.semantic.IBase;
 import eu.modelwriter.semantic.IBaseRegistryListener;
 import eu.modelwriter.semantic.SemanticUtils;
@@ -29,8 +24,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
+import org.apache.jena.vocabulary.VCARD;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;

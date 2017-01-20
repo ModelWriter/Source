@@ -99,6 +99,7 @@
     <module>tests/eu.modelwriter.semantic.jena.tests</module>
     <module>plugins/eu.modelwriter.semantic.jena.ide</module>
     <module>tests/eu.modelwriter.semantic.jena.ide.tests</module>
+    <module>plugins/org.apache.jena</module>
     
   </modules>	
   <build>

@@ -21,7 +21,7 @@
 
   <artifactId>eu.modelwriter.semantic.stanford-corenlp.tests</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>Semantic Tests</name>
+  <name>Semantic Stanford Tests</name>
 
   <packaging>eclipse-test-plugin</packaging>
   <build>

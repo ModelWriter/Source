@@ -11,8 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.jena.ide.connector;
 
-import com.hp.hpl.jena.rdf.model.Resource;
-
+import org.apache.jena.rdf.model.Resource;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.jena.connector.RdfConnector;
 

@@ -108,7 +108,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import feature="eu.modelwriter.semantic" version="0.0.0" match="greaterOrEqual"/>
       <import feature="eu.modelwriter.semantic.emf" version="0.0.0" match="greaterOrEqual"/>
       <import feature="eu.modelwriter.semantic.jena" version="0.0.0" match="greaterOrEqual"/>
-      <import feature="org.apache.jena.feature" version="0.0.0" match="greaterOrEqual"/>
       <import feature="eu.modelwriter" version="0.0.0" match="greaterOrEqual"/>
    </requires>
 

@@ -19,4 +19,6 @@ location Eclipse "http://download.eclipse.org/releases/luna" {
 	org.apache.xerces lazy
 
 	org.eclipse.emf.compare lazy
+	
+	org.eclipse.emf.cdo.feature.group lazy
 }

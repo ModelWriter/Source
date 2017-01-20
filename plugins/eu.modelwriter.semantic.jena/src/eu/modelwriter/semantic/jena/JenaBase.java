@@ -11,14 +11,14 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.jena;
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.NodeIterator;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-
 import eu.modelwriter.semantic.IBase;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.NodeIterator;
+import org.apache.jena.rdf.model.RDFNode;
 
 /**
  * Jena implementation of {@link IBase}.

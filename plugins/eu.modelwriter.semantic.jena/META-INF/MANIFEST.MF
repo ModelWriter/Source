@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Jena
 Bundle-SymbolicName: eu.modelwriter.semantic.jena
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.apache.jena;bundle-version="2.11.1",
- eu.modelwriter.semantic;bundle-version="1.0.0",
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: eu.modelwriter.semantic;bundle-version="1.0.0",
  org.slf4j.api,
- org.apache.xerces
+ org.apache.xerces,
+ org.apache.jena
 Export-Package: eu.modelwriter.semantic.jena

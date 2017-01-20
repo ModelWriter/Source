@@ -11,14 +11,13 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.jena.ide;
 
-import com.hp.hpl.jena.rdf.model.Model;
-
 import eu.modelwriter.semantic.SemanticUtils;
 import eu.modelwriter.semantic.jena.JenaBase;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.eclipse.core.resources.IContainer;

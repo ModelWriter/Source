@@ -11,14 +11,14 @@
  *******************************************************************************/
 package eu.modelwriter.semantic.jena;
 
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.vocabulary.RDFS;
-
 import eu.modelwriter.semantic.ISemanticProvider;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.vocabulary.RDFS;
 
 /**
  * <a href="https://jena.apache.org/">Apache Jena</a> {@link ISemanticProvider}.

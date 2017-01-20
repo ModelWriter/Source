@@ -3,8 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Tests
 Bundle-SymbolicName: eu.modelwriter.semantic.jena.tests
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.junit;bundle-version="4.0.0",
  eu.modelwriter.semantic;bundle-version="1.0.0",
- org.apache.jena;bundle-version="2.11.1",
+ org.apache.jena;bundle-version="3.1.1",
  eu.modelwriter.semantic.jena;bundle-version="1.0.0"
