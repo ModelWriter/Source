@@ -26,7 +26,9 @@ import org.eclipse.emf.compare.Match;
 import org.eclipse.emf.compare.ReferenceChange;
 import org.eclipse.emf.compare.scope.DefaultComparisonScope;
 import org.eclipse.emf.compare.scope.IComparisonScope;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -49,6 +51,11 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class EObjectConnector extends AbstractConnector {
+
+	/**
+	 * {@link MatchEngineFactoryImpl} {@link MatchEngineFactoryImpl#getRanking() ranking}.
+	 */
+	// private static final int MATCH_ENGINE_FACTORY_RANKING = 20;
 
 	/**
 	 * Locate a specific {@link Setting}.
@@ -290,9 +297,15 @@ public class EObjectConnector extends AbstractConnector {
 			oldResource.load(new ByteArrayInputStream(container.getXMIContent().getBytes(UTF_8)),
 					new HashMap<Object, Object>());
 			final IComparisonScope scope = new DefaultComparisonScope(oldResource, newResource, null);
-
+			// final IMatchEngine.Factory.Registry registry = MatchEngineFactoryRegistryImpl
+			// .createStandaloneInstance();
+			// final MatchEngineFactoryImpl matchEngineFactory = new
+			// MatchEngineFactoryImpl(UseIdentifiers.NEVER);
+			// matchEngineFactory.setRanking(MATCH_ENGINE_FACTORY_RANKING);
+			// registry.add(matchEngineFactory);
+			// final Comparison comparison = EMFCompare.builder().setMatchEngineFactoryRegistry(registry)
+			// .build().compare(scope);
 			final Comparison comparison = EMFCompare.builder().build().compare(scope);
-
 			for (ILocation child : new ArrayList<ILocation>(container.getContents())) {
 				if (child instanceof IEObjectLocation && !child.isMarkedAsDeleted()) {
 					final IEObjectLocation location = (IEObjectLocation)child;
@@ -312,37 +325,67 @@ public class EObjectConnector extends AbstractConnector {
 	 *            the {@link Comparison}
 	 * @param eObjectlocation
 	 *            the {@link IEObjectLocation}
-	 * @throws IllegalAccessException
-	 *             if the class or its nullary constructor is not accessible.
-	 * @throws InstantiationException
-	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
-	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
-	 *             other reason.
-	 * @throws ClassNotFoundException
-	 *             if the {@link Class} can't be found
+	 * @throws Exception
+	 *             if {@link org.eclipse.mylyn.docs.intent.mapping.Report Report} can't be created
 	 */
 	private static void updateEObjectLocation(Resource oldResource, Comparison comparison,
-			IEObjectLocation eObjectlocation) throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+			IEObjectLocation eObjectlocation) throws Exception {
 		final EObject oldObject = oldResource.getEObject(eObjectlocation.getURIFragment());
 		final Match match = comparison.getMatch(oldObject);
 
 		if (match.getRight() != null) {
 			final String newURIFragment = match.getRight().eResource().getURIFragment(match.getRight());
 			if (!match.getDifferences().isEmpty()) {
+				final EObject newObject = match.getRight();
 				if (eObjectlocation.getFeatureName() == null) {
-					// TODO add some info about the change
-					MappingUtils.markAsChanged(eObjectlocation, String.format("%s has been changed to %s.",
-							eObjectlocation.getURIFragment(), newURIFragment));
+					MappingUtils.markAsChanged(eObjectlocation, getMatchMessage(oldObject, newObject, match));
 				} else {
-					updateLoccationSetting(comparison, eObjectlocation, oldObject, match);
+					updateLoccationSetting(comparison, eObjectlocation, oldObject, newObject, match);
 				}
 			}
 			eObjectlocation.setURIFragment(newURIFragment);
 		} else {
-			MappingUtils.markAsDeletedOrDelete(eObjectlocation, String.format("%s has been deleted.",
-					eObjectlocation.getURIFragment()));
+			MappingUtils.markAsDeletedOrDelete(eObjectlocation, String.format("%s at %s has been deleted.",
+					getValueString(oldObject), eObjectlocation.getURIFragment()));
 		}
+	}
+
+	/**
+	 * Gets a human readable messages for the given {@link Match}.
+	 * 
+	 * @param oldObject
+	 *            the old {@link EObject}
+	 * @param newObject
+	 *            the new {@link EObject}
+	 * @param match
+	 *            the {@link Match}
+	 * @return a human readable messages for the given {@link Match}
+	 */
+	private static String getMatchMessage(EObject oldObject, EObject newObject, Match match) {
+		final StringBuilder res = new StringBuilder();
+
+		for (Diff diff : match.getDifferences()) {
+			if (diff instanceof AttributeChange) {
+				res.append("Attribure ");
+				final EAttribute attribute = ((AttributeChange)diff).getAttribute();
+				res.append(attribute.getName());
+				res.append(" was ");
+				res.append(getValueString(oldObject.eGet(attribute)));
+				res.append(" changed to ");
+				res.append(getValueString(newObject.eGet(attribute)));
+			} else if (diff instanceof ReferenceChange) {
+				res.append("Reference ");
+				final EReference reference = ((ReferenceChange)diff).getReference();
+				res.append(reference.getName());
+				res.append(" was ");
+				res.append(getValueString(oldObject.eGet(reference)));
+				res.append(" changed to ");
+				res.append(getValueString(newObject.eGet(reference)));
+			}
+			res.append(".\n");
+		}
+
+		return res.substring(0, res.length() - 1);
 	}
 
 	/**
@@ -354,6 +397,8 @@ public class EObjectConnector extends AbstractConnector {
 	 *            the {@link IEObjectLocation} to update
 	 * @param oldObject
 	 *            the old holding {@link EObject}
+	 * @param newObject
+	 *            the new holding {@link EObject}
 	 * @param match
 	 *            the {@link Match}
 	 * @throws IllegalAccessException
@@ -366,9 +411,8 @@ public class EObjectConnector extends AbstractConnector {
 	 *             if the {@link Class} can't be found
 	 */
 	private static void updateLoccationSetting(Comparison comparison, IEObjectLocation eObjectlocation,
-			final EObject oldObject, final Match match) throws InstantiationException,
+			final EObject oldObject, EObject newObject, final Match match) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException {
-		final EObject newObject = match.getRight();
 		final EStructuralFeature feature = oldObject.eClass().getEStructuralFeature(
 				eObjectlocation.getFeatureName());
 		final boolean hasDiffForFeature = hasDiffForFeature(match, feature);
@@ -386,17 +430,40 @@ public class EObjectConnector extends AbstractConnector {
 			}
 			if (eObjectlocation.getIndex() == -1) {
 				MappingUtils.markAsDeletedOrDelete(eObjectlocation, String.format(
-						"%s feature %s value %s has been changed deleted.", eObjectlocation.getURIFragment(),
-						eObjectlocation.getFeatureName(), oldValue));
+						"%s (%s) value %s has been removed from feature %s.", getLabel(oldObject),
+						eObjectlocation.getURIFragment(), getValueString(oldValue), eObjectlocation
+								.getFeatureName()));
 			} else if (!oldValue.equals(newValue)) {
 				MappingUtils.markAsChanged(eObjectlocation, String.format(
-						"%s feature %s value %s has been changed to %s.", eObjectlocation.getURIFragment(),
-						eObjectlocation.getFeatureName(), oldValue, newValue));
+						"%s (%s) feature %s value %s has been changed to %s.", getLabel(oldObject),
+						eObjectlocation.getURIFragment(), eObjectlocation.getFeatureName(),
+						getValueString(oldValue), getValueString(newValue)));
 			}
 		} else {
 			// there is a diff for the holding EObject but not the located setting
 			// nothing to do here
 		}
+	}
+
+	/**
+	 * Gets the string representation of the given value.
+	 * 
+	 * @param value
+	 *            the value
+	 * @return the string representation of the given value
+	 */
+	private static String getValueString(Object value) {
+		final String res;
+
+		if (value instanceof EObject) {
+			res = getLabel((EObject)value);
+		} else if (value == null) {
+			res = "null";
+		} else {
+			res = value.toString();
+		}
+
+		return res;
 	}
 
 	/**
@@ -464,9 +531,10 @@ public class EObjectConnector extends AbstractConnector {
 		final Object element = getElement(location);
 		if (element instanceof Setting) {
 			final Setting setting = (Setting)element;
-			res = getName(setting.getEObject(), setting.getEStructuralFeature());
+			res = getName(setting.getEObject(), setting.getEStructuralFeature(), ((IEObjectLocation)location)
+					.getIndex());
 		} else if (element instanceof EObject) {
-			res = getName((EObject)element, null);
+			res = getName((EObject)element, null, 0);
 		} else {
 			// the located element has been deleted...
 			res = null;
@@ -482,23 +550,46 @@ public class EObjectConnector extends AbstractConnector {
 	 *            the {@link EObject}
 	 * @param feature
 	 *            the {@link EStructuralFeature} can be <code>null</code>
+	 * @param index
+	 *            the index in the feature
 	 * @return the name for the given {@link EObject} and {@link EStructuralFeature}
 	 */
-	private String getName(EObject eObj, EStructuralFeature feature) {
+	private String getName(EObject eObj, EStructuralFeature feature, int index) {
 		final StringBuilder res = new StringBuilder();
 
-		final IItemLabelProvider itemProvider = (IItemLabelProvider)FACTORY.adapt(eObj,
-				IItemLabelProvider.class);
-		res.append(itemProvider.getText(eObj));
+		res.append(getLabel(eObj));
 		if (feature != null) {
 			res.append(" ");
 			res.append(feature.getEContainingClass().getName());
 			res.append(".");
 			res.append(feature.getName());
-
+			res.append("[");
+			res.append(index);
+			res.append("]");
 		}
 
 		return res.toString();
+	}
+
+	/**
+	 * Gets the label of the given {@link EObject}.
+	 * 
+	 * @param eObj
+	 *            the {@link EObject}
+	 * @return the label of the given {@link EObject}
+	 */
+	private static String getLabel(EObject eObj) {
+		final String res;
+		final IItemLabelProvider itemProvider = (IItemLabelProvider)FACTORY.adapt(eObj,
+				IItemLabelProvider.class);
+
+		if (itemProvider == null) {
+			res = eObj.toString();
+		} else {
+			res = itemProvider.getText(eObj);
+		}
+
+		return res;
 	}
 
 	/**
@@ -512,11 +603,11 @@ public class EObjectConnector extends AbstractConnector {
 
 		if (element instanceof EObject) {
 			final EObject eObj = (EObject)element;
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, getName(eObj, null));
+			res = new ObjectLocationDescriptor(this, containerDescriptor, element, getName(eObj, null, 0));
 		} else if (element instanceof Setting) {
 			final EObject eObj = ((Setting)element).getEObject();
 			final EStructuralFeature feature = ((Setting)element).getEStructuralFeature();
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, getName(eObj, feature));
+			res = new ObjectLocationDescriptor(this, containerDescriptor, element, getName(eObj, feature, 0));
 		} else {
 			res = null;
 		}
