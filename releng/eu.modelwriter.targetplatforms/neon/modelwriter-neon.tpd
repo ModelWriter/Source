@@ -19,4 +19,6 @@ location "http://download.eclipse.org/releases/neon" {
 	org.apache.xerces lazy
 	
 	org.eclipse.emf.compare lazy
+	
+	org.eclipse.sirius.runtime.feature.group lazy
 }

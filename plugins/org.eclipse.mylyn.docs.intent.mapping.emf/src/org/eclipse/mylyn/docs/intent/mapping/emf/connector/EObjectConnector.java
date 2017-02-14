@@ -601,13 +601,14 @@ public class EObjectConnector extends AbstractConnector {
 	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
 		final ILocationDescriptor res;
 
-		if (element instanceof EObject) {
-			final EObject eObj = (EObject)element;
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, getName(eObj, null, 0));
-		} else if (element instanceof Setting) {
-			final EObject eObj = ((Setting)element).getEObject();
-			final EStructuralFeature feature = ((Setting)element).getEStructuralFeature();
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, getName(eObj, feature, 0));
+		final Object adapted = adapt(element);
+		if (adapted instanceof EObject) {
+			final EObject eObj = (EObject)adapted;
+			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, getName(eObj, null, 0));
+		} else if (adapted instanceof Setting) {
+			final EObject eObj = ((Setting)adapted).getEObject();
+			final EStructuralFeature feature = ((Setting)adapted).getEStructuralFeature();
+			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, getName(eObj, feature, 0));
 		} else {
 			res = null;
 		}

@@ -34,6 +34,7 @@ import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBa
 import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextConnectorParametrizedTests;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.TextRegion;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -54,6 +55,7 @@ public class MarkerToTextLocationDesciptorTests {
 	 */
 	private static final MarkerToLocationDescriptorAdapterFactory ADAPTER = new MarkerToLocationDescriptorAdapterFactory();
 
+	@Ignore
 	@Test
 	public void getAdapter() throws CoreException, IOException {
 		final IProject project = createProject();

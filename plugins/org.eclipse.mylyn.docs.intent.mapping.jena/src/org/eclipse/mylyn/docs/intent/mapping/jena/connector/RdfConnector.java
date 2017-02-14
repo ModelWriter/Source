@@ -129,8 +129,9 @@ public class RdfConnector extends AbstractConnector {
 	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
 		final ILocationDescriptor res;
 
-		if (element instanceof Resource) {
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, ((Resource)element)
+		final Object adapted = adapt(element);
+		if (adapted instanceof Resource) {
+			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, ((Resource)adapted)
 					.getURI());
 		} else {
 			res = null;

@@ -11,7 +11,6 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.tests;
 
-import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -190,9 +189,9 @@ public class IdeMappingUtilsTests {
 		IdeMappingUtils.adapt(null, null);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test
 	public void adaptNullClass() {
-		IdeMappingUtils.adapt(null, ILocationDescriptor.class);
+		assertNull(IdeMappingUtils.adapt(null, ILocationDescriptor.class));
 	}
 
 	@Test

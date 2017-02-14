@@ -216,8 +216,10 @@ public final class IdeMappingUtils {
 			} else {
 				res = (T)Platform.getAdapterManager().getAdapter(element, cls);
 			}
-		} else {
+		} else if (element != null) {
 			res = (T)Platform.getAdapterManager().getAdapter(element, cls);
+		} else {
+			res = null;
 		}
 
 		return res;

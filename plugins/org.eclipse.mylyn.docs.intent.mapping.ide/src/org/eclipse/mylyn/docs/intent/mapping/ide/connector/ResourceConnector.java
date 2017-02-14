@@ -216,8 +216,9 @@ public class ResourceConnector extends AbstractConnector {
 	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
 		final ILocationDescriptor res;
 
-		if (element instanceof IResource) {
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, ((IResource)element)
+		final Object adapted = adapt(element);
+		if (adapted instanceof IResource) {
+			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, ((IResource)adapted)
 					.getFullPath().toString());
 			resourceLocationListener.addKnownDescriptor(res);
 		} else {

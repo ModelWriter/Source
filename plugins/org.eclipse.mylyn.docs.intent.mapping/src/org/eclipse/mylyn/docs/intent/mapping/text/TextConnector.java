@@ -158,8 +158,9 @@ public class TextConnector extends AbstractConnector {
 	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
 		final ILocationDescriptor res;
 
-		if (element instanceof TextRegion) {
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, ((TextRegion)element)
+		final Object adapted = adapt(element);
+		if (adapted instanceof TextRegion) {
+			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, ((TextRegion)adapted)
 					.getText());
 		} else {
 			res = null;

@@ -11,7 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector;
 
-import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 
@@ -26,11 +27,16 @@ public class IdeEObjectConnector extends EObjectConnector {
 	protected Object adapt(Object element) {
 		final Object res;
 
-		final IResource adaptedElement = IdeMappingUtils.adapt(element, IResource.class);
-		if (adaptedElement != null) {
-			res = adaptedElement;
+		final EObject eObject = IdeMappingUtils.adapt(element, EObject.class);
+		if (eObject != null) {
+			res = eObject;
 		} else {
-			res = super.adapt(element);
+			final Setting setting = IdeMappingUtils.adapt(element, Setting.class);
+			if (setting != null) {
+				res = setting;
+			} else {
+				res = super.adapt(element);
+			}
 		}
 
 		return res;

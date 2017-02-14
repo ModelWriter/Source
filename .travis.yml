@@ -4,7 +4,6 @@ env:
   - DISPLAY=:99.0
   - MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx2048m -Xms1024m"
   matrix:
-  - PROFILE=platform-kepler
   - PROFILE=platform-luna
   - PROFILE=platform-mars
   - PROFILE=platform-neon,product,updatesites

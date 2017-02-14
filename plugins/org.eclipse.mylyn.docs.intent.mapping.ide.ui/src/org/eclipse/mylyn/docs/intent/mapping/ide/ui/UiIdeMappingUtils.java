@@ -101,7 +101,7 @@ public final class UiIdeMappingUtils {
 			if (path != null) {
 				file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
 			} else {
-				file = null;
+				file = IdeMappingUtils.adapt(editorInput, IFile.class);
 			}
 		}
 		return file;
