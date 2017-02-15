@@ -59,6 +59,14 @@
               <injection>
                 <site>file://${project.basedir}/../../releng/eu.modelwriter.gpl.updatesite/target/repository</site>
               </injection>
+              <injection>
+                <site>http://download.eclipse.org/releases/neon</site>
+                <features>
+                   <feature>org.eclipse.sirius.runtime.feature.group</feature>
+                   <feature>org.eclipse.sirius.runtime.ide.ui.feature.group</feature>
+                   <feature>org.eclipse.emf.ecoretools.design.feature.group</feature>
+                </features>      
+              </injection>
             </injections>
           </aut>
         </configuration>
