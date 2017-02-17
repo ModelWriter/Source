@@ -82,7 +82,7 @@ public class ResourceLocationListener implements IResourceChangeListener {
 	 */
 	private void scan(IContainer container) {
 		IResource[] members;
-		final IBase base = IdeMappingUtils.getCurentBase();
+		final IBase base = IdeMappingUtils.getCurrentBase();
 		if (base != null) {
 			try {
 				members = container.members();
@@ -103,7 +103,7 @@ public class ResourceLocationListener implements IResourceChangeListener {
 	 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
 	 */
 	public void resourceChanged(IResourceChangeEvent event) {
-		final IBase base = IdeMappingUtils.getCurentBase();
+		final IBase base = IdeMappingUtils.getCurrentBase();
 		if (event.getDelta() != null && base != null) {
 			walkDelta(event.getDelta(), new HashMap<IPath, IResource>(), base);
 		}

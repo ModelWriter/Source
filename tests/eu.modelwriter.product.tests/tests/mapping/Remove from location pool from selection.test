@@ -7,7 +7,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _NqlbgKG1Eea__8ecebJRnQ
 Runtime-Version: 2.1.0.201606221726
-Save-Time: 2/14/17 5:07 PM
+Save-Time: 2/15/17 3:53 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -26,12 +26,12 @@ with [get-view Navigator | get-tree] {
 with [get-editor "test2.txt" | get-text-viewer] {
     set-caret-pos 1 6
     select-range 1 5 1 6
-    get-menu "Mapping/Add Location to Pool" | click
+    get-menu "Mapping/Add location to Pool" | click
 }
 with [get-editor "test2.txt" | get-text-viewer] {
     set-caret-pos 1 6
     select-range 1 5 1 6
-    get-menu "Mapping/Remove Location from  Pool" | click
+    get-menu "Mapping/Remove location from  Pool" | click
 }
 get-view "Location Pool" | get-tree | get-property itemCount | equals 0 | verify-true
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

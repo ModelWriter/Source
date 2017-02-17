@@ -20,7 +20,5 @@ location Eclipse "http://download.eclipse.org/releases/luna" {
 
 	org.eclipse.emf.compare lazy
 	
-	org.eclipse.emf.cdo.feature.group lazy
-	
 	org.eclipse.sirius.runtime.feature.group lazy
 }

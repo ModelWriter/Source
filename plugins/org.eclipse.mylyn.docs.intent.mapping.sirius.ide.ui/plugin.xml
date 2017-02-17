@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.mylyn.docs.intent.mapping.ide.ui.menu?after=additions">
+         <command
+               commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsSource"
+               label="Link semantic element location as source"
+               style="push"
+               tooltip="Links the current location as source with activated locations from the pool">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.emf.ecore.EObject">
+                        <and>
+                           <instanceof
+                                 value="org.eclipse.sirius.viewpoint.DSemanticDecorator">
+                           </instanceof>
+                           <test
+                                 forcePluginActivation="true"
+                                 property="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.semanticElementIsLocation">
+                           </test>
+                        </and>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsTarget"
+               label="Link semantic element location as target"
+               style="push"
+               tooltip="Links the current location as target with activated locations from the pool">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.emf.ecore.EObject">
+                        <and>
+                           <instanceof
+                                 value="org.eclipse.sirius.viewpoint.DSemanticDecorator">
+                           </instanceof>
+                           <test
+                                 forcePluginActivation="true"
+                                 property="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.semanticElementIsLocation">
+                           </test>
+                        </and>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.addSemanticElementToLocationsPool"
+               label="Add semantic element location to Pool"
+               style="push"
+               tooltip="Adds the selected location to locations pool">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.emf.ecore.EObject">
+                        <and>
+                           <instanceof
+                                 value="org.eclipse.sirius.viewpoint.DSemanticDecorator">
+                           </instanceof>
+                           <test
+                                 forcePluginActivation="true"
+                                 property="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.semanticElementIsLocation">
+                           </test>
+                        </and>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromLocationsPool"
+               label="Remove semantic element location from  Pool"
+               style="push"
+               tooltip="Removes the selected location from the locations pool">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.emf.ecore.EObject">
+                        <and>
+                           <instanceof
+                                 value="org.eclipse.sirius.viewpoint.DSemanticDecorator">
+                           </instanceof>
+                           <test
+                                 forcePluginActivation="true"
+                                 property="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.semanticElementIsLocation">
+                           </test>
+                        </and>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.AddSemanticElementToLocationsPoolHandler"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.addSemanticElementToLocationsPool">
+      </handler>
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.RemoveSemanticElementFromLocationsPoolHandler"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromLocationsPool">
+      </handler>
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.LinkSemanticElementAsSource"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsSource">
+      </handler>
+      <handler
+            class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.LinkSemanticElementAsTarget"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsTarget">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="Adds the selected semantic element location to locations pool"
+            id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.addSemanticElementToLocationsPool"
+            name="Add semantic element location to Pool">
+      </command>
+      <command
+            description="Removes the selected semantic element location from the locations pool"
+            id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromLocationsPool"
+            name="Remove semantic element location from  Pool">
+      </command>
+      <command
+            description="Links the selected semantic element location as source with activated locations from the pool"
+            id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsSource"
+            name="Link semantic element as source">
+      </command>
+      <command
+            description="Links the selected semantic element location as target with activated locations from the pool"
+            id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsTarget"
+            name="Link semantic element as target">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <file-association
+            content-type="org.eclipse.emf.ecore.xmi"
+            file-extensions="aird">
+      </file-association>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.SemanticElementIsLocationPropertyTester"
+            id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.semanticElementIsLocation"
+            namespace="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui"
+            properties="semanticElementIsLocation"
+            type="java.lang.Object">
+      </propertyTester>
+   </extension>
+</plugin>

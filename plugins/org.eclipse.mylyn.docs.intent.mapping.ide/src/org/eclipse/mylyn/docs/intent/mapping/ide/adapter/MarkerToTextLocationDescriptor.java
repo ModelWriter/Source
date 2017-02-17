@@ -40,7 +40,7 @@ public class MarkerToTextLocationDescriptor implements IMarkerToLocationDescript
 	public ILocationDescriptor getAdapter(IMarker marker) {
 		ILocationDescriptor res = null;
 
-		final IBase currentBase = IdeMappingUtils.getCurentBase();
+		final IBase currentBase = IdeMappingUtils.getCurrentBase();
 		if (currentBase != null) {
 			try {
 				if (marker.isSubtypeOf(IMarker.TEXT)) {

@@ -79,6 +79,13 @@
                type="org.eclipse.core.resources.IMarker">
          </adapter>
       </factory>
+      <factory
+            adaptableType="org.eclipse.emf.ecore.EObject"
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.EObjectToFileAdapterFactory">
+         <adapter
+               type="org.eclipse.core.resources.IFile">
+         </adapter>
+      </factory>
    </extension>
    <extension
          point="org.eclipse.core.contenttype.contentTypes">

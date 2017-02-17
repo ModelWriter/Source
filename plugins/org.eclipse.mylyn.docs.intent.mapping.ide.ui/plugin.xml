@@ -88,7 +88,7 @@
             </command>
             <command
                   commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool"
-                  label="Add Location to Pool"
+                  label="Add location to Pool"
                   style="push"
                   tooltip="Adds the selected location to locations pool">
                <visibleWhen
@@ -110,7 +110,7 @@
             </command>
             <command
                   commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool"
-                  label="Remove Location from  Pool"
+                  label="Remove location from  Pool"
                   style="push"
                   tooltip="Removes the selected location from the locations pool">
                <visibleWhen
@@ -253,12 +253,12 @@
             name="Remove Location from  Pool">
       </command>
       <command
-            description="Links the current location as source with activated locations from the pool"
+            description="Links the selected location as source with activated locations from the pool"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"
             name="Link as source">
       </command>
       <command
-            description="Links the current location as target with activated locations from the pool"
+            description="Links the selected location as target with activated locations from the pool"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
             name="Link as target">
       </command>

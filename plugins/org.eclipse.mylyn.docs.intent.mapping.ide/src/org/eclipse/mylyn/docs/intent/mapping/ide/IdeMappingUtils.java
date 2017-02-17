@@ -126,7 +126,7 @@ public final class IdeMappingUtils {
 	}
 
 	/**
-	 * Listener for {@link IdeMappingUtils#getCurentBase() current base}
+	 * Listener for {@link IdeMappingUtils#getCurrentBase() current base}
 	 * {@link IdeMappingUtils#setCurrentBase(IBase) change}.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
@@ -134,7 +134,7 @@ public final class IdeMappingUtils {
 	public interface ICurrentBaseListener {
 
 		/**
-		 * Notifies that the {@link IdeMappingUtils#getCurentBase() current base} has been
+		 * Notifies that the {@link IdeMappingUtils#getCurrentBase() current base} has been
 		 * {@link IdeMappingUtils#setCurrentBase(IBase) changed}.
 		 * 
 		 * @param oldBase
@@ -246,7 +246,7 @@ public final class IdeMappingUtils {
 	 * 
 	 * @return the current {@link IBase}
 	 */
-	public static IBase getCurentBase() {
+	public static IBase getCurrentBase() {
 		return currentBase;
 	}
 

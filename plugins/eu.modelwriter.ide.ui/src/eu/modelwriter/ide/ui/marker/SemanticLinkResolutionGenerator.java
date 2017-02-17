@@ -104,7 +104,7 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 		 * @see org.eclipse.ui.IMarkerResolution#run(org.eclipse.core.resources.IMarker)
 		 */
 		public void run(IMarker marker) {
-			final IBase base = IdeMappingUtils.getCurentBase();
+			final IBase base = IdeMappingUtils.getCurrentBase();
 
 			try {
 				final ILink link = base.getFactory().createElement(ILink.class);
@@ -160,7 +160,7 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 						.getAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE);
 				final IFile file = IdeMappingUtils.adapt(concept, IFile.class);
 				if (file != null) {
-					final IBase base = IdeMappingUtils.getCurentBase();
+					final IBase base = IdeMappingUtils.getCurrentBase();
 					final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
 							.getLocationDescriptor(null, file);
 					final ILocationDescriptor targetDescriptor = MappingUtils.getConnectorRegistry()

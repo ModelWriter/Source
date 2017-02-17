@@ -207,7 +207,7 @@ public class ResourceLocationListenerTests {
 	public void resourceChangedAddProject() {
 		try {
 			final TestSetFullPathResourceLocation location = new TestSetFullPathResourceLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IProject project = createProject(location);
 
 			assertNotNull(project);
@@ -240,7 +240,7 @@ public class ResourceLocationListenerTests {
 		try {
 			final IProject project = createProject();
 			final TestSetFullPathTextFileLocation location = new TestSetFullPathTextFileLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IFile file = createFile(project, location);
 
 			assertNotNull(file);
@@ -272,7 +272,7 @@ public class ResourceLocationListenerTests {
 	public void resourceChangedRemoveProject() {
 		try {
 			final TestSetFullPathResourceLocation location = new TestSetFullPathResourceLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IProject project = createProject(location);
 
 			assertNotNull(project);
@@ -307,7 +307,7 @@ public class ResourceLocationListenerTests {
 		try {
 			final IProject project = createProject();
 			final TestSetFullPathTextFileLocation location = new TestSetFullPathTextFileLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IFile file = createFile(project, location);
 
 			assertNotNull(file);
@@ -340,7 +340,7 @@ public class ResourceLocationListenerTests {
 	public void resourceChangedMoveProject() {
 		try {
 			final TestSetFullPathResourceLocation location = new TestSetFullPathResourceLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IProject project = createProject(location);
 
 			assertNotNull(project);
@@ -380,7 +380,7 @@ public class ResourceLocationListenerTests {
 		try {
 			final IProject project = createProject();
 			final TestSetFullPathTextFileLocation location = new TestSetFullPathTextFileLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IFile file = createFile(project, location);
 
 			assertNotNull(file);
@@ -419,7 +419,7 @@ public class ResourceLocationListenerTests {
 	public void resourceChangedOpenProject() {
 		try {
 			final TestSetFullPathResourceLocation location = new TestSetFullPathResourceLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IProject project = createProject(location);
 
 			assertNotNull(project);
@@ -460,7 +460,7 @@ public class ResourceLocationListenerTests {
 		try {
 			final IProject project = createProject();
 			final TestSetFullPathTextFileLocation location = new TestSetFullPathTextFileLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IFile file = createFile(project, location);
 
 			assertNotNull(file);
@@ -497,7 +497,7 @@ public class ResourceLocationListenerTests {
 	public void resourceChangedCloseProject() {
 		try {
 			final TestSetFullPathResourceLocation location = new TestSetFullPathResourceLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IProject project = createProject(location);
 
 			assertNotNull(project);
@@ -532,7 +532,7 @@ public class ResourceLocationListenerTests {
 		try {
 			final IProject project = createProject();
 			final TestSetFullPathTextFileLocation location = new TestSetFullPathTextFileLocation();
-			IdeMappingUtils.getCurentBase().getContents().add(location);
+			IdeMappingUtils.getCurrentBase().getContents().add(location);
 			final IFile file = createFile(project, location);
 
 			assertNotNull(file);

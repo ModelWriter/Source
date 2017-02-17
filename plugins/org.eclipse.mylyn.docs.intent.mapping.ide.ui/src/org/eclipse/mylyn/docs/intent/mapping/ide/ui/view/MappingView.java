@@ -91,7 +91,7 @@ public class MappingView extends ViewPart {
 		 * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)
 		 */
 		public void selectionChanged(SelectionChangedEvent event) {
-			final IBase oldBase = IdeMappingUtils.getCurentBase();
+			final IBase oldBase = IdeMappingUtils.getCurrentBase();
 			final IBase newBase = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
 			if (oldBase != null) {
 				for (ILocation child : oldBase.getContents()) {
@@ -350,9 +350,10 @@ public class MappingView extends ViewPart {
 		public void setInput(final IEditorPart editorPart) {
 			final IEditorInput input = editorPart.getEditorInput();
 			final IFile file = UiIdeMappingUtils.getFile(input);
-			final IBase base = IdeMappingUtils.getCurentBase();
+			final IBase base = IdeMappingUtils.getCurrentBase();
 			if (base != null) {
 				try {
+					// TODO get the location and add a listener to be notified when the location is created
 					final ILocation location = MappingUtils.getConnectorRegistry().getOrCreateLocation(base,
 							file);
 					for (Viewer viewer : viewers) {
@@ -629,7 +630,7 @@ public class MappingView extends ViewPart {
 		selectionListener = new ISelectionListener() {
 
 			public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-				final IBase currentBase = IdeMappingUtils.getCurentBase();
+				final IBase currentBase = IdeMappingUtils.getCurrentBase();
 				if (part != MappingView.this && currentBase != null) {
 					final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selection,
 							ILocationDescriptor.class);
@@ -892,7 +893,7 @@ public class MappingView extends ViewPart {
 		}
 		PlatformUI.getWorkbench().removeWindowListener(editorPartListener);
 
-		final IBase oldBase = IdeMappingUtils.getCurentBase();
+		final IBase oldBase = IdeMappingUtils.getCurrentBase();
 		if (oldBase != null) {
 			try {
 				oldBase.save();
@@ -963,7 +964,7 @@ public class MappingView extends ViewPart {
 
 		if (editorInput != null) {
 			final IFile file = UiIdeMappingUtils.getFile(editorInput);
-			final IBase currentBase = IdeMappingUtils.getCurentBase();
+			final IBase currentBase = IdeMappingUtils.getCurrentBase();
 			if (file != null && currentBase != null) {
 				try {
 					file.deleteMarkers(ILocationMarker.LOCATION_ID, true, IResource.DEPTH_INFINITE);
@@ -1039,7 +1040,7 @@ public class MappingView extends ViewPart {
 
 		if (editorInput != null) {
 			final IFile file = UiIdeMappingUtils.getFile(editorInput);
-			final IBase currentBase = IdeMappingUtils.getCurentBase();
+			final IBase currentBase = IdeMappingUtils.getCurrentBase();
 			if (file != null && currentBase != null) {
 				final ILocation fileLocation = MappingUtils.getConnectorRegistry().getLocation(currentBase,
 						file);

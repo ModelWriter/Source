@@ -58,7 +58,7 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 				if (firstElement instanceof ILocation) {
 					res = (ILocation)firstElement;
 				} else {
-					final IBase currentBase = IdeMappingUtils.getCurentBase();
+					final IBase currentBase = IdeMappingUtils.getCurrentBase();
 					if (currentBase != null) {
 						res = selectionToLocationDescriptor((IStructuredSelection)adaptableObject);
 					} else {
@@ -66,14 +66,14 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 					}
 				}
 			} else if (adaptableObject instanceof ITextSelection) {
-				final IBase currentBase = IdeMappingUtils.getCurentBase();
+				final IBase currentBase = IdeMappingUtils.getCurrentBase();
 				if (currentBase != null) {
 					res = textSelectionToLocationDescriptor((ITextSelection)adaptableObject);
 				} else {
 					res = null;
 				}
 			} else {
-				final IBase currentBase = IdeMappingUtils.getCurentBase();
+				final IBase currentBase = IdeMappingUtils.getCurrentBase();
 				if (currentBase != null) {
 					res = objectToLocationDescriptor(adaptableObject);
 				} else {
@@ -101,7 +101,7 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 			if (object instanceof ILocation) {
 				res = object;
 			} else {
-				final IBase base = IdeMappingUtils.getCurentBase();
+				final IBase base = IdeMappingUtils.getCurrentBase();
 				if (object instanceof ILocationDescriptor && ((ILocationDescriptor)object).exists(base)) {
 					res = ((ILocationDescriptor)object).getLocation(base);
 				} else {
@@ -150,9 +150,19 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 		final ILocationDescriptor res;
 		final IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getActivePage().getActivePart();
-		if (activePart instanceof IEditorPart) {
-			final IEditorInput input = ((IEditorPart)activePart).getEditorInput();
-			final IFile file = UiIdeMappingUtils.getFile(input);
+		final IFile file;
+		final IFile adaptedFile = IdeMappingUtils.adapt(element, IFile.class);
+		if (adaptedFile != null) {
+			file = adaptedFile;
+		} else {
+			if (activePart instanceof IEditorPart) {
+				final IEditorInput input = ((IEditorPart)activePart).getEditorInput();
+				file = UiIdeMappingUtils.getFile(input);
+			} else {
+				file = null;
+			}
+		}
+		if (file != null) {
 			// TODO we implicitly decide to have a flat structure of location here... we
 			// probably don't want to do that
 			final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
@@ -161,6 +171,7 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 		} else {
 			res = null;
 		}
+
 		return res;
 	}
 

@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mapping Sirius Integartion
+Bundle-SymbolicName: org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.core.expressions,
+ org.eclipse.core.contenttype,
+ org.eclipse.emf.ecore,
+ org.eclipse.sirius,
+ org.eclipse.mylyn.docs.intent.mapping.ide.ui,
+ org.eclipse.mylyn.docs.intent.mapping.ide,
+ org.eclipse.mylyn.docs.intent.mapping
+Export-Package: org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command

@@ -65,7 +65,8 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 		if (selection instanceof IStructuredSelection) {
 
 			for (Object selected : ((IStructuredSelection)selection).toList()) {
-				final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selected,
+				final Object element = getElementFromSelectedObject(selected);
+				final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(element,
 						ILocationDescriptor.class);
 				if (locationDescriptor != null) {
 					locationDescriptors.add(locationDescriptor);
@@ -87,6 +88,17 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 		return null;
 	}
 
+	/**
+	 * Gets the element to adapt to {@link ILocationDescriptor} from the given selected {@link Object}.
+	 * 
+	 * @param selected
+	 *            the selected {@link Object}
+	 * @return the element to adapt to {@link ILocationDescriptor} from the given selected {@link Object}
+	 */
+	protected Object getElementFromSelectedObject(Object selected) {
+		return selected;
+	}
+
 	@Override
 	public void setEnabled(Object evaluationContext) {
 		super.setEnabled(evaluationContext);
@@ -97,7 +109,8 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 		if (selection instanceof IStructuredSelection) {
 			enable = false;
 			for (Object selected : ((IStructuredSelection)selection).toList()) {
-				final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selected,
+				final Object element = getElementFromSelectedObject(selected);
+				final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(element,
 						ILocationDescriptor.class);
 				if (locationDescriptor != null) {
 					if (canHandleLocation(locationDescriptor)) {
