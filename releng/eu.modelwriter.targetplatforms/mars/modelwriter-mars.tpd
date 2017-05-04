@@ -15,9 +15,6 @@ location "http://download.eclipse.org/releases/mars" {
 	
 	org.junit [4.0.0,5.0.0)
 	
-	org.slf4j.api lazy
-	org.apache.xerces lazy
-	
 	org.eclipse.emf.compare lazy
 	
 	org.eclipse.sirius.runtime.feature.group lazy

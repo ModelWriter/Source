@@ -4,4 +4,8 @@ with source requirements
 
 location Orbit "http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/" {
 	com.google.guava lazy 
+
+	org.slf4j.api lazy
+	org.slf4j.api.source lazy
+	org.apache.xerces lazy
 }

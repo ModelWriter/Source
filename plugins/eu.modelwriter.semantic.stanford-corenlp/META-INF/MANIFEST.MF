@@ -8,6 +8,6 @@ Bundle-ClassPath: .,
  lib/stanford-corenlp-3.6.0-models.jar,
  lib/stanford-corenlp-3.6.0.jar
 Require-Bundle: eu.modelwriter.semantic,
- org.slf4j.api,
+ org.slf4j.api;bundle-version="1.7.2",
  eu.modelwriter.semantic.ide
 Export-Package: eu.modelwriter.semantic.stanford_corenlp
