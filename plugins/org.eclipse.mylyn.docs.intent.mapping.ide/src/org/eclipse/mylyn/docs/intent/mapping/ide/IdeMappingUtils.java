@@ -51,7 +51,7 @@ public final class IdeMappingUtils {
 		 *
 		 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 		 */
-		public static class Stub implements ILocationsPoolListener {
+		class Stub implements ILocationsPoolListener {
 
 			/**
 			 * {@inheritDoc}
@@ -320,10 +320,9 @@ public final class IdeMappingUtils {
 			try {
 				marker.delete();
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-								"unable to delete a location markers for "
-										+ marker.getResource().getFullPath().toString(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						"unable to delete a location markers for " + marker.getResource().getFullPath()
+								.toString(), e));
 			}
 		}
 	}
@@ -499,10 +498,9 @@ public final class IdeMappingUtils {
 	 * {@link ILocationDescriptor} in the {@link IdeMappingUtils#getLocationsPool() location descriptors pool}
 	 * .
 	 * 
-	 * @return <code>true</code> if there is at least one
-	 *         {@link IdeMappingUtils#isActive(ILocationDescriptor) active} {@link ILocationDescriptor} in the
-	 *         {@link IdeMappingUtils#getLocationsPool() location descriptors pool}, <code>false</code>
-	 *         otherwise
+	 * @return <code>true</code> if there is at least one {@link IdeMappingUtils#isActive(ILocationDescriptor)
+	 *         active} {@link ILocationDescriptor} in the {@link IdeMappingUtils#getLocationsPool() location
+	 *         descriptors pool}, <code>false</code> otherwise
 	 */
 	public static boolean asActiveLocationDescriptor() {
 		synchronized(LOCATIONS_POOL) {

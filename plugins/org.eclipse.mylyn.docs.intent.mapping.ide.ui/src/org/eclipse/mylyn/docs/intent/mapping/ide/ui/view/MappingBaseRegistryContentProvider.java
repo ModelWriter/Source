@@ -53,7 +53,7 @@ public class MappingBaseRegistryContentProvider implements IStructuredContentPro
 		 * @param viewer
 		 *            the {@link Viewer} to update
 		 */
-		public RegisteryListener(Viewer viewer) {
+		RegisteryListener(Viewer viewer) {
 			this.viewer = viewer;
 		}
 

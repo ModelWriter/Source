@@ -29,6 +29,7 @@ public class EObjectToFileAdapterFactory implements IAdapterFactory {
 	 *
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		final IFile res;
 

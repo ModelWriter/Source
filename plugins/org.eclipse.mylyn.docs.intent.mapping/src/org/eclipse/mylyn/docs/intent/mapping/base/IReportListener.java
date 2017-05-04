@@ -23,7 +23,7 @@ public interface IReportListener {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class Stub implements IReportListener {
+	class Stub implements IReportListener {
 
 		/**
 		 * {@inheritDoc}

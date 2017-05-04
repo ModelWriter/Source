@@ -11,7 +11,6 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
-
 /**
  * Listen to {@link ILink} changes.
  *
@@ -24,7 +23,7 @@ public interface ILinkListener {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class Stub implements ILinkListener {
+	class Stub implements ILinkListener {
 
 		/**
 		 * {@inheritDoc}

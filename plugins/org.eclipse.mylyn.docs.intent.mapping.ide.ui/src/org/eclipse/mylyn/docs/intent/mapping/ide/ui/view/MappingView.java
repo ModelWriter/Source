@@ -101,9 +101,8 @@ public class MappingView extends ViewPart {
 					oldBase.save();
 				} catch (IOException e) {
 					if (Activator.getDefault() != null) {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to save base "
-										+ oldBase.getName(), e));
+						Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+								"unable to save base " + oldBase.getName(), e));
 					}
 				}
 			}
@@ -219,7 +218,7 @@ public class MappingView extends ViewPart {
 		 * @param viewers
 		 *            the array of {@link Viewer}
 		 */
-		public EditorPartListener(Viewer... viewers) {
+		EditorPartListener(Viewer... viewers) {
 			this.viewers = viewers;
 		}
 
@@ -360,14 +359,14 @@ public class MappingView extends ViewPart {
 						viewer.setInput(location);
 					}
 				} catch (InstantiationException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LOCATION, e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+							UNABLE_TO_CREATE_LOCATION, e));
 				} catch (IllegalAccessException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LOCATION, e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+							UNABLE_TO_CREATE_LOCATION, e));
 				} catch (ClassNotFoundException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LOCATION, e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+							UNABLE_TO_CREATE_LOCATION, e));
 				}
 			}
 		}
@@ -568,8 +567,8 @@ public class MappingView extends ViewPart {
 		referencingTree.getViewer().getTree().addListener(SWT.KeyDown, new MappingKeyUpListener());
 		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(referencingTree.getViewer().getTree()));
-		referencingTree.getViewer().setContentProvider(
-				new LinkedLocationContentProvider(false, LinkedLocationContentProvider.SOURCE, false));
+		referencingTree.getViewer().setContentProvider(new LinkedLocationContentProvider(false,
+				LinkedLocationContentProvider.SOURCE, false));
 		referencingTree.getViewer().setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
 		referencingTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
@@ -598,8 +597,8 @@ public class MappingView extends ViewPart {
 		referencedTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
 		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(referencedTree.getViewer().getTree()));
-		referencedTree.getViewer().setContentProvider(
-				new LinkedLocationContentProvider(false, LinkedLocationContentProvider.TARGET, false));
+		referencedTree.getViewer().setContentProvider(new LinkedLocationContentProvider(false,
+				LinkedLocationContentProvider.TARGET, false));
 		referencedTree.getViewer().setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
 		referencedTree.getViewer().getControl().addFocusListener(new FocusListener() {
 
@@ -684,8 +683,8 @@ public class MappingView extends ViewPart {
 		final FilteredTree referencingTree = new FilteredTree(referencingComposite, SWT.MULTI | SWT.BORDER,
 				new PatternFilter(), false);
 		referencingTree.getViewer().getTree().addListener(SWT.KeyDown, new MappingKeyUpListener());
-		referencingTree.getViewer().setContentProvider(
-				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.SOURCE, true));
+		referencingTree.getViewer().setContentProvider(new LinkedLocationContentProvider(true,
+				LinkedLocationContentProvider.SOURCE, true));
 		referencingTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(referencingTree.getViewer().getTree()));
 
@@ -733,8 +732,8 @@ public class MappingView extends ViewPart {
 		final FilteredTree referencedTree = new FilteredTree(referencedComposite, SWT.MULTI | SWT.BORDER,
 				new PatternFilter(), false);
 		referencedTree.getViewer().getTree().addListener(SWT.KeyUp, new MappingKeyUpListener());
-		referencedTree.getViewer().setContentProvider(
-				new LinkedLocationContentProvider(true, LinkedLocationContentProvider.TARGET, true));
+		referencedTree.getViewer().setContentProvider(new LinkedLocationContentProvider(true,
+				LinkedLocationContentProvider.TARGET, true));
 		referencedTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(referencedTree.getViewer().getTree()));
 
@@ -898,9 +897,8 @@ public class MappingView extends ViewPart {
 			try {
 				oldBase.save();
 			} catch (IOException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to save base "
-								+ oldBase.getName(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						"unable to save base " + oldBase.getName(), e));
 			}
 		}
 		IdeMappingUtils.setCurrentBase(null);
@@ -969,10 +967,8 @@ public class MappingView extends ViewPart {
 				try {
 					file.deleteMarkers(ILocationMarker.LOCATION_ID, true, IResource.DEPTH_INFINITE);
 				} catch (CoreException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-									"unable to clear all location markers for "
-											+ file.getFullPath().toString(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+							"unable to clear all location markers for " + file.getFullPath().toString(), e));
 				}
 				final ILocation fileLocation = MappingUtils.getConnectorRegistry().getLocation(currentBase,
 						file);

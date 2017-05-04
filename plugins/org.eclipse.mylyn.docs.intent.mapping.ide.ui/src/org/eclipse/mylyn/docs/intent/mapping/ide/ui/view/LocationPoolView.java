@@ -124,7 +124,7 @@ public class LocationPoolView extends ViewPart {
 		 * @param viewer
 		 *            the {@link TreeViewer} to refresh
 		 */
-		public LocationsPoolListener(TreeViewer viewer) {
+		LocationsPoolListener(TreeViewer viewer) {
 			this.viewer = viewer;
 			viewer.setInput(IdeMappingUtils.getLocationsPool());
 		}

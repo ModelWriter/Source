@@ -22,7 +22,7 @@ public interface IBaseListener extends ILocationContainerListener {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class Stub extends ILocationContainerListener.Stub implements IBaseListener {
+	class Stub extends ILocationContainerListener.Stub implements IBaseListener {
 
 		/**
 		 * {@inheritDoc}

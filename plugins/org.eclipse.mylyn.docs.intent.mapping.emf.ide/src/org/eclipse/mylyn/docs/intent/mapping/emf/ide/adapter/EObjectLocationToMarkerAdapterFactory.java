@@ -40,6 +40,7 @@ public class EObjectLocationToMarkerAdapterFactory implements IAdapterFactory {
 	 *
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	public IMarker getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		IMarker res;
 
@@ -50,8 +51,8 @@ public class EObjectLocationToMarkerAdapterFactory implements IAdapterFactory {
 				res = existingMarker;
 			} else {
 				final IFileLocation fileLocation = IdeMappingUtils.getContainingFileLocation(eObjLocation);
-				final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-						Path.fromPortableString(fileLocation.getFullPath()));
+				final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(
+						fileLocation.getFullPath()));
 				try {
 					res = file.createMarker(IEObjectLocationMaker.EOBJECT_LOCATION_ID);
 					final EObject eObject = (EObject)MappingUtils.getConnectorRegistry().getElement(
@@ -60,8 +61,8 @@ public class EObjectLocationToMarkerAdapterFactory implements IAdapterFactory {
 							.toString());
 				} catch (CoreException e) {
 					res = null;
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				}
 			}
 		} else {

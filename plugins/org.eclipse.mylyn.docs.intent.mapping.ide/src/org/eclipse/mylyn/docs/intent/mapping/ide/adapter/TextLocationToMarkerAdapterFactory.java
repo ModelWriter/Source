@@ -37,6 +37,7 @@ public class TextLocationToMarkerAdapterFactory implements IAdapterFactory {
 	 *
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		IMarker res;
 
@@ -47,8 +48,8 @@ public class TextLocationToMarkerAdapterFactory implements IAdapterFactory {
 				res = existingMarker;
 			} else {
 				final IFileLocation fileLocation = IdeMappingUtils.getContainingFileLocation(textLocation);
-				final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-						Path.fromPortableString(fileLocation.getFullPath()));
+				final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(
+						fileLocation.getFullPath()));
 				try {
 					res = file.createMarker(ILocationMarker.TEXT_LOCATION_ID);
 					res.setAttribute(IMarker.CHAR_START, textLocation.getStartOffset());
@@ -56,8 +57,8 @@ public class TextLocationToMarkerAdapterFactory implements IAdapterFactory {
 					res.setAttribute(ILocationMarker.LOCATION_ATTRIBUTE, textLocation);
 				} catch (CoreException e) {
 					res = null;
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				}
 			}
 		} else {

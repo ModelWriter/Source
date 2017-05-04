@@ -29,11 +29,13 @@ public class SelectionProviderIntermediate implements IPostSelectionProvider {
 	/**
 	 * The list of {@link ISelectionChangedListener} for selection.
 	 */
+	@SuppressWarnings("rawtypes")
 	private final ListenerList selectionListeners = new ListenerList();
 
 	/**
 	 * The list of {@link ISelectionChangedListener} for post selection.
 	 */
+	@SuppressWarnings("rawtypes")
 	private final ListenerList postSelectionListeners = new ListenerList();
 
 	/**
@@ -75,16 +77,16 @@ public class SelectionProviderIntermediate implements IPostSelectionProvider {
 			if (delegate != null) {
 				delegate.removeSelectionChangedListener(selectionListener);
 				if (delegate instanceof IPostSelectionProvider) {
-					((IPostSelectionProvider)delegate)
-							.removePostSelectionChangedListener(postSelectionListener);
+					((IPostSelectionProvider)delegate).removePostSelectionChangedListener(
+							postSelectionListener);
 				}
 			}
 			delegate = newDelegate;
 			if (newDelegate != null) {
 				newDelegate.addSelectionChangedListener(selectionListener);
 				if (newDelegate instanceof IPostSelectionProvider) {
-					((IPostSelectionProvider)newDelegate)
-							.addPostSelectionChangedListener(postSelectionListener);
+					((IPostSelectionProvider)newDelegate).addPostSelectionChangedListener(
+							postSelectionListener);
 				}
 				fireSelectionChanged(newDelegate.getSelection());
 				firePostSelectionChanged(newDelegate.getSelection());
@@ -120,7 +122,7 @@ public class SelectionProviderIntermediate implements IPostSelectionProvider {
 	 * @param selection
 	 *            the {@link ISelection}
 	 */
-	private void fireSelectionChanged(ListenerList list, ISelection selection) {
+	private void fireSelectionChanged(@SuppressWarnings("rawtypes") ListenerList list, ISelection selection) {
 		SelectionChangedEvent event = new SelectionChangedEvent(delegate, selection);
 		Object[] listeners = list.getListeners();
 		for (int i = 0; i < listeners.length; i++) {
@@ -136,6 +138,7 @@ public class SelectionProviderIntermediate implements IPostSelectionProvider {
 	 *
 	 * @see org.eclipse.jface.viewers.ISelectionProvider#addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener)
 	 */
+	@SuppressWarnings("unchecked")
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
 		selectionListeners.add(listener);
 	}
@@ -154,6 +157,7 @@ public class SelectionProviderIntermediate implements IPostSelectionProvider {
 	 *
 	 * @see org.eclipse.jface.viewers.IPostSelectionProvider#addPostSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener)
 	 */
+	@SuppressWarnings("unchecked")
 	public void addPostSelectionChangedListener(ISelectionChangedListener listener) {
 		postSelectionListeners.add(listener);
 	}

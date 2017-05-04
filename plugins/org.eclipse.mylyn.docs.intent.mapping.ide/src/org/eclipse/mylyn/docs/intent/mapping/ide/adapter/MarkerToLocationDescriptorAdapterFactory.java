@@ -32,6 +32,7 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
+@SuppressWarnings("restriction")
 public class MarkerToLocationDescriptorAdapterFactory implements IAdapterFactory {
 
 	/**
@@ -50,7 +51,7 @@ public class MarkerToLocationDescriptorAdapterFactory implements IAdapterFactory
 	 *
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
-	@SuppressWarnings("restriction")
+	@SuppressWarnings("unchecked")
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		ILocationDescriptor res = null;
 
@@ -68,8 +69,8 @@ public class MarkerToLocationDescriptorAdapterFactory implements IAdapterFactory
 					}
 				}
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 		}
 
@@ -93,7 +94,6 @@ public class MarkerToLocationDescriptorAdapterFactory implements IAdapterFactory
 	 * @param markerType
 	 *            the marker type
 	 */
-	@SuppressWarnings("restriction")
 	public static void register(IMarkerToLocationDescriptor adapter, String markerType) {
 		ADAPTER_TYPE.put(adapter, markerType);
 

@@ -22,7 +22,7 @@ public interface IBaseRegistryListener {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class Stub implements IBaseRegistryListener {
+	class Stub implements IBaseRegistryListener {
 
 		/**
 		 * {@inheritDoc}

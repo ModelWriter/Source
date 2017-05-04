@@ -22,7 +22,7 @@ public interface ISemanticSimilarityProviderRegistryListener {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class Stub implements ISemanticSimilarityProviderRegistryListener {
+	class Stub implements ISemanticSimilarityProviderRegistryListener {
 
 		/**
 		 * {@inheritDoc}

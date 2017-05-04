@@ -55,7 +55,7 @@ public class LinkedLocationContentProvider extends AbstractLocationContentProvid
 			 * @param link
 			 *            the {@link ILink} to attach to.
 			 */
-			public LinkListener(ILink link) {
+			LinkListener(ILink link) {
 				this.link = link;
 			}
 

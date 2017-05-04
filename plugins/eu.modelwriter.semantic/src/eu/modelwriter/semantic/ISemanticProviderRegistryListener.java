@@ -22,7 +22,7 @@ public interface ISemanticProviderRegistryListener {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class Stub implements ISemanticProviderRegistryListener {
+	class Stub implements ISemanticProviderRegistryListener {
 
 		/**
 		 * {@inheritDoc}

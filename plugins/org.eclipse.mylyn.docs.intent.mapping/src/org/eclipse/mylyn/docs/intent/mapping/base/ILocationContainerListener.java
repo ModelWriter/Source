@@ -23,7 +23,7 @@ public interface ILocationContainerListener {
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class Stub implements ILocationContainerListener {
+	class Stub implements ILocationContainerListener {
 
 		/**
 		 * {@inheritDoc}

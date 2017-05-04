@@ -68,18 +68,18 @@ public class FilteredCheckboxTree extends FilteredTree {
 		 * @param style
 		 *            the SWT style bits
 		 */
-		public NotifyingTreeViewer(Composite parent, int style) {
+		NotifyingTreeViewer(Composite parent, int style) {
 			super(parent, style);
 			Method method = null;
 			try {
 				method = PatternFilter.class.getDeclaredMethod("clearCaches");
 				method.setAccessible(true);
 			} catch (NoSuchMethodException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			} catch (SecurityException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 			clearCaches = method;
 		}
@@ -91,14 +91,14 @@ public class FilteredCheckboxTree extends FilteredTree {
 			try {
 				clearCaches.invoke(getPatternFilter());
 			} catch (IllegalAccessException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			} catch (IllegalArgumentException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			} catch (InvocationTargetException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 		}
 

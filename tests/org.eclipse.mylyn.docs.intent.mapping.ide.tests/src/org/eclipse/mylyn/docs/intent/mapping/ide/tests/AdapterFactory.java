@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IAdapterFactory;
  */
 public class AdapterFactory implements IAdapterFactory {
 
+	@SuppressWarnings("unchecked")
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		return Integer.parseInt((String)adaptableObject);
 	}
