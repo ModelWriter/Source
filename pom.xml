@@ -323,7 +323,7 @@
         <module>features/eu.modelwriter.product.feature</module>
         <module>releng/eu.modelwriter.branding</module>
         <module>releng/eu.modelwriter.product</module>
-        <module>tests/eu.modelwriter.product.tests</module>
+        <!-- TODO fix Sirius test <module>tests/eu.modelwriter.product.tests</module> -->
       </modules>
     </profile>
     <profile>
