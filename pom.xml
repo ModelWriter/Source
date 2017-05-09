@@ -82,6 +82,11 @@
     <!-- TODO <module>tests/eu.modelwriter.semantic.ide.ui.tests</module> -->
     <module>plugins/dk.brics.automaton</module>
     <!-- <module>plugins/dk.brics.automaton.tests</module> -->
+
+    
+    <module>features/eu.modelwriter.semantic.parser.feature</module>
+    <module>plugins/eu.modelwriter.semantic.parser</module>
+    <!-- TODO <module>tests/eu.modelwriter.semantic.parsing.tests</module> -->
     
     <module>features/eu.modelwriter.semantic.stanford-corenlp.feature</module>
     <module>plugins/eu.modelwriter.semantic.stanford-corenlp</module>

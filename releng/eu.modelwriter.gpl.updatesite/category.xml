@@ -6,6 +6,12 @@
    <feature id="eu.modelwriter.semantic.stanford-corenlp.source" version="0.0.0">
       <category name="eu.modelwriter.gpl"/>
    </feature>
+   <feature id="eu.modelwriter.semantic.parser" version="0.0.0">
+      <category name="eu.modelwriter.gpl"/>
+   </feature>
+   <feature id="eu.modelwriter.semantic.parser.source" version="0.0.0">
+      <category name="eu.modelwriter.gpl"/>
+   </feature>
    <category-def name="eu.modelwriter.gpl" label="ModelWriter GPL">
       <description>
          [Enter Catergory Description here.]
