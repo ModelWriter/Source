@@ -72,7 +72,10 @@
     <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.emf.tests</module> -->
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide</module>
     <!-- TODO <module>tests/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide.tests</module> -->
-    
+
+    <module>features/org.eclipse.mylyn.docs.intent.mapping.sirius.feature</module>
+    <module>plugins/org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui</module>
+   
     <module>features/eu.modelwriter.semantic.feature</module>
     <module>plugins/eu.modelwriter.semantic</module>
     <module>tests/eu.modelwriter.semantic.tests</module>
@@ -328,7 +331,7 @@
         <module>features/eu.modelwriter.product.feature</module>
         <module>releng/eu.modelwriter.branding</module>
         <module>releng/eu.modelwriter.product</module>
-        <!-- TODO fix Sirius test <module>tests/eu.modelwriter.product.tests</module> -->
+        <module>tests/eu.modelwriter.product.tests</module>
       </modules>
     </profile>
     <profile>

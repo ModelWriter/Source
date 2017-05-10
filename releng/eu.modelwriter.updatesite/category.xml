@@ -6,6 +6,12 @@
    <feature id="org.eclipse.mylyn.docs.intent.mapping.source" version="0.0.0">
       <category name="eu.modelwriter"/>
    </feature>
+   <feature id="org.eclipse.mylyn.docs.intent.mapping.sirius" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
+   <feature id="org.eclipse.mylyn.docs.intent.mapping.sirius.source" version="0.0.0">
+      <category name="eu.modelwriter"/>
+   </feature>
    <feature id="eu.modelwriter.semantic" version="0.0.0">
       <category name="eu.modelwriter"/>
    </feature>
