@@ -1,0 +1,53 @@
+*** Probabilistic Jeni sub-project
+A Probability-based Java version of Geni
+
+*** Project requirements
+
+- Eclipse Luna (4.4.0) or newer.
+- JavaCC plugin installed. It can be found in Eclipse Marketplace.
+- Java 8 SDK installed.
+
+
+*** Where is what?
+The probabilistic version of Jeni is contained on its own package separated of the rest of the project.
+
+src/synalp/generation/probabilistic: Here are the sources file of Probabilistic Jeni:
+src/synalp/generation/probabilistic/ui/: User Interface source files.
+resources/probabilistic: the probabilistic configuration/bundle with lexicon, grammar and testsuite files.
+
+*** Where are the "Main" files?
+Main files are located in the folder src/synalp/generation/probabilistic/ui/. There are two ways of running PJeni:
+(1) PJeniGui.java: Graphical User Interface (made with Swing).
+(2) PJeniCli.java: Command Line user interface; intended for using on the cluster.
+
+Both versions will output the same information on screen, with the same format.
+
+
+*** Creating a runnable .jar file for using PJeni without Eclipse
+
+Whatever the prefered option is, the procedure to export the project and create a runnable .jar file with all the 
+needed files and libraries is the following:
+1- In Eclipse, right-click on the main file ((1) or (2)), and select export. 
+2- Then, go to "Java" folder in the menu showed on screen, choose "Runnable JAR file" and follow the instructions on screen.
+   Check that the file showed for "Launch Configuration" is the one you want.
+3- Once the .jar is created, it is still necessary to copy some files the main program will need in the same folder the jar is located. The files to copy are:
+   * configuration.xml: configuration of jeni generators.
+   * log4j.xml: logger (debugging)
+   * resources/: optative; just in case you want to run a testsuite contained in a default bundle.
+
+*** How to use the command line user interface?
+The command line user interface will ask for 4 (or 5) parameters:
+- Grammar file
+- Lexicon file
+- Testsuite we want to run
+- Beam size
+- Output file name (optative)
+
+If you are going to run PJeni with a big testsuite, it is recommended to specify a greater java heap size, by adding the flag -Xmx2g (2GB RAM). 
+Remember that the macros.mac file has to be located in the same folder as the lexicon file, and the latest one must include the "include macros.mac" header.
+ 
+
+*** Changing the prepared inputs of the GUI
+Replace src/.../probabilistic/guidemo/sample.geni 
+
+*** 

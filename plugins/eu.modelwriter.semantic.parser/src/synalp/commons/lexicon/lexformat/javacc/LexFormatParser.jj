@@ -1,0 +1,281 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
+ */options{  JDK_VERSION = "1.5";  static = false;}PARSER_BEGIN(LexFormatParser)package synalp.commons.lexicon.lexformat.javacc;
+
+import java.io.*;
+import java.util.*;
+import synalp.commons.input.*;
+import synalp.commons.semantics.*;
+import synalp.commons.unification.*;
+import synalp.commons.lexicon.*;
+import synalp.commons.lexicon.lexformat.*;
+
+/**
+* A LexFormatReader reads both .lex format and macros format.
+*/
+public class LexFormatParser{
+	/**
+		Reads the given lexicon content located in given directory.
+		The directory name is important to interpret the macros path.
+	*/
+	public static LexFormatLexicon readLexicon(String content, String directory) throws Exception
+	{
+		return parser(content).Lexicon(directory);
+	}
+	
+	
+	public static LexFormatLexicon readLexicon(File file) throws Exception
+	{
+		RandomAccessFile f = new RandomAccessFile(file, "r");
+		byte[] content = new byte[(int) f.length()];
+		f.readFully(content);
+		return LexFormatParser.readLexicon(new String(content), file.getParent());
+	}
+	
+
+	public static Macros readMacros(String content) throws Exception
+ 	{
+		return parser(content).Macros();
+ 	}
+
+	/**
+		Creates a parser for given String.
+	*/
+ 	private static LexFormatParser parser(String str)
+ 	{		return new LexFormatParser(new ByteArrayInputStream(str.getBytes()));
+ 	}}PARSER_END(LexFormatParser)SKIP :{  " "| "\r"| "\t"| "\n"
+| <("#"|"%") (~["\n","\r"])* ("\n" | "\r" | "\r\n")>}
+TOKEN :
+{
+  <MACROPATH: <ID> ("/" <ID>)* ".mac" > | // this should be platform specific
+  <ID: (["a"-"z", "A"-"Z", "0"-"9", "_", "-", "+", ".", "'", "\u00C0"-"\u02AF", "\u00BF"])+> // Special Character "¿"(\u00BF) being used to mark the variables in underspecified lexical entries.
+}
+
+
+LexFormatLexicon Lexicon(String directory) :
+{
+	LexFormatEntry entry;
+	Token macroPath = null;
+	LexFormatLexicon ret = new LexFormatLexicon();
+}
+{
+	("include " macroPath=<MACROPATH>)?
+	(entry = LexFormatEntry() { ret.add(entry); })*
+	{
+		Macros macros = new Macros();
+		if (macroPath!=null)
+		{
+			try
+			{
+				File macroFile = directory==null ? new File(macroPath.image) : new File(directory+File.separator+macroPath.image);
+				macros = LexFormatReader.readMacros(macroFile);
+			}
+			catch(Exception e)
+			{
+				System.err.println("Error: unable to parse lexicon because of an error when parsing macros: "+e.getMessage());
+				return null;
+			}
+		}
+		else System.err.println("Warning: no macros 'include' when parsing LEX format, no semantics can be specified"); 
+		
+		ret.setMacros(macros);
+	
+		return ret;
+	}
+}
+
+
+LexFormatEntry LexFormatEntry() :
+{
+	Token name;
+	Token cat;
+	Token macroName;
+	String macroNameValue = "";
+	FeatureStructure macroHeader = new FeatureStructure();
+	Token acc;
+	float accValue = 1.0f;
+	Token family;
+	FeatureStructure filters = new FeatureStructure();
+	Token ex;
+	String exValue = "";
+	Equations equationSet;
+	Equations equations = new Equations();
+}
+{
+	"*ENTRY:" name=<ID>
+	"*CAT:" cat=<ID>
+	"*SEM:" (macroName=<ID> macroHeader=FlatFS() {macroNameValue=macroName.image;})?
+	("*ACC:" acc=<ID> {accValue= Float.parseFloat(acc.image);})? // not sure about what is acc
+	"*FAM:" family=<ID>
+	("*FILTERS:" filters=FlatFS())?
+	("*EX:" ("{" (ex=<ID> {exValue=ex.image;})? "}")? )? // not sure about what is ex
+	("*EQUATIONS:" (equationSet=EquationSet() { equations.addAll(equationSet);})*)?
+	("*COANCHORS:" (equationSet=CoAnchorSet() { equations.addAll(equationSet);})*)?
+	{
+		return new LexFormatEntry(name.image, cat.image, macroNameValue.trim(), macroHeader, 
+								  accValue, family.image, new Filter(filters), exValue, equations);
+	}  
+}
+
+
+// it may return two equations for the two fs top and bot (still unsure)
+Equations EquationSet() :
+{
+	Token nodeId;
+	FeatureStructure fs;
+}
+{
+	nodeId=<ID> "->" fs=FlatFSNoBracket()
+	{
+		Equations ret = new Equations();
+		String nodeIdValue = nodeId.image;
+		if (nodeIdValue.equals("anc"))
+			nodeIdValue = "anchor";
+		//ret.add(new Equation(nodeIdValue, FeatureStructureType.TOP, fs));
+		ret.add(new Equation(nodeIdValue, FeatureStructureType.BOTTOM, fs));
+		return ret;
+	}
+}
+
+
+// it may return two equations for the two fs top and bot (still unsure)
+Equations CoAnchorSet() :
+{
+	Token nodeId;
+	Token lemma;
+	Token cat;
+}
+{
+	nodeId=<ID> "->" lemma=<ID> "/" cat=<ID>
+	{
+		Equations ret = new Equations();
+		FeatureStructure fs = new FeatureStructure();
+		fs.addConstantFeature("lemma", lemma.image);
+		fs.addConstantFeature("cat", cat.image);
+		
+		ret.add(new Equation(nodeId.image, FeatureStructureType.TOP, new FeatureStructure(fs), true));
+		//ret.add(new Equation(nodeId.image, FeatureStructureType.BOTTOM, new FeatureStructure(fs)));
+		return ret;
+	}
+}
+
+
+
+Macros Macros() :
+{
+	Macro macro;
+	Macros ret = new Macros();
+}
+{
+	(macro = Macro() {ret.add(macro);})+
+	{
+		return ret;
+	}	
+}
+
+
+Macro Macro() :
+{
+	Token name;
+	Semantics semantics;
+	FeatureStructure header;
+	FeatureStructure macroInterface;
+}
+{
+	name=<ID> header=FlatFS()
+	"semantics:" "[" semantics=Semantics() "]"
+	"interface:" macroInterface=FlatFS()
+	{
+		return new Macro(name.image, header, semantics, macroInterface);
+	}
+}
+
+
+// a flat FS without [], does not contain recursive features
+FeatureStructure FlatFSNoBracket() :
+{
+	Feature feat;
+	FeatureStructure ret = new FeatureStructure();
+}
+{
+	(feat=FlatFeature() {ret.add(feat);})? ("," feat=FlatFeature() {ret.add(feat);})*
+	{
+		return ret;
+	}	
+}
+
+
+// a flat FS is enclosed in [], does not contain recursive features
+FeatureStructure FlatFS() :
+{
+	FeatureStructure ret = new FeatureStructure();
+}
+{
+	"[" ret=FlatFSNoBracket() "]"
+	{
+		return ret;
+	}	
+}
+
+
+// a flat feature is a non-recursive feat
+Feature FlatFeature() :
+{
+	Token id;
+	FeatureValue val;
+}
+{
+	id=<ID> "=" val=Argument()
+	{
+	 	return new Feature(id.image, val);
+	}
+}
+
+
+Semantics Semantics() :
+{
+  	DefaultLiteral literal;
+	Semantics semantics = new Semantics();
+}
+{
+	(literal = Literal() { semantics.add(literal); })*
+	{
+	  return semantics;
+	} 
+}
+
+
+// parses a literal that only contains constants or variables
+DefaultLiteral Literal() :
+{
+  	FeatureValue arg = null;
+  	FeatureValue label = null;
+  	FeatureValue predicate = null;
+  	List<FeatureValue> args = new ArrayList<FeatureValue>();
+}
+{
+	(LOOKAHEAD(2) label=Argument() ":")? predicate=Argument() 
+	"(" (arg=Argument() { args.add(arg); })? (","arg=Argument() { args.add(arg); })*  ")" 
+	
+	{
+	  	DefaultLiteral ret = new DefaultLiteral();
+	  	if (label!=null)
+	  		ret.setLabel(label);
+	  	ret.setPredicate(predicate);
+	  	ret.setArguments(args);
+	  	return ret;
+	}
+}
+
+
+// we should have the ? global variable prefix here also in parsing!
+FeatureValue Argument() :
+{
+	Token arg;
+	FeatureValue ret;
+}
+{
+	"?" arg=<ID> { return new FeatureVariable("?"+arg.image.trim()); } |
+	arg = <ID> { return new FeatureConstant(arg.image.trim()); }
+	
+}

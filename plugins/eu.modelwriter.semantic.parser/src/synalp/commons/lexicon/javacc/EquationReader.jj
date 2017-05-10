@@ -1,0 +1,159 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
+ */options{  JDK_VERSION = "1.5";  static = false;}PARSER_BEGIN(EquationReader)package synalp.commons.lexicon.javacc;
+
+import java.io.*;
+import java.util.*;
+import synalp.commons.input.*;
+import synalp.commons.lexicon.*;
+import synalp.commons.semantics.*;
+import synalp.commons.unification.*;
+
+/**
+* An InputReader reads inputs by parsing them with Javacc.
+*/
+@SuppressWarnings("all")
+public class EquationReader{
+	/**
+	 * The prefix of the symbols that denote variables.
+	 */
+	public static String VARIABLE_PREFIX = "?";
+	
+	
+ 	public static Equations readEquations(String content) throws Exception
+ 	{
+ 		return parser(content).Equations();
+ 	}
+
+	/**
+		Creates a parser for given String.
+	*/
+ 	private static EquationReader parser(String str)
+ 	{		return new EquationReader(new ByteArrayInputStream(str.getBytes()));
+ 	}}PARSER_END(EquationReader)SKIP :{  " "| "\r"| "\t"| "\n"
+| <"#" (~["\n","\r"])* ("\n" | "\r" | "\r\n")>}
+
+
+TOKEN :
+{
+  <COMMA : ",">
+| <DOT : ".">
+| <FSTYPE : "top" | "bot">
+| <ID: (["a"-"z", "A"-"Z", "0"-"9", "_", "-", "+", "\u00C0"-"\u02AF"])+>
+}
+
+
+
+Equations Equations() :
+{
+	Equation eq;
+	Equations ret = new Equations();
+}
+{
+	(eq = Equation() {ret.add(eq);})+
+	{
+		return ret;
+	}	
+}
+
+
+Equation Equation() :
+{
+	Token nodeId;
+	Token fsTypeToken;
+	FeatureStructureType fsType;
+	FeatureStructure fs;
+}
+{
+	nodeId=<ID> <DOT> fsTypeToken=<FSTYPE> "=" fs=FlatFS()
+	{
+		fsType = fsTypeToken.image.equals("top") ? FeatureStructureType.TOP : FeatureStructureType.BOTTOM;
+		return new Equation(nodeId.image, fsType, fs);
+	}
+}
+
+
+
+
+// we should have the ? global variable prefix here also in parsing!
+FeatureValue Argument() :
+{
+	Token arg;
+	FeatureValue ret;
+}
+{
+	(ret = Variable() | ret = ConstantPipeSyntax() | ret = ConstantCurlyBracketSyntax())
+	{		return ret;
+	}
+}
+
+
+FeatureVariable Variable() :
+{	Token arg;
+}
+{	"?" arg=<ID> { return new FeatureVariable(VARIABLE_PREFIX+arg.image.trim()); }
+}
+
+
+// a Constant with syntax: a|b|c
+FeatureConstant ConstantPipeSyntax() :
+{	Token arg;
+	Set<String > values = new HashSet<String>();
+}
+{	arg = <ID> { values.add(arg.image.trim()); } ("|" arg=<ID> { values.add(arg.image.trim()); })*
+	{		return new FeatureConstant(values);
+	}
+}
+
+
+// a Constant with syntax: {a,b,c}
+FeatureConstant ConstantCurlyBracketSyntax() :
+{	Token arg;
+	Set<String > values = new HashSet<String>();
+}
+{	"{" arg = <ID> { values.add(arg.image.trim()); } ("," arg=<ID> { values.add(arg.image.trim()); })* "}"
+	{
+		return new FeatureConstant(values);
+	}
+}
+
+
+// a flat FS without [], does not contain recursive features
+FeatureStructure FlatFSNoBracket() :
+{
+	Feature feat;
+	FeatureStructure ret = new FeatureStructure();
+}
+{
+	(feat=FlatFeature() {ret.add(feat);})? (<COMMA> feat=FlatFeature() {ret.add(feat);})*
+	{
+		return ret;
+	}	
+}
+
+
+// a flat FS is enclosed in [], does not contain recursive features
+FeatureStructure FlatFS() :
+{
+	FeatureStructure ret = new FeatureStructure();
+}
+{
+	"[" ret=FlatFSNoBracket() "]"
+	{
+		return ret;
+	}	
+}
+
+
+// a flat feature is a non-recursive feat
+Feature FlatFeature() :
+{
+	Token id;
+	FeatureValue val;
+}
+{
+	id=<ID> "=" val=Argument()
+	{
+	 	return new Feature(id.image, val);
+	}
+}

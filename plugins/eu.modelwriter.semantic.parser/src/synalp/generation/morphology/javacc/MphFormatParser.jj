@@ -1,0 +1,145 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
+ */options{  JDK_VERSION = "1.5";  static = false;}PARSER_BEGIN(MphFormatParser)package synalp.generation.morphology.javacc;
+
+import java.io.*;
+import java.util.*;
+import synalp.commons.input.*;
+import synalp.commons.lexicon.*;
+import synalp.commons.semantics.*;
+import synalp.commons.unification.*;
+import synalp.generation.morphology.*;
+import synalp.generation.configuration.*;
+
+/**
+* An MphParser reads inputs by parsing them with Javacc.
+*/
+@SuppressWarnings("all")
+public class MphFormatParser{
+	/**
+	 *	The name of the feature denoting the category.
+	 */
+	public static String CAT_FEATURE = "cat";
+	
+	
+	public static MorphLexicon readLexicon(File file) throws Exception
+ 	{
+		return new MphFormatParser(new FileInputStream(file)).MorphLexicon();
+ 	}
+ 	
+ 	
+	public static MorphLexicon readLexicon(String content) throws Exception
+ 	{
+		return parser(content).MorphLexicon();
+ 	}
+
+	/**
+	 * Reads a fs in mph format without the brackets, from given String.
+	 */
+	public static FeatureStructure readFeatureStructure(String content) throws Exception
+	{
+	  	return parser(content).FlatFSNoBracket();
+	}
+
+ 	
+	/**
+		Creates a parser for given String.
+	*/
+ 	private static MphFormatParser parser(String str)
+ 	{		return new MphFormatParser(new ByteArrayInputStream(str.getBytes()));
+ 	}}PARSER_END(MphFormatParser)SKIP :{  " "| "\r"| "\t"| "\n"
+| <"%" (~["\n","\r"])* ("\n" | "\r" | "\r\n")>}
+
+// we should have lexical states to better handle the free text
+TOKEN :
+{
+  <ID: (["a"-"z", "A"-"Z", "0"-"9", "_", "-",  "+", "'", "\u00C0"-"\u02AF"])+> 
+}
+
+
+MorphLexicon MorphLexicon() :
+{
+	MorphLexicon ret = new MorphLexicon();
+	MorphLexiconEntry entry;
+}
+{
+	(entry = MorphLexiconEntry() { ret.add(entry); })*
+	{
+		return ret ;
+	}
+}
+
+
+MorphLexiconEntry MorphLexiconEntry() :
+{
+	Token firstTok;
+	Token secondTok;
+	FeatureStructure fs=null;
+}
+{
+	firstTok=<ID> secondTok=<ID> (fs=FlatFS())?
+	{
+	  	if (fs==null)
+	  		fs = new FeatureStructure();
+	  	if (GeneratorOption.MORPH_LEXICON_ORDER == MorphLexiconOrder.LEXEM_FIRST)
+			return new MorphLexiconEntry(new Lemma(secondTok.image), new Lexem(firstTok.image, fs));
+		else return new MorphLexiconEntry(new Lemma(firstTok.image), new Lexem(secondTok.image, fs));
+	}
+}
+
+
+
+// a flat FS is enclosed in [], does not contain recursive features
+FeatureStructure FlatFS() :
+{
+	FeatureStructure ret = new FeatureStructure();
+}
+{
+	"[" ret=FlatFSNoBracket() "]"
+	{
+		return ret;
+	}	
+}
+
+
+// a flat FS without [], does not contain recursive features
+FeatureStructure FlatFSNoBracket() :
+{
+	Feature feat;
+	FeatureStructure ret = new FeatureStructure();
+}
+{
+	(feat=FlatFeature() {ret.add(feat);}  (";")?)? (feat=FlatFeature() (";")? {ret.add(feat);} )*
+	{
+		return ret;
+	}	
+}
+
+
+// a flat feature is a non-recursive feat
+Feature FlatFeature() :
+{
+	Token id;
+	FeatureValue val;
+}
+{
+	id=<ID> ("="|":") val=Argument()
+	{
+	 	return new Feature(id.image, val);
+	}
+}
+
+
+// only feature constant
+FeatureConstant Argument() :
+{
+	Token arg;
+	FeatureConstant ret;
+	Set<String> values = new HashSet<String>();
+}
+{
+	arg = <ID> {values.add(arg.image.trim());} ( "|" arg = <ID> {values.add(arg.image.trim());})*
+	{ return new FeatureConstant(values); }
+}
+
+
