@@ -41,14 +41,9 @@
     <developerConnection>scm:git:git://github.com/ModelWriter/Source.git</developerConnection>
   </scm>
   <modules>
-    <module>releng/eu.modelwriter.targetplatforms/neon</module>
-    <module>releng/eu.modelwriter.targetplatforms/mars</module>
-    <module>releng/eu.modelwriter.targetplatforms/luna</module>
-
     <module>features/eu.modelwriter.feature</module>
     <module>plugins/eu.modelwriter.ide.ui</module>
     <!-- TODO <module>tests/eu.modelwriter.ide.ui.tests</module> -->
-    <module>plugins/org.apache.poi</module>
    
     <module>features/org.eclipse.mylyn.docs.intent.mapping.feature</module>
     <module>plugins/org.eclipse.mylyn.docs.intent.mapping</module>
@@ -107,8 +102,8 @@
     <module>plugins/eu.modelwriter.semantic.jena.ide</module>
     <module>tests/eu.modelwriter.semantic.jena.ide.tests</module>
     <module>plugins/org.apache.jena</module>
-    
   </modules>	
+
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -154,6 +149,9 @@
           <archive>
             <addMavenDescriptor>false</addMavenDescriptor>
           </archive>
+          <excludes>
+            <plugin id="org.apache.poi"/>
+          </excludes>
         </configuration>
         <executions>
           <execution>
@@ -331,7 +329,7 @@
         <module>features/eu.modelwriter.product.feature</module>
         <module>releng/eu.modelwriter.branding</module>
         <module>releng/eu.modelwriter.product</module>
-        <module>tests/eu.modelwriter.product.tests</module>
+        <!-- TODO fixe RCPTT tests <module>tests/eu.modelwriter.product.tests</module> -->
       </modules>
     </profile>
     <profile>
@@ -343,6 +341,12 @@
           <value>neon</value>
         </property>
       </activation>
+      <properties>
+        <eclipse-rcptt-inject-site>http://download.eclipse.org/releases/neon</eclipse-rcptt-inject-site>
+      </properties>
+      <modules>
+        <module>releng/eu.modelwriter.targetplatforms/neon</module>
+      </modules>
       <build>
         <plugins>
           <plugin>
@@ -370,6 +374,12 @@
           <value>mars</value>
         </property>
       </activation>
+      <properties>
+        <eclipse-rcptt-inject-site>http://download.eclipse.org/releases/mars</eclipse-rcptt-inject-site>
+      </properties>
+      <modules>
+        <module>releng/eu.modelwriter.targetplatforms/mars</module>
+      </modules>
       <build>
         <plugins>
           <plugin>
@@ -397,6 +407,12 @@
           <value>luna</value>
         </property>
       </activation>
+      <properties>
+        <eclipse-rcptt-inject-site>http://download.eclipse.org/releases/luna</eclipse-rcptt-inject-site>
+      </properties>
+      <modules>
+        <module>releng/eu.modelwriter.targetplatforms/luna</module>
+      </modules>
       <build>
         <plugins>
           <plugin>

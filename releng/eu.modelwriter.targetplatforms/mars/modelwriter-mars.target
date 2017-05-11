@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="ModelWriter Mars Target Platform" sequenceNumber="1493908907">
+<target name="ModelWriter Mars Target Platform" sequenceNumber="1494417562">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="com.google.guava" version="0.0.0"/>
@@ -9,6 +9,10 @@
       <unit id="org.slf4j.api.source" version="0.0.0"/>
       <unit id="org.apache.xerces" version="0.0.0"/>
       <repository id="Orbit" location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.apache.poi.feature.feature.group" version="0.0.0"/>
+      <repository id="ObeoNetworkBits" location="http://obeo-networkaggregation-releases.s3-website-eu-west-1.amazonaws.com/bits/master/thirdparties"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.ui" version="0.0.0"/>

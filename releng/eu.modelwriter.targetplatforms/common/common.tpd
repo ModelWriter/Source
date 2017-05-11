@@ -9,3 +9,7 @@ location Orbit "http://download.eclipse.org/tools/orbit/downloads/drops/R2016052
 	org.slf4j.api.source lazy
 	org.apache.xerces lazy
 }
+
+location ObeoNetworkBits "http://obeo-networkaggregation-releases.s3-website-eu-west-1.amazonaws.com/bits/master/thirdparties" {
+	org.apache.poi.feature.feature.group lazy
+}

@@ -36,6 +36,7 @@
    <feature id="eu.modelwriter.source" version="0.0.0">
       <category name="eu.modelwriter"/>
    </feature>
+   <feature id="org.apache.poi.feature" version="0.0.0"/>
    <category-def name="eu.modelwriter" label="ModelWriter">
       <description>
          [Enter Catergory Description here.]
