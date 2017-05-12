@@ -72,9 +72,8 @@ public class NewEMFBase extends Wizard implements IWorkbenchWizard {
 			r.save(null);
 			res = true;
 		} catch (IOException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to save base "
-							+ page.getFileName()));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					"unable to save base " + page.getFileName()));
 
 		}
 

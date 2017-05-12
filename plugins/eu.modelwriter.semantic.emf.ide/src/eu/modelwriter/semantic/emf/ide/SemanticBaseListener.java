@@ -97,9 +97,8 @@ public class SemanticBaseListener implements IResourceChangeListener {
 				}
 			}
 		} catch (CoreException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.WARNING, Activator.PLUGIN_ID, UNABLE_TO_LOAD_SEMANTIC_BASE_FROM
-							+ e.getMessage(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
+					UNABLE_TO_LOAD_SEMANTIC_BASE_FROM + e.getMessage(), e));
 		}
 	}
 
@@ -294,9 +293,8 @@ public class SemanticBaseListener implements IResourceChangeListener {
 				// CHECKSTYLE:OFF
 			} catch (Exception e) {
 				// CHECKSTYLE:ON
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.WARNING, Activator.PLUGIN_ID, UNABLE_TO_LOAD_SEMANTIC_BASE_FROM
-								+ file.getLocation().toString(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
+						UNABLE_TO_LOAD_SEMANTIC_BASE_FROM + file.getLocation().toString(), e));
 			}
 		}
 

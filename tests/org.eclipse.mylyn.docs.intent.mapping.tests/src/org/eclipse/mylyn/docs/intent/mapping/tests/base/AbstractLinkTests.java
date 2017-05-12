@@ -74,7 +74,8 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setSourceNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void setSourceNull() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLinkListener listener = new TestLinkListener();
 		final TestLinkListener removedListener = new TestLinkListener();
 
@@ -118,7 +119,8 @@ public abstract class AbstractLinkTests extends AbstractMappingTests {
 	}
 
 	@Test
-	public void setTargetNull() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void setTargetNull() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final TestLinkListener listener = new TestLinkListener();
 		final TestLinkListener removedListener = new TestLinkListener();
 

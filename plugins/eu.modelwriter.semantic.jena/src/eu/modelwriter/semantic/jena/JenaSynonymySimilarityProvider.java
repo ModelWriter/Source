@@ -64,10 +64,10 @@ public class JenaSynonymySimilarityProvider implements ISemanticSimilarityProvid
 			if (concept instanceof Resource) {
 				final Resource resource = (Resource)concept;
 				final Set<String> similarities = new LinkedHashSet<String>();
-				similarities.addAll(JenaUtils.getLabelsForProperty(resource, model
-						.getProperty("http://www.w3.org/2004/02/skos/core#altLabel")));
-				similarities.addAll(JenaUtils.getLabelsForProperty(resource, model
-						.getProperty("http://www.w3.org/2004/02/skos/core#prefLabel")));
+				similarities.addAll(JenaUtils.getLabelsForProperty(resource, model.getProperty(
+						"http://www.w3.org/2004/02/skos/core#altLabel")));
+				similarities.addAll(JenaUtils.getLabelsForProperty(resource, model.getProperty(
+						"http://www.w3.org/2004/02/skos/core#prefLabel")));
 				for (String similarity : similarities) {
 					Set<Object> similaritySet = res.get(similarity);
 					if (similaritySet == null) {

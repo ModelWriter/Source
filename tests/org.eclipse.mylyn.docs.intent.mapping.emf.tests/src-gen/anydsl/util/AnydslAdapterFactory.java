@@ -185,10 +185,10 @@ public class AnydslAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link anydsl.MultiNamedElement
-	 * <em>Multi Named Element</em>}'. <!-- begin-user-doc --> This default implementation returns null so
-	 * that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases
-	 * anyway. <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class '{@link anydsl.MultiNamedElement <em>Multi Named
+	 * Element</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+	 * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
 	 * 
 	 * @return the new adapter.
 	 * @see anydsl.MultiNamedElement
@@ -251,10 +251,10 @@ public class AnydslAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link anydsl.ProductionCompany
-	 * <em>Production Company</em>}'. <!-- begin-user-doc --> This default implementation returns null so that
-	 * we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases
-	 * anyway. <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class '{@link anydsl.ProductionCompany <em>Production
+	 * Company</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+	 * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
 	 * 
 	 * @return the new adapter.
 	 * @see anydsl.ProductionCompany
@@ -356,10 +356,10 @@ public class AnydslAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry
-	 * <em>EString To Recipe Map</em>}'. <!-- begin-user-doc --> This default implementation returns null so
-	 * that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases
-	 * anyway. <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>EString To Recipe
+	 * Map</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+	 * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
 	 * 
 	 * @return the new adapter.
 	 * @see java.util.Map.Entry

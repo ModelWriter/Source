@@ -164,8 +164,8 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 			try {
 				return (T)element.createExecutableExtension(LOCATION_ATTRIBUTE_IMPLEMENTATION);
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 			return null;
 		}
@@ -216,7 +216,8 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 				.getExtensions()) {
 			parseFileConnectorDelegateExtension(extension);
 		}
-		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT).getExtensions()) {
+		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT)
+				.getExtensions()) {
 			parseBaseProviderExtension(extension);
 		}
 		for (IExtension extension : registry.getExtensionPoint(CONNECTOR_EXTENSION_POINT).getExtensions()) {
@@ -242,22 +243,22 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 					final Bundle contributor = Platform.getBundle(elem.getContributor().getName());
 					final String baseClassName = elem.getAttribute(BASE_ATTRIBUTE_CLASS);
 					try {
-						Class<? extends IBase> baseClass = (Class<? extends IBase>)contributor
-								.loadClass(baseClassName);
+						Class<? extends IBase> baseClass = (Class<? extends IBase>)contributor.loadClass(
+								baseClassName);
 						for (IConfigurationElement locationElem : elem.getChildren(LOCATION_TAG_EXTENSION)) {
-							final String interfaceClassName = locationElem
-									.getAttribute(LOCATION_ATTRIBUTE_INTERFACE);
-							Class<ILocation> interfaceClass = (Class<ILocation>)contributor
-									.loadClass(interfaceClassName);
+							final String interfaceClassName = locationElem.getAttribute(
+									LOCATION_ATTRIBUTE_INTERFACE);
+							Class<ILocation> interfaceClass = (Class<ILocation>)contributor.loadClass(
+									interfaceClassName);
 							MappingUtils.unregisterLocationImplementation(baseClass, interfaceClass);
 						}
 					} catch (ClassNotFoundException e) {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+						Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+								.getMessage(), e));
 					}
 				} else if (FILE_CONNECTOR_DELEGATE_TAG_EXTENSION.equals(elem.getName())) {
-					final String delegateClassName = elem
-							.getAttribute(FILE_CONNECTOR_DELEGATE_ATTRIBUTE_CLASS);
+					final String delegateClassName = elem.getAttribute(
+							FILE_CONNECTOR_DELEGATE_ATTRIBUTE_CLASS);
 					IFileConnectorDelegate delegateToRemove = null;
 					for (IFileConnectorDelegate delegate : IdeMappingUtils.getFileConectorDelegateRegistry()
 							.getConnectorDelegates()) {
@@ -297,19 +298,19 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 				final Bundle contributor = Platform.getBundle(elem.getContributor().getName());
 				final String baseClassName = elem.getAttribute(BASE_ATTRIBUTE_CLASS);
 				try {
-					Class<? extends IBase> baseClass = (Class<? extends IBase>)contributor
-							.loadClass(baseClassName);
+					Class<? extends IBase> baseClass = (Class<? extends IBase>)contributor.loadClass(
+							baseClassName);
 					for (IConfigurationElement locationElem : elem.getChildren(LOCATION_TAG_EXTENSION)) {
-						final String interfaceClassName = locationElem
-								.getAttribute(LOCATION_ATTRIBUTE_INTERFACE);
-						Class<ILocation> interfaceClass = (Class<ILocation>)contributor
-								.loadClass(interfaceClassName);
+						final String interfaceClassName = locationElem.getAttribute(
+								LOCATION_ATTRIBUTE_INTERFACE);
+						Class<ILocation> interfaceClass = (Class<ILocation>)contributor.loadClass(
+								interfaceClassName);
 						MappingUtils.registerLocationImplementation(baseClass, interfaceClass,
 								new ExtensionFactoryDescriptor<ILocation>(locationElem));
 					}
 				} catch (ClassNotFoundException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				}
 			}
 		}
@@ -330,8 +331,8 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 							.createExecutableExtension(FILE_CONNECTOR_DELEGATE_ATTRIBUTE_CLASS);
 					IdeMappingUtils.getFileConectorDelegateRegistry().register(delegate);
 				} catch (CoreException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				}
 			}
 		}
@@ -351,8 +352,8 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 				bundle.start();
 			}
 		} catch (BundleException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
 		}
 	}
 
@@ -367,12 +368,12 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 		for (IConfigurationElement elem : configElements) {
 			if (CONNECTOR_TAG_EXTENSION.equals(elem.getName())) {
 				try {
-					final IConnector connector = (IConnector)elem
-							.createExecutableExtension(CONNECTOR_ATTRIBUTE_CLASS);
+					final IConnector connector = (IConnector)elem.createExecutableExtension(
+							CONNECTOR_ATTRIBUTE_CLASS);
 					MappingUtils.getConnectorRegistry().register(connector);
 				} catch (CoreException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				}
 			}
 		}
@@ -394,8 +395,8 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 							.createExecutableExtension(MARKER_TO_LOCATION_ATTRIBUTE_CLASS);
 					MarkerToLocationDescriptorAdapterFactory.register(adapter, marterType);
 				} catch (CoreException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				}
 			}
 		}

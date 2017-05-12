@@ -126,7 +126,8 @@ public class RdfConnector extends AbstractConnector {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
+			Object element) {
 		final ILocationDescriptor res;
 
 		final Object adapted = adapt(element);
@@ -148,8 +149,8 @@ public class RdfConnector extends AbstractConnector {
 	public Object getElement(ILocation location) {
 		final Resource res;
 
-		final Model model = (Model)MappingUtils.getConnectorRegistry().getElement(
-				(ILocation)location.getContainer());
+		final Model model = (Model)MappingUtils.getConnectorRegistry().getElement((ILocation)location
+				.getContainer());
 		res = model.getResource(((IRdfLocation)location).getURI());
 
 		return res;

@@ -300,8 +300,8 @@ public class ReportImpl extends MinimalEObjectImpl.Container implements Report {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MappingPackage.REPORT__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT
-						.equals(description);
+				return DESCRIPTION_EDEFAULT == null ? description != null
+						: !DESCRIPTION_EDEFAULT.equals(description);
 			case MappingPackage.REPORT__LINK:
 				return link != null;
 		}
@@ -362,8 +362,8 @@ public class ReportImpl extends MinimalEObjectImpl.Container implements Report {
 				case MappingPackage.REPORT__LINK:
 					for (Adapter adapter : eAdapters) {
 						if (adapter instanceof ReportAdapter) {
-							((ReportAdapter)adapter).listener.linkChanged((ILink)msg.getOldValue(),
-									(ILink)msg.getNewValue());
+							((ReportAdapter)adapter).listener.linkChanged((ILink)msg.getOldValue(), (ILink)msg
+									.getNewValue());
 						}
 					}
 					break;

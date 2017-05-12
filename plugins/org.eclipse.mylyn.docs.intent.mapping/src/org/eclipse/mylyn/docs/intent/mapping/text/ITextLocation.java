@@ -32,8 +32,8 @@ public interface ITextLocation extends ILocation {
 	 * Gets the start offset of {@link ITextLocation#getText() text} in the {@link ITextContainer#getText()
 	 * surrounding text}.
 	 * 
-	 * @return the start offset of {@link ITextLocation#getText() text} in the
-	 *         {@link ITextContainer#getText() surrounding text}
+	 * @return the start offset of {@link ITextLocation#getText() text} in the {@link ITextContainer#getText()
+	 *         surrounding text}
 	 */
 	int getStartOffset();
 

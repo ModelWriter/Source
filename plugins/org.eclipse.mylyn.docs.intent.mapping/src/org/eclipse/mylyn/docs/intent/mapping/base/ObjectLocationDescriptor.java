@@ -167,8 +167,8 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof ObjectLocationDescriptor
-				&& element.equals(((ObjectLocationDescriptor)obj).element);
+		return obj instanceof ObjectLocationDescriptor && element.equals(
+				((ObjectLocationDescriptor)obj).element);
 	}
 
 	/**

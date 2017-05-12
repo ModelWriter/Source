@@ -62,7 +62,8 @@ public class ObjectLocationDescriptorTests {
 			this.element = element;
 		}
 
-		public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object elem) {
+		public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
+				Object elem) {
 			// nothing to do here
 			return null;
 		}

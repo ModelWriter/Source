@@ -124,8 +124,8 @@ public class QuickFixContributionItem extends ContributionItem {
 
 		final IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getActiveEditor();
-		final IVerticalRulerInfo rulerInfo = (IVerticalRulerInfo)activeEditor
-				.getAdapter(IVerticalRulerInfo.class);
+		final IVerticalRulerInfo rulerInfo = (IVerticalRulerInfo)activeEditor.getAdapter(
+				IVerticalRulerInfo.class);
 
 		// TODO check if the last right click has been done on the ruler
 		final IResource resource = getResource(activeEditor);
@@ -168,8 +168,8 @@ public class QuickFixContributionItem extends ContributionItem {
 		}
 		if (line != null) {
 			@SuppressWarnings("unchecked")
-			final Iterator<Annotation> it = model.getAnnotationIterator(line.getOffset(),
-					line.getLength() + 1, true, true);
+			final Iterator<Annotation> it = model.getAnnotationIterator(line.getOffset(), line.getLength()
+					+ 1, true, true);
 			while (it.hasNext()) {
 				final Annotation annotation = it.next();
 				final Position position = model.getPosition(annotation);
@@ -179,9 +179,8 @@ public class QuickFixContributionItem extends ContributionItem {
 						res.add(((MarkerAnnotation)annotation).getMarker());
 					}
 				} catch (BadLocationException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-									"Unable to get annotations for the given position", e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+							"Unable to get annotations for the given position", e));
 				}
 			}
 		}

@@ -85,12 +85,10 @@ public class ReportItemProvider extends ItemProviderAdapter implements IEditingD
 	 * @generated
 	 */
 	protected void addLinkPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-						.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Report_link_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Report_link_feature",
-								"_UI_Report_type"), MappingPackage.Literals.REPORT__LINK, true, false, true,
-						null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Report_link_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Report_link_feature", "_UI_Report_type"),
+				MappingPackage.Literals.REPORT__LINK, true, false, true, null, null, null));
 	}
 
 	/**

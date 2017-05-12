@@ -148,8 +148,8 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 	 */
 	private ILocationDescriptor objectToLocationDescriptor(final Object element) {
 		final ILocationDescriptor res;
-		final IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage().getActivePart();
+		final IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+				.getActivePart();
 		final IFile file;
 		final IFile adaptedFile = IdeMappingUtils.adapt(element, IFile.class);
 		if (adaptedFile != null) {
@@ -185,14 +185,14 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 	private ILocationDescriptor textSelectionToLocationDescriptor(ITextSelection selection) {
 		ILocationDescriptor res;
 
-		final IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage().getActivePart();
+		final IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+				.getActivePart();
 		if (activePart instanceof IEditorPart) {
 			final IEditorInput input = ((IEditorPart)activePart).getEditorInput();
 			final IFile file = UiIdeMappingUtils.getFile(input);
 			try {
-				final String content = MappingUtils.getContent((int)file.getLocation().toFile().length(),
-						file.getContents());
+				final String content = MappingUtils.getContent((int)file.getLocation().toFile().length(), file
+						.getContents());
 				// TODO we implicitly decide to have a flat structure of location here... we
 				// probably
 				// don't want to do that
@@ -208,14 +208,12 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 					res = null;
 				}
 			} catch (IOException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, "can't read content "
-								+ file.getLocation().toString(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						"can't read content " + file.getLocation().toString(), e));
 				res = null;
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, "can't read content "
-								+ file.getLocation().toString(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						"can't read content " + file.getLocation().toString(), e));
 				res = null;
 			}
 		} else {

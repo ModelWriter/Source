@@ -106,7 +106,8 @@ public class RecipeImpl extends MinimalEObjectImpl.Container implements Recipe {
 	 */
 	public EList<Food> getIngredients() {
 		if (ingredients == null) {
-			ingredients = new EObjectResolvingEList<Food>(Food.class, this, AnydslPackage.RECIPE__INGREDIENTS);
+			ingredients = new EObjectResolvingEList<Food>(Food.class, this,
+					AnydslPackage.RECIPE__INGREDIENTS);
 		}
 		return ingredients;
 	}

@@ -1389,8 +1389,8 @@ public interface AnydslPackage extends EPackage {
 	EAttribute getFood_Caliber();
 
 	/**
-	 * Returns the meta object for the reference list '{@link anydsl.Food#getRelatedFoods
-	 * <em>Related Foods</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the reference list '{@link anydsl.Food#getRelatedFoods <em>Related
+	 * Foods</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the reference list '<em>Related Foods</em>'.
 	 * @see anydsl.Food#getRelatedFoods()
@@ -1474,8 +1474,8 @@ public interface AnydslPackage extends EPackage {
 	EOperation getFood__NewFood();
 
 	/**
-	 * Returns the meta object for the '{@link anydsl.Food#setColor(anydsl.Food, anydsl.Color)
-	 * <em>Set Color</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the '{@link anydsl.Food#setColor(anydsl.Food, anydsl.Color) <em>Set
+	 * Color</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the '<em>Set Color</em>' operation.
 	 * @see anydsl.Food#setColor(anydsl.Food, anydsl.Color)
@@ -1495,8 +1495,8 @@ public interface AnydslPackage extends EPackage {
 	EOperation getFood__SetCaliber__Food_EList();
 
 	/**
-	 * Returns the meta object for the '{@link anydsl.Food#acceptedCaliber(anydsl.Caliber)
-	 * <em>Accepted Caliber</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the '{@link anydsl.Food#acceptedCaliber(anydsl.Caliber) <em>Accepted
+	 * Caliber</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the '<em>Accepted Caliber</em>' operation.
 	 * @see anydsl.Food#acceptedCaliber(anydsl.Caliber)
@@ -1515,8 +1515,8 @@ public interface AnydslPackage extends EPackage {
 	EOperation getFood__Label__String();
 
 	/**
-	 * Returns the meta object for the '{@link anydsl.Food#preferredLabel(java.lang.String)
-	 * <em>Preferred Label</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the '{@link anydsl.Food#preferredLabel(java.lang.String) <em>Preferred
+	 * Label</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the '<em>Preferred Label</em>' operation.
 	 * @see anydsl.Food#preferredLabel(java.lang.String)
@@ -1901,8 +1901,8 @@ public interface AnydslPackage extends EPackage {
 		EReference COMPANY__WORLD = eINSTANCE.getCompany_World();
 
 		/**
-		 * The meta object literal for the '{@link anydsl.impl.ProductionCompanyImpl
-		 * <em>Production Company</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '{@link anydsl.impl.ProductionCompanyImpl <em>Production
+		 * Company</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see anydsl.impl.ProductionCompanyImpl
 		 * @see anydsl.impl.AnydslPackageImpl#getProductionCompany()
@@ -2181,8 +2181,8 @@ public interface AnydslPackage extends EPackage {
 		EAttribute ANIMAL__PART = eINSTANCE.getAnimal_Part();
 
 		/**
-		 * The meta object literal for the '{@link anydsl.impl.EStringToRecipeMapImpl
-		 * <em>EString To Recipe Map</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '{@link anydsl.impl.EStringToRecipeMapImpl <em>EString To Recipe
+		 * Map</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see anydsl.impl.EStringToRecipeMapImpl
 		 * @see anydsl.impl.AnydslPackageImpl#getEStringToRecipeMap()

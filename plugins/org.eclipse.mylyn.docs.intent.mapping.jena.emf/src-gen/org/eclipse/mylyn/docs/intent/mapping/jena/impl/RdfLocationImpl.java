@@ -79,7 +79,8 @@ public class RdfLocationImpl extends LocationImpl implements RdfLocation {
 		String oldURI = uri;
 		uri = newURI;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JenaPackage.RDF_LOCATION__URI, oldURI, uri));
+			eNotify(new ENotificationImpl(this, Notification.SET, JenaPackage.RDF_LOCATION__URI, oldURI,
+					uri));
 	}
 
 	/**

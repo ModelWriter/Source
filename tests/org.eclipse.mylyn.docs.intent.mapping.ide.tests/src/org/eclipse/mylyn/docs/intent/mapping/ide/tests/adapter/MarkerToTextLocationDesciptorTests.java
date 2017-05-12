@@ -72,13 +72,12 @@ public class MarkerToTextLocationDesciptorTests {
 		IdeMappingUtils.setCurrentBase(base);
 		base.getFactory().addDescriptor(ITextFileLocation.class,
 				new BaseElementFactory.FactoryDescriptor<TestTextFileLocation>(TestTextFileLocation.class));
-		base.getFactory().addDescriptor(
-				ITextLocation.class,
+		base.getFactory().addDescriptor(ITextLocation.class,
 				new BaseElementFactory.FactoryDescriptor<TextConnectorParametrizedTests.TestTextLocation>(
 						TextConnectorParametrizedTests.TestTextLocation.class));
 
-		ILocationDescriptor locationDescriptor = (ILocationDescriptor)Platform.getAdapterManager()
-				.getAdapter(marker, ILocationDescriptor.class);
+		ILocationDescriptor locationDescriptor = (ILocationDescriptor)Platform.getAdapterManager().getAdapter(
+				marker, ILocationDescriptor.class);
 
 		assertNotNull(locationDescriptor);
 		assertTrue(locationDescriptor.getElement() instanceof TextRegion);

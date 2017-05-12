@@ -249,11 +249,11 @@ public class EObjectLocationImpl extends LocationImpl implements EObjectLocation
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MappingPackage.EOBJECT_LOCATION__URI_FRAGMENT:
-				return URI_FRAGMENT_EDEFAULT == null ? uriFragment != null : !URI_FRAGMENT_EDEFAULT
-						.equals(uriFragment);
+				return URI_FRAGMENT_EDEFAULT == null ? uriFragment != null
+						: !URI_FRAGMENT_EDEFAULT.equals(uriFragment);
 			case MappingPackage.EOBJECT_LOCATION__FEATURE_NAME:
-				return FEATURE_NAME_EDEFAULT == null ? featureName != null : !FEATURE_NAME_EDEFAULT
-						.equals(featureName);
+				return FEATURE_NAME_EDEFAULT == null ? featureName != null
+						: !FEATURE_NAME_EDEFAULT.equals(featureName);
 			case MappingPackage.EOBJECT_LOCATION__INDEX:
 				return index != INDEX_EDEFAULT;
 		}

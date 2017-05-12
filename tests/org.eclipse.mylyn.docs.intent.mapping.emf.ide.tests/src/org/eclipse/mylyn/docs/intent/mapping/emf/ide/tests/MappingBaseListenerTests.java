@@ -151,8 +151,7 @@ public class MappingBaseListenerTests {
 					new XMIResourceFactoryImpl());
 
 			final Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(container
-					.getFullPath().toString()
-					+ "/" + fileName, true));
+					.getFullPath().toString() + "/" + fileName, true));
 			if (base != null) {
 				resource.getContents().add(base);
 			}

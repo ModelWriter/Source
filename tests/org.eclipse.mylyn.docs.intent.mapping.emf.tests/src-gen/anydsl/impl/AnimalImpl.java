@@ -153,8 +153,8 @@ public class AnimalImpl extends MinimalEObjectImpl.Container implements Animal {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case AnydslPackage.ANIMAL__FOODS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getFoods())
-						.basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getFoods()).basicAdd(otherEnd,
+						msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}

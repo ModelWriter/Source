@@ -126,8 +126,8 @@ public class LinkItemProvider extends ItemProviderAdapter implements IEditingDom
 	 */
 	protected void addTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Link_type_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Link_type_feature", "_UI_Link_type"),
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Link_type_feature"), getString(
+						"_UI_PropertyDescriptor_description", "_UI_Link_type_feature", "_UI_Link_type"),
 				MappingPackage.Literals.LINK__TYPE, true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -162,8 +162,8 @@ public class LinkItemProvider extends ItemProviderAdapter implements IEditingDom
 	@Override
 	public String getText(Object object) {
 		String label = eLabelProvider.getText(((Link)object).getTarget());
-		return label == null || label.length() == 0 ? getString("_UI_Link_type") : getString("_UI_Link_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Link_type")
+				: getString("_UI_Link_type") + " " + label;
 	}
 
 	/**

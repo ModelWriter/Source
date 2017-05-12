@@ -123,7 +123,8 @@ public class ProducerImpl extends MinimalEObjectImpl.Container implements Produc
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.PRODUCER__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.PRODUCER__NAME, oldName,
+					name));
 	}
 
 	/**
@@ -187,8 +188,8 @@ public class ProducerImpl extends MinimalEObjectImpl.Container implements Produc
 			company = (Company)eResolveProxy(oldCompany);
 			if (company != oldCompany) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							AnydslPackage.PRODUCER__COMPANY, oldCompany, company));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AnydslPackage.PRODUCER__COMPANY,
+							oldCompany, company));
 			}
 		}
 		return company;
@@ -212,8 +213,8 @@ public class ProducerImpl extends MinimalEObjectImpl.Container implements Produc
 		Company oldCompany = company;
 		company = newCompany;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.PRODUCER__COMPANY,
-					oldCompany, company));
+			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.PRODUCER__COMPANY, oldCompany,
+					company));
 	}
 
 	/**
@@ -239,8 +240,8 @@ public class ProducerImpl extends MinimalEObjectImpl.Container implements Produc
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case AnydslPackage.PRODUCER__FOODS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getFoods())
-						.basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getFoods()).basicAdd(otherEnd,
+						msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}

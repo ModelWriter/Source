@@ -129,7 +129,8 @@ public class IdeMappingUtilsTests {
 		}
 	}
 
-	public static void assertCurrentBaseListener(TestCurrentBaseListener listener, int currentBaseChangedCount) {
+	public static void assertCurrentBaseListener(TestCurrentBaseListener listener,
+			int currentBaseChangedCount) {
 		assertEquals(currentBaseChangedCount, listener.currentBaseChangedCount);
 	}
 

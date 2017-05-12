@@ -151,24 +151,19 @@ public class TextConnectorParametrizedTests {
 
 	@Parameters
 	public static Iterable<String[]> data() {
-		return Arrays
-				.asList(new String[][] {
-						{"or Fragment may be", "or Fragment may not be", },
-						{
-								"FEATURE LICENSES, AND FEATURE UPDATE LICENSES MAY REFER TO THE EPL OR",
-								"FEATURE LICENSES, AND FEATURE UPDATE LICENSES MAY REFER TO THE LICENSES MAY REFER TO THE EPL OR", },
-						{
-								"Eclipse Public License Version 1.0 (\"EPL\"). A copy of the EPL is provided with this Content and is also available at http://www.eclipse.org/legal/epl-v10.html.",
-								"Eclipse Public License Version 1.0 (\"EPL\"). A copy of the EPL is provided with this  Some new text at the Content and is also available at http://www.eclipse.org/legal/epl-v10.html.", },
-						{"Each Feature may be packaged as a sub-directory",
-								"Each Some new text at the Feature may be packaged as a sub-directory", },
+		return Arrays.asList(new String[][] {{"or Fragment may be", "or Fragment may not be", }, {
+				"FEATURE LICENSES, AND FEATURE UPDATE LICENSES MAY REFER TO THE EPL OR",
+				"FEATURE LICENSES, AND FEATURE UPDATE LICENSES MAY REFER TO THE LICENSES MAY REFER TO THE EPL OR", },
+				{"Eclipse Public License Version 1.0 (\"EPL\"). A copy of the EPL is provided with this Content and is also available at http://www.eclipse.org/legal/epl-v10.html.",
+						"Eclipse Public License Version 1.0 (\"EPL\"). A copy of the EPL is provided with this  Some new text at the Content and is also available at http://www.eclipse.org/legal/epl-v10.html.", },
+				{"Each Feature may be packaged as a sub-directory",
+						"Each Some new text at the Feature may be packaged as a sub-directory", },
 
-						{"is a bundle of one or more Plug-ins and/or Fragments",
-								"is a bundle of one or more Plug-ins and", },
+				{"is a bundle of one or more Plug-ins and/or Fragments",
+						"is a bundle of one or more Plug-ins and", },
 
-						{
-								"(available at http://www.opengroup.org/openmotif/supporters/metrolink/license.html)",
-								"www.opengroup.org/openmotif/supporters/metrolink/license.html)", }, });
+				{"(available at http://www.opengroup.org/openmotif/supporters/metrolink/license.html)",
+						"www.opengroup.org/openmotif/supporters/metrolink/license.html)", }, });
 	}
 
 	/**

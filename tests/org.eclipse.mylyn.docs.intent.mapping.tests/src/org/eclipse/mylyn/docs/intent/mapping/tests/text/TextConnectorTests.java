@@ -104,8 +104,8 @@ public class TextConnectorTests extends TextConnector {
 	public void updateTextContainerDeleted() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final IBase base = new BaseRegistryTests.TestBase();
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		final ITextContainer container = new TestTextContainerLocation();
 		container.setContainer(base);
 		container.setText("abcdefgh");
@@ -134,8 +134,8 @@ public class TextConnectorTests extends TextConnector {
 	public void updateTextContainerChanged() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final IBase base = new BaseRegistryTests.TestBase();
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		final ITextContainer container = new TestTextContainerLocation();
 		container.setContainer(base);
 		container.setText("abcdefgh");

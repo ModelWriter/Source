@@ -28,7 +28,8 @@ public class IdeTextConnectorTests extends TextConnectorTests {
 
 	@Test
 	public void isRegistred() {
-		assertTrue(MappingUtils.getConnectorRegistry().getConnector(ITextLocation.class) instanceof IdeTextConnector);
+		assertTrue(MappingUtils.getConnectorRegistry().getConnector(
+				ITextLocation.class) instanceof IdeTextConnector);
 	}
 
 }

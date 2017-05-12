@@ -134,8 +134,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 		MappingUtils.getConnectorRegistry().register(testEObjectContainerConnector);
 		final EObjectConnector eObjectConnector = new EObjectConnector();
 		MappingUtils.getConnectorRegistry().register(eObjectConnector);
-		super.initLocation(container, location, ((InternalEObject)producerEClass)
-				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name()));
+		super.initLocation(container, location, ((InternalEObject)producerEClass).eSetting(
+				EcorePackage.eINSTANCE.getENamedElement_Name()));
 
 		final Object element = eObjectConnector.getElement(location);
 		assertTrue(element instanceof Setting);
@@ -170,8 +170,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 		super.initLocation(container, location, producerEClass);
 
 		assertEquals(location, super.getLocation(container, producerEClass));
-		assertEquals(null, super.getLocation(container, ((InternalEObject)producerEClass)
-				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name())));
+		assertEquals(null, super.getLocation(container, ((InternalEObject)producerEClass).eSetting(
+				EcorePackage.eINSTANCE.getENamedElement_Name())));
 
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}
@@ -194,12 +194,12 @@ public class EObjectConnectorTests extends EObjectConnector {
 
 		final TestEObjectContainerConnector connector = new TestEObjectContainerConnector();
 		MappingUtils.getConnectorRegistry().register(connector);
-		super.initLocation(container, location, ((InternalEObject)producerEClass)
-				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name()));
+		super.initLocation(container, location, ((InternalEObject)producerEClass).eSetting(
+				EcorePackage.eINSTANCE.getENamedElement_Name()));
 
 		assertEquals(null, super.getLocation(container, producerEClass));
-		assertEquals(location, super.getLocation(container, ((InternalEObject)producerEClass)
-				.eSetting(EcorePackage.eINSTANCE.getENamedElement_Name())));
+		assertEquals(location, super.getLocation(container, ((InternalEObject)producerEClass).eSetting(
+				EcorePackage.eINSTANCE.getENamedElement_Name())));
 
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}
@@ -207,8 +207,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	@Test
 	public void updateEObjectContainerEObjectLocationDeleted() throws Exception {
 		final IBase base = new BaseRegistryTests.TestBase();
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		container.setContainer(base);
 		final Copier copier = new Copier();
@@ -251,8 +251,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	@Test
 	public void updateEObjectContainerEObjectLocationChanged() throws Exception {
 		final IBase base = new BaseRegistryTests.TestBase();
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		container.setContainer(base);
 		final Copier copier = new Copier();
@@ -292,8 +292,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	@Test
 	public void updateEObjectContainerSettingLocationChanged() throws Exception {
 		final IBase base = new BaseRegistryTests.TestBase();
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		container.setContainer(base);
 		final Copier copier = new Copier();
@@ -329,8 +329,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 		assertEquals(link, report.getLink());
 		assertTrue(report.getDescription().contains("Producer"));
 		assertTrue(report.getDescription().contains("/3"));
-		assertTrue(report.getDescription()
-				.contains("feature interface value false has been changed to true."));
+		assertTrue(report.getDescription().contains(
+				"feature interface value false has been changed to true."));
 
 		MappingUtils.getConnectorRegistry().unregister(connector);
 	}
@@ -338,8 +338,8 @@ public class EObjectConnectorTests extends EObjectConnector {
 	@Test
 	public void updateEObjectContainerSettingLocationManyRemoved() throws Exception {
 		final IBase base = new BaseRegistryTests.TestBase();
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		final TestEObjectContainerLocation container = new TestEObjectContainerLocation();
 		container.setContainer(base);
 		final Copier copier = new Copier();

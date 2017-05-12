@@ -142,9 +142,9 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 			return (MappingPackage)EPackage.Registry.INSTANCE.getEPackage(MappingPackage.eNS_URI);
 
 		// Obtain or create and register package
-		MappingPackageImpl theMappingPackage = (MappingPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof MappingPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI)
-				: new MappingPackageImpl());
+		MappingPackageImpl theMappingPackage = (MappingPackageImpl)(EPackage.Registry.INSTANCE.get(
+				eNS_URI) instanceof MappingPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
+						: new MappingPackageImpl());
 
 		isInited = true;
 
@@ -568,11 +568,11 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
 		initEReference(getBase_Reports(), this.getReport(), null, "reports", null, 0, -1, Base.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(iemfBaseElementEClass, IEMFBaseElement.class, "IEMFBaseElement", IS_ABSTRACT,
-				IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(iemfBaseElementEClass, IEMFBaseElement.class, "IEMFBaseElement", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(textLocationEClass, TextLocation.class, "TextLocation", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -585,11 +585,11 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 
 		initEClass(eObjectLocationEClass, EObjectLocation.class, "EObjectLocation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEObjectLocation_URIFragment(), ecorePackage.getEString(), "URIFragment", null, 1,
-				1, EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+		initEAttribute(getEObjectLocation_URIFragment(), ecorePackage.getEString(), "URIFragment", null, 1, 1,
+				EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEObjectLocation_FeatureName(), ecorePackage.getEString(), "featureName", null, 0,
-				1, EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+		initEAttribute(getEObjectLocation_FeatureName(), ecorePackage.getEString(), "featureName", null, 0, 1,
+				EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEObjectLocation_Index(), ecorePackage.getEInt(), "index", "0", 1, 1,
 				EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,

@@ -40,7 +40,8 @@ public class MorphologySimilarityProvider implements ISemanticSimilarityProvider
 	/**
 	 * Standford pipeline.
 	 */
-	private static final StanfordCoreNLP PIPELINE = initPipeline("annotators", "tokenize, ssplit, pos, lemma");
+	private static final StanfordCoreNLP PIPELINE = initPipeline("annotators",
+			"tokenize, ssplit, pos, lemma");
 
 	/**
 	 * {@inheritDoc}

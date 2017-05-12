@@ -49,8 +49,8 @@ public class EObjectToFileAdapterFactoryTests {
 		try {
 			final IProject project = createProject();
 			final ResourceSet rs = new ResourceSetImpl();
-			final org.eclipse.emf.ecore.resource.Resource r = rs.createResource(URI
-					.createPlatformResourceURI("/test/test.xmi", true));
+			final org.eclipse.emf.ecore.resource.Resource r = rs.createResource(URI.createPlatformResourceURI(
+					"/test/test.xmi", true));
 			final EPackage ePackage = EcorePackage.eINSTANCE.getEcoreFactory().createEPackage();
 			r.getContents().add(ePackage);
 			r.save(null);

@@ -188,8 +188,8 @@ public class RestaurantImpl extends MinimalEObjectImpl.Container implements Rest
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.RESTAURANT__ADRESS,
-					newAdress, newAdress));
+			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.RESTAURANT__ADRESS, newAdress,
+					newAdress));
 	}
 
 	/**
@@ -203,8 +203,8 @@ public class RestaurantImpl extends MinimalEObjectImpl.Container implements Rest
 			world = (World)eResolveProxy(oldWorld);
 			if (world != oldWorld) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							AnydslPackage.RESTAURANT__WORLD, oldWorld, world));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AnydslPackage.RESTAURANT__WORLD,
+							oldWorld, world));
 			}
 		}
 		return world;

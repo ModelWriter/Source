@@ -65,9 +65,9 @@ public class Jena_idePackageImpl extends EPackageImpl implements Jena_idePackage
 			return (Jena_idePackage)EPackage.Registry.INSTANCE.getEPackage(Jena_idePackage.eNS_URI);
 
 		// Obtain or create and register package
-		Jena_idePackageImpl theJena_idePackage = (Jena_idePackageImpl)(EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof Jena_idePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Jena_idePackageImpl());
+		Jena_idePackageImpl theJena_idePackage = (Jena_idePackageImpl)(EPackage.Registry.INSTANCE.get(
+				eNS_URI) instanceof Jena_idePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
+						: new Jena_idePackageImpl());
 
 		isInited = true;
 

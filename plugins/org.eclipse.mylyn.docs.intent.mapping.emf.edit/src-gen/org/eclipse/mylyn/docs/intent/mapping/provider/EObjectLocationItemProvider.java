@@ -93,11 +93,12 @@ public class EObjectLocationItemProvider extends TextLocationItemProvider {
 	 */
 	protected void addFeatureNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_EObjectLocation_featureName_feature"), getString(
-						"_UI_PropertyDescriptor_description", "_UI_EObjectLocation_featureName_feature",
-						"_UI_EObjectLocation_type"), MappingPackage.Literals.EOBJECT_LOCATION__FEATURE_NAME,
-				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				.getRootAdapterFactory(), getResourceLocator(), getString(
+						"_UI_EObjectLocation_featureName_feature"), getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_EObjectLocation_featureName_feature", "_UI_EObjectLocation_type"),
+				MappingPackage.Literals.EOBJECT_LOCATION__FEATURE_NAME, true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

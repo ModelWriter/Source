@@ -64,8 +64,8 @@ public interface MappingPackage extends EPackage {
 	MappingPackage eINSTANCE = org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement
-	 * <em>IEMF Base Element</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement <em>IEMF Base
+	 * Element</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getIEMFBaseElement()
@@ -297,8 +297,8 @@ public interface MappingPackage extends EPackage {
 	int BASE_OPERATION_COUNT = IEMF_BASE_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl
-	 * <em>Text Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl <em>Text
+	 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getTextLocation()
@@ -503,8 +503,8 @@ public interface MappingPackage extends EPackage {
 	int EOBJECT_LOCATION_OPERATION_COUNT = LOCATION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer
-	 * <em>Location Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.LocationContainer <em>Location
+	 * Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.eclipse.mylyn.docs.intent.mapping.LocationContainer
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getLocationContainer()
@@ -774,8 +774,8 @@ public interface MappingPackage extends EPackage {
 	EClass getIEMFBaseElement();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.TextLocation
-	 * <em>Text Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.TextLocation <em>Text
+	 * Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Text Location</em>'.
 	 * @see org.eclipse.mylyn.docs.intent.mapping.TextLocation

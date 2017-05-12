@@ -11,7 +11,8 @@ import org.eclipse.mylyn.docs.intent.mapping.jena.ide.IRdfFileLocation;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.RdfFileLocation#getResources <em>Resources</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.RdfFileLocation#getResources
+ * <em>Resources</em>}</li>
  * </ul>
  * </p>
  *

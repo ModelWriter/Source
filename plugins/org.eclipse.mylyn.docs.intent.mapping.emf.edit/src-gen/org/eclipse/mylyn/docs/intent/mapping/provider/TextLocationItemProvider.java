@@ -68,11 +68,11 @@ public class TextLocationItemProvider extends LocationItemProvider {
 	 */
 	protected void addStartOffsetPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_TextLocation_startOffset_feature"), getString(
-						"_UI_PropertyDescriptor_description", "_UI_TextLocation_startOffset_feature",
-						"_UI_TextLocation_type"), MappingPackage.Literals.TEXT_LOCATION__START_OFFSET, true,
-				false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+				.getRootAdapterFactory(), getResourceLocator(), getString(
+						"_UI_TextLocation_startOffset_feature"), getString(
+								"_UI_PropertyDescriptor_description", "_UI_TextLocation_startOffset_feature",
+								"_UI_TextLocation_type"), MappingPackage.Literals.TEXT_LOCATION__START_OFFSET,
+				true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -83,11 +83,11 @@ public class TextLocationItemProvider extends LocationItemProvider {
 	 */
 	protected void addEndOffsetPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_TextLocation_endOffset_feature"), getString(
-						"_UI_PropertyDescriptor_description", "_UI_TextLocation_endOffset_feature",
-						"_UI_TextLocation_type"), MappingPackage.Literals.TEXT_LOCATION__END_OFFSET, true,
-				false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+				.getRootAdapterFactory(), getResourceLocator(), getString(
+						"_UI_TextLocation_endOffset_feature"), getString("_UI_PropertyDescriptor_description",
+								"_UI_TextLocation_endOffset_feature", "_UI_TextLocation_type"),
+				MappingPackage.Literals.TEXT_LOCATION__END_OFFSET, true, false, false,
+				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**

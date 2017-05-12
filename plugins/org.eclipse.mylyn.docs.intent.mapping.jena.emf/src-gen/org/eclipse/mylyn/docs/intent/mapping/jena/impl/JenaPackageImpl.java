@@ -66,9 +66,9 @@ public class JenaPackageImpl extends EPackageImpl implements JenaPackage {
 			return (JenaPackage)EPackage.Registry.INSTANCE.getEPackage(JenaPackage.eNS_URI);
 
 		// Obtain or create and register package
-		JenaPackageImpl theJenaPackage = (JenaPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof JenaPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI)
-				: new JenaPackageImpl());
+		JenaPackageImpl theJenaPackage = (JenaPackageImpl)(EPackage.Registry.INSTANCE.get(
+				eNS_URI) instanceof JenaPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
+						: new JenaPackageImpl());
 
 		isInited = true;
 
@@ -163,8 +163,8 @@ public class JenaPackageImpl extends EPackageImpl implements JenaPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		MappingPackage theMappingPackage = (MappingPackage)EPackage.Registry.INSTANCE
-				.getEPackage(MappingPackage.eNS_URI);
+		MappingPackage theMappingPackage = (MappingPackage)EPackage.Registry.INSTANCE.getEPackage(
+				MappingPackage.eNS_URI);
 
 		// Create type parameters
 

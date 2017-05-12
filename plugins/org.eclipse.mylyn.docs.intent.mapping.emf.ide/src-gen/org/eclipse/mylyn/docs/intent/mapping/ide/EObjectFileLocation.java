@@ -49,8 +49,8 @@ public interface EObjectFileLocation extends FileLocation, IEObjectFileLocation 
 
 	/**
 	 * Sets the value of the '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent
-	 * <em>XMI Content</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent <em>XMI
+	 * Content</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>XMI Content</em>' attribute.

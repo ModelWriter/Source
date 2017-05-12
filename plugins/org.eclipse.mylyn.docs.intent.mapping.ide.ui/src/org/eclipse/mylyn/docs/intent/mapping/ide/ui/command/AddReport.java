@@ -50,14 +50,14 @@ public class AddReport extends AbstractHandler {
 					try {
 						MappingUtils.createReport((ILink)element, dialog.getText());
 					} catch (InstantiationException e) {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+						Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+								.getMessage(), e));
 					} catch (IllegalAccessException e) {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+						Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+								.getMessage(), e));
 					} catch (ClassNotFoundException e) {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+						Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+								.getMessage(), e));
 					}
 				}
 			}

@@ -110,20 +110,20 @@ public class ResourceConnectorTests {
 		project.create(monitor);
 		project.open(monitor);
 
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolder"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolder"));
 		folder.create(true, true, monitor);
 
-		final IFile fileA = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.aaa"));
+		final IFile fileA = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.aaa"));
 		fileA.create(new ByteArrayInputStream(new byte[0]), true, monitor);
 
-		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.bbb"));
+		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.bbb"));
 		fileB.create(new ByteArrayInputStream(new byte[0]), true, monitor);
 
-		final IFile fileC = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.ccc"));
+		final IFile fileC = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.ccc"));
 		fileC.create(new ByteArrayInputStream(new byte[0]), true, monitor);
 	}
 
@@ -134,20 +134,20 @@ public class ResourceConnectorTests {
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("TestProject");
 		project.delete(true, monitor);
 
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolder"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolder"));
 		folder.delete(true, monitor);
 
-		final IFile fileA = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.aaa"));
+		final IFile fileA = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.aaa"));
 		fileA.delete(true, monitor);
 
-		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.bbb"));
+		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.bbb"));
 		fileB.delete(true, monitor);
 
-		final IFile fileC = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.ccc"));
+		final IFile fileC = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.ccc"));
 		fileC.delete(true, monitor);
 	}
 
@@ -189,8 +189,8 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void getLocationTypeIFolder() {
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolder"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolder"));
 
 		final Class<? extends ILocation> locationType = connector.getLocationType(null, folder);
 
@@ -199,8 +199,8 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void getLocationTypeIFileA() {
-		final IFile fileA = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.aaa"));
+		final IFile fileA = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.aaa"));
 
 		final Class<? extends ILocation> locationType = connector.getLocationType(null, fileA);
 
@@ -209,8 +209,8 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void getLocationTypeIFileB() {
-		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.bbb"));
+		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.bbb"));
 
 		final Class<? extends ILocation> locationType = connector.getLocationType(null, fileB);
 
@@ -219,8 +219,8 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void getLocationTypeIFileC() {
-		final IFile fileC = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.ccc"));
+		final IFile fileC = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.ccc"));
 
 		final Class<? extends ILocation> locationType = connector.getLocationType(null, fileC);
 
@@ -239,8 +239,8 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void initLocationIFolder() {
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolder"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolder"));
 		TestResourceLocation location = new TestResourceLocation();
 
 		connector.initLocation(null, location, folder);
@@ -250,8 +250,8 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void initLocationIFileA() {
-		final IFile fileA = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.aaa"));
+		final IFile fileA = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.aaa"));
 		TestResourceLocation location = new TestResourceLocation();
 
 		connector.initLocation(null, location, fileA);
@@ -261,8 +261,8 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void initLocationIFileB() {
-		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.bbb"));
+		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.bbb"));
 		TestResourceLocation location = new TestResourceLocation();
 
 		connector.initLocation(null, location, fileB);
@@ -272,8 +272,8 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void initLocationIFileC() {
-		final IFile fileC = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.ccc"));
+		final IFile fileC = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.ccc"));
 		TestResourceLocation location = new TestResourceLocation();
 
 		connector.initLocation(null, location, fileC);
@@ -283,7 +283,8 @@ public class ResourceConnectorTests {
 
 	@Test
 	public void isRegistred() {
-		assertTrue(MappingUtils.getConnectorRegistry().getConnector(IResourceLocation.class) instanceof ResourceConnector);
+		assertTrue(MappingUtils.getConnectorRegistry().getConnector(
+				IResourceLocation.class) instanceof ResourceConnector);
 	}
 
 	@Test
@@ -301,8 +302,8 @@ public class ResourceConnectorTests {
 	@Test
 	public void getLocationIFolder() {
 		final TestLocation container = new TestLocation();
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolder"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolder"));
 		TestResourceLocation location = new TestResourceLocation();
 		container.getContents().add(location);
 
@@ -314,8 +315,8 @@ public class ResourceConnectorTests {
 	@Test
 	public void getLocationIFileB() {
 		final TestLocation container = new TestLocation();
-		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.bbb"));
+		final IFile fileB = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.bbb"));
 		TestResourceLocation location = new TestResourceLocation();
 		container.getContents().add(location);
 
@@ -328,12 +329,12 @@ public class ResourceConnectorTests {
 	public void updateDeleted() throws Exception {
 		final IBase base = new BaseRegistryTests.TestBase();
 		IdeMappingUtils.setCurrentBase(base);
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		final ILocation target = new TestTextLocation();
 
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolderToDelete"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolderToDelete"));
 		folder.create(true, true, new NullProgressMonitor());
 		TestResourceLocation location = new TestResourceLocation();
 		base.getContents().add(location);
@@ -362,12 +363,12 @@ public class ResourceConnectorTests {
 	public void updateChanged() throws Exception {
 		final IBase base = new BaseRegistryTests.TestBase();
 		IdeMappingUtils.setCurrentBase(base);
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		final ILocation target = new TestTextLocation();
 
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolderToMove"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolderToMove"));
 		folder.create(true, true, new NullProgressMonitor());
 		TestResourceLocation location = new TestResourceLocation();
 		base.getContents().add(location);

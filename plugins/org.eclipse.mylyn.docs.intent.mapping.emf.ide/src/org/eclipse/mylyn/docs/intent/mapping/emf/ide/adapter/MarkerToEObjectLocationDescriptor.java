@@ -59,8 +59,8 @@ public class MarkerToEObjectLocationDescriptor implements IMarkerToLocationDescr
 							eObject);
 				}
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 		}
 

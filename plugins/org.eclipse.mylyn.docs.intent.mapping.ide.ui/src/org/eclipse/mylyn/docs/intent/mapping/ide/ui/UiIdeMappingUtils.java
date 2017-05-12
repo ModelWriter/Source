@@ -80,8 +80,8 @@ public final class UiIdeMappingUtils {
 		try {
 			IDE.openEditor(activePage, marker, true);
 		} catch (PartInitException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, "unable to open location marker: ", e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					"unable to open location marker: ", e));
 		}
 	}
 

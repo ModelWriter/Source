@@ -71,8 +71,8 @@ public class EObjectLocationToMarkerAdapterFactoryTests {
 		assertNotNull(marker);
 		assertEquals(IEObjectLocationMaker.EOBJECT_LOCATION_ID, marker.getType());
 		assertEquals("/test/test.xmi", marker.getResource().getFullPath().toString());
-		assertEquals("platform:/resource/test/test.xmi#/", marker
-				.getAttribute(IEObjectLocationMaker.URI_ATTRIBUTE));
+		assertEquals("platform:/resource/test/test.xmi#/", marker.getAttribute(
+				IEObjectLocationMaker.URI_ATTRIBUTE));
 
 		project.delete(true, true, new NullProgressMonitor());
 	}

@@ -234,8 +234,8 @@ final public class ShuffleOperations {
 			add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2, suspend_shuffle,
 					suspend_shuffle);
 			if (suspend_shuffle < max)
-				add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2,
-						(char)(suspend_shuffle + 1), max);
+				add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2, (char)(suspend_shuffle
+						+ 1), max);
 		} else if (resume_shuffle != null && min <= resume_shuffle && resume_shuffle <= max && min != max) {
 			if (min < resume_shuffle)
 				add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2, min,
@@ -243,16 +243,16 @@ final public class ShuffleOperations {
 			add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2, resume_shuffle,
 					resume_shuffle);
 			if (resume_shuffle < max)
-				add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2,
-						(char)(resume_shuffle + 1), max);
+				add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2, (char)(resume_shuffle
+						+ 1), max);
 		} else if (min < HIGH_SURROGATE_BEGIN && max >= HIGH_SURROGATE_BEGIN) {
 			add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2, min,
 					(char)(HIGH_SURROGATE_BEGIN - 1));
 			add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2, HIGH_SURROGATE_BEGIN, max);
 		} else if (min <= HIGH_SURROGATE_END && max > HIGH_SURROGATE_END) {
 			add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2, min, HIGH_SURROGATE_END);
-			add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2,
-					(char)(HIGH_SURROGATE_END + 1), max);
+			add(suspend_shuffle, resume_shuffle, pending, visited, c, i1, t1, t2, (char)(HIGH_SURROGATE_END
+					+ 1), max);
 		} else {
 			ShuffleConfiguration nc = new ShuffleConfiguration(c, i1, t1.to, t2.to, min);
 			if (suspend_shuffle != null && min == suspend_shuffle) {

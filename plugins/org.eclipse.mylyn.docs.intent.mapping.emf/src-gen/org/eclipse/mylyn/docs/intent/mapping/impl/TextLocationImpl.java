@@ -26,7 +26,8 @@ import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
  * <ul>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl#getStartOffset <em>Start Offset
  * </em>}</li>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl#getEndOffset <em>End Offset</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl#getEndOffset <em>End
+ * Offset</em>}</li>
  * </ul>
  * </p>
  *

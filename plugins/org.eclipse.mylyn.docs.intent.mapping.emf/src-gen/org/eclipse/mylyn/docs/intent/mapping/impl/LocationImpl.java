@@ -49,8 +49,10 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
  * <ul>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl#getName <em>Name</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl#getScope <em>Scope</em>}</li>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl#getSourceLinks <em>Source Links</em>}</li>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl#getTargetLinks <em>Target Links</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl#getSourceLinks <em>Source
+ * Links</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl#getTargetLinks <em>Target
+ * Links</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl#getContents <em>Contents</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl#getContainer <em>Container</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl#getReferencingScopes <em>Referencing
@@ -312,11 +314,11 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getContents()).basicAdd(otherEnd,
 						msgs);
 			case MappingPackage.LOCATION__SOURCE_LINKS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSourceLinks()).basicAdd(
-						otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSourceLinks()).basicAdd(otherEnd,
+						msgs);
 			case MappingPackage.LOCATION__TARGET_LINKS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTargetLinks()).basicAdd(
-						otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTargetLinks()).basicAdd(otherEnd,
+						msgs);
 			case MappingPackage.LOCATION__CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);

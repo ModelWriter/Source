@@ -174,8 +174,8 @@ public class PlantImpl extends MinimalEObjectImpl.Container implements Plant {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case AnydslPackage.PLANT__FOODS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getFoods())
-						.basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getFoods()).basicAdd(otherEnd,
+						msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}

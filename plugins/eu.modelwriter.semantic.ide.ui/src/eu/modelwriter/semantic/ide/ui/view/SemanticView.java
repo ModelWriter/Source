@@ -112,9 +112,10 @@ public class SemanticView extends ViewPart {
 					for (Entry<Object, Set<int[]>> similarityEntry : conceptEntry.getValue().entrySet()) {
 						final Object similarity = similarityEntry.getKey();
 						for (int[] positions : similarityEntry.getValue()) {
-							final IMarker marker = file
-									.createMarker(ISemanticAnnotationMarker.TEXT_SEMANTIC_ANNOTATION_ID);
-							marker.setAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE, concept);
+							final IMarker marker = file.createMarker(
+									ISemanticAnnotationMarker.TEXT_SEMANTIC_ANNOTATION_ID);
+							marker.setAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE,
+									concept);
 							marker.setAttribute(ISemanticAnnotationMarker.SEMANTIC_SIMILARITY_ATTRIBUTE,
 									similarity);
 							marker.setAttribute(IMarker.MESSAGE, concept + "\n" + similarity);
@@ -124,8 +125,8 @@ public class SemanticView extends ViewPart {
 					}
 				}
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 
 			return Status.OK_STATUS;
@@ -482,8 +483,8 @@ public class SemanticView extends ViewPart {
 				new SemanticSimilarityProviderRegistryContentProvider());
 		semanticSimilarityProviderTree.getViewer().setLabelProvider(
 				new SemanticSimilarityProviderLabelProvider());
-		semanticSimilarityProviderTree.getViewer().setInput(
-				SemanticUtils.getSemanticSimilarityProviderRegistry());
+		semanticSimilarityProviderTree.getViewer().setInput(SemanticUtils
+				.getSemanticSimilarityProviderRegistry());
 		semanticSimilarityProviderTree.getViewer().getTree().addListener(SWT.Selection, new Listener() {
 
 			public void handleEvent(Event event) {

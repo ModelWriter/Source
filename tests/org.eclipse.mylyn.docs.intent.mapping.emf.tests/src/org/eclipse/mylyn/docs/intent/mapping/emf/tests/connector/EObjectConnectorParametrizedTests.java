@@ -228,39 +228,34 @@ public class EObjectConnectorParametrizedTests {
 
 	@Parameters
 	public static Iterable<Object[][]> data() {
-		return Arrays.asList(new Object[][][] {
-				{ {AnydslPackage.eINSTANCE.getEClassifiers().get(7), null, null, },
-						{createEClass(), null, null, }, },
-				{ {AnydslPackage.eINSTANCE.getEClassifiers().get(10), null, null, },
-						{createEClass(), null, null, }, },
-				{
-						{((EClass)AnydslPackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
-								null, null, }, {createEOperation(), null, null, }, },
-				{
-						{AnydslPackage.eINSTANCE.getEClassifiers().get(7),
-								EcorePackage.eINSTANCE.getENamedElement_Name(), "Restaurant", },
-						{AnydslPackage.eINSTANCE.getEClassifiers().get(7),
-								EcorePackage.eINSTANCE.getENamedElement_Name(), "ESomethingElse", }, },
+		return Arrays.asList(new Object[][][] {{{AnydslPackage.eINSTANCE.getEClassifiers().get(7), null,
+				null, }, {createEClass(), null, null, }, }, {{AnydslPackage.eINSTANCE.getEClassifiers().get(
+						10), null, null, }, {createEClass(), null, null, }, }, {{
+								((EClass)AnydslPackage.eINSTANCE.getEClassifiers().get(10)).getEOperations()
+										.get(4), null, null, }, {createEOperation(), null, null, }, }, {{
+												AnydslPackage.eINSTANCE.getEClassifiers().get(7),
+												EcorePackage.eINSTANCE.getENamedElement_Name(),
+												"Restaurant", }, {AnydslPackage.eINSTANCE.getEClassifiers()
+														.get(7), EcorePackage.eINSTANCE
+																.getENamedElement_Name(),
+														"ESomethingElse", }, },
 
-				{
-						{((EClass)AnydslPackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
-								EcorePackage.eINSTANCE.getENamedElement_Name(), "setCaliber", },
-						{((EClass)AnydslPackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
-								EcorePackage.eINSTANCE.getENamedElement_Name(), "someEOperation", }, },
+				{{((EClass)AnydslPackage.eINSTANCE.getEClassifiers().get(10)).getEOperations().get(4),
+						EcorePackage.eINSTANCE.getENamedElement_Name(), "setCaliber", }, {
+								((EClass)AnydslPackage.eINSTANCE.getEClassifiers().get(10)).getEOperations()
+										.get(4), EcorePackage.eINSTANCE.getENamedElement_Name(),
+								"someEOperation", }, },
 
-				{
-						{AnydslPackage.eINSTANCE.getFood(), EcorePackage.eINSTANCE.getEClass_EOperations(),
-								AnydslPackage.eINSTANCE.getFood__PreferredColor(), },
-						{AnydslPackage.eINSTANCE.getFood(), EcorePackage.eINSTANCE.getEClass_EOperations(),
+				{{AnydslPackage.eINSTANCE.getFood(), EcorePackage.eINSTANCE.getEClass_EOperations(),
+						AnydslPackage.eINSTANCE.getFood__PreferredColor(), }, {AnydslPackage.eINSTANCE
+								.getFood(), EcorePackage.eINSTANCE.getEClass_EOperations(),
 								createEOperation(), }, },
 
-				{
-						{AnydslPackage.eINSTANCE.getNamedElement_Name(),
-								EcorePackage.eINSTANCE.getETypedElement_EType(),
-								AnydslPackage.eINSTANCE.getSingleString(), },
-						{AnydslPackage.eINSTANCE.getNamedElement_Name(),
-								EcorePackage.eINSTANCE.getETypedElement_EType(),
-								AnydslPackage.eINSTANCE.getCountryData(), }, }, });
+				{{AnydslPackage.eINSTANCE.getNamedElement_Name(), EcorePackage.eINSTANCE
+						.getETypedElement_EType(), AnydslPackage.eINSTANCE.getSingleString(), }, {
+								AnydslPackage.eINSTANCE.getNamedElement_Name(), EcorePackage.eINSTANCE
+										.getETypedElement_EType(), AnydslPackage.eINSTANCE
+												.getCountryData(), }, }, });
 	}
 
 	@BeforeClass

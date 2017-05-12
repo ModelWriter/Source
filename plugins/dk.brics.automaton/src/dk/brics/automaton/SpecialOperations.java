@@ -404,7 +404,8 @@ final public class SpecialOperations {
 		if (a.isSingleton()) {
 			for (int i = 0; i < a.singleton.length(); i++) {
 				char sc = a.singleton.charAt(i);
-				if (!(normalchars && (sc <= '\udfff' || sc >= '\uf900') || Arrays.binarySearch(cc, sc) >= 0)) {
+				if (!(normalchars && (sc <= '\udfff' || sc >= '\uf900') || Arrays.binarySearch(cc,
+						sc) >= 0)) {
 					return BasicAutomata.makeEmpty();
 				}
 			}

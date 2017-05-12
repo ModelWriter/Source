@@ -43,8 +43,8 @@ public class AnydslFactoryImpl extends EFactoryImpl implements AnydslFactory {
 	 */
 	public static AnydslFactory init() {
 		try {
-			AnydslFactory theAnydslFactory = (AnydslFactory)EPackage.Registry.INSTANCE
-					.getEFactory(AnydslPackage.eNS_URI);
+			AnydslFactory theAnydslFactory = (AnydslFactory)EPackage.Registry.INSTANCE.getEFactory(
+					AnydslPackage.eNS_URI);
 			if (theAnydslFactory != null) {
 				return theAnydslFactory;
 			}

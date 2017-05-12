@@ -41,8 +41,8 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 	 */
 	public static MappingFactory init() {
 		try {
-			MappingFactory theMappingFactory = (MappingFactory)EPackage.Registry.INSTANCE
-					.getEFactory(MappingPackage.eNS_URI);
+			MappingFactory theMappingFactory = (MappingFactory)EPackage.Registry.INSTANCE.getEFactory(
+					MappingPackage.eNS_URI);
 			if (theMappingFactory != null) {
 				return theMappingFactory;
 			}

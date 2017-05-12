@@ -45,8 +45,8 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 	private static final String UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER = "Unable to get the concept attribute on the marker";
 
 	/**
-	 * Creates an {@link ILink} from the {@link ILocationDescriptor source} and the
-	 * {@link ILocationDescriptor target}.
+	 * Creates an {@link ILink} from the {@link ILocationDescriptor source} and the {@link ILocationDescriptor
+	 * target}.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
@@ -113,14 +113,14 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 				link.setTarget(targetDescriptor.getOrCreate(base));
 				targetDescriptor.dispose();
 			} catch (InstantiationException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						UNABLE_TO_CREATE_LINK, e));
 			} catch (IllegalAccessException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						UNABLE_TO_CREATE_LINK, e));
 			} catch (ClassNotFoundException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						UNABLE_TO_CREATE_LINK, e));
 			}
 		}
 
@@ -156,8 +156,8 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 		final ILocationDescriptor sourceDescriptor = IdeMappingUtils.adapt(marker, ILocationDescriptor.class);
 		if (sourceDescriptor != null) {
 			try {
-				final Object concept = marker
-						.getAttribute(ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE);
+				final Object concept = marker.getAttribute(
+						ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE);
 				final IFile file = IdeMappingUtils.adapt(concept, IFile.class);
 				if (file != null) {
 					final IBase base = IdeMappingUtils.getCurrentBase();
@@ -173,21 +173,17 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 					}
 				}
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-								UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
 			} catch (InstantiationException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-								UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
 			} catch (IllegalAccessException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-								UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
 			} catch (ClassNotFoundException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-								UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
 			}
 		}
 

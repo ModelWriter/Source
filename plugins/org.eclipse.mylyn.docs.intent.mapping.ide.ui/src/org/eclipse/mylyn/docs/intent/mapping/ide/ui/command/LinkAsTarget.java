@@ -55,8 +55,8 @@ public class LinkAsTarget extends AbstractLocationHandler {
 					if (!sourceDescriptor.exists(base)) {
 						res = true;
 						break;
-					} else if (!sourceDescriptor.getLocation(base).equals(target)
-							&& MappingUtils.getLink(sourceDescriptor.getLocation(base), target) == null) {
+					} else if (!sourceDescriptor.getLocation(base).equals(target) && MappingUtils.getLink(
+							sourceDescriptor.getLocation(base), target) == null) {
 						res = true;
 						break;
 					}

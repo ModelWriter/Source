@@ -342,8 +342,8 @@ public interface IdePackage extends EPackage {
 
 	/**
 	 * The meta object id for the '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl
-	 * <em>EObject File Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl <em>EObject File
+	 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl
 	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.impl.IdePackageImpl#getEObjectFileLocation()
@@ -507,8 +507,8 @@ public interface IdePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent
-	 * <em>XMI Content</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent <em>XMI
+	 * Content</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>XMI Content</em>'.
 	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent()
@@ -542,8 +542,8 @@ public interface IdePackage extends EPackage {
 	interface Literals {
 		/**
 		 * The meta object literal for the '
-		 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.ResourceLocationImpl
-		 * <em>Resource Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.ResourceLocationImpl <em>Resource
+		 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.impl.ResourceLocationImpl
 		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.impl.IdePackageImpl#getResourceLocation()
@@ -572,8 +572,8 @@ public interface IdePackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '
-		 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.TextFileLocationImpl
-		 * <em>Text File Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.TextFileLocationImpl <em>Text File
+		 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.impl.TextFileLocationImpl
 		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.impl.IdePackageImpl#getTextFileLocation()
@@ -591,8 +591,8 @@ public interface IdePackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '
-		 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl
-		 * <em>EObject File Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl <em>EObject File
+		 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl
 		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.impl.IdePackageImpl#getEObjectFileLocation()

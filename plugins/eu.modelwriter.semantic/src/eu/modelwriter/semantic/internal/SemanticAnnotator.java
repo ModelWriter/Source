@@ -38,7 +38,8 @@ public class SemanticAnnotator implements ISemanticAnnotator {
 	/**
 	 * The {@link RunAutomaton} matching words.
 	 */
-	private static final RunAutomaton WORD_AUTOMATON = new RunAutomaton(new RegExp("[a-zA-Z]+").toAutomaton());
+	private static final RunAutomaton WORD_AUTOMATON = new RunAutomaton(new RegExp("[a-zA-Z]+")
+			.toAutomaton());
 
 	/**
 	 * The {@link List} of {@link ISemanticProvider}.

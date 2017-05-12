@@ -180,8 +180,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 
 		if (oldSource != null) {
 			final ILocationContainer container = oldSource.getContainer();
-			if (container != null && oldSource.getTargetLinks().isEmpty()
-					&& oldSource.getSourceLinks().isEmpty()) {
+			if (container != null && oldSource.getTargetLinks().isEmpty() && oldSource.getSourceLinks()
+					.isEmpty()) {
 				container.getContents().remove(oldSource);
 			}
 		}
@@ -195,8 +195,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	 * @generated
 	 */
 	public void setSource(Location newSource) {
-		if (newSource != eInternalContainer()
-				|| (eContainerFeatureID() != MappingPackage.LINK__SOURCE && newSource != null)) {
+		if (newSource != eInternalContainer() || (eContainerFeatureID() != MappingPackage.LINK__SOURCE
+				&& newSource != null)) {
 			if (EcoreUtil.isAncestor(this, newSource))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -260,8 +260,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 
 		if (oldTarget != null) {
 			final ILocationContainer container = oldTarget.getContainer();
-			if (container != null && oldTarget.getSourceLinks().isEmpty()
-					&& oldTarget.getTargetLinks().isEmpty()) {
+			if (container != null && oldTarget.getSourceLinks().isEmpty() && oldTarget.getTargetLinks()
+					.isEmpty()) {
 				container.getContents().remove(oldTarget);
 			}
 		}
@@ -472,8 +472,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MappingPackage.LINK__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT
-						.equals(description);
+				return DESCRIPTION_EDEFAULT == null ? description != null
+						: !DESCRIPTION_EDEFAULT.equals(description);
 			case MappingPackage.LINK__SOURCE:
 				return getSource() != null;
 			case MappingPackage.LINK__TARGET:

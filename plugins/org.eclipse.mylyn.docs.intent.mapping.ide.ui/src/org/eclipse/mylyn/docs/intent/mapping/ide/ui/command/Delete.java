@@ -75,7 +75,8 @@ public class Delete extends AbstractHandler {
 			}
 			if (!enable) {
 				for (Object selected : ((IStructuredSelection)selection).toList()) {
-					if (selected instanceof ILocation && MappingUtils.canDeleteLocation((ILocation)selected)) {
+					if (selected instanceof ILocation && MappingUtils.canDeleteLocation(
+							(ILocation)selected)) {
 						enable = true;
 						break;
 					}

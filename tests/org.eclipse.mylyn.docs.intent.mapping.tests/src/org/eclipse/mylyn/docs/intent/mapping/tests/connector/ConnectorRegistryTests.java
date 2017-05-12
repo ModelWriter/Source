@@ -94,8 +94,8 @@ public class ConnectorRegistryTests {
 
 		@Override
 		protected boolean match(ILocation location, Object element) {
-			return location.getContainer() instanceof TestLocation1
-					&& ((ITestLocation1)location).getObject() == element;
+			return location.getContainer() instanceof TestLocation1 && ((ITestLocation1)location)
+					.getObject() == element;
 		}
 
 		@Override
@@ -119,8 +119,8 @@ public class ConnectorRegistryTests {
 				Object element) {
 			final ILocationDescriptor res;
 
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, "TestLocation1 "
-					+ element.toString());
+			res = new ObjectLocationDescriptor(this, containerDescriptor, element, "TestLocation1 " + element
+					.toString());
 
 			return res;
 		}
@@ -208,8 +208,8 @@ public class ConnectorRegistryTests {
 
 		@Override
 		protected boolean match(ILocation location, Object element) {
-			return location.getContainer() instanceof TestLocation2
-					&& ((ITestLocation2)location).getObject() == element;
+			return location.getContainer() instanceof TestLocation2 && ((ITestLocation2)location)
+					.getObject() == element;
 		}
 
 		@Override
@@ -233,8 +233,8 @@ public class ConnectorRegistryTests {
 				Object element) {
 			final ILocationDescriptor res;
 
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, "TestLocation2 "
-					+ element.toString());
+			res = new ObjectLocationDescriptor(this, containerDescriptor, element, "TestLocation2 " + element
+					.toString());
 
 			return res;
 		}
@@ -372,10 +372,10 @@ public class ConnectorRegistryTests {
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
 
-		base.getFactory().addDescriptor(ITestLocation1.class,
-				new FactoryDescriptor<TestLocation1>(TestLocation1.class));
-		base.getFactory().addDescriptor(ITestLocation2.class,
-				new FactoryDescriptor<TestLocation2>(TestLocation2.class));
+		base.getFactory().addDescriptor(ITestLocation1.class, new FactoryDescriptor<TestLocation1>(
+				TestLocation1.class));
+		base.getFactory().addDescriptor(ITestLocation2.class, new FactoryDescriptor<TestLocation2>(
+				TestLocation2.class));
 
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
@@ -396,10 +396,10 @@ public class ConnectorRegistryTests {
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
 
-		base.getFactory().addDescriptor(ITestLocation1.class,
-				new FactoryDescriptor<TestLocation1>(TestLocation1.class));
-		base.getFactory().addDescriptor(ITestLocation2.class,
-				new FactoryDescriptor<TestLocation2>(TestLocation2.class));
+		base.getFactory().addDescriptor(ITestLocation1.class, new FactoryDescriptor<TestLocation1>(
+				TestLocation1.class));
+		base.getFactory().addDescriptor(ITestLocation2.class, new FactoryDescriptor<TestLocation2>(
+				TestLocation2.class));
 
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
@@ -431,10 +431,10 @@ public class ConnectorRegistryTests {
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
 
-		base.getFactory().addDescriptor(ITestLocation1.class,
-				new FactoryDescriptor<TestLocation1>(TestLocation1.class));
-		base.getFactory().addDescriptor(ITestLocation2.class,
-				new FactoryDescriptor<TestLocation2>(TestLocation2.class));
+		base.getFactory().addDescriptor(ITestLocation1.class, new FactoryDescriptor<TestLocation1>(
+				TestLocation1.class));
+		base.getFactory().addDescriptor(ITestLocation2.class, new FactoryDescriptor<TestLocation2>(
+				TestLocation2.class));
 
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
@@ -457,10 +457,10 @@ public class ConnectorRegistryTests {
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
 
-		base.getFactory().addDescriptor(ITestLocation1.class,
-				new FactoryDescriptor<TestLocation1>(TestLocation1.class));
-		base.getFactory().addDescriptor(ITestLocation2.class,
-				new FactoryDescriptor<TestLocation2>(TestLocation2.class));
+		base.getFactory().addDescriptor(ITestLocation1.class, new FactoryDescriptor<TestLocation1>(
+				TestLocation1.class));
+		base.getFactory().addDescriptor(ITestLocation2.class, new FactoryDescriptor<TestLocation2>(
+				TestLocation2.class));
 
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
@@ -483,10 +483,10 @@ public class ConnectorRegistryTests {
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
 
-		base.getFactory().addDescriptor(ITestLocation1.class,
-				new FactoryDescriptor<TestLocation1>(TestLocation1.class));
-		base.getFactory().addDescriptor(ITestLocation2.class,
-				new FactoryDescriptor<TestLocation2>(TestLocation2.class));
+		base.getFactory().addDescriptor(ITestLocation1.class, new FactoryDescriptor<TestLocation1>(
+				TestLocation1.class));
+		base.getFactory().addDescriptor(ITestLocation2.class, new FactoryDescriptor<TestLocation2>(
+				TestLocation2.class));
 
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
@@ -507,10 +507,10 @@ public class ConnectorRegistryTests {
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
 
-		base.getFactory().addDescriptor(ITestLocation1.class,
-				new FactoryDescriptor<TestLocation1>(TestLocation1.class));
-		base.getFactory().addDescriptor(ITestLocation2.class,
-				new FactoryDescriptor<TestLocation2>(TestLocation2.class));
+		base.getFactory().addDescriptor(ITestLocation1.class, new FactoryDescriptor<TestLocation1>(
+				TestLocation1.class));
+		base.getFactory().addDescriptor(ITestLocation2.class, new FactoryDescriptor<TestLocation2>(
+				TestLocation2.class));
 
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);
@@ -530,10 +530,10 @@ public class ConnectorRegistryTests {
 		final TestConnector2 connector2 = new TestConnector2();
 		final Object element = new Object();
 
-		base.getFactory().addDescriptor(ITestLocation1.class,
-				new FactoryDescriptor<TestLocation1>(TestLocation1.class));
-		base.getFactory().addDescriptor(ITestLocation2.class,
-				new FactoryDescriptor<TestLocation2>(TestLocation2.class));
+		base.getFactory().addDescriptor(ITestLocation1.class, new FactoryDescriptor<TestLocation1>(
+				TestLocation1.class));
+		base.getFactory().addDescriptor(ITestLocation2.class, new FactoryDescriptor<TestLocation2>(
+				TestLocation2.class));
 
 		connectorRegistery.register(connector1);
 		connectorRegistery.register(connector2);

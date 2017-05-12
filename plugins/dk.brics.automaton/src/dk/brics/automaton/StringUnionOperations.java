@@ -94,8 +94,8 @@ final public class StringUnionOperations {
 		@Override
 		public boolean equals(Object obj) {
 			final State other = (State)obj;
-			return is_final == other.is_final && Arrays.equals(this.labels, other.labels)
-					&& referenceEquals(this.states, other.states);
+			return is_final == other.is_final && Arrays.equals(this.labels, other.labels) && referenceEquals(
+					this.states, other.states);
 		}
 
 		/**
@@ -233,8 +233,8 @@ final public class StringUnionOperations {
 	public void add(CharSequence current) {
 		assert register != null : "Automaton already built.";
 		assert current.length() > 0 : "Input sequences must not be empty.";
-		assert previous == null || LEXICOGRAPHIC_ORDER.compare(previous, current) <= 0 : "Input must be sorted: "
-				+ previous + " >= " + current;
+		assert previous == null || LEXICOGRAPHIC_ORDER.compare(previous,
+				current) <= 0 : "Input must be sorted: " + previous + " >= " + current;
 		assert setPrevious(current);
 
 		// Descend in the automaton (find matching prefix).

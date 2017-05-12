@@ -87,9 +87,8 @@ public class MappingBaseListener implements IResourceChangeListener {
 				}
 			}
 		} catch (CoreException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.WARNING, Activator.PLUGIN_ID, UNABLE_TO_LOAD_MAPPING_BASE_FROM
-							+ e.getMessage(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
+					UNABLE_TO_LOAD_MAPPING_BASE_FROM + e.getMessage(), e));
 		}
 	}
 
@@ -283,22 +282,20 @@ public class MappingBaseListener implements IResourceChangeListener {
 					if (resource.getContents().get(0) instanceof Base) {
 						res = (Base)resource.getContents().get(0);
 					} else {
-						Activator.getDefault().getLog().log(
-								new Status(IStatus.WARNING, Activator.PLUGIN_ID,
-										UNABLE_TO_LOAD_MAPPING_BASE_FROM + file.getFullPath().toString()
-												+ " doesn't contain a Base."));
+						Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
+								UNABLE_TO_LOAD_MAPPING_BASE_FROM + file.getFullPath().toString()
+										+ " doesn't contain a Base."));
 					}
 				} else {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.WARNING, Activator.PLUGIN_ID, UNABLE_TO_LOAD_MAPPING_BASE_FROM
-									+ file.getFullPath().toString() + " resource is empty"));
+					Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
+							UNABLE_TO_LOAD_MAPPING_BASE_FROM + file.getFullPath().toString()
+									+ " resource is empty"));
 				}
 				// CHECKSTYLE:OFF
 			} catch (Exception e) {
 				// CHECKSTYLE:ON
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.WARNING, Activator.PLUGIN_ID, UNABLE_TO_LOAD_MAPPING_BASE_FROM
-								+ file.getFullPath().toString(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
+						UNABLE_TO_LOAD_MAPPING_BASE_FROM + file.getFullPath().toString(), e));
 			}
 		}
 

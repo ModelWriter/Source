@@ -61,8 +61,8 @@ public interface Link extends IEMFBaseElement, ILink {
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' container reference. It is bidirectional and its
-	 * opposite is '{@link org.eclipse.mylyn.docs.intent.mapping.Location#getTargetLinks
-	 * <em>Target Links</em>}'. <!-- begin-user-doc -->
+	 * opposite is '{@link org.eclipse.mylyn.docs.intent.mapping.Location#getTargetLinks <em>Target
+	 * Links</em>}'. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Source</em>' container reference isn't clear, there really should be more of
 	 * a description here...

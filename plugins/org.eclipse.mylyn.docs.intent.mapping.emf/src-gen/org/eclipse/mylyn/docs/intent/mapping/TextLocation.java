@@ -76,8 +76,8 @@ public interface TextLocation extends Location, ITextLocation {
 	int getEndOffset();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.TextLocation#getEndOffset
-	 * <em>End Offset</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.TextLocation#getEndOffset <em>End
+	 * Offset</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>End Offset</em>' attribute.

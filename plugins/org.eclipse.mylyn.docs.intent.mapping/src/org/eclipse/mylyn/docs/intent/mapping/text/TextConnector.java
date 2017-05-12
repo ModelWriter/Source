@@ -77,8 +77,8 @@ public class TextConnector extends AbstractConnector {
 		final ITextLocation textLocation = (ITextLocation)location;
 		final TextRegion region = (TextRegion)element;
 
-		return textLocation.getStartOffset() == region.getStartOffset()
-				&& textLocation.getEndOffset() == region.getEndOffset();
+		return textLocation.getStartOffset() == region.getStartOffset() && textLocation
+				.getEndOffset() == region.getEndOffset();
 	}
 
 	@Override
@@ -155,7 +155,8 @@ public class TextConnector extends AbstractConnector {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
+			Object element) {
 		final ILocationDescriptor res;
 
 		final Object adapted = adapt(element);

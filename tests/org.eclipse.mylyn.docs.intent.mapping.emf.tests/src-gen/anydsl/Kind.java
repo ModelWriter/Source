@@ -286,8 +286,8 @@ public enum Kind implements Enumerator {
 	 * 
 	 * @generated
 	 */
-	private static final Kind[] VALUES_ARRAY = new Kind[] {OTHER, SEED, OILSEED, TREE, ROOT, BULB, LEAF,
-			STEM, FLOWER, INFLORESCENCE, SPICE, };
+	private static final Kind[] VALUES_ARRAY = new Kind[] {OTHER, SEED, OILSEED, TREE, ROOT, BULB, LEAF, STEM,
+			FLOWER, INFLORESCENCE, SPICE, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Kind</b></em>' enumerators. <!-- begin-user-doc --> <!--

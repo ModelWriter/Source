@@ -100,8 +100,8 @@ public interface IConnectorRegistry {
 	 * @throws ClassNotFoundException
 	 *             if the {@link Class} can't be found
 	 */
-	ILocation getOrCreateLocation(ILocationContainer container, Object element)
-			throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+	ILocation getOrCreateLocation(ILocationContainer container, Object element) throws InstantiationException,
+			IllegalAccessException, ClassNotFoundException;
 
 	/**
 	 * Gets the {@link ILocation} type according to the given container type and an element to locate.

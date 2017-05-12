@@ -100,9 +100,9 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 			return (IdePackage)EPackage.Registry.INSTANCE.getEPackage(IdePackage.eNS_URI);
 
 		// Obtain or create and register package
-		IdePackageImpl theIdePackage = (IdePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof IdePackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI)
-				: new IdePackageImpl());
+		IdePackageImpl theIdePackage = (IdePackageImpl)(EPackage.Registry.INSTANCE.get(
+				eNS_URI) instanceof IdePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
+						: new IdePackageImpl());
 
 		isInited = true;
 
@@ -250,8 +250,8 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		MappingPackage theMappingPackage = (MappingPackage)EPackage.Registry.INSTANCE
-				.getEPackage(MappingPackage.eNS_URI);
+		MappingPackage theMappingPackage = (MappingPackage)EPackage.Registry.INSTANCE.getEPackage(
+				MappingPackage.eNS_URI);
 
 		// Create type parameters
 

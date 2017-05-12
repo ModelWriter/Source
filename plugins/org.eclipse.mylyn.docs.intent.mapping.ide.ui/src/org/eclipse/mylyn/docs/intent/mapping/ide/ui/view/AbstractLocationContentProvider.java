@@ -239,7 +239,8 @@ public abstract class AbstractLocationContentProvider implements ITreeContentPro
 	 * @param links
 	 *            the {@link List} of {@link ILink} to set
 	 */
-	protected abstract void setLeavesAndLinks(Object input, List<ILocation> locationLeaves, List<ILink> links);
+	protected abstract void setLeavesAndLinks(Object input, List<ILocation> locationLeaves,
+			List<ILink> links);
 
 	/**
 	 * Installs {@link ILinkListener} on the given {@link ILink}.

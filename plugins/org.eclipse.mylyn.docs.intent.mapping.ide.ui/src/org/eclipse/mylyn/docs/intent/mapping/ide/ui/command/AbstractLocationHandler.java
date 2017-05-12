@@ -148,16 +148,16 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 		try {
 			res = locationDescriptor.getOrCreate(base);
 		} catch (InstantiationException eLocation) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage, eLocation));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage,
+					eLocation));
 			res = null;
 		} catch (IllegalAccessException eLocation) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage, eLocation));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage,
+					eLocation));
 			res = null;
 		} catch (ClassNotFoundException eLocation) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage, eLocation));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage,
+					eLocation));
 			res = null;
 		}
 		return res;
@@ -182,16 +182,16 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 				res = null;
 			}
 		} catch (InstantiationException eLink) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, eLink));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					UNABLE_TO_CREATE_LINK, eLink));
 			res = null;
 		} catch (IllegalAccessException eLink) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, eLink));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					UNABLE_TO_CREATE_LINK, eLink));
 			res = null;
 		} catch (ClassNotFoundException eLink) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_CREATE_LINK, eLink));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					UNABLE_TO_CREATE_LINK, eLink));
 			res = null;
 		}
 

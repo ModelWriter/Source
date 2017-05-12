@@ -197,7 +197,8 @@ final public class BasicAutomata {
 				s.addTransition(new Transition(cx, atLeast(x, n + 1, initials, zeros && cx == '0')));
 				s.addTransition(new Transition(cy, atMost(y, n + 1)));
 				if (cx + 1 < cy)
-					s.addTransition(new Transition((char)(cx + 1), (char)(cy - 1), anyOfRightLength(x, n + 1)));
+					s.addTransition(new Transition((char)(cx + 1), (char)(cy - 1), anyOfRightLength(x, n
+							+ 1)));
 			}
 		}
 		return s;
@@ -414,9 +415,8 @@ final public class BasicAutomata {
 		else
 			s = Automaton.makeChar('+').optional();
 		Automaton ws = Datatypes.getWhitespaceAutomaton();
-		return Automaton.minimize(ws.concatenate(
-				s.concatenate(Automaton.makeChar('0').repeat()).concatenate(
-						Automaton.makeString(b.toString(), true))).concatenate(ws));
+		return Automaton.minimize(ws.concatenate(s.concatenate(Automaton.makeChar('0').repeat()).concatenate(
+				Automaton.makeString(b.toString(), true))).concatenate(ws));
 	}
 
 	/**
@@ -467,9 +467,8 @@ final public class BasicAutomata {
 			d = Automaton.makeChar('.').concatenate(Automaton.makeString(b2.toString(), true)).concatenate(
 					Automaton.makeChar('0').repeat());
 		Automaton ws = Datatypes.getWhitespaceAutomaton();
-		return Automaton.minimize(ws.concatenate(
-				s.concatenate(Automaton.makeChar('0').repeat()).concatenate(
-						Automaton.makeString(b1.toString(), true)).concatenate(d)).concatenate(ws));
+		return Automaton.minimize(ws.concatenate(s.concatenate(Automaton.makeChar('0').repeat()).concatenate(
+				Automaton.makeString(b1.toString(), true)).concatenate(d)).concatenate(ws));
 	}
 
 	/**

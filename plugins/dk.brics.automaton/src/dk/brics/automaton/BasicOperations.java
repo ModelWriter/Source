@@ -618,8 +618,8 @@ final public class BasicOperations {
 			State q = queue.removeFirst();
 			String p = path.get(q);
 			if (q.accept == accepted) {
-				if (best == null || p.length() < best.length()
-						|| (p.length() == best.length() && p.compareTo(best) < 0))
+				if (best == null || p.length() < best.length() || (p.length() == best.length() && p.compareTo(
+						best) < 0))
 					best = p;
 			} else
 				for (Transition t : q.getTransitions()) {

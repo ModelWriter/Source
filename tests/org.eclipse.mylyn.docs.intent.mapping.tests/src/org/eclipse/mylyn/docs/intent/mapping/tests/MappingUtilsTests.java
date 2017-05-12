@@ -562,8 +562,8 @@ public class MappingUtilsTests {
 		source.setContainer(base);
 		base.getContents().add(target);
 		target.setContainer(base);
-		base.getFactory().addDescriptor(ILink.class,
-				new BaseElementFactory.FactoryDescriptor<TestLink>(TestLink.class));
+		base.getFactory().addDescriptor(ILink.class, new BaseElementFactory.FactoryDescriptor<TestLink>(
+				TestLink.class));
 
 		final ILink link = MappingUtils.createLink(source, target);
 
@@ -607,8 +607,8 @@ public class MappingUtilsTests {
 		final ILocation location = new BaseElementFactoryTests.TestLocation();
 		final ILocation target = new BaseElementFactoryTests.TestLocation();
 		final IBase base = new TestBase();
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		source.setContainer(base);
 		location.setContainer(base);
 		target.setContainer(base);
@@ -633,14 +633,15 @@ public class MappingUtilsTests {
 	}
 
 	@Test
-	public void markAsChanged() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void markAsChanged() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		final ILocation child = new BaseElementFactoryTests.TestLocation();
 		final ILocation source = new BaseElementFactoryTests.TestLocation();
 		final ILocation location = new BaseElementFactoryTests.TestLocation();
 		final ILocation target = new BaseElementFactoryTests.TestLocation();
 		final IBase base = new TestBase();
-		base.getFactory().addDescriptor(IReport.class,
-				new BaseElementFactory.FactoryDescriptor<TestReport>(TestReport.class));
+		base.getFactory().addDescriptor(IReport.class, new BaseElementFactory.FactoryDescriptor<TestReport>(
+				TestReport.class));
 		source.setContainer(base);
 		location.setContainer(base);
 		target.setContainer(base);

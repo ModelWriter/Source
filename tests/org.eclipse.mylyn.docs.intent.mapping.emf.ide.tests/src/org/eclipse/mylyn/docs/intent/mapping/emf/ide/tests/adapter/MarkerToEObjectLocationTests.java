@@ -81,8 +81,8 @@ public class MarkerToEObjectLocationTests {
 		MappingUtils.getMappingRegistry().register(base);
 		IdeMappingUtils.setCurrentBase(base);
 
-		ILocationDescriptor locationDescriptor = (ILocationDescriptor)Platform.getAdapterManager()
-				.getAdapter(marker, ILocationDescriptor.class);
+		ILocationDescriptor locationDescriptor = (ILocationDescriptor)Platform.getAdapterManager().getAdapter(
+				marker, ILocationDescriptor.class);
 
 		assertNotNull(locationDescriptor);
 		assertTrue(locationDescriptor.getElement() instanceof EPackage);

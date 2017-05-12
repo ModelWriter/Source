@@ -91,8 +91,8 @@ public class TextLocationMarkerUpdater implements IMarkerUpdater {
 		boolean res;
 
 		try {
-			final ITextLocation location = (ITextLocation)marker
-					.getAttribute(ILocationMarker.LOCATION_ATTRIBUTE);
+			final ITextLocation location = (ITextLocation)marker.getAttribute(
+					ILocationMarker.LOCATION_ATTRIBUTE);
 			if (position.isDeleted()) {
 				// TODO mark location as deleted
 				res = false;
@@ -114,8 +114,8 @@ public class TextLocationMarkerUpdater implements IMarkerUpdater {
 				res = true;
 			}
 		} catch (CoreException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
 			res = true;
 		}
 

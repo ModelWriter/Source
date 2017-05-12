@@ -269,7 +269,8 @@ public class FoodImpl extends MinimalEObjectImpl.Container implements Food {
 		Group oldGroup = group;
 		group = newGroup == null ? GROUP_EDEFAULT : newGroup;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.FOOD__GROUP, oldGroup, group));
+			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.FOOD__GROUP, oldGroup,
+					group));
 	}
 
 	/**
@@ -290,7 +291,8 @@ public class FoodImpl extends MinimalEObjectImpl.Container implements Food {
 		String oldLabel = label;
 		label = newLabel;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.FOOD__LABEL, oldLabel, label));
+			eNotify(new ENotificationImpl(this, Notification.SET, AnydslPackage.FOOD__LABEL, oldLabel,
+					label));
 	}
 
 	/**

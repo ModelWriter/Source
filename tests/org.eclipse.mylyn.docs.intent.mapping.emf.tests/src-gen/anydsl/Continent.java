@@ -167,8 +167,8 @@ public enum Continent implements Enumerator {
 	 * 
 	 * @generated
 	 */
-	private static final Continent[] VALUES_ARRAY = new Continent[] {EUROPE, ASIA, AFRICA, AMERICA,
-			AUSTRALIA, ANTARCTICA, };
+	private static final Continent[] VALUES_ARRAY = new Continent[] {EUROPE, ASIA, AFRICA, AMERICA, AUSTRALIA,
+			ANTARCTICA, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Continent</b></em>' enumerators. <!-- begin-user-doc -->

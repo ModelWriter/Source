@@ -182,8 +182,8 @@ public class EObjectConnector extends AbstractConnector {
 			Object element) {
 		final Class<? extends ILocation> res;
 
-		if (IEObjectContainer.class.isAssignableFrom(containerType)
-				&& (element instanceof EObject || element instanceof Setting)) {
+		if (IEObjectContainer.class.isAssignableFrom(containerType) && (element instanceof EObject
+				|| element instanceof Setting)) {
 			res = getType();
 		} else {
 			res = null;
@@ -249,12 +249,12 @@ public class EObjectConnector extends AbstractConnector {
 		if (eObjectLocation.getFeatureName() != null) {
 			if (element instanceof Setting) {
 				final Setting setting = (Setting)element;
-				final String uriFragment = setting.getEObject().eResource().getURIFragment(
-						setting.getEObject());
+				final String uriFragment = setting.getEObject().eResource().getURIFragment(setting
+						.getEObject());
 				final boolean correctIndex;
 				if (setting.getEStructuralFeature().isMany()) {
-					correctIndex = eObjectLocation.getIndex() == ((List<?>)setting.getEObject().eGet(
-							setting.getEStructuralFeature())).indexOf(setting.get(true));
+					correctIndex = eObjectLocation.getIndex() == ((List<?>)setting.getEObject().eGet(setting
+							.getEStructuralFeature())).indexOf(setting.get(true));
 				} else {
 					correctIndex = true;
 				}
@@ -413,8 +413,8 @@ public class EObjectConnector extends AbstractConnector {
 	private static void updateLoccationSetting(Comparison comparison, IEObjectLocation eObjectlocation,
 			final EObject oldObject, EObject newObject, final Match match) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException {
-		final EStructuralFeature feature = oldObject.eClass().getEStructuralFeature(
-				eObjectlocation.getFeatureName());
+		final EStructuralFeature feature = oldObject.eClass().getEStructuralFeature(eObjectlocation
+				.getFeatureName());
 		final boolean hasDiffForFeature = hasDiffForFeature(match, feature);
 		if (hasDiffForFeature) {
 			final Object oldValue;
@@ -436,8 +436,8 @@ public class EObjectConnector extends AbstractConnector {
 			} else if (!oldValue.equals(newValue)) {
 				MappingUtils.markAsChanged(eObjectlocation, String.format(
 						"%s (%s) feature %s value %s has been changed to %s.", getLabel(oldObject),
-						eObjectlocation.getURIFragment(), eObjectlocation.getFeatureName(),
-						getValueString(oldValue), getValueString(newValue)));
+						eObjectlocation.getURIFragment(), eObjectlocation.getFeatureName(), getValueString(
+								oldValue), getValueString(newValue)));
 			}
 		} else {
 			// there is a diff for the holding EObject but not the located setting
@@ -598,7 +598,8 @@ public class EObjectConnector extends AbstractConnector {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
+			Object element) {
 		final ILocationDescriptor res;
 
 		final Object adapted = adapt(element);
@@ -635,8 +636,8 @@ public class EObjectConnector extends AbstractConnector {
 					(ILocation)location.getContainer());
 			final EObject eObject = resource.getEObject(eObjLocation.getURIFragment());
 			if (eObjLocation.getFeatureName() != null) {
-				final EStructuralFeature feature = eObject.eClass().getEStructuralFeature(
-						eObjLocation.getFeatureName());
+				final EStructuralFeature feature = eObject.eClass().getEStructuralFeature(eObjLocation
+						.getFeatureName());
 				final int index = eObjLocation.getIndex();
 				res = new LocationSetting(eObject, feature, index);
 			} else {

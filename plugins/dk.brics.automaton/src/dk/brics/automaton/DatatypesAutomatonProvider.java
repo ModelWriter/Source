@@ -62,9 +62,8 @@ public class DatatypesAutomatonProvider implements AutomatonProvider {
 	}
 
 	public Automaton getAutomaton(String name) {
-		if ((enable_unicodeblocks && Datatypes.isUnicodeBlockName(name))
-				|| (enable_unicodecategories && Datatypes.isUnicodeCategoryName(name))
-				|| (enable_xml && Datatypes.isXMLName(name)))
+		if ((enable_unicodeblocks && Datatypes.isUnicodeBlockName(name)) || (enable_unicodecategories
+				&& Datatypes.isUnicodeCategoryName(name)) || (enable_xml && Datatypes.isXMLName(name)))
 			return Datatypes.get(name);
 		return null;
 	}

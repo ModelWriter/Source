@@ -28,7 +28,8 @@ public class IdeEObjectConnectorTests extends EObjectConnectorTests {
 
 	@Test
 	public void isRegistred() {
-		assertTrue(MappingUtils.getConnectorRegistry().getConnector(IEObjectLocation.class) instanceof IdeEObjectConnector);
+		assertTrue(MappingUtils.getConnectorRegistry().getConnector(
+				IEObjectLocation.class) instanceof IdeEObjectConnector);
 	}
 
 }

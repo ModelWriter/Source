@@ -31,9 +31,8 @@ import org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry;
 public class ConnectorRegistry implements IConnectorRegistry {
 
 	/**
-	 * The {@link List} of
-	 * {@link ConnectorRegistry#register(org.eclipse.mylyn.docs.intent.mapping.base.IBase) registered}
-	 * {@link IConnector}.
+	 * The {@link List} of {@link ConnectorRegistry#register(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+	 * registered} {@link IConnector}.
 	 */
 	private final List<IConnector> connectors = Collections.synchronizedList(new ArrayList<IConnector>());
 
@@ -158,7 +157,8 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
+			Object element) {
 		for (IConnector connector : getConnectors()) {
 			final ILocationDescriptor descriptor = connector.getLocationDescriptor(containerDescriptor,
 					element);

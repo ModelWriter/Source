@@ -39,8 +39,8 @@ public abstract class AbstractFileConnectorDelegate implements IFileConnectorDel
 	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getElement(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation)
 	 */
 	public Object getElement(IFileLocation location) {
-		final IFile res = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				Path.fromPortableString(location.getFullPath()));
+		final IFile res = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(location
+				.getFullPath()));
 		return res;
 	}
 

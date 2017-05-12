@@ -93,13 +93,11 @@ public class ExtractTextHandler extends AbstractHandler {
 			docx.close();
 			fis.close();
 		} catch (IOException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_EXTRACT_TEXT_FROM
-							+ file.getFullPath(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					UNABLE_TO_EXTRACT_TEXT_FROM + file.getFullPath(), e));
 		} catch (CoreException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_EXTRACT_TEXT_FROM
-							+ file.getFullPath(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					UNABLE_TO_EXTRACT_TEXT_FROM + file.getFullPath(), e));
 		}
 	}
 
@@ -124,13 +122,11 @@ public class ExtractTextHandler extends AbstractHandler {
 			we.close();
 			fis.close();
 		} catch (IOException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_EXTRACT_TEXT_FROM
-							+ file.getFullPath(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					UNABLE_TO_EXTRACT_TEXT_FROM + file.getFullPath(), e));
 		} catch (CoreException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, UNABLE_TO_EXTRACT_TEXT_FROM
-							+ file.getFullPath(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					UNABLE_TO_EXTRACT_TEXT_FROM + file.getFullPath(), e));
 		}
 	}
 

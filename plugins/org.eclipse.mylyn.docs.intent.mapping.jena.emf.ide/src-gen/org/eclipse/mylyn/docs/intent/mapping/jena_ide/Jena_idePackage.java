@@ -54,8 +54,8 @@ public interface Jena_idePackage extends EPackage {
 
 	/**
 	 * The meta object id for the '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl
-	 * <em>Rdf File Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl <em>Rdf File
+	 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl
 	 * @see org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.Jena_idePackageImpl#getRdfFileLocation()
@@ -170,8 +170,8 @@ public interface Jena_idePackage extends EPackage {
 	interface Literals {
 		/**
 		 * The meta object literal for the '
-		 * {@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl
-		 * <em>Rdf File Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * {@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl <em>Rdf File
+		 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl
 		 * @see org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.Jena_idePackageImpl#getRdfFileLocation()

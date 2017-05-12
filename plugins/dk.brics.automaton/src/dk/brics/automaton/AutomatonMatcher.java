@@ -179,8 +179,8 @@ public class AutomatonMatcher implements MatchResult {
 
 	private void setMatch(final int matchStart, final int matchEnd) throws IllegalArgumentException {
 		if (matchStart > matchEnd) {
-			throw new IllegalArgumentException("Start must be less than or equal to end: " + matchStart
-					+ ", " + matchEnd);
+			throw new IllegalArgumentException("Start must be less than or equal to end: " + matchStart + ", "
+					+ matchEnd);
 		}
 		this.matchStart = matchStart;
 		this.matchEnd = matchEnd;

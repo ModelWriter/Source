@@ -24,8 +24,8 @@ public class JenaFactoryImpl extends EFactoryImpl implements JenaFactory {
 	 */
 	public static JenaFactory init() {
 		try {
-			JenaFactory theJenaFactory = (JenaFactory)EPackage.Registry.INSTANCE
-					.getEFactory(JenaPackage.eNS_URI);
+			JenaFactory theJenaFactory = (JenaFactory)EPackage.Registry.INSTANCE.getEFactory(
+					JenaPackage.eNS_URI);
 			if (theJenaFactory != null) {
 				return theJenaFactory;
 			}

@@ -147,8 +147,8 @@ public class EObjectFileLocationImpl extends FileLocationImpl implements EObject
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case IdePackage.EOBJECT_FILE_LOCATION__XMI_CONTENT:
-				return XMI_CONTENT_EDEFAULT == null ? xmiContent != null : !XMI_CONTENT_EDEFAULT
-						.equals(xmiContent);
+				return XMI_CONTENT_EDEFAULT == null ? xmiContent != null
+						: !XMI_CONTENT_EDEFAULT.equals(xmiContent);
 		}
 		return super.eIsSet(featureID);
 	}

@@ -90,9 +90,8 @@ public class ResourceLocationListener implements IResourceChangeListener {
 					updateLocation(base, member);
 				}
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.WARNING, Activator.PLUGIN_ID, UNABLE_LISTEN_TO_RESOURCE_LOCATION
-								+ e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
+						UNABLE_LISTEN_TO_RESOURCE_LOCATION + e.getMessage(), e));
 			}
 		}
 	}
@@ -209,17 +208,17 @@ public class ResourceLocationListener implements IResourceChangeListener {
 			final ILocation location = resourceConnector.getLocation(base, delta.getResource());
 			if (location != null) {
 				try {
-					MappingUtils.markAsDeletedOrDelete(location, "the resource "
-							+ delta.getResource().getFullPath().toString() + " has been deleted.");
+					MappingUtils.markAsDeletedOrDelete(location, "the resource " + delta.getResource()
+							.getFullPath().toString() + " has been deleted.");
 				} catch (InstantiationException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				} catch (IllegalAccessException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				} catch (ClassNotFoundException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				}
 			}
 		}
@@ -237,7 +236,8 @@ public class ResourceLocationListener implements IResourceChangeListener {
 	 * @param base
 	 *            the current {@link IBase}
 	 */
-	private void processAddedDelta(IResourceDelta delta, HashMap<IPath, IResource> movedResources, IBase base) {
+	private void processAddedDelta(IResourceDelta delta, HashMap<IPath, IResource> movedResources,
+			IBase base) {
 		if ((delta.getFlags() & IResourceDelta.MOVED_FROM) != 0) {
 			final IResource source = movedResources.get(delta.getMovedFromPath());
 			if (source != null) {
@@ -267,14 +267,14 @@ public class ResourceLocationListener implements IResourceChangeListener {
 			try {
 				MappingUtils.markAsChanged(location, "Content changed.");
 			} catch (InstantiationException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			} catch (IllegalAccessException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			} catch (ClassNotFoundException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 		}
 		updateKnownDescriptors(resource);
@@ -300,14 +300,14 @@ public class ResourceLocationListener implements IResourceChangeListener {
 				MappingUtils.markAsChanged(location, String.format("%s moved to %s", source.getFullPath()
 						.toPortableString(), target.getFullPath().toPortableString()));
 			} catch (InstantiationException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			} catch (IllegalAccessException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			} catch (ClassNotFoundException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.WARNING, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 		}
 		moveKnownDescriptor(source, target);

@@ -108,8 +108,8 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 						}
 					}
 				} else if (SEMANTIC_SIMILARITY_PROVIDER_TAG_EXTENSION.equals(elem.getName())) {
-					final String delegateClassName = elem
-							.getAttribute(SEMANTIC_SIMILARITY_PROVIDER_ATTRIBUTE_CLASS);
+					final String delegateClassName = elem.getAttribute(
+							SEMANTIC_SIMILARITY_PROVIDER_ATTRIBUTE_CLASS);
 					for (ISemanticSimilarityProvider provider : SemanticUtils
 							.getSemanticSimilarityProviderRegistry().getProviders()) {
 						if (delegateClassName.equals(provider.getClass().getName())) {
@@ -147,7 +147,8 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 	public void parseInitialContributions() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 
-		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT).getExtensions()) {
+		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT)
+				.getExtensions()) {
 			parseBaseProviderExtension(extension);
 		}
 		for (IExtension extension : registry.getExtensionPoint(SEMANTIC_PROVIDER_EXTENSION_POINT)
@@ -174,8 +175,8 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 				bundle.start();
 			}
 		} catch (BundleException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
 		}
 	}
 
@@ -190,12 +191,12 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 		for (IConfigurationElement elem : configElements) {
 			if (SEMANTIC_PROVIDER_TAG_EXTENSION.equals(elem.getName())) {
 				try {
-					final ISemanticProvider provider = (ISemanticProvider)elem
-							.createExecutableExtension(SEMANTIC_PROVIDER_ATTRIBUTE_CLASS);
+					final ISemanticProvider provider = (ISemanticProvider)elem.createExecutableExtension(
+							SEMANTIC_PROVIDER_ATTRIBUTE_CLASS);
 					SemanticUtils.getSemanticProviderRegistry().register(provider);
 				} catch (CoreException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				}
 			}
 		}
@@ -216,8 +217,8 @@ public class IdeSemanticRegistryListener implements IRegistryEventListener {
 							.createExecutableExtension(SEMANTIC_SIMILARITY_PROVIDER_ATTRIBUTE_CLASS);
 					SemanticUtils.getSemanticSimilarityProviderRegistry().register(provider);
 				} catch (CoreException e) {
-					Activator.getDefault().getLog().log(
-							new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+							.getMessage(), e));
 				}
 			}
 		}

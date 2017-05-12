@@ -77,9 +77,8 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 	 */
 	protected void addSourceLinksPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Location_sourceLinks_feature"), getString(
-						"_UI_PropertyDescriptor_description", "_UI_Location_sourceLinks_feature",
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Location_sourceLinks_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Location_sourceLinks_feature",
 						"_UI_Location_type"), MappingPackage.Literals.LOCATION__SOURCE_LINKS, true, false,
 				true, null, null, null));
 	}
@@ -105,11 +104,11 @@ public class LocationItemProvider extends ItemProviderAdapter implements IEditin
 	 */
 	protected void addMarkedAsDeletedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Location_markedAsDeleted_feature"), getString(
-						"_UI_PropertyDescriptor_description", "_UI_Location_markedAsDeleted_feature",
-						"_UI_Location_type"), MappingPackage.Literals.LOCATION__MARKED_AS_DELETED, true,
-				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				.getRootAdapterFactory(), getResourceLocator(), getString(
+						"_UI_Location_markedAsDeleted_feature"), getString(
+								"_UI_PropertyDescriptor_description", "_UI_Location_markedAsDeleted_feature",
+								"_UI_Location_type"), MappingPackage.Literals.LOCATION__MARKED_AS_DELETED,
+				true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**

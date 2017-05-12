@@ -42,7 +42,8 @@ public class Describe extends AbstractHandler {
 			final Object element = ((IStructuredSelection)selection).getFirstElement();
 			if (element instanceof ILink) {
 				final Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-				MultiLineTextDialog dialog = new MultiLineTextDialog(shell, ((ILink)element).getDescription());
+				MultiLineTextDialog dialog = new MultiLineTextDialog(shell, ((ILink)element)
+						.getDescription());
 				if (dialog.open() == Window.OK) {
 					((ILink)element).setDescription(dialog.getText());
 				}

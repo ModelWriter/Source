@@ -57,11 +57,11 @@ public class MarkerToTextLocationDescriptor implements IMarkerToLocationDescript
 							region);
 				}
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			} catch (IOException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 		}
 

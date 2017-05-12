@@ -538,8 +538,8 @@ public class RegExp {
 				a.minimize();
 				break;
 			case REGEXP_INTERSECTION:
-				a = exp1.toAutomaton(automata, automaton_provider, minimize).intersection(
-						exp2.toAutomaton(automata, automaton_provider, minimize));
+				a = exp1.toAutomaton(automata, automaton_provider, minimize).intersection(exp2.toAutomaton(
+						automata, automaton_provider, minimize));
 				a.minimize();
 				break;
 			case REGEXP_OPTIONAL:
@@ -746,14 +746,14 @@ public class RegExp {
 			return makeString(exp1, exp2);
 		RegExp r = new RegExp();
 		r.kind = Kind.REGEXP_CONCATENATION;
-		if (exp1.kind == Kind.REGEXP_CONCATENATION
-				&& (exp1.exp2.kind == Kind.REGEXP_CHAR || exp1.exp2.kind == Kind.REGEXP_STRING)
-				&& (exp2.kind == Kind.REGEXP_CHAR || exp2.kind == Kind.REGEXP_STRING)) {
+		if (exp1.kind == Kind.REGEXP_CONCATENATION && (exp1.exp2.kind == Kind.REGEXP_CHAR
+				|| exp1.exp2.kind == Kind.REGEXP_STRING) && (exp2.kind == Kind.REGEXP_CHAR
+						|| exp2.kind == Kind.REGEXP_STRING)) {
 			r.exp1 = exp1.exp1;
 			r.exp2 = makeString(exp1.exp2, exp2);
 		} else if ((exp1.kind == Kind.REGEXP_CHAR || exp1.kind == Kind.REGEXP_STRING)
-				&& exp2.kind == Kind.REGEXP_CONCATENATION
-				&& (exp2.exp1.kind == Kind.REGEXP_CHAR || exp2.exp1.kind == Kind.REGEXP_STRING)) {
+				&& exp2.kind == Kind.REGEXP_CONCATENATION && (exp2.exp1.kind == Kind.REGEXP_CHAR
+						|| exp2.exp1.kind == Kind.REGEXP_STRING)) {
 			r.exp1 = makeString(exp1, exp2.exp1);
 			r.exp2 = exp2.exp2;
 		} else {

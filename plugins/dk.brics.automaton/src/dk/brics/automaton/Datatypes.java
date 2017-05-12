@@ -63,27 +63,26 @@ final public class Datatypes {
 			"LatinExtended-A", "LatinExtended-B", "IPAExtensions", "SpacingModifierLetters",
 			"CombiningDiacriticalMarks", "Greek", "Cyrillic", "Armenian", "Hebrew", "Arabic", "Syriac",
 			"Thaana", "Devanagari", "Bengali", "Gurmukhi", "Gujarati", "Oriya", "Tamil", "Telugu", "Kannada",
-			"Malayalam", "Sinhala", "Thai", "Lao", "Tibetan", "Myanmar", "Georgian", "HangulJamo",
-			"Ethiopic", "Cherokee", "UnifiedCanadianAboriginalSyllabics", "Ogham", "Runic", "Khmer",
-			"Mongolian", "LatinExtendedAdditional", "GreekExtended", "GeneralPunctuation",
-			"SuperscriptsandSubscripts", "CurrencySymbols", "CombiningMarksforSymbols", "LetterlikeSymbols",
-			"NumberForms", "Arrows", "MathematicalOperators", "MiscellaneousTechnical", "ControlPictures",
+			"Malayalam", "Sinhala", "Thai", "Lao", "Tibetan", "Myanmar", "Georgian", "HangulJamo", "Ethiopic",
+			"Cherokee", "UnifiedCanadianAboriginalSyllabics", "Ogham", "Runic", "Khmer", "Mongolian",
+			"LatinExtendedAdditional", "GreekExtended", "GeneralPunctuation", "SuperscriptsandSubscripts",
+			"CurrencySymbols", "CombiningMarksforSymbols", "LetterlikeSymbols", "NumberForms", "Arrows",
+			"MathematicalOperators", "MiscellaneousTechnical", "ControlPictures",
 			"OpticalCharacterRecognition", "EnclosedAlphanumerics", "BoxDrawing", "BlockElements",
-			"GeometricShapes", "MiscellaneousSymbols", "Dingbats", "BraillePatterns",
-			"CJKRadicalsSupplement", "KangxiRadicals", "IdeographicDescriptionCharacters",
-			"CJKSymbolsandPunctuation", "Hiragana", "Katakana", "Bopomofo", "HangulCompatibilityJamo",
-			"Kanbun", "BopomofoExtended", "EnclosedCJKLettersandMonths", "CJKCompatibility",
-			"CJKUnifiedIdeographsExtensionA", "CJKUnifiedIdeographs", "YiSyllables", "YiRadicals",
-			"HangulSyllables", "CJKCompatibilityIdeographs", "AlphabeticPresentationForms",
-			"ArabicPresentationForms-A", "CombiningHalfMarks", "CJKCompatibilityForms", "SmallFormVariants",
-			"ArabicPresentationForms-B", "Specials", "HalfwidthandFullwidthForms", "Specials", "OldItalic",
-			"Gothic", "Deseret", "ByzantineMusicalSymbols", "MusicalSymbols",
-			"MathematicalAlphanumericSymbols", "CJKUnifiedIdeographsExtensionB",
-			"CJKCompatibilityIdeographsSupplement", "Tags" };
+			"GeometricShapes", "MiscellaneousSymbols", "Dingbats", "BraillePatterns", "CJKRadicalsSupplement",
+			"KangxiRadicals", "IdeographicDescriptionCharacters", "CJKSymbolsandPunctuation", "Hiragana",
+			"Katakana", "Bopomofo", "HangulCompatibilityJamo", "Kanbun", "BopomofoExtended",
+			"EnclosedCJKLettersandMonths", "CJKCompatibility", "CJKUnifiedIdeographsExtensionA",
+			"CJKUnifiedIdeographs", "YiSyllables", "YiRadicals", "HangulSyllables",
+			"CJKCompatibilityIdeographs", "AlphabeticPresentationForms", "ArabicPresentationForms-A",
+			"CombiningHalfMarks", "CJKCompatibilityForms", "SmallFormVariants", "ArabicPresentationForms-B",
+			"Specials", "HalfwidthandFullwidthForms", "Specials", "OldItalic", "Gothic", "Deseret",
+			"ByzantineMusicalSymbols", "MusicalSymbols", "MathematicalAlphanumericSymbols",
+			"CJKUnifiedIdeographsExtensionB", "CJKCompatibilityIdeographsSupplement", "Tags" };
 
 	private static final String[] unicodecategory_names_array = {"Lu", "Ll", "Lt", "Lm", "Lo", "L", "Mn",
-			"Mc", "Me", "M", "Nd", "Nl", "No", "N", "Pc", "Pd", "Ps", "Pe", "Pi", "Pf", "Po", "P", "Zs",
-			"Zl", "Zp", "Z", "Sm", "Sc", "Sk", "So", "S", "Cc", "Cf", "Co", "Cn", "C" };
+			"Mc", "Me", "M", "Nd", "Nl", "No", "N", "Pc", "Pd", "Ps", "Pe", "Pi", "Pf", "Po", "P", "Zs", "Zl",
+			"Zp", "Z", "Sm", "Sc", "Sk", "So", "S", "Cc", "Cf", "Co", "Cn", "C" };
 
 	private static final String[] xml_names_array = {"NCName", "QName", "Char", "NameChar", "URI", "anyname",
 			"noap", "whitespace", "whitespacechar", "string", "boolean", "decimal", "float", "integer",
@@ -215,9 +214,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>gYearMonth</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#gYearMonth">gYearMonth</a> from XML Schema
-	 * Part 2</td>
+	 * <td><a target="_top" href=
+	 * "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#gYearMonth">gYearMonth</a> from XML Schema Part
+	 * 2</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>gYear</tt></td>
@@ -241,9 +240,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>base64Binary</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#base64Binary">base64Binary</a> from XML
-	 * Schema Part 2</td>
+	 * <td><a target="_top" href=
+	 * "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#base64Binary">base64Binary</a> from XML Schema
+	 * Part 2</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>NCName2</tt></td>
@@ -252,8 +251,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>NCNames</tt></td>
-	 * <td>list of <a target="_top"
-	 * href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#NCName">NCName</a>s from XML Schema Part 2</td>
+	 * <td>list of
+	 * <a target="_top" href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#NCName">NCName</a>s from XML
+	 * Schema Part 2</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>QName2</tt></td>
@@ -312,14 +312,14 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>SpacingModifierLetters</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">SpacingModifierLetters</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">SpacingModifierLetters</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CombiningDiacriticalMarks</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CombiningDiacriticalMarks</a> block from
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CombiningDiacriticalMarks</a> block from
 	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
@@ -449,9 +449,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>UnifiedCanadianAboriginalSyllabics</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">UnifiedCanadianAboriginalSyllabics</a>
-	 * block from Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">UnifiedCanadianAboriginalSyllabics</a> block
+	 * from Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>Ogham</tt></td>
@@ -475,9 +475,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>LatinExtendedAdditional</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">LatinExtendedAdditional</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">LatinExtendedAdditional</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>GreekExtended</tt></td>
@@ -486,14 +486,14 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>GeneralPunctuation</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">GeneralPunctuation</a> block from Unicode
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">GeneralPunctuation</a> block from Unicode
 	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>SuperscriptsandSubscripts</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">SuperscriptsandSubscripts</a> block from
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">SuperscriptsandSubscripts</a> block from
 	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
@@ -503,9 +503,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CombiningMarksforSymbols</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CombiningMarksforSymbols</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CombiningMarksforSymbols</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>LetterlikeSymbols</tt></td>
@@ -524,15 +524,15 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>MathematicalOperators</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">MathematicalOperators</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">MathematicalOperators</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>MiscellaneousTechnical</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">MiscellaneousTechnical</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">MiscellaneousTechnical</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>ControlPictures</tt></td>
@@ -541,15 +541,15 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>OpticalCharacterRecognition</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">OpticalCharacterRecognition</a> block from
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">OpticalCharacterRecognition</a> block from
 	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>EnclosedAlphanumerics</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">EnclosedAlphanumerics</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">EnclosedAlphanumerics</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>BoxDrawing</tt></td>
@@ -568,9 +568,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>MiscellaneousSymbols</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">MiscellaneousSymbols</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">MiscellaneousSymbols</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>Dingbats</tt></td>
@@ -584,9 +584,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CJKRadicalsSupplement</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKRadicalsSupplement</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKRadicalsSupplement</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>KangxiRadicals</tt></td>
@@ -595,15 +595,15 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>IdeographicDescriptionCharacters</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">IdeographicDescriptionCharacters</a> block
-	 * from Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">IdeographicDescriptionCharacters</a> block from
+	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CJKSymbolsandPunctuation</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKSymbolsandPunctuation</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKSymbolsandPunctuation</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>Hiragana</tt></td>
@@ -622,9 +622,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>HangulCompatibilityJamo</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">HangulCompatibilityJamo</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">HangulCompatibilityJamo</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>Kanbun</tt></td>
@@ -638,8 +638,8 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>EnclosedCJKLettersandMonths</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">EnclosedCJKLettersandMonths</a> block from
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">EnclosedCJKLettersandMonths</a> block from
 	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
@@ -649,15 +649,15 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CJKUnifiedIdeographsExtensionA</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKUnifiedIdeographsExtensionA</a> block
-	 * from Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKUnifiedIdeographsExtensionA</a> block from
+	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CJKUnifiedIdeographs</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKUnifiedIdeographs</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKUnifiedIdeographs</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>YiSyllables</tt></td>
@@ -676,33 +676,33 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CJKCompatibilityIdeographs</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKCompatibilityIdeographs</a> block from
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKCompatibilityIdeographs</a> block from
 	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>AlphabeticPresentationForms</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">AlphabeticPresentationForms</a> block from
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">AlphabeticPresentationForms</a> block from
 	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>ArabicPresentationForms-A</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">ArabicPresentationForms-A</a> block from
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">ArabicPresentationForms-A</a> block from
 	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CombiningHalfMarks</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CombiningHalfMarks</a> block from Unicode
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CombiningHalfMarks</a> block from Unicode
 	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CJKCompatibilityForms</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKCompatibilityForms</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKCompatibilityForms</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>SmallFormVariants</tt></td>
@@ -711,8 +711,8 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>ArabicPresentationForms-B</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">ArabicPresentationForms-B</a> block from
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">ArabicPresentationForms-B</a> block from
 	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
@@ -722,8 +722,8 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>HalfwidthandFullwidthForms</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">HalfwidthandFullwidthForms</a> block from
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">HalfwidthandFullwidthForms</a> block from
 	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
@@ -748,9 +748,9 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>ByzantineMusicalSymbols</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">ByzantineMusicalSymbols</a> block from
-	 * Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">ByzantineMusicalSymbols</a> block from Unicode
+	 * 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>MusicalSymbols</tt></td>
@@ -759,21 +759,21 @@ final public class Datatypes {
 	 * </tr>
 	 * <tr>
 	 * <td><tt>MathematicalAlphanumericSymbols</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">MathematicalAlphanumericSymbols</a> block
-	 * from Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">MathematicalAlphanumericSymbols</a> block from
+	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CJKUnifiedIdeographsExtensionB</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKUnifiedIdeographsExtensionB</a> block
-	 * from Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKUnifiedIdeographsExtensionB</a> block from
+	 * Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>CJKCompatibilityIdeographsSupplement</tt></td>
-	 * <td><a target="_top"
-	 * href="http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKCompatibilityIdeographsSupplement</a>
-	 * block from Unicode 3.1</td>
+	 * <td><a target="_top" href=
+	 * "http://www.unicode.org/Public/3.1-Update/Blocks-4.txt">CJKCompatibilityIdeographsSupplement</a> block
+	 * from Unicode 3.1</td>
 	 * </tr>
 	 * <tr>
 	 * <td><tt>Tags</tt></td>
@@ -1040,8 +1040,7 @@ final public class Datatypes {
 	}
 
 	private static void buildAll() {
-		String[] xmlexps = {
-				"Extender",
+		String[] xmlexps = {"Extender",
 				"[\u3031-\u3035\u309D-\u309E\u30FC-\u30FE\u00B7\u02D0\u02D1\u0387\u0640\u0E46\u0EC6\u3005]",
 				"CombiningChar",
 				"[\u0300-\u0345\u0360-\u0361\u0483-\u0486\u0591-\u05A1\u05A3-\u05B9\u05BB-\u05BD\u05C1-\u05C2\u064B-\u0652"
@@ -1057,9 +1056,7 @@ final public class Datatypes {
 				"Digit",
 				"[\u0030-\u0039\u0660-\u0669\u06F0-\u06F9\u0966-\u096F\u09E6-\u09EF\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F"
 						+ "\u0BE7-\u0BEF\u0C66-\u0C6F\u0CE6-\u0CEF\u0D66-\u0D6F\u0E50-\u0E59\u0ED0-\u0ED9\u0F20-\u0F29]",
-				"Ideographic",
-				"[\u4E00-\u9FA5\u3021-\u3029\u3007]",
-				"BaseChar",
+				"Ideographic", "[\u4E00-\u9FA5\u3021-\u3029\u3007]", "BaseChar",
 				"[\u0041-\u005A\u0061-\u007A\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF\u0100-\u0131\u0134-\u013E\u0141-\u0148"
 						+ "\u014A-\u017E\u0180-\u01C3\u01CD-\u01F0\u01F4-\u01F5\u01FA-\u0217\u0250-\u02A8\u02BB-\u02C1\u0388-\u038A"
 						+ "\u038E-\u03A1\u03A3-\u03CE\u03D0-\u03D6\u03E2-\u03F3\u0401-\u040C\u040E-\u044F\u0451-\u045C\u045E-\u0481"
@@ -1100,69 +1097,28 @@ final public class Datatypes {
 
 		put(automata, "whitespace", ws);
 
-		String[] uriexps = {
-				"digit",
-				"[0-9]",
-				"upalpha",
-				"[A-Z]",
-				"lowalpha",
-				"[a-z]",
-				"alpha",
-				"<lowalpha>|<upalpha>",
-				"alphanum",
-				"<alpha>|<digit>",
-				"hex",
-				"<digit>|[a-f]|[A-F]",
-				"escaped",
-				"%<hex><hex>",
-				"mark",
-				"[-_.!~*'()]",
-				"unreserved",
-				"<alphanum>|<mark>",
+		String[] uriexps = {"digit", "[0-9]", "upalpha", "[A-Z]", "lowalpha", "[a-z]", "alpha",
+				"<lowalpha>|<upalpha>", "alphanum", "<alpha>|<digit>", "hex", "<digit>|[a-f]|[A-F]",
+				"escaped", "%<hex><hex>", "mark", "[-_.!~*'()]", "unreserved", "<alphanum>|<mark>",
 				// "reserved", "[;/?:@&=+$,]",
-				"reserved",
-				"[;/?:@&=+$,\\[\\]]",// RFC 2732
-				"uric",
-				"<reserved>|<unreserved>|<escaped>",
-				"fragment",
-				"<uric>*",
-				"query",
-				"<uric>*",
-				"pchar",
-				"<unreserved>|<escaped>|[:@&=+$,]",
-				"param",
-				"<pchar>*",
-				"segment",
-				"<pchar>*(;<param>)*",
-				"path_segments",
-				"<segment>(/<segment>)*",
-				"abs_path",
-				"/<path_segments>",
-				"uric_no_slash",
-				"<unreserved>|<escaped>|[;?:@&=+$,]",
-				"opaque_part",
+				"reserved", "[;/?:@&=+$,\\[\\]]", // RFC 2732
+				"uric", "<reserved>|<unreserved>|<escaped>", "fragment", "<uric>*", "query", "<uric>*",
+				"pchar", "<unreserved>|<escaped>|[:@&=+$,]", "param", "<pchar>*", "segment",
+				"<pchar>*(;<param>)*", "path_segments", "<segment>(/<segment>)*", "abs_path",
+				"/<path_segments>", "uric_no_slash", "<unreserved>|<escaped>|[;?:@&=+$,]", "opaque_part",
 				"<uric_no_slash><uric>*",
 				// "path", "(<abs_path>|<opaque_part>)?", // not used
-				"port",
-				"<digit>*",
+				"port", "<digit>*",
 				// "IPv4address", "(<digit>{1,}\\.){3}<digit>{1,}",
-				"IPv4address",
-				"(<digit>{1,3}\\.){3}<digit>{1,3}", // RFC 2732 / 2373
-				"hexseq",
-				"<hex>{1,4}(:<hex>{1,4})*", // RFC 2373
-				"hexpart",
-				"<hexseq>|<hexseq>::<hexseq>?|::<hexseq>", // RFC 2373
-				"IPv6address",
-				"<hexpart>(:<IPv4address>)?", // RFC 2373
-				"toplabel",
-				"<alpha>|(<alpha>(<alphanum>|-)*<alphanum>)",
-				"domainlabel",
-				"<alphanum>|(<alphanum>(<alphanum>|-)*<alphanum>)",
-				"hostname",
+				"IPv4address", "(<digit>{1,3}\\.){3}<digit>{1,3}", // RFC 2732 / 2373
+				"hexseq", "<hex>{1,4}(:<hex>{1,4})*", // RFC 2373
+				"hexpart", "<hexseq>|<hexseq>::<hexseq>?|::<hexseq>", // RFC 2373
+				"IPv6address", "<hexpart>(:<IPv4address>)?", // RFC 2373
+				"toplabel", "<alpha>|(<alpha>(<alphanum>|-)*<alphanum>)", "domainlabel",
+				"<alphanum>|(<alphanum>(<alphanum>|-)*<alphanum>)", "hostname",
 				"(<domainlabel>\\.)*<toplabel>\\.?",
 				// "host", "<hostname>|<IPv4address>",
-				"host",
-				"<hostname>|<IPv4address>|\\[<IPv6address>\\]", // RFC 2732
+				"host", "<hostname>|<IPv4address>|\\[<IPv6address>\\]", // RFC 2732
 				"hostport", "<host>(:<port>)?", "userinfo", "(<unreserved>|<escaped>|[;:&=+$,])*", "server",
 				"((<userinfo>\\@)?<hostport>)?", "reg_name", "(<unreserved>|<escaped>|[$,;:@&=+])+",
 				"authority", "<server>|<reg_name>", "scheme", "<alpha>(<alpha>|<digit>|[-+.])*",
@@ -1173,9 +1129,9 @@ final public class Datatypes {
 				"(<absoluteURI>|<relativeURI>)?(\\#<fragment>)?" };
 		System.out.println("Building URI automaton...");
 		putFrom("URI", buildMap(uriexps));
-		put(automata, "anyname", Automaton.minimize(Automaton.makeChar('{').concatenate(
-				automata.get("URI").clone()).concatenate(Automaton.makeChar('}')).optional().concatenate(
-				automata.get("NCName").clone())));
+		put(automata, "anyname", Automaton.minimize(Automaton.makeChar('{').concatenate(automata.get("URI")
+				.clone()).concatenate(Automaton.makeChar('}')).optional().concatenate(automata.get("NCName")
+						.clone())));
 
 		put(automata, "noap", new RegExp("~(@[@%]@)").toAutomaton());
 
@@ -1183,36 +1139,14 @@ final public class Datatypes {
 				"(<d>{4,})&~(0000)", "M", "<01-12>", "D", "<01-31>", "T", "<00-23>:<00-59>:<00-59>|24:00:00",
 				"B64", "[A-Za-z0-9+/]", "B16", "[AEIMQUYcgkosw048]", "B04", "[AQgw]", "B04S", "<B04> ?",
 				"B16S", "<B16> ?", "B64S", "<B64> ?", };
-		String[] xsdexps = {
-				"boolean",
-				"<_>(true|false|1|0)<_>",
-				"decimal",
-				"<_>([-+]?<d>+(\\.<d>+)?)<_>",
-				"float",
-				"<_>([-+]?<d>+(\\.<d>+)?([Ee][-+]?<d>+)?|INF|-INF|NaN)<_>",
-				"integer",
-				"<_>[-+]?[0-9]+<_>",
-				"duration",
+		String[] xsdexps = {"boolean", "<_>(true|false|1|0)<_>", "decimal", "<_>([-+]?<d>+(\\.<d>+)?)<_>",
+				"float", "<_>([-+]?<d>+(\\.<d>+)?([Ee][-+]?<d>+)?|INF|-INF|NaN)<_>", "integer",
+				"<_>[-+]?[0-9]+<_>", "duration",
 				"<_>(-?P(((<d>+Y)?(<d>+M)?(<d>+D)?(T(((<d>+H)?(<d>+M)?(<d>+(\\.<d>+)?S)?)&~()))?)&~()))<_>",
-				"dateTime",
-				"<_>(-?<Y>-<M>-<D>T<T>(\\.<d>+)?<Z>?)<_>",
-				"time",
-				"<_>(<T>(\\.<d>+)?<Z>?)<_>",
-				"date",
-				"<_>(-?<Y>-<M>-<D><Z>?)<_>",
-				"gYearMonth",
-				"<_>(-?<Y>-<M><Z>?)<_>",
-				"gYear",
-				"<_>(-?<Y><Z>?)<_>",
-				"gMonthDay",
-				"<_>(--<M>-<D><Z>?)<_>",
-				"gDay",
-				"<_>(--<D><Z>?)<_>",
-				"gMonth",
-				"<_>(--<M><Z>?)<_>",
-				"hexBinary",
-				"<_>([0-9a-fA-F]{2}*)<_>",
-				"base64Binary",
+				"dateTime", "<_>(-?<Y>-<M>-<D>T<T>(\\.<d>+)?<Z>?)<_>", "time", "<_>(<T>(\\.<d>+)?<Z>?)<_>",
+				"date", "<_>(-?<Y>-<M>-<D><Z>?)<_>", "gYearMonth", "<_>(-?<Y>-<M><Z>?)<_>", "gYear",
+				"<_>(-?<Y><Z>?)<_>", "gMonthDay", "<_>(--<M>-<D><Z>?)<_>", "gDay", "<_>(--<D><Z>?)<_>",
+				"gMonth", "<_>(--<M><Z>?)<_>", "hexBinary", "<_>([0-9a-fA-F]{2}*)<_>", "base64Binary",
 				"<_>(((<B64S><B64S><B64S><B64S>)*((<B64S><B64S><B64S><B64>)|(<B64S><B64S><B16S>=)|(<B64S><B04S>= ?=)))?)<_>",
 				"language", "<_>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*<_>", "nonPositiveInteger",
 				"<_>(0+|-<d>+)<_>", "negativeInteger", "<_>(-[1-9]<d>*)<_>", "nonNegativeInteger",
@@ -1332,37 +1266,34 @@ final public class Datatypes {
 		put(automata, "HalfwidthandFullwidthForms", Automaton.makeCharRange('\uFF00', '\uFFEF'));
 		put(automata, "Specials", Automaton.makeCharRange('\uFFF0', '\uFFFD'));
 
-		put(automata, "OldItalic", Automaton.makeChar('\ud800').concatenate(
-				Automaton.makeCharRange('\udf00', '\udf2f')));
-		put(automata, "Gothic", Automaton.makeChar('\ud800').concatenate(
-				Automaton.makeCharRange('\udf30', '\udf4f')));
-		put(automata, "Deseret", Automaton.makeChar('\ud801').concatenate(
-				Automaton.makeCharRange('\udc00', '\udc4f')));
-		put(automata, "ByzantineMusicalSymbols", Automaton.makeChar('\ud834').concatenate(
-				Automaton.makeCharRange('\udc00', '\udcff')));
-		put(automata, "MusicalSymbols", Automaton.makeChar('\ud834').concatenate(
-				Automaton.makeCharRange('\udd00', '\uddff')));
-		put(automata, "MathematicalAlphanumericSymbols", Automaton.makeChar('\ud835').concatenate(
-				Automaton.makeCharRange('\udc00', '\udfff')));
+		put(automata, "OldItalic", Automaton.makeChar('\ud800').concatenate(Automaton.makeCharRange('\udf00',
+				'\udf2f')));
+		put(automata, "Gothic", Automaton.makeChar('\ud800').concatenate(Automaton.makeCharRange('\udf30',
+				'\udf4f')));
+		put(automata, "Deseret", Automaton.makeChar('\ud801').concatenate(Automaton.makeCharRange('\udc00',
+				'\udc4f')));
+		put(automata, "ByzantineMusicalSymbols", Automaton.makeChar('\ud834').concatenate(Automaton
+				.makeCharRange('\udc00', '\udcff')));
+		put(automata, "MusicalSymbols", Automaton.makeChar('\ud834').concatenate(Automaton.makeCharRange(
+				'\udd00', '\uddff')));
+		put(automata, "MathematicalAlphanumericSymbols", Automaton.makeChar('\ud835').concatenate(Automaton
+				.makeCharRange('\udc00', '\udfff')));
 
 		put(automata, "CJKUnifiedIdeographsExtensionB", Automaton.makeCharRange('\ud840', '\ud868')
-				.concatenate(Automaton.makeCharRange('\udc00', '\udfff'))
-				.union(Automaton.makeChar('\ud869').concatenate(Automaton.makeCharRange('\udc00', '\uded6'))));
+				.concatenate(Automaton.makeCharRange('\udc00', '\udfff')).union(Automaton.makeChar('\ud869')
+						.concatenate(Automaton.makeCharRange('\udc00', '\uded6'))));
 
 		put(automata, "CJKCompatibilityIdeographsSupplement", Automaton.makeChar('\ud87e').concatenate(
 				Automaton.makeCharRange('\udc00', '\ude1f')));
-		put(automata, "Tags", Automaton.makeChar('\udb40').concatenate(
-				Automaton.makeCharRange('\udc00', '\udc7f')));
+		put(automata, "Tags", Automaton.makeChar('\udb40').concatenate(Automaton.makeCharRange('\udc00',
+				'\udc7f')));
 
-		put(automata, "PrivateUse", Automaton.makeCharRange('\uE000', '\uF8FF').union(
-				Automaton.makeCharRange('\udb80', '\udbbe').concatenate(
-						Automaton.makeCharRange('\udc00', '\udfff'))
-						.union(Automaton.makeChar('\udbbf').concatenate(
-								Automaton.makeCharRange('\udc00', '\udffd')))).union(
-				Automaton.makeCharRange('\udbc0', '\udbfe').concatenate(
-						Automaton.makeCharRange('\udc00', '\udfff'))
-						.union(Automaton.makeChar('\udbff').concatenate(
-								Automaton.makeCharRange('\udc00', '\udffd')))));
+		put(automata, "PrivateUse", Automaton.makeCharRange('\uE000', '\uF8FF').union(Automaton.makeCharRange(
+				'\udb80', '\udbbe').concatenate(Automaton.makeCharRange('\udc00', '\udfff')).union(Automaton
+						.makeChar('\udbbf').concatenate(Automaton.makeCharRange('\udc00', '\udffd')))).union(
+								Automaton.makeCharRange('\udbc0', '\udbfe').concatenate(Automaton
+										.makeCharRange('\udc00', '\udfff')).union(Automaton.makeChar('\udbff')
+												.concatenate(Automaton.makeCharRange('\udc00', '\udffd')))));
 
 		System.out.println("Building Unicode category automata...");
 		Map<String, Set<Integer>> categories = new HashMap<String, Set<Integer>>();
@@ -1412,8 +1343,8 @@ final public class Datatypes {
 			put(automata, me.getKey(), a);
 			assigned.add(a);
 		}
-		Automaton cn = Automaton.minimize(automata.get("Char").clone().intersection(
-				Automaton.union(assigned).complement()));
+		Automaton cn = Automaton.minimize(automata.get("Char").clone().intersection(Automaton.union(assigned)
+				.complement()));
 		put(automata, "Cn", cn);
 		put(automata, "C", automata.get("C").clone().union(cn));
 	}
@@ -1447,8 +1378,8 @@ final public class Datatypes {
 
 	private static void put(Map<String, Automaton> map, String name, Automaton a) {
 		map.put(name, a);
-		System.out.println("  " + name + ": " + a.getNumberOfStates() + " states, "
-				+ a.getNumberOfTransitions() + " transitions");
+		System.out.println("  " + name + ": " + a.getNumberOfStates() + " states, " + a
+				.getNumberOfTransitions() + " transitions");
 	}
 
 	static Automaton getWhitespaceAutomaton() {

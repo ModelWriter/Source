@@ -73,8 +73,8 @@ public class BaseItemProvider extends ItemProviderAdapter implements IEditingDom
 	 */
 	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Base_name_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Base_name_feature", "_UI_Base_type"),
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Base_name_feature"), getString(
+						"_UI_PropertyDescriptor_description", "_UI_Base_name_feature", "_UI_Base_type"),
 				MappingPackage.Literals.BASE__NAME, true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -128,8 +128,8 @@ public class BaseItemProvider extends ItemProviderAdapter implements IEditingDom
 	@Override
 	public String getText(Object object) {
 		String label = ((Base)object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Base_type") : getString("_UI_Base_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Base_type")
+				: getString("_UI_Base_type") + " " + label;
 	}
 
 	/**
