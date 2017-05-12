@@ -11,11 +11,16 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.internal.content;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeProvider;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeRegistry;
 
 /**
@@ -29,6 +34,11 @@ public class FileTypeRegistry implements IFileTypeRegistry {
 	 * The mapping of {@link IFileType#isKindOf(String) super types}.
 	 */
 	private final Map<String, Set<String>> superTypes = new HashMap<String, Set<String>>();
+
+	/**
+	 * The {@link List} of known {@link IFileTypeProvider}.
+	 */
+	private final List<IFileTypeProvider> providers = new ArrayList<IFileTypeProvider>();
 
 	/**
 	 * {@inheritDoc}
@@ -61,6 +71,25 @@ public class FileTypeRegistry implements IFileTypeRegistry {
 			res = new FileType(typeID);
 		} else {
 			res = null;
+		}
+
+		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeRegistry#getFileTypeFor(java.io.InputStream,
+	 *      java.lang.String)
+	 */
+	public IFileType getFileTypeFor(InputStream contents, String name) throws IOException {
+		IFileType res = null;
+
+		for (IFileTypeProvider provider : providers) {
+			res = provider.getFileTypeFor(contents, name);
+			if (res != null) {
+				break;
+			}
 		}
 
 		return res;

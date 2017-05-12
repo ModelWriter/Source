@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.content;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Set;
 
 /**
@@ -48,6 +50,20 @@ public interface IFileTypeRegistry {
 	 *         otherwise
 	 */
 	IFileType getFileType(String typeID);
+
+	/**
+	 * Gets the {@link IFileType} for the given {@link InputStream} and resource name.
+	 * 
+	 * @param contents
+	 *            the {@link InputStream} to the content
+	 * @param name
+	 *            the resource name
+	 * @return the {@link IFileType} for the given {@link InputStream} and resource name if nay,
+	 *         <code>null</code> otherwise
+	 * @throws IOException
+	 *             if the {@link InputStream} can't be read
+	 */
+	IFileType getFileTypeFor(InputStream contents, String name) throws IOException;
 
 	/**
 	 * Tells if the given {@link IFileType#getID() type ID} is a sub type of the given

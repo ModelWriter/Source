@@ -20,9 +20,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
@@ -121,16 +119,10 @@ public class ResourceConnector extends AbstractConnector {
 		if (file.exists()) {
 			try {
 				InputStream contents = file.getContents();
-				final IContentType contentType = Platform.getContentTypeManager().findContentTypeFor(contents,
-						file.getName());
+				final IFileType fileType = MappingUtils.getFileTypeRegistry().getFileTypeFor(contents, file
+						.getName());
 				contents.close();
 
-				final IFileType fileType;
-				if (contentType != null) {
-					fileType = MappingUtils.getFileTypeRegistry().getFileType(contentType.getId());
-				} else {
-					fileType = null;
-				}
 				if (fileType != null) {
 					for (IFileConnectorDelegate delegate : IdeMappingUtils.getFileConectorDelegateRegistry()
 							.getConnectorDelegates()) {

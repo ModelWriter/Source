@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.ide.internal.content;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Platform;
@@ -74,6 +76,32 @@ public class IdeFileTypeRegistry implements IFileTypeRegistry {
 		if (delegateFileType == null) {
 			final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
 			final IContentType contentType = contentTypeManager.getContentType(typeID);
+			if (contentType != null) {
+				res = new FileType(contentType.getId());
+			} else {
+				res = null;
+			}
+		} else {
+			res = delegateFileType;
+		}
+
+		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IOException
+	 * @see org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeRegistry#getFileTypeFor(java.io.InputStream,
+	 *      java.lang.String)
+	 */
+	public IFileType getFileTypeFor(InputStream contents, String name) throws IOException {
+		final IFileType res;
+
+		final IFileType delegateFileType = registry.getFileTypeFor(contents, name);
+		if (delegateFileType == null) {
+			final IContentType contentType = Platform.getContentTypeManager().findContentTypeFor(contents,
+					name);
 			if (contentType != null) {
 				res = new FileType(contentType.getId());
 			} else {
