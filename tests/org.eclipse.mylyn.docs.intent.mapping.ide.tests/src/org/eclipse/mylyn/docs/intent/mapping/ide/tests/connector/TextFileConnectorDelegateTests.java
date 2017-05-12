@@ -23,6 +23,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.TextFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector.ResourceConnectorTests.TestResourceLocation;
@@ -84,12 +86,12 @@ public class TextFileConnectorDelegateTests {
 		project.create(monitor);
 		project.open(monitor);
 
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolder"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolder"));
 		folder.create(true, true, monitor);
 
-		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.txt"));
+		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.txt"));
 		file.create(new ByteArrayInputStream("text content".getBytes()), true, monitor);
 	}
 
@@ -100,21 +102,22 @@ public class TextFileConnectorDelegateTests {
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("TestProject");
 		project.delete(true, monitor);
 
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolder"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolder"));
 		folder.delete(true, monitor);
 
-		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.txt"));
+		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.txt"));
 		file.delete(true, monitor);
 	}
 
 	@Test
 	public void getContentType() {
 		final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
-		final IContentType expected = contentTypeManager.getContentType(IContentTypeManager.CT_TEXT);
+		final IContentType contentType = contentTypeManager.getContentType(IContentTypeManager.CT_TEXT);
+		final IFileType expected = MappingUtils.getFileTypeRegistry().getFileType(contentType.getId());
 
-		assertEquals(expected, delegate.getContentType());
+		assertEquals(expected, delegate.getFileType());
 	}
 
 	@Test
@@ -124,8 +127,8 @@ public class TextFileConnectorDelegateTests {
 
 	@Test
 	public void initLocation() {
-		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.txt"));
+		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.txt"));
 		TestTextFileLocation location = new TestTextFileLocation();
 
 		delegate.initLocation(location, file);

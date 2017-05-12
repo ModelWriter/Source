@@ -23,11 +23,13 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentType;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
@@ -119,25 +121,31 @@ public class ResourceConnector extends AbstractConnector {
 		if (file.exists()) {
 			try {
 				InputStream contents = file.getContents();
-				final IContentType contentType = Platform.getContentTypeManager().findContentTypeFor(
-						contents, file.getName());
+				final IContentType contentType = Platform.getContentTypeManager().findContentTypeFor(contents,
+						file.getName());
 				contents.close();
 
+				final IFileType fileType;
 				if (contentType != null) {
+					fileType = MappingUtils.getFileTypeRegistry().getFileType(contentType.getId());
+				} else {
+					fileType = null;
+				}
+				if (fileType != null) {
 					for (IFileConnectorDelegate delegate : IdeMappingUtils.getFileConectorDelegateRegistry()
 							.getConnectorDelegates()) {
-						if (contentType.isKindOf(delegate.getContentType())) {
+						if (fileType.isKindOf(delegate.getFileType().getID())) {
 							res = delegate;
 							break;
 						}
 					}
 				}
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			} catch (IOException e) {
-				Activator.getDefault().getLog().log(
-						new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
 			}
 		}
 
@@ -213,7 +221,8 @@ public class ResourceConnector extends AbstractConnector {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element) {
+	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
+			Object element) {
 		final ILocationDescriptor res;
 
 		final Object adapted = adapt(element);
@@ -243,8 +252,8 @@ public class ResourceConnector extends AbstractConnector {
 		final Object res;
 
 		if (location instanceof IFileLocation) {
-			final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-					Path.fromPortableString(((IFileLocation)location).getFullPath()));
+			final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(
+					((IFileLocation)location).getFullPath()));
 			final IFileConnectorDelegate delegate = getDelegate(file);
 			if (delegate != null) {
 				res = delegate.getElement((IFileLocation)location);
@@ -252,8 +261,8 @@ public class ResourceConnector extends AbstractConnector {
 				res = null;
 			}
 		} else {
-			res = ResourcesPlugin.getWorkspace().getRoot().getContainerForLocation(
-					Path.fromPortableString(((IResourceLocation)location).getFullPath()));
+			res = ResourcesPlugin.getWorkspace().getRoot().getContainerForLocation(Path.fromPortableString(
+					((IResourceLocation)location).getFullPath()));
 		}
 
 		return res;

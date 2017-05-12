@@ -29,8 +29,8 @@ public class FileDelegateRegistry implements IFileDelegateRegistry {
 	 * The {@link List} of {@link FileDelegateRegistry#register(IFileConnectorDelegate) registered}
 	 * {@link IFileConnectorDelegate}.
 	 */
-	private final List<IFileConnectorDelegate> connectorDelegates = Collections
-			.synchronizedList(new ArrayList<IFileConnectorDelegate>());
+	private final List<IFileConnectorDelegate> connectorDelegates = Collections.synchronizedList(
+			new ArrayList<IFileConnectorDelegate>());
 
 	/**
 	 * {@inheritDoc}
@@ -43,7 +43,7 @@ public class FileDelegateRegistry implements IFileDelegateRegistry {
 				int index = 0;
 				boolean added = false;
 				for (IFileConnectorDelegate connectorDelegate : connectorDelegates) {
-					if (delegate.getContentType().isKindOf(connectorDelegate.getContentType())) {
+					if (delegate.getFileType().isKindOf(connectorDelegate.getFileType().getID())) {
 						connectorDelegates.add(index, delegate);
 						added = true;
 						break;

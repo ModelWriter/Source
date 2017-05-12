@@ -16,14 +16,13 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.content.IContentType;
-import org.eclipse.core.runtime.content.IContentTypeManager;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
@@ -39,6 +38,12 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate {
 
 	/**
+	 * The {@link IFileType}.
+	 */
+	private static final IFileType FILE_TYPE = MappingUtils.getFileTypeRegistry().getFileType(
+			"org.eclipse.emf.ecore.xmi");
+
+	/**
 	 * Mapping of {@link IEObjectFileLocation#getFullPath() full path} to {@link Resource}.
 	 */
 	private final Map<String, Resource> knownResrouces = new HashMap<String, Resource>();
@@ -46,12 +51,10 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getContentType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getFileType()
 	 */
-	public IContentType getContentType() {
-		final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
-
-		return contentTypeManager.getContentType("org.eclipse.emf.ecore.xmi");
+	public IFileType getFileType() {
+		return FILE_TYPE;
 	}
 
 	/**
@@ -79,8 +82,8 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 			// CHECKSTYLE:OFF
 		} catch (Exception e) {
 			// CHECKSTYLE:ON
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
 		}
 	}
 

@@ -24,10 +24,9 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.content.IContentType;
-import org.eclipse.core.runtime.content.IContentTypeManager;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.AbstractFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.jena.IRdfContainer;
@@ -41,6 +40,12 @@ import org.eclipse.mylyn.docs.intent.mapping.jena.ide.IRdfFileLocation;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
+
+	/**
+	 * The {@link IFileType}.
+	 */
+	private static final IFileType FILE_TYPE = MappingUtils.getFileTypeRegistry().getFileType(
+			"org.eclipse.mylyn.docs.intent.mapping.jena.ide.onthology");
 
 	/**
 	 * The file extension to {@link Lang} mapping.
@@ -98,12 +103,10 @@ public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getContentType()
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getFileType()
 	 */
-	public IContentType getContentType() {
-		final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
-
-		return contentTypeManager.getContentType("org.eclipse.mylyn.docs.intent.mapping.jena.ide.onthology");
+	public IFileType getFileType() {
+		return FILE_TYPE;
 	}
 
 	/**
@@ -137,14 +140,14 @@ public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 		try {
 			RdfConnector.updateRdfContainer((IRdfContainer)location, concepts);
 		} catch (InstantiationException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
 		} catch (IllegalAccessException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
 		} catch (ClassNotFoundException e) {
-			Activator.getDefault().getLog().log(
-					new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
 		}
 	}
 

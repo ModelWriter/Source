@@ -27,6 +27,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.EObjectFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
@@ -94,8 +96,8 @@ public class EObjectFileConnectorDelegateTests {
 		project.create(monitor);
 		project.open(monitor);
 
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolder"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolder"));
 		folder.create(true, true, monitor);
 
 		final Resource resource = new XMIResourceImpl(URI.createPlatformResourceURI(
@@ -113,21 +115,22 @@ public class EObjectFileConnectorDelegateTests {
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("TestProject");
 		project.delete(true, monitor);
 
-		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(
-				new Path("TestProject/TestFolder"));
+		final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(
+				"TestProject/TestFolder"));
 		folder.delete(true, monitor);
 
-		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.xmi"));
+		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.xmi"));
 		file.delete(true, monitor);
 	}
 
 	@Test
 	public void getContentType() {
 		final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
-		final IContentType expected = contentTypeManager.getContentType("org.eclipse.emf.ecore.xmi");
+		final IContentType contentType = contentTypeManager.getContentType("org.eclipse.emf.ecore.xmi");
+		final IFileType expected = MappingUtils.getFileTypeRegistry().getFileType(contentType.getId());
 
-		assertEquals(expected, delegate.getContentType());
+		assertEquals(expected, delegate.getFileType());
 	}
 
 	@Test
@@ -137,8 +140,8 @@ public class EObjectFileConnectorDelegateTests {
 
 	@Test
 	public void initLocation() {
-		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(
-				new Path("TestProject/TestFolder/TestFile.xmi"));
+		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
+				"TestProject/TestFolder/TestFile.xmi"));
 		TestEObjectFileLocation location = new TestEObjectFileLocation();
 
 		delegate.initLocation(location, file);

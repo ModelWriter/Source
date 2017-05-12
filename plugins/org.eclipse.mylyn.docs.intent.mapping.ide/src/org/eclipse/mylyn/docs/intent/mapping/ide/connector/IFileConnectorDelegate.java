@@ -12,7 +12,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.connector;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.content.IContentType;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 
 /**
@@ -23,11 +23,11 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 public interface IFileConnectorDelegate {
 
 	/**
-	 * Gets the handled {@link IContentType}.
+	 * Gets the handled {@link IFileType}.
 	 * 
-	 * @return the handled {@link IContentType}
+	 * @return the handled {@link IFileType}
 	 */
-	IContentType getContentType();
+	IFileType getFileType();
 
 	/**
 	 * Gets the {@link IFileLocation} type.

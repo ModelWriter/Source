@@ -12,9 +12,9 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
-import org.eclipse.core.runtime.content.IContentTypeManager;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.AbstractFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector.FileDelegateRegistry;
@@ -62,10 +62,8 @@ public class FileDelegateRegistryTests {
 
 		}
 
-		public IContentType getContentType() {
-			final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
-
-			return contentTypeManager.getContentType(CONTENT_TYPE_A);
+		public IFileType getFileType() {
+			return MappingUtils.getFileTypeRegistry().getFileType(CONTENT_TYPE_A);
 		}
 
 		public Class<? extends IFileLocation> getFileLocationType() {
@@ -99,10 +97,8 @@ public class FileDelegateRegistryTests {
 
 		}
 
-		public IContentType getContentType() {
-			final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
-
-			return contentTypeManager.getContentType(CONTENT_TYPE_B);
+		public IFileType getFileType() {
+			return MappingUtils.getFileTypeRegistry().getFileType(CONTENT_TYPE_B);
 		}
 
 		public Class<? extends IFileLocation> getFileLocationType() {
@@ -136,10 +132,8 @@ public class FileDelegateRegistryTests {
 
 		}
 
-		public IContentType getContentType() {
-			final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
-
-			return contentTypeManager.getContentType(CONTENT_TYPE_C);
+		public IFileType getFileType() {
+			return MappingUtils.getFileTypeRegistry().getFileType(CONTENT_TYPE_C);
 		}
 
 		public Class<? extends IFileLocation> getFileLocationType() {

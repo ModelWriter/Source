@@ -37,8 +37,10 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.base.BaseRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.connector.ConnectorRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.internal.content.FileTypeRegistry;
 
 /**
  * Mapping utility class.
@@ -142,6 +144,11 @@ public final class MappingUtils {
 	 * Diff match patch instance.
 	 */
 	private static final diff_match_patch DIFF_MATCH_PATCH = new diff_match_patch();
+
+	/**
+	 * The {@link IFileTypeRegistry}.
+	 */
+	private static IFileTypeRegistry fileTypeRegistry = new FileTypeRegistry();
 
 	/**
 	 * Constructor.
@@ -493,8 +500,8 @@ public final class MappingUtils {
 	 * @return <code>true</code> if the given {@link ILocation} can be deleted, <code>false</code> otherwise
 	 */
 	public static boolean canDeleteLocation(ILocation location) {
-		return location.getSourceLinks().isEmpty() && location.getTargetLinks().isEmpty()
-				&& location.getContents().isEmpty();
+		return location.getSourceLinks().isEmpty() && location.getTargetLinks().isEmpty() && location
+				.getContents().isEmpty();
 	}
 
 	/**
@@ -671,6 +678,25 @@ public final class MappingUtils {
 		base.getReports().add(res);
 
 		return res;
+	}
+
+	/**
+	 * Gets the {@link IFileTypeRegistry}.
+	 * 
+	 * @return the {@link IFileTypeRegistry}
+	 */
+	public static IFileTypeRegistry getFileTypeRegistry() {
+		return fileTypeRegistry;
+	}
+
+	/**
+	 * Sets the {@link IFileTypeRegistry}.
+	 * 
+	 * @param registry
+	 *            the new {@link IFileTypeRegistry}
+	 */
+	public static void setFileTypeRegistry(IFileTypeRegistry registry) {
+		fileTypeRegistry = registry;
 	}
 
 }

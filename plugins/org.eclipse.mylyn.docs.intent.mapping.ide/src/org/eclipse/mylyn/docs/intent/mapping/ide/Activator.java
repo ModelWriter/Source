@@ -15,8 +15,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.ResourceLocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.TextFileConnectorDelegate;
+import org.eclipse.mylyn.docs.intent.mapping.ide.internal.content.IdeFileTypeRegistry;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -34,6 +36,9 @@ public class Activator extends Plugin {
 
 	/** The registry listener that will be used to listen to extension changes. */
 	private IdeMappingRegistryListener registryListener = new IdeMappingRegistryListener();
+
+	/** The {@link IdeFileTypeRegistry}. */
+	private IdeFileTypeRegistry fileTypeRegistry;
 
 	/**
 	 * The {@link ResourceLocationListener}.
@@ -63,6 +68,9 @@ public class Activator extends Plugin {
 		super.start(context);
 		plugin = this;
 
+		fileTypeRegistry = new IdeFileTypeRegistry(MappingUtils.getFileTypeRegistry());
+		MappingUtils.setFileTypeRegistry(fileTypeRegistry);
+
 		IdeMappingUtils.getFileConectorDelegateRegistry().register(new TextFileConnectorDelegate());
 
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
@@ -83,6 +91,8 @@ public class Activator extends Plugin {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
+
+		MappingUtils.setFileTypeRegistry(fileTypeRegistry.getDelegate());
 
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 		registry.removeListener(registryListener);
