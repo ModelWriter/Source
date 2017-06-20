@@ -1,8 +1,10 @@
 package synalp.parsing.ontology;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParser;
+import org.coode.owlapi.functionalparser.ParseException;
 import org.semanticweb.HermiT.Configuration;
 import org.semanticweb.HermiT.Reasoner;
 import org.semanticweb.HermiT.Reasoner.ReasonerFactory;
@@ -34,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLProperty;
@@ -140,7 +145,7 @@ public class OntoModel {
 		rejectedInconsistentAxioms = new StringBuilder();
 		newAxioms = new StringBuilder();
 
-		ReasonerFactory factory = new Reasoner.ReasonerFactory() {
+		ReasonerFactory factory = new ReasonerFactory() {
 			protected OWLReasoner createHermiTOWLReasoner(org.semanticweb.HermiT.Configuration configuration,
 					OWLOntology ontology) {
 				// don't throw an exception since otherwise we cannot compute explanations
@@ -398,35 +403,34 @@ public class OntoModel {
 
 	private OWLAxiom getAxiomFromString(String axiomString) {
 		// FIXME Bikash/Anastasia
-		// InputStream in = new ByteArrayInputStream(axiomString.getBytes());
-		// OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(in);
-		// parser.setUp(ontology, new OWLOntologyLoaderConfiguration());
-		// if (axiomString.startsWith("SubClassOf") || axiomString.startsWith("EquivalentClasses")) {
-		// try { // parse only SubClassOf and EquivalentClasses axioms!
-		// if (axiomString.startsWith("SubClassOf")) {
-		// OWLAxiom axiom = parser.SubClassOf();
-		// return axiom;
-		// } else {
-		// OWLAxiom axiom = parser.EquivalentClasses();
-		// return axiom;
-		// }
-		// } catch (ParseException e) {
-		// System.out.println("The axiom doesn't follow the functional owl syntax: " + axiomString + e
-		// .getMessage());
-		// log.log(Level.SEVERE, "The axiom doesn't follow the functional owl syntax: " + axiomString + e
-		// .getMessage());
-		// countAxiomsRejectedSyntax++;
-		// rejectedAxioms.append(axiomString + "\n");
-		// return null;
-		// }
-		// } else {
-		// log.log(Level.INFO, "Currently we support only SubClassOf and EquivalentClasses axioms. "
-		// + "The following type of the axiom is not supported: " + axiomString);
-		// countAxiomsRejectedSyntax++;
-		// rejectedAxioms.append(axiomString + "\n");
-		// return null;
-		// }
-		return null;
+		InputStream in = new ByteArrayInputStream(axiomString.getBytes());
+		OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(in);
+		parser.setUp(ontology, new OWLOntologyLoaderConfiguration());
+		if (axiomString.startsWith("SubClassOf") || axiomString.startsWith("EquivalentClasses")) {
+			try { // parse only SubClassOf and EquivalentClasses axioms!
+				if (axiomString.startsWith("SubClassOf")) {
+					OWLAxiom axiom = parser.SubClassOf();
+					return axiom;
+				} else {
+					OWLAxiom axiom = parser.EquivalentClasses();
+					return axiom;
+				}
+			} catch (ParseException e) {
+				System.out.println("The axiom doesn't follow the functional owl syntax: " + axiomString + e
+						.getMessage());
+				log.log(Level.SEVERE, "The axiom doesn't follow the functional owl syntax: " + axiomString + e
+						.getMessage());
+				countAxiomsRejectedSyntax++;
+				rejectedAxioms.append(axiomString + "\n");
+				return null;
+			}
+		} else {
+			log.log(Level.INFO, "Currently we support only SubClassOf and EquivalentClasses axioms. "
+					+ "The following type of the axiom is not supported: " + axiomString);
+			countAxiomsRejectedSyntax++;
+			rejectedAxioms.append(axiomString + "\n");
+			return null;
+		}
 	}
 
 	private void addAxiom(OWLAxiom axiom) {
