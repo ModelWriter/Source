@@ -53,8 +53,8 @@ public interface Jena_idePackage extends EPackage {
 			.init();
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl <em>Rdf File
+	 * The meta object id for the
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl <em>Rdf File
 	 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl
@@ -108,6 +108,15 @@ public interface Jena_idePackage extends EPackage {
 	int RDF_FILE_LOCATION__TYPE = IdePackage.FILE_LOCATION__TYPE;
 
 	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int RDF_FILE_LOCATION__MARKED_AS_DELETED = IdePackage.FILE_LOCATION__MARKED_AS_DELETED;
+
+	/**
 	 * The feature id for the '<em><b>Full Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
@@ -135,8 +144,8 @@ public interface Jena_idePackage extends EPackage {
 	int RDF_FILE_LOCATION_OPERATION_COUNT = IdePackage.FILE_LOCATION_OPERATION_COUNT + 0;
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.RdfFileLocation <em>Rdf File Location</em>}'.
+	 * Returns the meta object for class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.RdfFileLocation <em>Rdf File Location</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Rdf File Location</em>'.
@@ -169,8 +178,8 @@ public interface Jena_idePackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '
-		 * {@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl <em>Rdf File
+		 * The meta object literal for the
+		 * '{@link org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl <em>Rdf File
 		 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.eclipse.mylyn.docs.intent.mapping.jena_ide.impl.RdfFileLocationImpl

@@ -4,9 +4,10 @@
     editDirectory="/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide.edit/src-gen"
     editorDirectory="/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide.editor/src-gen"
     modelPluginID="org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide" modelName="Ide"
-    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" testsDirectory="/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide.tests/src-gen"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
-    usedGenPackages="../../org.eclipse.mylyn.docs.intent.mapping.emf.ide/model/ide.genmodel#//ide ../../org.eclipse.mylyn.docs.intent.mapping.emf/model/mapping.genmodel#//mapping"
+    rootExtendsInterface="org.eclipse.emf.cdo.CDOObject" rootExtendsClass="org.eclipse.emf.internal.cdo.CDOObjectImpl"
+    rootImplementsInterface="" reflectiveDelegation="true" codeFormatting="true" testsDirectory="/org.eclipse.mylyn.docs.intent.mapping.jena.emf.ide.tests/src-gen"
+    importerID="org.eclipse.emf.importer.cdo" featureDelegation="Reflective" complianceLevel="5.0"
+    copyrightFields="false" publicConstructors="true" providerRootExtendsClass="org.eclipse.emf.cdo.edit.CDOItemProviderAdapter" usedGenPackages="../../org.eclipse.mylyn.docs.intent.mapping.emf.ide/model/ide.genmodel#//ide ../../org.eclipse.mylyn.docs.intent.mapping.emf/model/mapping.genmodel#//mapping"
     operationReflection="true" importOrganizing="true">
   <foreignModel>ide.ecore</foreignModel>
   <genPackages prefix="Jena_ide" basePackage="org.eclipse.mylyn.docs.intent.mapping"

@@ -35,7 +35,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
  * 
  * @generated
  */
-public class EObjectLocationItemProvider extends TextLocationItemProvider {
+public class EObjectLocationItemProvider extends LocationItemProvider {
 
 	/**
 	 * The EMF {@link ILabelProvider}.
@@ -80,9 +80,27 @@ public class EObjectLocationItemProvider extends TextLocationItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addURIFragmentPropertyDescriptor(object);
 			addFeatureNamePropertyDescriptor(object);
+			addIndexPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the URI Fragment feature. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 */
+	protected void addURIFragmentPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString(
+						"_UI_EObjectLocation_URIFragment_feature"), getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_EObjectLocation_URIFragment_feature", "_UI_EObjectLocation_type"),
+				MappingPackage.Literals.EOBJECT_LOCATION__URI_FRAGMENT, true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -99,6 +117,20 @@ public class EObjectLocationItemProvider extends TextLocationItemProvider {
 								"_UI_EObjectLocation_featureName_feature", "_UI_EObjectLocation_type"),
 				MappingPackage.Literals.EOBJECT_LOCATION__FEATURE_NAME, true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Index feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected void addIndexPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString(
+						"_UI_EObjectLocation_index_feature"), getString("_UI_PropertyDescriptor_description",
+								"_UI_EObjectLocation_index_feature", "_UI_EObjectLocation_type"),
+				MappingPackage.Literals.EOBJECT_LOCATION__INDEX, true, false, false,
+				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -138,7 +170,9 @@ public class EObjectLocationItemProvider extends TextLocationItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(EObjectLocation.class)) {
+			case MappingPackage.EOBJECT_LOCATION__URI_FRAGMENT:
 			case MappingPackage.EOBJECT_LOCATION__FEATURE_NAME:
+			case MappingPackage.EOBJECT_LOCATION__INDEX:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false,
 						true));
 				return;

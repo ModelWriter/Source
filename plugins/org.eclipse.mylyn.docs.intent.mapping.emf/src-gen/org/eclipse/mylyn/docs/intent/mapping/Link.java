@@ -13,6 +13,7 @@
 package org.eclipse.mylyn.docs.intent.mapping;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Link</b></em>'. <!-- end-user-doc -->
@@ -85,9 +86,9 @@ public interface Link extends IEMFBaseElement, ILink {
 	 * @param value
 	 *            the new value of the '<em>Source</em>' container reference.
 	 * @see #getSource()
-	 * @generated
+	 * @generated NOT
 	 */
-	void setSource(Location value);
+	void setSource(ILocation value);
 
 	/**
 	 * Returns the value of the '<em><b>Target</b></em>' reference. It is bidirectional and its opposite is '
@@ -115,8 +116,8 @@ public interface Link extends IEMFBaseElement, ILink {
 	 * @param value
 	 *            the new value of the '<em>Target</em>' reference.
 	 * @see #getTarget()
-	 * @generated
+	 * @generated NOT
 	 */
-	void setTarget(Location value);
+	void setTarget(ILocation value);
 
 } // Link

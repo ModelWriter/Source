@@ -70,15 +70,15 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case MappingPackage.LINK:
-				return createLink();
+				return (EObject)createLink();
 			case MappingPackage.BASE:
-				return createBase();
+				return (EObject)createBase();
 			case MappingPackage.TEXT_LOCATION:
-				return createTextLocation();
+				return (EObject)createTextLocation();
 			case MappingPackage.EOBJECT_LOCATION:
-				return createEObjectLocation();
+				return (EObject)createEObjectLocation();
 			case MappingPackage.REPORT:
-				return createReport();
+				return (EObject)createReport();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName()
 						+ "' is not a valid classifier");

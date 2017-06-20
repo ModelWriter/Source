@@ -19,8 +19,6 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage;
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>File Location</b></em>'. <!--
  * end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -28,7 +26,7 @@ public class FileLocationImpl extends ResourceLocationImpl implements FileLocati
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated NOT
+	 * @generated
 	 */
 	public FileLocationImpl() {
 		super();

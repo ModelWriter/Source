@@ -17,6 +17,7 @@ import java.io.Serializable;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Location</b></em>'. <!-- end-user-doc
@@ -122,9 +123,9 @@ public interface Location extends IEMFBaseElement, LocationContainer, ILocation 
 	 * @param value
 	 *            the new value of the '<em>Container</em>' container reference.
 	 * @see #getContainer()
-	 * @generated
+	 * @generated NOT
 	 */
-	void setContainer(LocationContainer value);
+	void setContainer(ILocationContainer value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc -->

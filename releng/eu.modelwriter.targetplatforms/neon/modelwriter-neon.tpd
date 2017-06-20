@@ -11,7 +11,9 @@ location "http://download.eclipse.org/releases/neon" {
 	org.eclipse.ui.views.log lazy
 	org.eclipse.epp.mpc.feature.group lazy
 	org.eclipse.core.runtime lazy
+
 	org.eclipse.emf.sdk.feature.group lazy
+	org.eclipse.emf.cdo.sdk.feature.group lazy
 	
 	org.junit [4.0.0,5.0.0)
 	

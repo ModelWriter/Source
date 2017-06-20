@@ -53,7 +53,7 @@ public class JenaFactoryImpl extends EFactoryImpl implements JenaFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case JenaPackage.RDF_LOCATION:
-				return createRdfLocation();
+				return (EObject)createRdfLocation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName()
 						+ "' is not a valid classifier");

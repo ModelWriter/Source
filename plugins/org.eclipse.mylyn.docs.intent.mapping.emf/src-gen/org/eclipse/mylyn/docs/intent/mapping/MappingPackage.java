@@ -639,8 +639,8 @@ public interface MappingPackage extends EPackage {
 	EReference getLocation_Container();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Location#getType <em>Type</em>}'. <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.Location#getType <em>Type</em>}'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Type</em>'.
@@ -651,8 +651,8 @@ public interface MappingPackage extends EPackage {
 	EAttribute getLocation_Type();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Location#isMarkedAsDeleted <em>Marked As Deleted</em>}'.
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.Location#isMarkedAsDeleted <em>Marked As Deleted</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Marked As Deleted</em>'.
@@ -685,8 +685,8 @@ public interface MappingPackage extends EPackage {
 	EAttribute getLink_Description();
 
 	/**
-	 * Returns the meta object for the container reference '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Link#getSource <em>Source</em>}'. <!-- begin-user-doc -->
+	 * Returns the meta object for the container reference
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.Link#getSource <em>Source</em>}'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the container reference '<em>Source</em>'.
@@ -719,8 +719,8 @@ public interface MappingPackage extends EPackage {
 	EAttribute getLink_Type();
 
 	/**
-	 * Returns the meta object for the reference list '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Link#getReports <em>Reports</em>}'. <!-- begin-user-doc
+	 * Returns the meta object for the reference list
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.Link#getReports <em>Reports</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the reference list '<em>Reports</em>'.
@@ -752,8 +752,8 @@ public interface MappingPackage extends EPackage {
 	EAttribute getBase_Name();
 
 	/**
-	 * Returns the meta object for the containment reference list '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.Base#getReports <em>Reports</em>}'. <!-- begin-user-doc
+	 * Returns the meta object for the containment reference list
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.Base#getReports <em>Reports</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Reports</em>'.
@@ -818,8 +818,8 @@ public interface MappingPackage extends EPackage {
 	EClass getEObjectLocation();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getURIFragment <em>URI Fragment</em>}'.
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getURIFragment <em>URI Fragment</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>URI Fragment</em>'.
@@ -830,8 +830,8 @@ public interface MappingPackage extends EPackage {
 	EAttribute getEObjectLocation_URIFragment();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getFeatureName <em>Feature Name</em>}'.
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getFeatureName <em>Feature Name</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Feature Name</em>'.
@@ -876,8 +876,8 @@ public interface MappingPackage extends EPackage {
 	EReference getLocationContainer_Contents();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Report <em>Report</em>}
-	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Report
+	 * <em>Report</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Report</em>'.
 	 * @see org.eclipse.mylyn.docs.intent.mapping.Report
@@ -1079,9 +1079,8 @@ public interface MappingPackage extends EPackage {
 		EClass IEMF_BASE_ELEMENT = eINSTANCE.getIEMFBaseElement();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl <em>Text Location</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl
+		 * <em>Text Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.TextLocationImpl
 		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getTextLocation()
@@ -1106,8 +1105,8 @@ public interface MappingPackage extends EPackage {
 		EAttribute TEXT_LOCATION__END_OFFSET = eINSTANCE.getTextLocation_EndOffset();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.eclipse.mylyn.docs.intent.mapping.impl.EObjectLocationImpl <em>EObject Location</em>}'
+		 * The meta object literal for the
+		 * '{@link org.eclipse.mylyn.docs.intent.mapping.impl.EObjectLocationImpl <em>EObject Location</em>}'
 		 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.EObjectLocationImpl

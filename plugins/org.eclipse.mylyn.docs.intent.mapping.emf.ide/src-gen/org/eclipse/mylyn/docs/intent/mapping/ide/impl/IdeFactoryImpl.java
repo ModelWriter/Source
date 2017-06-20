@@ -65,13 +65,13 @@ public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case IdePackage.RESOURCE_LOCATION:
-				return createResourceLocation();
+				return (EObject)createResourceLocation();
 			case IdePackage.FILE_LOCATION:
-				return createFileLocation();
+				return (EObject)createFileLocation();
 			case IdePackage.TEXT_FILE_LOCATION:
-				return createTextFileLocation();
+				return (EObject)createTextFileLocation();
 			case IdePackage.EOBJECT_FILE_LOCATION:
-				return createEObjectFileLocation();
+				return (EObject)createEObjectFileLocation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName()
 						+ "' is not a valid classifier");

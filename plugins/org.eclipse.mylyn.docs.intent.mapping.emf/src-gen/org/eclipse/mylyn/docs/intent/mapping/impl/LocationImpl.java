@@ -14,25 +14,15 @@ package org.eclipse.mylyn.docs.intent.mapping.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.runtime.preferences.IScope;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.mylyn.docs.intent.mapping.Link;
+import org.eclipse.emf.internal.cdo.CDOObjectImpl;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
@@ -62,93 +52,13 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
  *
  * @generated
  */
-public abstract class LocationImpl extends MinimalEObjectImpl.Container implements Location {
-	/**
-	 * The cached value of the '{@link #getContents() <em>Contents</em>}' containment reference list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getContents()
-	 * @generated NOT
-	 * @ordered
-	 */
-	protected EList<ILocation> contents;
-
-	/**
-	 * The cached value of the '{@link #getSourceLinks() <em>Source Links</em>}' reference list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getSourceLinks()
-	 * @generated NOT
-	 * @ordered
-	 */
-	protected EList<ILink> sourceLinks;
-
-	/**
-	 * The cached value of the '{@link #getTargetLinks() <em>Target Links</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getTargetLinks()
-	 * @generated NOT
-	 * @ordered
-	 */
-	protected EList<ILink> targetLinks;
-
-	/**
-	 * The cached value of the '{@link #getReferencingScopes() <em>Referencing Scopes</em>}' reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getReferencingScopes()
-	 * @generated NOT
-	 * @ordered
-	 */
-	protected EList<IScope> referencingScopes;
-
-	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final Serializable TYPE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected Serializable type = TYPE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #isMarkedAsDeleted() <em>Marked As Deleted</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #isMarkedAsDeleted()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean MARKED_AS_DELETED_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isMarkedAsDeleted() <em>Marked As Deleted</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #isMarkedAsDeleted()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean markedAsDeleted = MARKED_AS_DELETED_EDEFAULT;
-
+public abstract class LocationImpl extends CDOObjectImpl implements Location {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-	protected LocationImpl() {
+	public LocationImpl() {
 		super();
 	}
 
@@ -165,14 +75,21 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
+	 * @generated
+	 */
+	@Override
+	protected int eStaticFeatureCount() {
+		return 0;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public EList<ILink> getSourceLinks() {
-		if (sourceLinks == null) {
-			sourceLinks = new EObjectWithInverseResolvingEList<ILink>(Link.class, this,
-					MappingPackage.LOCATION__SOURCE_LINKS, MappingPackage.LINK__TARGET);
-		}
-		return sourceLinks;
+		return (EList<ILink>)eGet(MappingPackage.Literals.LOCATION__SOURCE_LINKS, true);
 	}
 
 	/**
@@ -180,12 +97,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * 
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public EList<ILink> getTargetLinks() {
-		if (targetLinks == null) {
-			targetLinks = new EObjectContainmentWithInverseEList<ILink>(Link.class, this,
-					MappingPackage.LOCATION__TARGET_LINKS, MappingPackage.LINK__SOURCE);
-		}
-		return targetLinks;
+		return (EList<ILink>)eGet(MappingPackage.Literals.LOCATION__TARGET_LINKS, true);
 	}
 
 	/**
@@ -193,12 +107,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * 
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public EList<ILocation> getContents() {
-		if (contents == null) {
-			contents = new EObjectContainmentWithInverseEList<ILocation>(Location.class, this,
-					MappingPackage.LOCATION__CONTENTS, MappingPackage.LOCATION__CONTAINER);
-		}
-		return contents;
+		return (EList<ILocation>)eGet(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS, true);
 	}
 
 	/**
@@ -207,54 +118,16 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated
 	 */
 	public LocationContainer getContainer() {
-		if (eContainerFeatureID() != MappingPackage.LOCATION__CONTAINER)
-			return null;
-		return (LocationContainer)eInternalContainer();
+		return (LocationContainer)eGet(MappingPackage.Literals.LOCATION__CONTAINER, true);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
-	 */
-	public NotificationChain basicSetContainer(LocationContainer newContainer, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newContainer, MappingPackage.LOCATION__CONTAINER, msgs);
-		return msgs;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocation#setContainer(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer)
 	 * @generated NOT
 	 */
-	public void setContainer(ILocationContainer container) {
-		assert container instanceof LocationContainer;
-		setContainer((LocationContainer)container);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setContainer(LocationContainer newContainer) {
-		if (newContainer != eInternalContainer()
-				|| (eContainerFeatureID() != MappingPackage.LOCATION__CONTAINER && newContainer != null)) {
-			if (EcoreUtil.isAncestor(this, newContainer))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newContainer != null)
-				msgs = ((InternalEObject)newContainer).eInverseAdd(this,
-						MappingPackage.LOCATION_CONTAINER__CONTENTS, LocationContainer.class, msgs);
-			msgs = basicSetContainer(newContainer, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.LOCATION__CONTAINER,
-					newContainer, newContainer));
+	public void setContainer(ILocationContainer newContainer) {
+		eSet(MappingPackage.Literals.LOCATION__CONTAINER, newContainer);
 	}
 
 	/**
@@ -263,7 +136,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated
 	 */
 	public Serializable getType() {
-		return type;
+		return (Serializable)eGet(MappingPackage.Literals.LOCATION__TYPE, true);
 	}
 
 	/**
@@ -272,11 +145,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated
 	 */
 	public void setType(Serializable newType) {
-		Serializable oldType = type;
-		type = newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.LOCATION__TYPE, oldType,
-					type));
+		eSet(MappingPackage.Literals.LOCATION__TYPE, newType);
 	}
 
 	/**
@@ -285,7 +154,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated
 	 */
 	public boolean isMarkedAsDeleted() {
-		return markedAsDeleted;
+		return (Boolean)eGet(MappingPackage.Literals.LOCATION__MARKED_AS_DELETED, true);
 	}
 
 	/**
@@ -294,184 +163,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated
 	 */
 	public void setMarkedAsDeleted(boolean newMarkedAsDeleted) {
-		boolean oldMarkedAsDeleted = markedAsDeleted;
-		markedAsDeleted = newMarkedAsDeleted;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.LOCATION__MARKED_AS_DELETED,
-					oldMarkedAsDeleted, markedAsDeleted));
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case MappingPackage.LOCATION__CONTENTS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getContents()).basicAdd(otherEnd,
-						msgs);
-			case MappingPackage.LOCATION__SOURCE_LINKS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSourceLinks()).basicAdd(otherEnd,
-						msgs);
-			case MappingPackage.LOCATION__TARGET_LINKS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTargetLinks()).basicAdd(otherEnd,
-						msgs);
-			case MappingPackage.LOCATION__CONTAINER:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetContainer((LocationContainer)otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case MappingPackage.LOCATION__CONTENTS:
-				return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
-			case MappingPackage.LOCATION__SOURCE_LINKS:
-				return ((InternalEList<?>)getSourceLinks()).basicRemove(otherEnd, msgs);
-			case MappingPackage.LOCATION__TARGET_LINKS:
-				return ((InternalEList<?>)getTargetLinks()).basicRemove(otherEnd, msgs);
-			case MappingPackage.LOCATION__CONTAINER:
-				return basicSetContainer(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-			case MappingPackage.LOCATION__CONTAINER:
-				return eInternalContainer().eInverseRemove(this, MappingPackage.LOCATION_CONTAINER__CONTENTS,
-						LocationContainer.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case MappingPackage.LOCATION__CONTENTS:
-				return getContents();
-			case MappingPackage.LOCATION__SOURCE_LINKS:
-				return getSourceLinks();
-			case MappingPackage.LOCATION__TARGET_LINKS:
-				return getTargetLinks();
-			case MappingPackage.LOCATION__CONTAINER:
-				return getContainer();
-			case MappingPackage.LOCATION__TYPE:
-				return getType();
-			case MappingPackage.LOCATION__MARKED_AS_DELETED:
-				return isMarkedAsDeleted();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case MappingPackage.LOCATION__CONTENTS:
-				getContents().clear();
-				getContents().addAll((Collection<? extends Location>)newValue);
-				return;
-			case MappingPackage.LOCATION__SOURCE_LINKS:
-				getSourceLinks().clear();
-				getSourceLinks().addAll((Collection<? extends Link>)newValue);
-				return;
-			case MappingPackage.LOCATION__TARGET_LINKS:
-				getTargetLinks().clear();
-				getTargetLinks().addAll((Collection<? extends Link>)newValue);
-				return;
-			case MappingPackage.LOCATION__CONTAINER:
-				setContainer((LocationContainer)newValue);
-				return;
-			case MappingPackage.LOCATION__TYPE:
-				setType((Serializable)newValue);
-				return;
-			case MappingPackage.LOCATION__MARKED_AS_DELETED:
-				setMarkedAsDeleted((Boolean)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-			case MappingPackage.LOCATION__CONTENTS:
-				getContents().clear();
-				return;
-			case MappingPackage.LOCATION__SOURCE_LINKS:
-				getSourceLinks().clear();
-				return;
-			case MappingPackage.LOCATION__TARGET_LINKS:
-				getTargetLinks().clear();
-				return;
-			case MappingPackage.LOCATION__CONTAINER:
-				setContainer((LocationContainer)null);
-				return;
-			case MappingPackage.LOCATION__TYPE:
-				setType(TYPE_EDEFAULT);
-				return;
-			case MappingPackage.LOCATION__MARKED_AS_DELETED:
-				setMarkedAsDeleted(MARKED_AS_DELETED_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case MappingPackage.LOCATION__CONTENTS:
-				return contents != null && !contents.isEmpty();
-			case MappingPackage.LOCATION__SOURCE_LINKS:
-				return sourceLinks != null && !sourceLinks.isEmpty();
-			case MappingPackage.LOCATION__TARGET_LINKS:
-				return targetLinks != null && !targetLinks.isEmpty();
-			case MappingPackage.LOCATION__CONTAINER:
-				return getContainer() != null;
-			case MappingPackage.LOCATION__TYPE:
-				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-			case MappingPackage.LOCATION__MARKED_AS_DELETED:
-				return markedAsDeleted != MARKED_AS_DELETED_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
+		eSet(MappingPackage.Literals.LOCATION__MARKED_AS_DELETED, newMarkedAsDeleted);
 	}
 
 	/**
@@ -522,9 +214,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container implemen
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (type: ");
-		result.append(type);
+		result.append(getType());
 		result.append(", markedAsDeleted: ");
-		result.append(markedAsDeleted);
+		result.append(isMarkedAsDeleted());
 		result.append(')');
 		return result.toString();
 	}

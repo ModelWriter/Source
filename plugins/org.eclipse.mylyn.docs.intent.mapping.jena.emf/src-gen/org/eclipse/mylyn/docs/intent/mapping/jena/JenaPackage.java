@@ -107,6 +107,15 @@ public interface JenaPackage extends EPackage {
 	int RDF_LOCATION__TYPE = MappingPackage.LOCATION__TYPE;
 
 	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int RDF_LOCATION__MARKED_AS_DELETED = MappingPackage.LOCATION__MARKED_AS_DELETED;
+
+	/**
 	 * The feature id for the '<em><b>URI</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -178,8 +187,8 @@ public interface JenaPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '
-		 * {@link org.eclipse.mylyn.docs.intent.mapping.jena.impl.RdfLocationImpl <em>Rdf Location</em>}'
+		 * The meta object literal for the
+		 * '{@link org.eclipse.mylyn.docs.intent.mapping.jena.impl.RdfLocationImpl <em>Rdf Location</em>}'
 		 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.eclipse.mylyn.docs.intent.mapping.jena.impl.RdfLocationImpl

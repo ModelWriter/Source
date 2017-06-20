@@ -53,7 +53,7 @@ public class Jena_ideFactoryImpl extends EFactoryImpl implements Jena_ideFactory
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case Jena_idePackage.RDF_FILE_LOCATION:
-				return createRdfFileLocation();
+				return (EObject)createRdfFileLocation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName()
 						+ "' is not a valid classifier");

@@ -14,28 +14,19 @@ package org.eclipse.mylyn.docs.intent.mapping.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.internal.cdo.CDOObjectImpl;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
-import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
-import org.eclipse.mylyn.docs.intent.mapping.Report;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
@@ -50,62 +41,22 @@ import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Base</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getContents <em>Contents</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getName <em>Name</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getReports <em>Reports</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
-	/**
-	 * The cached value of the '{@link #getContents() <em>Contents</em>}' containment reference list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getContents()
-	 * @generated NOT
-	 * @ordered
-	 */
-	protected EList<ILocation> contents;
-
-	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getReports() <em>Reports</em>}' containment reference list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getReports()
-	 * @generated NOT
-	 * @ordered
-	 */
-	protected EList<IReport> reports;
-
+public class BaseImpl extends CDOObjectImpl implements Base {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-	protected BaseImpl() {
+	public BaseImpl() {
 		super();
 	}
 
@@ -122,14 +73,21 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
+	 * @generated
+	 */
+	@Override
+	protected int eStaticFeatureCount() {
+		return 0;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public EList<ILocation> getContents() {
-		if (contents == null) {
-			contents = new EObjectContainmentWithInverseEList<ILocation>(Location.class, this,
-					MappingPackage.BASE__CONTENTS, MappingPackage.LOCATION__CONTAINER);
-		}
-		return contents;
+		return (EList<ILocation>)eGet(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS, true);
 	}
 
 	/**
@@ -138,7 +96,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	 * @generated
 	 */
 	public String getName() {
-		return name;
+		return (String)eGet(MappingPackage.Literals.BASE__NAME, true);
 	}
 
 	/**
@@ -147,10 +105,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	 * @generated
 	 */
 	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MappingPackage.BASE__NAME, oldName, name));
+		eSet(MappingPackage.Literals.BASE__NAME, newName);
 	}
 
 	/**
@@ -158,124 +113,9 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 	 * 
 	 * @generated NOT
 	 */
-	public List<IReport> getReports() {
-		if (reports == null) {
-			reports = new EObjectContainmentEList<IReport>(Report.class, this, MappingPackage.BASE__REPORTS);
-		}
-		return reports;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	@SuppressWarnings("unchecked")
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case MappingPackage.BASE__CONTENTS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getContents()).basicAdd(otherEnd,
-						msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case MappingPackage.BASE__CONTENTS:
-				return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
-			case MappingPackage.BASE__REPORTS:
-				return ((InternalEList<?>)getReports()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case MappingPackage.BASE__CONTENTS:
-				return getContents();
-			case MappingPackage.BASE__NAME:
-				return getName();
-			case MappingPackage.BASE__REPORTS:
-				return getReports();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case MappingPackage.BASE__CONTENTS:
-				getContents().clear();
-				getContents().addAll((Collection<? extends Location>)newValue);
-				return;
-			case MappingPackage.BASE__NAME:
-				setName((String)newValue);
-				return;
-			case MappingPackage.BASE__REPORTS:
-				getReports().clear();
-				getReports().addAll((Collection<? extends Report>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-			case MappingPackage.BASE__CONTENTS:
-				getContents().clear();
-				return;
-			case MappingPackage.BASE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case MappingPackage.BASE__REPORTS:
-				getReports().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case MappingPackage.BASE__CONTENTS:
-				return contents != null && !contents.isEmpty();
-			case MappingPackage.BASE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case MappingPackage.BASE__REPORTS:
-				return reports != null && !reports.isEmpty();
-		}
-		return super.eIsSet(featureID);
+	public EList<IReport> getReports() {
+		return (EList<IReport>)eGet(MappingPackage.Literals.BASE__REPORTS, true);
 	}
 
 	/**
@@ -326,7 +166,7 @@ public class BaseImpl extends MinimalEObjectImpl.Container implements Base {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
-		result.append(name);
+		result.append(getName());
 		result.append(')');
 		return result.toString();
 	}

@@ -174,8 +174,8 @@ public class IdeAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation <em>EObject File Location</em>}'.
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation <em>EObject File Location</em>}'.
 	 * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
 	 * 

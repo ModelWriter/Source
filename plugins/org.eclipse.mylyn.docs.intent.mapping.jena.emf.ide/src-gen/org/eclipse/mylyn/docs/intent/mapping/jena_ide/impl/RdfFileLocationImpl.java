@@ -10,8 +10,6 @@ import org.eclipse.mylyn.docs.intent.mapping.jena_ide.RdfFileLocation;
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Rdf File Location</b></em>'. <!--
  * end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -20,7 +18,7 @@ public class RdfFileLocationImpl extends FileLocationImpl implements RdfFileLoca
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated NOT
+	 * @generated
 	 */
 	public RdfFileLocationImpl() {
 		super();
