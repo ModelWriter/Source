@@ -12,6 +12,8 @@
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -29,6 +31,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.EObjectFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
@@ -65,6 +68,11 @@ public class EObjectFileConnectorDelegateTests {
 		 */
 		private Resource resource;
 
+		/**
+		 * The {@link List} of saved {@link URI} fragments.
+		 */
+		private List<ICouple> savedURIFragments = new ArrayList<ICouple>();
+
 		public void setResource(Resource resource) {
 			this.resource = resource;
 		}
@@ -79,6 +87,10 @@ public class EObjectFileConnectorDelegateTests {
 
 		public void setXMIContent(String content) {
 			this.xmiContent = content;
+		}
+
+		public List<ICouple> getSavedURIFragments() {
+			return savedURIFragments;
 		}
 
 	}

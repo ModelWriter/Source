@@ -14,8 +14,12 @@ package org.eclipse.mylyn.docs.intent.mapping.emf.tests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.base.EMFBaseTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.base.EMFLinkTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.base.EMFReportTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorCDOTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedCDOTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorTests;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -27,8 +31,36 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses(value = {EMFBaseTests.class, EMFLinkTests.class, EMFTextLocationTests.class,
-		EMFEObjectLocationTests.class, EObjectConnectorTests.class, EObjectConnectorParametrizedTests.class,
+		EMFEObjectLocationTests.class, EObjectConnectorTests.class, EObjectConnectorCDOTests.class,
+		EObjectConnectorParametrizedTests.class, EObjectConnectorParametrizedCDOTests.class,
 		EMFReportTests.class, })
 public class AllTests {
+	/**
+	 * The {@link CDOServer}.
+	 */
+	private static CDOServer server;
+
+	/**
+	 * Counts calls to {@link #startCDOServer()}.
+	 */
+	private static int startCount;
+
+	@BeforeClass
+	public static void startCDOServer() {
+		startCount++;
+		if (server == null) {
+			server = new CDOServer(false);
+			server.start();
+		}
+	}
+
+	@AfterClass
+	public static void stopCDOServer() {
+		if (startCount == 0) {
+			server.stop();
+		} else {
+			startCount--;
+		}
+	}
 
 }

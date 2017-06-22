@@ -11,6 +11,10 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf;
 
+import java.util.List;
+
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 
 /**
@@ -34,5 +38,12 @@ public interface IEObjectContainer extends ILocation {
 	 *            the XMI contents
 	 */
 	void setXMIContent(String xmiContent);
+
+	/**
+	 * The mapping from {@link EObject} {@link URI} fragments to saved {@link URI} fragment.
+	 * 
+	 * @return the mapping from {@link EObject} {@link URI} fragments to saved {@link URI} fragment
+	 */
+	List<ICouple> getSavedURIFragments();
 
 }

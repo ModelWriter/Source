@@ -25,7 +25,6 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage;
 public class FileLocationImpl extends ResourceLocationImpl implements FileLocation {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public FileLocationImpl() {
@@ -34,7 +33,6 @@ public class FileLocationImpl extends ResourceLocationImpl implements FileLocati
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

@@ -34,6 +34,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 
@@ -152,23 +153,6 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(getName());
-		result.append(')');
-		return result.toString();
 	}
 
 	/**
@@ -326,6 +310,7 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 				TextLocationImpl.class));
 		res.addDescriptor(IEObjectLocation.class, new FactoryDescriptor<EObjectLocationImpl>(
 				EObjectLocationImpl.class));
+		res.addDescriptor(ICouple.class, new FactoryDescriptor<CoupleImpl>(CoupleImpl.class));
 
 		return res;
 	}

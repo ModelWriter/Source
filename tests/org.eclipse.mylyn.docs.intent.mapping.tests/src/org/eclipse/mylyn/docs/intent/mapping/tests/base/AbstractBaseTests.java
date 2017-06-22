@@ -15,13 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test {@link IBase}.
@@ -272,6 +275,38 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 
 		assertTestBaseListener(listener, 0, 0, 0, 2, 2);
 		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+	}
+
+	@Test
+	public void testCreateCouple() throws Exception {
+		final IBase base = getBase();
+		final ICouple element = base.getFactory().createElement(ICouple.class);
+
+		assertTrue(element instanceof ICouple);
+	}
+
+	@Test
+	public void testCreateLink() throws Exception {
+		final IBase base = getBase();
+		final ILink element = base.getFactory().createElement(ILink.class);
+
+		assertTrue(element instanceof ILink);
+	}
+
+	@Test
+	public void testCreateReport() throws Exception {
+		final IBase base = getBase();
+		final IReport element = base.getFactory().createElement(IReport.class);
+
+		assertTrue(element instanceof IReport);
+	}
+
+	@Test
+	public void testCreateTextLocation() throws Exception {
+		final IBase base = getBase();
+		final ITextLocation element = base.getFactory().createElement(ITextLocation.class);
+
+		assertTrue(element instanceof ITextLocation);
 	}
 
 }

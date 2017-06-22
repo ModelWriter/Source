@@ -124,6 +124,15 @@ public abstract class LocationImpl extends CDOObjectImpl implements Location {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
+	 * @generated
+	 */
+	public void setContainer(LocationContainer newContainer) {
+		eSet(MappingPackage.Literals.LOCATION__CONTAINER, newContainer);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	public void setContainer(ILocationContainer newContainer) {
@@ -200,25 +209,6 @@ public abstract class LocationImpl extends CDOObjectImpl implements Location {
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (type: ");
-		result.append(getType());
-		result.append(", markedAsDeleted: ");
-		result.append(isMarkedAsDeleted());
-		result.append(')');
-		return result.toString();
 	}
 
 	/**

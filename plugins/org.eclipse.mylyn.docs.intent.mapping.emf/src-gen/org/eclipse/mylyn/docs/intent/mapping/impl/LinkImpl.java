@@ -111,6 +111,15 @@ public class LinkImpl extends CDOObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	public void setSource(Location newSource) {
+		eSet(MappingPackage.Literals.LINK__SOURCE, newSource);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
 	public void setSource(ILocation newSource) {
 		eSet(MappingPackage.Literals.LINK__SOURCE, newSource);
 	}
@@ -159,6 +168,15 @@ public class LinkImpl extends CDOObjectImpl implements Link {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
+	 */
+	public void setTarget(Location newTarget) {
+		eSet(MappingPackage.Literals.LINK__TARGET, newTarget);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
 	 */
 	public void setTarget(ILocation newTarget) {
 		eSet(MappingPackage.Literals.LINK__TARGET, newTarget);

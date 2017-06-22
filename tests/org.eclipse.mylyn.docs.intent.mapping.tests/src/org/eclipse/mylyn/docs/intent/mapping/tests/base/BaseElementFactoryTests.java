@@ -24,6 +24,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReportListener;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;
@@ -272,6 +273,43 @@ public class BaseElementFactoryTests {
 
 		public void removeListener(IReportListener listener) {
 			// nothing to do here
+		}
+
+	}
+
+	/**
+	 * Test implementation of {@link ICouple}.
+	 * 
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class TestCouple implements ICouple {
+
+		/**
+		 * The key.
+		 */
+		private String key;
+
+		/**
+		 * The value.
+		 */
+		private String value;
+
+		public String getKey() {
+			// TODO Auto-generated method stub
+			return key;
+		}
+
+		public void setKey(String key) {
+			this.key = key;
+
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		public void setValue(String value) {
+			this.value = value;
 		}
 
 	}

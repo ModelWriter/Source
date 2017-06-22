@@ -17,6 +17,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
+import org.eclipse.mylyn.docs.intent.mapping.Couple;
 import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
@@ -116,6 +117,11 @@ public class MappingAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseReport(Report object) {
 			return createReportAdapter();
+		}
+
+		@Override
+		public Adapter caseCouple(Couple object) {
+			return createCoupleAdapter();
 		}
 
 		@Override
@@ -246,6 +252,20 @@ public class MappingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createReportAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.mylyn.docs.intent.mapping.Couple
+	 * <em>Couple</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
+	 * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Couple
+	 * @generated
+	 */
+	public Adapter createCoupleAdapter() {
 		return null;
 	}
 

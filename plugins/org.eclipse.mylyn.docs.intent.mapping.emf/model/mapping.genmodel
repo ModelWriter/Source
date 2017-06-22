@@ -38,6 +38,7 @@
     </genClasses>
     <genClasses ecoreClass="mapping.ecore#//EObjectLocation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectLocation/URIFragment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectLocation/savedURIFragment"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectLocation/featureName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectLocation/index"/>
     </genClasses>
@@ -47,6 +48,10 @@
     <genClasses image="false" ecoreClass="mapping.ecore#//Report">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Report/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mapping.ecore#//Report/link"/>
+    </genClasses>
+    <genClasses ecoreClass="mapping.ecore#//Couple">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Couple/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Couple/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

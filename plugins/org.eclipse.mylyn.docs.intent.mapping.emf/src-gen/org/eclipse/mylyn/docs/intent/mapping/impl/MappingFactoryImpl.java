@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
+import org.eclipse.mylyn.docs.intent.mapping.Couple;
 import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
 import org.eclipse.mylyn.docs.intent.mapping.MappingFactory;
@@ -79,6 +80,8 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 				return (EObject)createEObjectLocation();
 			case MappingPackage.REPORT:
 				return (EObject)createReport();
+			case MappingPackage.COUPLE:
+				return (EObject)createCouple();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName()
 						+ "' is not a valid classifier");
@@ -165,6 +168,16 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 	public Report createReport() {
 		ReportImpl report = new ReportImpl();
 		return report;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public Couple createCouple() {
+		CoupleImpl couple = new CoupleImpl();
+		return couple;
 	}
 
 	/**

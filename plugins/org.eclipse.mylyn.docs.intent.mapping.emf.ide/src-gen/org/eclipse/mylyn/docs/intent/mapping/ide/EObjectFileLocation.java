@@ -12,6 +12,9 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.ide;
 
+import java.util.List;
+
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 
 /**
@@ -19,11 +22,13 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocati
  * end-user-doc -->
  * <p>
  * The following features are supported:
- * <ul>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent <em>XMI Content
- * </em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent <em>XMI
+ * Content</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getSavedURIFragments <em>Saved URI
+ * Fragments</em>}</li>
+ * </ul>
  *
  * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage#getEObjectFileLocation()
  * @model
@@ -48,8 +53,8 @@ public interface EObjectFileLocation extends FileLocation, IEObjectFileLocation 
 	String getXMIContent();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent <em>XMI
+	 * Sets the value of the
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation#getXMIContent <em>XMI
 	 * Content</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
@@ -58,4 +63,20 @@ public interface EObjectFileLocation extends FileLocation, IEObjectFileLocation 
 	 * @generated
 	 */
 	void setXMIContent(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Saved URI Fragments</b></em>' containment reference list. The list
+	 * contents are of type {@link org.eclipse.mylyn.docs.intent.mapping.Couple}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Saved URI Fragments</em>' containment reference list isn't clear, there
+	 * really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Saved URI Fragments</em>' containment reference list.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage#getEObjectFileLocation_SavedURIFragments()
+	 * @model containment="true"
+	 * @generated NOT
+	 */
+	List<ICouple> getSavedURIFragments();
 } // EObjectFileLocation

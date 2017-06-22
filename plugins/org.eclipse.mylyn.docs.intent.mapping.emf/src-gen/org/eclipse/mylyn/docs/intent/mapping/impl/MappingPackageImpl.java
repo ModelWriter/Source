@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
+import org.eclipse.mylyn.docs.intent.mapping.Couple;
 import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
@@ -92,6 +93,13 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * @generated
 	 */
 	private EClass reportEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass coupleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -356,7 +364,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	public EAttribute getEObjectLocation_FeatureName() {
+	public EAttribute getEObjectLocation_SavedURIFragment() {
 		return (EAttribute)eObjectLocationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -365,8 +373,17 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
-	public EAttribute getEObjectLocation_Index() {
+	public EAttribute getEObjectLocation_FeatureName() {
 		return (EAttribute)eObjectLocationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getEObjectLocation_Index() {
+		return (EAttribute)eObjectLocationEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -412,6 +429,33 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 */
 	public EReference getReport_Link() {
 		return (EReference)reportEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getCouple() {
+		return coupleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getCouple_Key() {
+		return (EAttribute)coupleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getCouple_Value() {
+		return (EAttribute)coupleEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -477,6 +521,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 
 		eObjectLocationEClass = createEClass(EOBJECT_LOCATION);
 		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__URI_FRAGMENT);
+		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__SAVED_URI_FRAGMENT);
 		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__FEATURE_NAME);
 		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__INDEX);
 
@@ -486,6 +531,10 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		reportEClass = createEClass(REPORT);
 		createEAttribute(reportEClass, REPORT__DESCRIPTION);
 		createEReference(reportEClass, REPORT__LINK);
+
+		coupleEClass = createEClass(COUPLE);
+		createEAttribute(coupleEClass, COUPLE__KEY);
+		createEAttribute(coupleEClass, COUPLE__VALUE);
 
 		// Create data types
 		typeEDataType = createEDataType(TYPE);
@@ -588,6 +637,9 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		initEAttribute(getEObjectLocation_URIFragment(), ecorePackage.getEString(), "URIFragment", null, 1, 1,
 				EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEObjectLocation_SavedURIFragment(), ecorePackage.getEString(), "savedURIFragment",
+				null, 1, 1, EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEObjectLocation_FeatureName(), ecorePackage.getEString(), "featureName", null, 0, 1,
 				EObjectLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -609,6 +661,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		initEReference(getReport_Link(), this.getLink(), this.getLink_Reports(), "link", null, 1, 1,
 				Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(coupleEClass, Couple.class, "Couple", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCouple_Key(), ecorePackage.getEString(), "key", null, 1, 1, Couple.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+		initEAttribute(getCouple_Value(), ecorePackage.getEString(), "value", null, 1, 1, Couple.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 
 		// Initialize data types
 		initEDataType(typeEDataType, Serializable.class, "Type", IS_SERIALIZABLE,

@@ -25,6 +25,8 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
  * <ul>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.EObjectLocationImpl#getURIFragment <em>URI
  * Fragment</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.EObjectLocationImpl#getSavedURIFragment <em>Saved URI
+ * Fragment</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.EObjectLocationImpl#getFeatureName <em>Feature
  * Name</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.EObjectLocationImpl#getIndex <em>Index</em>}</li>
@@ -68,6 +70,24 @@ public class EObjectLocationImpl extends LocationImpl implements EObjectLocation
 	 */
 	public void setURIFragment(String newURIFragment) {
 		eSet(MappingPackage.Literals.EOBJECT_LOCATION__URI_FRAGMENT, newURIFragment);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String getSavedURIFragment() {
+		return (String)eGet(MappingPackage.Literals.EOBJECT_LOCATION__SAVED_URI_FRAGMENT, true);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setSavedURIFragment(String newSavedURIFragment) {
+		eSet(MappingPackage.Literals.EOBJECT_LOCATION__SAVED_URI_FRAGMENT, newSavedURIFragment);
 	}
 
 	/**

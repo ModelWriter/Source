@@ -468,13 +468,22 @@ public interface MappingPackage extends EPackage {
 	int EOBJECT_LOCATION__URI_FRAGMENT = LOCATION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Saved URI Fragment</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_LOCATION__SAVED_URI_FRAGMENT = LOCATION_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Feature Name</b></em>' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__FEATURE_NAME = LOCATION_FEATURE_COUNT + 1;
+	int EOBJECT_LOCATION__FEATURE_NAME = LOCATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Index</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -482,7 +491,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION__INDEX = LOCATION_FEATURE_COUNT + 2;
+	int EOBJECT_LOCATION__INDEX = LOCATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>EObject Location</em>' class. <!-- begin-user-doc -->
@@ -491,7 +500,7 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOBJECT_LOCATION_FEATURE_COUNT = LOCATION_FEATURE_COUNT + 3;
+	int EOBJECT_LOCATION_FEATURE_COUNT = LOCATION_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>EObject Location</em>' class. <!-- begin-user-doc --> <!--
@@ -584,13 +593,56 @@ public interface MappingPackage extends EPackage {
 	int REPORT_OPERATION_COUNT = IEMF_BASE_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CoupleImpl
+	 * <em>Couple</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CoupleImpl
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCouple()
+	 * @generated
+	 */
+	int COUPLE = 8;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int COUPLE__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int COUPLE__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Couple</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int COUPLE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Couple</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int COUPLE_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see java.io.Serializable
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 8;
+	int TYPE = 9;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Location
@@ -831,6 +883,18 @@ public interface MappingPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getSavedURIFragment <em>Saved URI
+	 * Fragment</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Saved URI Fragment</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getSavedURIFragment()
+	 * @see #getEObjectLocation()
+	 * @generated
+	 */
+	EAttribute getEObjectLocation_SavedURIFragment();
+
+	/**
+	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation#getFeatureName <em>Feature Name</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -907,6 +971,38 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getReport_Link();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Couple
+	 * <em>Couple</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Couple</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Couple
+	 * @generated
+	 */
+	EClass getCouple();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.mylyn.docs.intent.mapping.Couple#getKey
+	 * <em>Key</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Couple#getKey()
+	 * @see #getCouple()
+	 * @generated
+	 */
+	EAttribute getCouple_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.mylyn.docs.intent.mapping.Couple#getValue
+	 * <em>Value</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Couple#getValue()
+	 * @see #getCouple()
+	 * @generated
+	 */
+	EAttribute getCouple_Value();
 
 	/**
 	 * Returns the meta object for data type '{@link java.io.Serializable <em>Type</em>}'. <!-- begin-user-doc
@@ -1124,6 +1220,14 @@ public interface MappingPackage extends EPackage {
 		EAttribute EOBJECT_LOCATION__URI_FRAGMENT = eINSTANCE.getEObjectLocation_URIFragment();
 
 		/**
+		 * The meta object literal for the '<em><b>Saved URI Fragment</b></em>' attribute feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute EOBJECT_LOCATION__SAVED_URI_FRAGMENT = eINSTANCE.getEObjectLocation_SavedURIFragment();
+
+		/**
 		 * The meta object literal for the '<em><b>Feature Name</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
@@ -1182,6 +1286,32 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference REPORT__LINK = eINSTANCE.getReport_Link();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CoupleImpl
+		 * <em>Couple</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CoupleImpl
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCouple()
+		 * @generated
+		 */
+		EClass COUPLE = eINSTANCE.getCouple();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute COUPLE__KEY = eINSTANCE.getCouple_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute COUPLE__VALUE = eINSTANCE.getCouple_Value();
 
 		/**
 		 * The meta object literal for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!--

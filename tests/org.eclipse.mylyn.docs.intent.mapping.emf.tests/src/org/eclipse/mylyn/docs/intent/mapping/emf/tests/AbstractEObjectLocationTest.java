@@ -60,6 +60,34 @@ public abstract class AbstractEObjectLocationTest extends AbstractLocationTests 
 	}
 
 	@Test
+	public void setSavedURIFragmentNull() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		IEObjectLocation location = createLocation();
+
+		location.setSavedURIFragment(null);
+
+		assertNull(location.getSavedURIFragment());
+	}
+
+	@Test
+	public void setSavedURIFragment() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		IEObjectLocation location = createLocation();
+
+		location.setSavedURIFragment("someFeature");
+
+		assertEquals("someFeature", location.getSavedURIFragment());
+	}
+
+	@Test
+	public void getSavedURIFragmentDefault() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		IEObjectLocation location = createLocation();
+
+		assertNull(location.getSavedURIFragment());
+	}
+
+	@Test
 	public void setFeatureNameNull() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		IEObjectLocation location = createLocation();

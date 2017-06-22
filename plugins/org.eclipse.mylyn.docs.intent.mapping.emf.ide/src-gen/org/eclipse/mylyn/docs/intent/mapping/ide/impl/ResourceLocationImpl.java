@@ -24,8 +24,7 @@ import org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.ResourceLocationImpl#getFullPath <em>Full
- * Path</em>}</li>
+ *   <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.ResourceLocationImpl#getFullPath <em>Full Path</em>}</li>
  * </ul>
  *
  * @generated
@@ -33,7 +32,6 @@ import org.eclipse.mylyn.docs.intent.mapping.impl.LocationImpl;
 public class ResourceLocationImpl extends LocationImpl implements ResourceLocation {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ResourceLocationImpl() {
@@ -42,7 +40,6 @@ public class ResourceLocationImpl extends LocationImpl implements ResourceLocati
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -52,7 +49,6 @@ public class ResourceLocationImpl extends LocationImpl implements ResourceLocati
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getFullPath() {
@@ -61,7 +57,6 @@ public class ResourceLocationImpl extends LocationImpl implements ResourceLocati
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setFullPath(String newFullPath) {

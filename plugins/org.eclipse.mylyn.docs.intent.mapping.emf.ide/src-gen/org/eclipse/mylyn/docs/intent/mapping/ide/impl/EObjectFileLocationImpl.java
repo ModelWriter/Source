@@ -12,7 +12,10 @@
  */
 package org.eclipse.mylyn.docs.intent.mapping.ide.impl;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage;
 
@@ -25,6 +28,8 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage;
  * <ul>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl#getXMIContent <em>XMI
  * Content</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.EObjectFileLocationImpl#getSavedURIFragments
+ * <em>Saved URI Fragments</em>}</li>
  * </ul>
  *
  * @generated
@@ -66,6 +71,16 @@ public class EObjectFileLocationImpl extends FileLocationImpl implements EObject
 	 */
 	public void setXMIContent(String newXMIContent) {
 		eSet(IdePackage.Literals.EOBJECT_FILE_LOCATION__XMI_CONTENT, newXMIContent);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ICouple> getSavedURIFragments() {
+		return (List<ICouple>)eGet(IdePackage.Literals.EOBJECT_FILE_LOCATION__SAVED_URI_FRAGMENTS, true);
 	}
 
 } // EObjectFileLocationImpl

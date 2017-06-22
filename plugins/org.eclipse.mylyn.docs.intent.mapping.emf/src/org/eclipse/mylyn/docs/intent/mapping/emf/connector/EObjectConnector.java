@@ -14,6 +14,7 @@ package org.eclipse.mylyn.docs.intent.mapping.emf.connector;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -32,16 +33,19 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 
@@ -218,7 +222,30 @@ public class EObjectConnector extends AbstractConnector {
 		final String uriFragment = eObject.eResource().getURIFragment(eObject);
 		toInit.setURIFragment(uriFragment);
 		toInit.setFeatureName(featureName);
+		toInit.setSavedURIFragment(getSavedURIFragment((IEObjectContainer)container, uriFragment));
 		toInit.setIndex(index);
+	}
+
+	/**
+	 * Gets the saved {@link URI} fragment for the given {@link IEObjectContainer} and {@link URI} fragment.
+	 * 
+	 * @param container
+	 *            the {@link IEObjectContainer}
+	 * @param uriFragment
+	 *            the {@link URI} fragment
+	 * @return the saved {@link URI} fragment for the given {@link IEObjectContainer} and {@link URI} fragment
+	 *         if any, <code>null</code> otherwise
+	 */
+	private String getSavedURIFragment(IEObjectContainer container, String uriFragment) {
+		String res = null;
+
+		for (ICouple couple : container.getSavedURIFragments()) {
+			if (couple.getKey().contentEquals(uriFragment)) {
+				res = couple.getValue();
+			}
+		}
+
+		return res;
 	}
 
 	/**
@@ -297,23 +324,69 @@ public class EObjectConnector extends AbstractConnector {
 			oldResource.load(new ByteArrayInputStream(container.getXMIContent().getBytes(UTF_8)),
 					new HashMap<Object, Object>());
 			final IComparisonScope scope = new DefaultComparisonScope(oldResource, newResource, null);
-			// final IMatchEngine.Factory.Registry registry = MatchEngineFactoryRegistryImpl
-			// .createStandaloneInstance();
-			// final MatchEngineFactoryImpl matchEngineFactory = new
-			// MatchEngineFactoryImpl(UseIdentifiers.NEVER);
-			// matchEngineFactory.setRanking(MATCH_ENGINE_FACTORY_RANKING);
-			// registry.add(matchEngineFactory);
-			// final Comparison comparison = EMFCompare.builder().setMatchEngineFactoryRegistry(registry)
-			// .build().compare(scope);
 			final Comparison comparison = EMFCompare.builder().build().compare(scope);
 			for (ILocation child : new ArrayList<ILocation>(container.getContents())) {
 				if (child instanceof IEObjectLocation && !child.isMarkedAsDeleted()) {
 					final IEObjectLocation location = (IEObjectLocation)child;
-					updateEObjectLocation(oldResource, comparison, location);
+					updateEObjectLocation(oldResource, comparison, location,
+							!(newResource instanceof XMIResource));
 				}
 			}
 		}
+
+		container.getSavedURIFragments().clear();
+		if (!(newResource instanceof XMIResource)) {
+			updateSavedURIFragment(container, newResource, newXMIContent);
+		}
+
 		container.setXMIContent(newXMIContent);
+	}
+
+	/**
+	 * Updates {@link IEObjectLocation#getSavedURIFragment() saved URI fragment}.
+	 * 
+	 * @param container
+	 *            the {@link IEObjectContainer}
+	 * @param newResource
+	 *            the new {@link Resource}
+	 * @param newXMIContent
+	 *            the new XMI content
+	 * @throws Exception
+	 *             if the XMI serialization failed or elements couldn't be created
+	 */
+	private static void updateSavedURIFragment(IEObjectContainer container, Resource newResource,
+			String newXMIContent) throws Exception {
+		final IBase base = MappingUtils.getBase(container);
+		final XMIResourceImpl savedResource = new XMIResourceImpl(URI.createURI(""));
+		savedResource.load(new ByteArrayInputStream(newXMIContent.getBytes(UTF_8)),
+				new HashMap<Object, Object>());
+		final IComparisonScope scope = new DefaultComparisonScope(newResource, savedResource, null);
+		final Comparison comparison = EMFCompare.builder().build().compare(scope);
+
+		final List<EObject> eObjects = new ArrayList<EObject>();
+		for (EObject eObj : newResource.getContents()) {
+			eObjects.add(eObj);
+			final Iterator<EObject> it = eObj.eAllContents();
+			while (it.hasNext()) {
+				eObjects.add(it.next());
+			}
+		}
+
+		for (EObject newEObject : eObjects) {
+			final Match match = comparison.getMatch(newEObject);
+			if (match != null) {
+				final EObject savedEObject = match.getRight();
+				final ICouple couple = base.getFactory().createElement(ICouple.class);
+				couple.setKey(newResource.getURIFragment(newEObject));
+				if (savedEObject != null) {
+					couple.setValue(savedResource.getURIFragment(savedEObject));
+				} else {
+					// new object never been saved
+					couple.setValue(null);
+				}
+				container.getSavedURIFragments().add(couple);
+			}
+		}
 	}
 
 	/**
@@ -325,12 +398,19 @@ public class EObjectConnector extends AbstractConnector {
 	 *            the {@link Comparison}
 	 * @param eObjectlocation
 	 *            the {@link IEObjectLocation}
+	 * @param useSaveURIFragment
+	 *            tells if we should use {@link IEObjectLocation#getSavedURIFragment()}
 	 * @throws Exception
 	 *             if {@link org.eclipse.mylyn.docs.intent.mapping.Report Report} can't be created
 	 */
 	private static void updateEObjectLocation(Resource oldResource, Comparison comparison,
-			IEObjectLocation eObjectlocation) throws Exception {
-		final EObject oldObject = oldResource.getEObject(eObjectlocation.getURIFragment());
+			IEObjectLocation eObjectlocation, boolean useSaveURIFragment) throws Exception {
+		final EObject oldObject;
+		if (useSaveURIFragment) {
+			oldObject = oldResource.getEObject(eObjectlocation.getSavedURIFragment());
+		} else {
+			oldObject = oldResource.getEObject(eObjectlocation.getURIFragment());
+		}
 		final Match match = comparison.getMatch(oldObject);
 
 		if (match.getRight() != null) {

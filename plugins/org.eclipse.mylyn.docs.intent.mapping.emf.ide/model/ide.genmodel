@@ -11,6 +11,7 @@
     usedGenPackages="../../org.eclipse.mylyn.docs.intent.mapping.emf/model/mapping.genmodel#//mapping"
     operationReflection="true" importOrganizing="true">
   <foreignModel>ide.ecore</foreignModel>
+  <modelPluginVariables>CDO=org.eclipse.emf.cdo</modelPluginVariables>
   <genPackages prefix="Ide" basePackage="org.eclipse.mylyn.docs.intent.mapping" disposableProviderFactory="true"
       ecorePackage="ide.ecore#/">
     <genClasses ecoreClass="ide.ecore#//ResourceLocation">
@@ -22,6 +23,7 @@
     </genClasses>
     <genClasses ecoreClass="ide.ecore#//EObjectFileLocation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ide.ecore#//EObjectFileLocation/XMIContent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ide.ecore#//EObjectFileLocation/savedURIFragments"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

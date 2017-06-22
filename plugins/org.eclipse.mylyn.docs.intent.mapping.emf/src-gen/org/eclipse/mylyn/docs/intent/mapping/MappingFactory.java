@@ -71,6 +71,14 @@ public interface MappingFactory extends EFactory {
 	Report createReport();
 
 	/**
+	 * Returns a new object of class '<em>Couple</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Couple</em>'.
+	 * @generated
+	 */
+	Couple createCouple();
+
+	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the package supported by this factory.

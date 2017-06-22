@@ -23,7 +23,7 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.TextFileLocation;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.TextFileLocationImpl#getText <em>Text</em>}</li>
+ *   <li>{@link org.eclipse.mylyn.docs.intent.mapping.ide.impl.TextFileLocationImpl#getText <em>Text</em>}</li>
  * </ul>
  *
  * @generated
@@ -31,7 +31,6 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.TextFileLocation;
 public class TextFileLocationImpl extends FileLocationImpl implements TextFileLocation {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public TextFileLocationImpl() {
@@ -40,7 +39,6 @@ public class TextFileLocationImpl extends FileLocationImpl implements TextFileLo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -50,7 +48,6 @@ public class TextFileLocationImpl extends FileLocationImpl implements TextFileLo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getText() {
@@ -59,7 +56,6 @@ public class TextFileLocationImpl extends FileLocationImpl implements TextFileLo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setText(String newText) {

@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractBaseTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.IBaseFactory;
 import org.junit.Test;
@@ -77,4 +78,13 @@ public class EMFBaseTests extends AbstractBaseTests {
 
 		assertTrue(!new File("./test.mapping").exists());
 	}
+
+	@Test
+	public void testCreateEObjectLocation() throws Exception {
+		final IBase base = getBase();
+		final IEObjectLocation element = base.getFactory().createElement(IEObjectLocation.class);
+
+		assertTrue(element instanceof IEObjectLocation);
+	}
+
 }

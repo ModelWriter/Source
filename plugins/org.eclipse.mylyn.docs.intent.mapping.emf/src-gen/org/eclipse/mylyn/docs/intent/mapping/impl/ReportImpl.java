@@ -101,6 +101,15 @@ public class ReportImpl extends CDOObjectImpl implements Report {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
+	 * @generated
+	 */
+	public void setLink(Link newLink) {
+		eSet(MappingPackage.Literals.REPORT__LINK, newLink);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	public void setLink(ILink newLink) {

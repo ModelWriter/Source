@@ -23,22 +23,41 @@ public interface IEObjectLocation extends ILocation {
 
 	/**
 	 * Gets the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
-	 * relative to {@link IEObjectLocation#getContainer() container}.
+	 * relative to the {@link IEObjectLocation#getContainer() container}.
 	 * 
 	 * @return the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
-	 *         relative to {@link IEObjectLocation#getContainer() container}
+	 *         relative to the {@link IEObjectLocation#getContainer() container}
 	 */
 	String getURIFragment();
 
 	/**
 	 * Sets the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
-	 * relative to {@link IEObjectLocation#getContainer() container}.
+	 * relative to the {@link IEObjectLocation#getContainer() container}.
 	 * 
 	 * @param uriFragment
 	 *            the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
-	 *            relative to {@link IEObjectLocation#getContainer() container}
+	 *            relative to the {@link IEObjectLocation#getContainer() container}
 	 */
 	void setURIFragment(String uriFragment);
+
+	/**
+	 * Gets the saved {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
+	 * relative to the saved {@link IEObjectLocation#getContainer() container}.
+	 * 
+	 * @return the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
+	 *         relative to {@link IEObjectLocation#getContainer() container}
+	 */
+	String getSavedURIFragment();
+
+	/**
+	 * Sets the saved {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
+	 * relative to the saved {@link IEObjectLocation#getContainer() container}.
+	 * 
+	 * @param uriFragment
+	 *            the {@link java.net.URI URI} fragment of the {@link org.eclipse.emf.ecore.EObject EObject}
+	 *            relative to the saved {@link IEObjectLocation#getContainer() container}
+	 */
+	void setSavedURIFragment(String uriFragment);
 
 	/**
 	 * Sets the {@link org.eclipse.emf.ecore.EStructuralFeature#getName() feature name}.
