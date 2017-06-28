@@ -53,5 +53,22 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Couple/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Couple/value"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="mapping.ecore#//EObjectContainer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectContainer/XMIContent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mapping.ecore#//EObjectContainer/savedURIFragments"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="mapping.ecore#//CDOResourceNodeLocation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//CDOResourceNodeLocation/path"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="mapping.ecore#//CDOFileLocation"/>
+    <genClasses ecoreClass="mapping.ecore#//CDOFolderLocation"/>
+    <genClasses ecoreClass="mapping.ecore#//CDORepositoryLocation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//CDORepositoryLocation/URL"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//CDORepositoryLocation/UUID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//CDORepositoryLocation/name"/>
+    </genClasses>
+    <genClasses ecoreClass="mapping.ecore#//CDOBinaryResourceLocation"/>
+    <genClasses ecoreClass="mapping.ecore#//CDOTextResourceLocation"/>
+    <genClasses ecoreClass="mapping.ecore#//CDOResourceLocation"/>
   </genPackages>
 </genmodel:GenModel>

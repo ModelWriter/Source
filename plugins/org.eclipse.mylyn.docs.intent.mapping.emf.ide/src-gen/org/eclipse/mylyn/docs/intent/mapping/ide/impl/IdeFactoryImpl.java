@@ -26,12 +26,13 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.TextFileLocation;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
+ * 
  * @generated
  */
 public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 	/**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static IdeFactory init() {
@@ -47,8 +48,8 @@ public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 	}
 
 	/**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public IdeFactoryImpl() {
@@ -57,6 +58,7 @@ public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -78,6 +80,7 @@ public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ResourceLocation createResourceLocation() {
@@ -87,6 +90,7 @@ public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public FileLocation createFileLocation() {
@@ -96,6 +100,7 @@ public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public TextFileLocation createTextFileLocation() {
@@ -105,6 +110,7 @@ public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EObjectFileLocation createEObjectFileLocation() {
@@ -114,6 +120,7 @@ public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public IdePackage getIdePackage() {
@@ -122,6 +129,7 @@ public class IdeFactoryImpl extends EFactoryImpl implements IdeFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @deprecated
 	 * @generated
 	 */

@@ -636,13 +636,771 @@ public interface MappingPackage extends EPackage {
 	int COUPLE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectContainer <em>EObject
+	 * Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectContainer
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getEObjectContainer()
+	 * @generated
+	 */
+	int EOBJECT_CONTAINER = 9;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER__CONTENTS = LOCATION__CONTENTS;
+
+	/**
+	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER__SOURCE_LINKS = LOCATION__SOURCE_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER__TARGET_LINKS = LOCATION__TARGET_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER__CONTAINER = LOCATION__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER__TYPE = LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER__MARKED_AS_DELETED = LOCATION__MARKED_AS_DELETED;
+
+	/**
+	 * The feature id for the '<em><b>XMI Content</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER__XMI_CONTENT = LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Saved URI Fragments</b></em>' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER__SAVED_URI_FRAGMENTS = LOCATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>EObject Container</em>' class. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER_FEATURE_COUNT = LOCATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>EObject Container</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_CONTAINER_OPERATION_COUNT = LOCATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation
+	 * <em>CDO Resource Node Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOResourceNodeLocation()
+	 * @generated
+	 */
+	int CDO_RESOURCE_NODE_LOCATION = 10;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_NODE_LOCATION__CONTENTS = LOCATION__CONTENTS;
+
+	/**
+	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_NODE_LOCATION__SOURCE_LINKS = LOCATION__SOURCE_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_NODE_LOCATION__TARGET_LINKS = LOCATION__TARGET_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_NODE_LOCATION__CONTAINER = LOCATION__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_NODE_LOCATION__TYPE = LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_NODE_LOCATION__MARKED_AS_DELETED = LOCATION__MARKED_AS_DELETED;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_NODE_LOCATION__PATH = LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>CDO Resource Node Location</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_NODE_LOCATION_FEATURE_COUNT = LOCATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>CDO Resource Node Location</em>' class. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_NODE_LOCATION_OPERATION_COUNT = LOCATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation <em>CDO File
+	 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOFileLocation()
+	 * @generated
+	 */
+	int CDO_FILE_LOCATION = 11;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FILE_LOCATION__CONTENTS = CDO_RESOURCE_NODE_LOCATION__CONTENTS;
+
+	/**
+	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FILE_LOCATION__SOURCE_LINKS = CDO_RESOURCE_NODE_LOCATION__SOURCE_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FILE_LOCATION__TARGET_LINKS = CDO_RESOURCE_NODE_LOCATION__TARGET_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FILE_LOCATION__CONTAINER = CDO_RESOURCE_NODE_LOCATION__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FILE_LOCATION__TYPE = CDO_RESOURCE_NODE_LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FILE_LOCATION__MARKED_AS_DELETED = CDO_RESOURCE_NODE_LOCATION__MARKED_AS_DELETED;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FILE_LOCATION__PATH = CDO_RESOURCE_NODE_LOCATION__PATH;
+
+	/**
+	 * The number of structural features of the '<em>CDO File Location</em>' class. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FILE_LOCATION_FEATURE_COUNT = CDO_RESOURCE_NODE_LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>CDO File Location</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FILE_LOCATION_OPERATION_COUNT = CDO_RESOURCE_NODE_LOCATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDOFolderLocationImpl
+	 * <em>CDO Folder Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDOFolderLocationImpl
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOFolderLocation()
+	 * @generated
+	 */
+	int CDO_FOLDER_LOCATION = 12;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FOLDER_LOCATION__CONTENTS = CDO_RESOURCE_NODE_LOCATION__CONTENTS;
+
+	/**
+	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FOLDER_LOCATION__SOURCE_LINKS = CDO_RESOURCE_NODE_LOCATION__SOURCE_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FOLDER_LOCATION__TARGET_LINKS = CDO_RESOURCE_NODE_LOCATION__TARGET_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FOLDER_LOCATION__CONTAINER = CDO_RESOURCE_NODE_LOCATION__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FOLDER_LOCATION__TYPE = CDO_RESOURCE_NODE_LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FOLDER_LOCATION__MARKED_AS_DELETED = CDO_RESOURCE_NODE_LOCATION__MARKED_AS_DELETED;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FOLDER_LOCATION__PATH = CDO_RESOURCE_NODE_LOCATION__PATH;
+
+	/**
+	 * The number of structural features of the '<em>CDO Folder Location</em>' class. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FOLDER_LOCATION_FEATURE_COUNT = CDO_RESOURCE_NODE_LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>CDO Folder Location</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_FOLDER_LOCATION_OPERATION_COUNT = CDO_RESOURCE_NODE_LOCATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDORepositoryLocationImpl
+	 * <em>CDO Repository Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDORepositoryLocationImpl
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDORepositoryLocation()
+	 * @generated
+	 */
+	int CDO_REPOSITORY_LOCATION = 13;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__CONTENTS = LOCATION__CONTENTS;
+
+	/**
+	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__SOURCE_LINKS = LOCATION__SOURCE_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__TARGET_LINKS = LOCATION__TARGET_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__CONTAINER = LOCATION__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__TYPE = LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__MARKED_AS_DELETED = LOCATION__MARKED_AS_DELETED;
+
+	/**
+	 * The feature id for the '<em><b>URL</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__URL = LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>UUID</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__UUID = LOCATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__NAME = LOCATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>CDO Repository Location</em>' class. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION_FEATURE_COUNT = LOCATION_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>CDO Repository Location</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION_OPERATION_COUNT = LOCATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDOBinaryResourceLocationImpl <em>CDO Binary
+	 * Resource Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDOBinaryResourceLocationImpl
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOBinaryResourceLocation()
+	 * @generated
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION = 14;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION__CONTENTS = CDO_FILE_LOCATION__CONTENTS;
+
+	/**
+	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION__SOURCE_LINKS = CDO_FILE_LOCATION__SOURCE_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION__TARGET_LINKS = CDO_FILE_LOCATION__TARGET_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION__CONTAINER = CDO_FILE_LOCATION__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION__TYPE = CDO_FILE_LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION__MARKED_AS_DELETED = CDO_FILE_LOCATION__MARKED_AS_DELETED;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION__PATH = CDO_FILE_LOCATION__PATH;
+
+	/**
+	 * The number of structural features of the '<em>CDO Binary Resource Location</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION_FEATURE_COUNT = CDO_FILE_LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>CDO Binary Resource Location</em>' class. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_BINARY_RESOURCE_LOCATION_OPERATION_COUNT = CDO_FILE_LOCATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDOTextResourceLocationImpl <em>CDO Text Resource
+	 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDOTextResourceLocationImpl
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOTextResourceLocation()
+	 * @generated
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION = 15;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION__CONTENTS = CDO_FILE_LOCATION__CONTENTS;
+
+	/**
+	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION__SOURCE_LINKS = CDO_FILE_LOCATION__SOURCE_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION__TARGET_LINKS = CDO_FILE_LOCATION__TARGET_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION__CONTAINER = CDO_FILE_LOCATION__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION__TYPE = CDO_FILE_LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION__MARKED_AS_DELETED = CDO_FILE_LOCATION__MARKED_AS_DELETED;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION__PATH = CDO_FILE_LOCATION__PATH;
+
+	/**
+	 * The number of structural features of the '<em>CDO Text Resource Location</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION_FEATURE_COUNT = CDO_FILE_LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>CDO Text Resource Location</em>' class. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION_OPERATION_COUNT = CDO_FILE_LOCATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDOResourceLocationImpl
+	 * <em>CDO Resource Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDOResourceLocationImpl
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOResourceLocation()
+	 * @generated
+	 */
+	int CDO_RESOURCE_LOCATION = 16;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION__CONTENTS = CDO_FILE_LOCATION__CONTENTS;
+
+	/**
+	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION__SOURCE_LINKS = CDO_FILE_LOCATION__SOURCE_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION__TARGET_LINKS = CDO_FILE_LOCATION__TARGET_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION__CONTAINER = CDO_FILE_LOCATION__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION__TYPE = CDO_FILE_LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION__MARKED_AS_DELETED = CDO_FILE_LOCATION__MARKED_AS_DELETED;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION__PATH = CDO_FILE_LOCATION__PATH;
+
+	/**
+	 * The feature id for the '<em><b>XMI Content</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION__XMI_CONTENT = CDO_FILE_LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Saved URI Fragments</b></em>' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION__SAVED_URI_FRAGMENTS = CDO_FILE_LOCATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>CDO Resource Location</em>' class. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION_FEATURE_COUNT = CDO_FILE_LOCATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>CDO Resource Location</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_RESOURCE_LOCATION_OPERATION_COUNT = CDO_FILE_LOCATION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see java.io.Serializable
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 9;
+	int TYPE = 17;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Location
@@ -1005,6 +1763,159 @@ public interface MappingPackage extends EPackage {
 	EAttribute getCouple_Value();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectContainer
+	 * <em>EObject Container</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>EObject Container</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectContainer
+	 * @generated
+	 */
+	EClass getEObjectContainer();
+
+	/**
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectContainer#getXMIContent <em>XMI Content</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>XMI Content</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectContainer#getXMIContent()
+	 * @see #getEObjectContainer()
+	 * @generated
+	 */
+	EAttribute getEObjectContainer_XMIContent();
+
+	/**
+	 * Returns the meta object for the containment reference list
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectContainer#getSavedURIFragments <em>Saved URI
+	 * Fragments</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '<em>Saved URI Fragments</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectContainer#getSavedURIFragments()
+	 * @see #getEObjectContainer()
+	 * @generated
+	 */
+	EReference getEObjectContainer_SavedURIFragments();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation
+	 * <em>CDO Resource Node Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>CDO Resource Node Location</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation
+	 * @generated
+	 */
+	EClass getCDOResourceNodeLocation();
+
+	/**
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation#getPath <em>Path</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Path</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation#getPath()
+	 * @see #getCDOResourceNodeLocation()
+	 * @generated
+	 */
+	EAttribute getCDOResourceNodeLocation_Path();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation <em>CDO
+	 * File Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>CDO File Location</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation
+	 * @generated
+	 */
+	EClass getCDOFileLocation();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation
+	 * <em>CDO Folder Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>CDO Folder Location</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation
+	 * @generated
+	 */
+	EClass getCDOFolderLocation();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation
+	 * <em>CDO Repository Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>CDO Repository Location</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation
+	 * @generated
+	 */
+	EClass getCDORepositoryLocation();
+
+	/**
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getURL <em>URL</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>URL</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getURL()
+	 * @see #getCDORepositoryLocation()
+	 * @generated
+	 */
+	EAttribute getCDORepositoryLocation_URL();
+
+	/**
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getUUID <em>UUID</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>UUID</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getUUID()
+	 * @see #getCDORepositoryLocation()
+	 * @generated
+	 */
+	EAttribute getCDORepositoryLocation_UUID();
+
+	/**
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getName <em>Name</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getName()
+	 * @see #getCDORepositoryLocation()
+	 * @generated
+	 */
+	EAttribute getCDORepositoryLocation_Name();
+
+	/**
+	 * Returns the meta object for class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation <em>CDO Binary Resource
+	 * Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>CDO Binary Resource Location</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation
+	 * @generated
+	 */
+	EClass getCDOBinaryResourceLocation();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation
+	 * <em>CDO Text Resource Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>CDO Text Resource Location</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation
+	 * @generated
+	 */
+	EClass getCDOTextResourceLocation();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation
+	 * <em>CDO Resource Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>CDO Resource Location</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation
+	 * @generated
+	 */
+	EClass getCDOResourceLocation();
+
+	/**
 	 * Returns the meta object for data type '{@link java.io.Serializable <em>Type</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
@@ -1312,6 +2223,140 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COUPLE__VALUE = eINSTANCE.getCouple_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectContainer
+		 * <em>EObject Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectContainer
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getEObjectContainer()
+		 * @generated
+		 */
+		EClass EOBJECT_CONTAINER = eINSTANCE.getEObjectContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>XMI Content</b></em>' attribute feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute EOBJECT_CONTAINER__XMI_CONTENT = eINSTANCE.getEObjectContainer_XMIContent();
+
+		/**
+		 * The meta object literal for the '<em><b>Saved URI Fragments</b></em>' containment reference list
+		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference EOBJECT_CONTAINER__SAVED_URI_FRAGMENTS = eINSTANCE.getEObjectContainer_SavedURIFragments();
+
+		/**
+		 * The meta object literal for the
+		 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation <em>CDO Resource Node
+		 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOResourceNodeLocation()
+		 * @generated
+		 */
+		EClass CDO_RESOURCE_NODE_LOCATION = eINSTANCE.getCDOResourceNodeLocation();
+
+		/**
+		 * The meta object literal for the '<em><b>Path</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute CDO_RESOURCE_NODE_LOCATION__PATH = eINSTANCE.getCDOResourceNodeLocation_Path();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation
+		 * <em>CDO File Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOFileLocation()
+		 * @generated
+		 */
+		EClass CDO_FILE_LOCATION = eINSTANCE.getCDOFileLocation();
+
+		/**
+		 * The meta object literal for the
+		 * '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDOFolderLocationImpl <em>CDO Folder
+		 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDOFolderLocationImpl
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOFolderLocation()
+		 * @generated
+		 */
+		EClass CDO_FOLDER_LOCATION = eINSTANCE.getCDOFolderLocation();
+
+		/**
+		 * The meta object literal for the
+		 * '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDORepositoryLocationImpl <em>CDO Repository
+		 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDORepositoryLocationImpl
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDORepositoryLocation()
+		 * @generated
+		 */
+		EClass CDO_REPOSITORY_LOCATION = eINSTANCE.getCDORepositoryLocation();
+
+		/**
+		 * The meta object literal for the '<em><b>URL</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute CDO_REPOSITORY_LOCATION__URL = eINSTANCE.getCDORepositoryLocation_URL();
+
+		/**
+		 * The meta object literal for the '<em><b>UUID</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute CDO_REPOSITORY_LOCATION__UUID = eINSTANCE.getCDORepositoryLocation_UUID();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute CDO_REPOSITORY_LOCATION__NAME = eINSTANCE.getCDORepositoryLocation_Name();
+
+		/**
+		 * The meta object literal for the
+		 * '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDOBinaryResourceLocationImpl <em>CDO Binary
+		 * Resource Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDOBinaryResourceLocationImpl
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOBinaryResourceLocation()
+		 * @generated
+		 */
+		EClass CDO_BINARY_RESOURCE_LOCATION = eINSTANCE.getCDOBinaryResourceLocation();
+
+		/**
+		 * The meta object literal for the
+		 * '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDOTextResourceLocationImpl <em>CDO Text
+		 * Resource Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDOTextResourceLocationImpl
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOTextResourceLocation()
+		 * @generated
+		 */
+		EClass CDO_TEXT_RESOURCE_LOCATION = eINSTANCE.getCDOTextResourceLocation();
+
+		/**
+		 * The meta object literal for the
+		 * '{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDOResourceLocationImpl <em>CDO Resource
+		 * Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.CDOResourceLocationImpl
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOResourceLocation()
+		 * @generated
+		 */
+		EClass CDO_RESOURCE_LOCATION = eINSTANCE.getCDOResourceLocation();
 
 		/**
 		 * The meta object literal for the '<em>Type</em>' data type. <!-- begin-user-doc --> <!--

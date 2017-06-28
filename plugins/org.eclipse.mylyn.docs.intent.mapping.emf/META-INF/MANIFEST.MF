@@ -20,5 +20,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.compare,
  org.eclipse.emf.ecore.xmi,
  com.google.guava;bundle-version="[15.0.0,16.0.0)",
- org.apache.log4j;bundle-version="1.2.15"
+ org.apache.log4j;bundle-version="1.2.15",
+ org.eclipse.emf.cdo.net4j
 Bundle-ActivationPolicy: lazy

@@ -14,6 +14,8 @@ package org.eclipse.mylyn.docs.intent.mapping.emf.tests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.base.EMFBaseTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.base.EMFLinkTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.base.EMFReportTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.CDOResourceNodeConnectorTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.CDOViewConnectorTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorCDOTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedCDOTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedTests;
@@ -33,7 +35,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses(value = {EMFBaseTests.class, EMFLinkTests.class, EMFTextLocationTests.class,
 		EMFEObjectLocationTests.class, EObjectConnectorTests.class, EObjectConnectorCDOTests.class,
 		EObjectConnectorParametrizedTests.class, EObjectConnectorParametrizedCDOTests.class,
-		EMFReportTests.class, })
+		EMFReportTests.class, CDOViewConnectorTests.class, CDOResourceNodeConnectorTests.class, })
 public class AllTests {
 	/**
 	 * The {@link CDOServer}.

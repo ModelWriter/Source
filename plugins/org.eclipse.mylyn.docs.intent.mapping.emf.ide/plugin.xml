@@ -55,6 +55,12 @@
       <connector
             class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.IdeEObjectConnector">
       </connector>
+      <connector
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.IdeCDOResourceNodeConnector">
+      </connector>
+      <connector
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.IdeCDOViewConnector">
+      </connector>
    </extension>
    <extension
          id="org.eclipse.mylyn.docs.intent.mapping.emf.ide.eobjectLocationMarker"

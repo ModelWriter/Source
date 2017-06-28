@@ -79,6 +79,51 @@ public interface MappingFactory extends EFactory {
 	Couple createCouple();
 
 	/**
+	 * Returns a new object of class '<em>CDO Folder Location</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @return a new object of class '<em>CDO Folder Location</em>'.
+	 * @generated
+	 */
+	CDOFolderLocation createCDOFolderLocation();
+
+	/**
+	 * Returns a new object of class '<em>CDO Repository Location</em>'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>CDO Repository Location</em>'.
+	 * @generated
+	 */
+	CDORepositoryLocation createCDORepositoryLocation();
+
+	/**
+	 * Returns a new object of class '<em>CDO Binary Resource Location</em>'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>CDO Binary Resource Location</em>'.
+	 * @generated
+	 */
+	CDOBinaryResourceLocation createCDOBinaryResourceLocation();
+
+	/**
+	 * Returns a new object of class '<em>CDO Text Resource Location</em>'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>CDO Text Resource Location</em>'.
+	 * @generated
+	 */
+	CDOTextResourceLocation createCDOTextResourceLocation();
+
+	/**
+	 * Returns a new object of class '<em>CDO Resource Location</em>'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>CDO Resource Location</em>'.
+	 * @generated
+	 */
+	CDOResourceLocation createCDOResourceLocation();
+
+	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the package supported by this factory.

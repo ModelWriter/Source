@@ -81,6 +81,7 @@ public class EObjectLocationItemProvider extends LocationItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addURIFragmentPropertyDescriptor(object);
+			addSavedURIFragmentPropertyDescriptor(object);
 			addFeatureNamePropertyDescriptor(object);
 			addIndexPropertyDescriptor(object);
 		}
@@ -100,6 +101,22 @@ public class EObjectLocationItemProvider extends LocationItemProvider {
 								"_UI_PropertyDescriptor_description",
 								"_UI_EObjectLocation_URIFragment_feature", "_UI_EObjectLocation_type"),
 				MappingPackage.Literals.EOBJECT_LOCATION__URI_FRAGMENT, true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Saved URI Fragment feature. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected void addSavedURIFragmentPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString(
+						"_UI_EObjectLocation_savedURIFragment_feature"), getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_EObjectLocation_savedURIFragment_feature", "_UI_EObjectLocation_type"),
+				MappingPackage.Literals.EOBJECT_LOCATION__SAVED_URI_FRAGMENT, true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -171,6 +188,7 @@ public class EObjectLocationItemProvider extends LocationItemProvider {
 
 		switch (notification.getFeatureID(EObjectLocation.class)) {
 			case MappingPackage.EOBJECT_LOCATION__URI_FRAGMENT:
+			case MappingPackage.EOBJECT_LOCATION__SAVED_URI_FRAGMENT:
 			case MappingPackage.EOBJECT_LOCATION__FEATURE_NAME:
 			case MappingPackage.EOBJECT_LOCATION__INDEX:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false,

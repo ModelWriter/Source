@@ -12,13 +12,13 @@
 package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector;
 
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.IdeEObjectConnector;
-import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorCDOTests;
 
 /**
  * Tests {@link IdeEObjectConnector} with CDO.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class IdeEObjectConnectorCDOTests extends EObjectConnectorTests {
+public class IdeEObjectConnectorCDOTests extends EObjectConnectorCDOTests {
 
 }

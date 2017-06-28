@@ -34,6 +34,11 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOBinaryResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOFolderLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDORepositoryLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOTextResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
@@ -311,6 +316,17 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 		res.addDescriptor(IEObjectLocation.class, new FactoryDescriptor<EObjectLocationImpl>(
 				EObjectLocationImpl.class));
 		res.addDescriptor(ICouple.class, new FactoryDescriptor<CoupleImpl>(CoupleImpl.class));
+
+		res.addDescriptor(ICDORepositoryLocation.class, new FactoryDescriptor<CDORepositoryLocationImpl>(
+				CDORepositoryLocationImpl.class));
+		res.addDescriptor(ICDOFolderLocation.class, new FactoryDescriptor<CDOFolderLocationImpl>(
+				CDOFolderLocationImpl.class));
+		res.addDescriptor(ICDOBinaryResourceLocation.class,
+				new FactoryDescriptor<CDOBinaryResourceLocationImpl>(CDOBinaryResourceLocationImpl.class));
+		res.addDescriptor(ICDOTextResourceLocation.class, new FactoryDescriptor<CDOTextResourceLocationImpl>(
+				CDOTextResourceLocationImpl.class));
+		res.addDescriptor(ICDOResourceLocation.class, new FactoryDescriptor<CDOResourceLocationImpl>(
+				CDOResourceLocationImpl.class));
 
 		return res;
 	}

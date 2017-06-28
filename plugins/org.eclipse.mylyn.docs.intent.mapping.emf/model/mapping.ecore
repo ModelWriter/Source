@@ -59,4 +59,26 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EObjectContainer" abstract="true" interface="true"
+      eSuperTypes="#//Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="XMIContent" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="savedURIFragments" upperBound="-1"
+        eType="#//Couple" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CDOResourceNodeLocation" abstract="true"
+      interface="true" eSuperTypes="#//Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CDOFileLocation" abstract="true" interface="true"
+      eSuperTypes="#//CDOResourceNodeLocation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDOFolderLocation" eSuperTypes="#//CDOResourceNodeLocation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDORepositoryLocation" eSuperTypes="#//Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="URL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="UUID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CDOBinaryResourceLocation" eSuperTypes="#//CDOFileLocation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDOTextResourceLocation" eSuperTypes="#//CDOFileLocation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDOResourceLocation" eSuperTypes="#//CDOFileLocation #//EObjectContainer"/>
 </ecore:EPackage>

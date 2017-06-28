@@ -21,7 +21,15 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
+import org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.Couple;
+import org.eclipse.mylyn.docs.intent.mapping.EObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
@@ -100,6 +108,62 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * @generated
 	 */
 	private EClass coupleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass eObjectContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass cdoResourceNodeLocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass cdoFileLocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass cdoFolderLocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass cdoRepositoryLocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass cdoBinaryResourceLocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass cdoTextResourceLocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass cdoResourceLocationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -463,6 +527,132 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
+	public EClass getEObjectContainer() {
+		return eObjectContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getEObjectContainer_XMIContent() {
+		return (EAttribute)eObjectContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getEObjectContainer_SavedURIFragments() {
+		return (EReference)eObjectContainerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getCDOResourceNodeLocation() {
+		return cdoResourceNodeLocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getCDOResourceNodeLocation_Path() {
+		return (EAttribute)cdoResourceNodeLocationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getCDOFileLocation() {
+		return cdoFileLocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getCDOFolderLocation() {
+		return cdoFolderLocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getCDORepositoryLocation() {
+		return cdoRepositoryLocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getCDORepositoryLocation_URL() {
+		return (EAttribute)cdoRepositoryLocationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getCDORepositoryLocation_UUID() {
+		return (EAttribute)cdoRepositoryLocationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getCDORepositoryLocation_Name() {
+		return (EAttribute)cdoRepositoryLocationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getCDOBinaryResourceLocation() {
+		return cdoBinaryResourceLocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getCDOTextResourceLocation() {
+		return cdoTextResourceLocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getCDOResourceLocation() {
+		return cdoResourceLocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EDataType getType() {
 		return typeEDataType;
 	}
@@ -536,6 +726,28 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		createEAttribute(coupleEClass, COUPLE__KEY);
 		createEAttribute(coupleEClass, COUPLE__VALUE);
 
+		eObjectContainerEClass = createEClass(EOBJECT_CONTAINER);
+		createEAttribute(eObjectContainerEClass, EOBJECT_CONTAINER__XMI_CONTENT);
+		createEReference(eObjectContainerEClass, EOBJECT_CONTAINER__SAVED_URI_FRAGMENTS);
+
+		cdoResourceNodeLocationEClass = createEClass(CDO_RESOURCE_NODE_LOCATION);
+		createEAttribute(cdoResourceNodeLocationEClass, CDO_RESOURCE_NODE_LOCATION__PATH);
+
+		cdoFileLocationEClass = createEClass(CDO_FILE_LOCATION);
+
+		cdoFolderLocationEClass = createEClass(CDO_FOLDER_LOCATION);
+
+		cdoRepositoryLocationEClass = createEClass(CDO_REPOSITORY_LOCATION);
+		createEAttribute(cdoRepositoryLocationEClass, CDO_REPOSITORY_LOCATION__URL);
+		createEAttribute(cdoRepositoryLocationEClass, CDO_REPOSITORY_LOCATION__UUID);
+		createEAttribute(cdoRepositoryLocationEClass, CDO_REPOSITORY_LOCATION__NAME);
+
+		cdoBinaryResourceLocationEClass = createEClass(CDO_BINARY_RESOURCE_LOCATION);
+
+		cdoTextResourceLocationEClass = createEClass(CDO_TEXT_RESOURCE_LOCATION);
+
+		cdoResourceLocationEClass = createEClass(CDO_RESOURCE_LOCATION);
+
 		// Create data types
 		typeEDataType = createEDataType(TYPE);
 	}
@@ -576,6 +788,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		textLocationEClass.getESuperTypes().add(this.getLocation());
 		eObjectLocationEClass.getESuperTypes().add(this.getLocation());
 		reportEClass.getESuperTypes().add(this.getIEMFBaseElement());
+		eObjectContainerEClass.getESuperTypes().add(this.getLocation());
+		cdoResourceNodeLocationEClass.getESuperTypes().add(this.getLocation());
+		cdoFileLocationEClass.getESuperTypes().add(this.getCDOResourceNodeLocation());
+		cdoFolderLocationEClass.getESuperTypes().add(this.getCDOResourceNodeLocation());
+		cdoRepositoryLocationEClass.getESuperTypes().add(this.getLocation());
+		cdoBinaryResourceLocationEClass.getESuperTypes().add(this.getCDOFileLocation());
+		cdoTextResourceLocationEClass.getESuperTypes().add(this.getCDOFileLocation());
+		cdoResourceLocationEClass.getESuperTypes().add(this.getCDOFileLocation());
+		cdoResourceLocationEClass.getESuperTypes().add(this.getEObjectContainer());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(locationEClass, Location.class, "Location", IS_ABSTRACT, !IS_INTERFACE,
@@ -670,6 +891,48 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		initEAttribute(getCouple_Value(), ecorePackage.getEString(), "value", null, 1, 1, Couple.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
+
+		initEClass(eObjectContainerEClass, EObjectContainer.class, "EObjectContainer", IS_ABSTRACT,
+				IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEObjectContainer_XMIContent(), ecorePackage.getEString(), "XMIContent", null, 1, 1,
+				EObjectContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEObjectContainer_SavedURIFragments(), this.getCouple(), null, "savedURIFragments",
+				null, 0, -1, EObjectContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(cdoResourceNodeLocationEClass, CDOResourceNodeLocation.class, "CDOResourceNodeLocation",
+				IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCDOResourceNodeLocation_Path(), ecorePackage.getEString(), "path", null, 1, 1,
+				CDOResourceNodeLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(cdoFileLocationEClass, CDOFileLocation.class, "CDOFileLocation", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(cdoFolderLocationEClass, CDOFolderLocation.class, "CDOFolderLocation", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(cdoRepositoryLocationEClass, CDORepositoryLocation.class, "CDORepositoryLocation",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCDORepositoryLocation_URL(), ecorePackage.getEString(), "URL", null, 0, 1,
+				CDORepositoryLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDORepositoryLocation_UUID(), ecorePackage.getEString(), "UUID", null, 1, 1,
+				CDORepositoryLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDORepositoryLocation_Name(), ecorePackage.getEString(), "name", null, 1, 1,
+				CDORepositoryLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(cdoBinaryResourceLocationEClass, CDOBinaryResourceLocation.class,
+				"CDOBinaryResourceLocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(cdoTextResourceLocationEClass, CDOTextResourceLocation.class, "CDOTextResourceLocation",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(cdoResourceLocationEClass, CDOResourceLocation.class, "CDOResourceLocation", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize data types
 		initEDataType(typeEDataType, Serializable.class, "Type", IS_SERIALIZABLE,

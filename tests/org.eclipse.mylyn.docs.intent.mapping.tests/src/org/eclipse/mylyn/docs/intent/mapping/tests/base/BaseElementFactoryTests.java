@@ -95,11 +95,6 @@ public class BaseElementFactoryTests {
 			return object;
 		}
 
-		public String getName() {
-			// nothing to do here
-			return null;
-		}
-
 		public void markAsChanged() {
 			// nothing to do here
 		}

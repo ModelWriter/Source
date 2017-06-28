@@ -23,6 +23,11 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOBinaryResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOFolderLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDORepositoryLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOTextResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractBaseTests;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.IBaseFactory;
@@ -85,6 +90,48 @@ public class EMFBaseTests extends AbstractBaseTests {
 		final IEObjectLocation element = base.getFactory().createElement(IEObjectLocation.class);
 
 		assertTrue(element instanceof IEObjectLocation);
+	}
+
+	@Test
+	public void testCreateCDORepositoryLocation() throws Exception {
+		final IBase base = getBase();
+		final ICDORepositoryLocation element = base.getFactory().createElement(ICDORepositoryLocation.class);
+
+		assertTrue(element instanceof ICDORepositoryLocation);
+	}
+
+	@Test
+	public void testCreateCDOFolderLocation() throws Exception {
+		final IBase base = getBase();
+		final ICDOFolderLocation element = base.getFactory().createElement(ICDOFolderLocation.class);
+
+		assertTrue(element instanceof ICDOFolderLocation);
+	}
+
+	@Test
+	public void testCreateCDOBinaryResourceLocation() throws Exception {
+		final IBase base = getBase();
+		final ICDOBinaryResourceLocation element = base.getFactory().createElement(
+				ICDOBinaryResourceLocation.class);
+
+		assertTrue(element instanceof ICDOBinaryResourceLocation);
+	}
+
+	@Test
+	public void testCreateCDOTextResourceLocation() throws Exception {
+		final IBase base = getBase();
+		final ICDOTextResourceLocation element = base.getFactory().createElement(
+				ICDOTextResourceLocation.class);
+
+		assertTrue(element instanceof ICDOTextResourceLocation);
+	}
+
+	@Test
+	public void testCreateCDOResourceLocation() throws Exception {
+		final IBase base = getBase();
+		final ICDOResourceLocation element = base.getFactory().createElement(ICDOResourceLocation.class);
+
+		assertTrue(element instanceof ICDOResourceLocation);
 	}
 
 }

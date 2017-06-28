@@ -17,7 +17,15 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
+import org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.Couple;
+import org.eclipse.mylyn.docs.intent.mapping.EObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
@@ -122,6 +130,46 @@ public class MappingAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseCouple(Couple object) {
 			return createCoupleAdapter();
+		}
+
+		@Override
+		public Adapter caseEObjectContainer(EObjectContainer object) {
+			return createEObjectContainerAdapter();
+		}
+
+		@Override
+		public Adapter caseCDOResourceNodeLocation(CDOResourceNodeLocation object) {
+			return createCDOResourceNodeLocationAdapter();
+		}
+
+		@Override
+		public Adapter caseCDOFileLocation(CDOFileLocation object) {
+			return createCDOFileLocationAdapter();
+		}
+
+		@Override
+		public Adapter caseCDOFolderLocation(CDOFolderLocation object) {
+			return createCDOFolderLocationAdapter();
+		}
+
+		@Override
+		public Adapter caseCDORepositoryLocation(CDORepositoryLocation object) {
+			return createCDORepositoryLocationAdapter();
+		}
+
+		@Override
+		public Adapter caseCDOBinaryResourceLocation(CDOBinaryResourceLocation object) {
+			return createCDOBinaryResourceLocationAdapter();
+		}
+
+		@Override
+		public Adapter caseCDOTextResourceLocation(CDOTextResourceLocation object) {
+			return createCDOTextResourceLocationAdapter();
+		}
+
+		@Override
+		public Adapter caseCDOResourceLocation(CDOResourceLocation object) {
+			return createCDOResourceLocationAdapter();
 		}
 
 		@Override
@@ -266,6 +314,121 @@ public class MappingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCoupleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectContainer <em>EObject Container</em>}'. <!--
+	 * begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+	 * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.EObjectContainer
+	 * @generated
+	 */
+	public Adapter createEObjectContainerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation <em>CDO Resource Node
+	 * Location</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+	 * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation
+	 * @generated
+	 */
+	public Adapter createCDOResourceNodeLocationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation <em>CDO File Location</em>}'. <!--
+	 * begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+	 * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation
+	 * @generated
+	 */
+	public Adapter createCDOFileLocationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation <em>CDO Folder Location</em>}'. <!--
+	 * begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+	 * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation
+	 * @generated
+	 */
+	public Adapter createCDOFolderLocationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation <em>CDO Repository Location</em>}'.
+	 * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation
+	 * @generated
+	 */
+	public Adapter createCDORepositoryLocationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation <em>CDO Binary Resource
+	 * Location</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+	 * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation
+	 * @generated
+	 */
+	public Adapter createCDOBinaryResourceLocationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation <em>CDO Text Resource
+	 * Location</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+	 * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation
+	 * @generated
+	 */
+	public Adapter createCDOTextResourceLocationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation <em>CDO Resource Location</em>}'.
+	 * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation
+	 * @generated
+	 */
+	public Adapter createCDOResourceLocationAdapter() {
 		return null;
 	}
 

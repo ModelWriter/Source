@@ -9,11 +9,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="TextFileLocation" eSuperTypes="#//FileLocation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EObjectFileLocation" eSuperTypes="#//FileLocation">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="XMIContent" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="savedURIFragments" upperBound="-1"
-        eType="ecore:EClass ../../org.eclipse.mylyn.docs.intent.mapping.emf/model/mapping.ecore#//Couple"
-        containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EObjectFileLocation" eSuperTypes="#//FileLocation ../../org.eclipse.mylyn.docs.intent.mapping.emf/model/mapping.ecore#//EObjectContainer"/>
 </ecore:EPackage>

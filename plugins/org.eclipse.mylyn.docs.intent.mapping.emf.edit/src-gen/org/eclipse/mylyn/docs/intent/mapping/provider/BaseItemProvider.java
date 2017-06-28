@@ -173,6 +173,21 @@ public class BaseItemProvider extends CDOItemProviderAdapter implements IEditing
 		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS,
 				MappingFactory.eINSTANCE.createEObjectLocation()));
 
+		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS,
+				MappingFactory.eINSTANCE.createCDOFolderLocation()));
+
+		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS,
+				MappingFactory.eINSTANCE.createCDORepositoryLocation()));
+
+		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS,
+				MappingFactory.eINSTANCE.createCDOBinaryResourceLocation()));
+
+		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS,
+				MappingFactory.eINSTANCE.createCDOTextResourceLocation()));
+
+		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.LOCATION_CONTAINER__CONTENTS,
+				MappingFactory.eINSTANCE.createCDOResourceLocation()));
+
 		newChildDescriptors.add(createChildParameter(MappingPackage.Literals.BASE__REPORTS,
 				MappingFactory.eINSTANCE.createReport()));
 	}

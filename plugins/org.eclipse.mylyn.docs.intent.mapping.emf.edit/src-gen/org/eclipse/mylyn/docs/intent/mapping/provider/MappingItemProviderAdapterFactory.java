@@ -195,6 +195,149 @@ public class MappingItemProviderAdapterFactory extends MappingAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.mylyn.docs.intent.mapping.Couple}
+	 * instances. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected CoupleItemProvider coupleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.mylyn.docs.intent.mapping.Couple}. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Adapter createCoupleAdapter() {
+		if (coupleItemProvider == null) {
+			coupleItemProvider = new CoupleItemProvider(this);
+		}
+
+		return coupleItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation} instances. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected CDOFolderLocationItemProvider cdoFolderLocationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation}. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Adapter createCDOFolderLocationAdapter() {
+		if (cdoFolderLocationItemProvider == null) {
+			cdoFolderLocationItemProvider = new CDOFolderLocationItemProvider(this);
+		}
+
+		return cdoFolderLocationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation} instances. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected CDORepositoryLocationItemProvider cdoRepositoryLocationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation}. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Adapter createCDORepositoryLocationAdapter() {
+		if (cdoRepositoryLocationItemProvider == null) {
+			cdoRepositoryLocationItemProvider = new CDORepositoryLocationItemProvider(this);
+		}
+
+		return cdoRepositoryLocationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation} instances. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected CDOBinaryResourceLocationItemProvider cdoBinaryResourceLocationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation}.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Adapter createCDOBinaryResourceLocationAdapter() {
+		if (cdoBinaryResourceLocationItemProvider == null) {
+			cdoBinaryResourceLocationItemProvider = new CDOBinaryResourceLocationItemProvider(this);
+		}
+
+		return cdoBinaryResourceLocationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation} instances. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected CDOTextResourceLocationItemProvider cdoTextResourceLocationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation}.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Adapter createCDOTextResourceLocationAdapter() {
+		if (cdoTextResourceLocationItemProvider == null) {
+			cdoTextResourceLocationItemProvider = new CDOTextResourceLocationItemProvider(this);
+		}
+
+		return cdoTextResourceLocationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation} instances. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected CDOResourceLocationItemProvider cdoResourceLocationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation}. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Adapter createCDOResourceLocationAdapter() {
+		if (cdoResourceLocationItemProvider == null) {
+			cdoResourceLocationItemProvider = new CDOResourceLocationItemProvider(this);
+		}
+
+		return cdoResourceLocationItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
@@ -301,6 +444,18 @@ public class MappingItemProviderAdapterFactory extends MappingAdapterFactory imp
 			eObjectLocationItemProvider.dispose();
 		if (reportItemProvider != null)
 			reportItemProvider.dispose();
+		if (coupleItemProvider != null)
+			coupleItemProvider.dispose();
+		if (cdoFolderLocationItemProvider != null)
+			cdoFolderLocationItemProvider.dispose();
+		if (cdoRepositoryLocationItemProvider != null)
+			cdoRepositoryLocationItemProvider.dispose();
+		if (cdoBinaryResourceLocationItemProvider != null)
+			cdoBinaryResourceLocationItemProvider.dispose();
+		if (cdoTextResourceLocationItemProvider != null)
+			cdoTextResourceLocationItemProvider.dispose();
+		if (cdoResourceLocationItemProvider != null)
+			cdoResourceLocationItemProvider.dispose();
 	}
 
 }

@@ -16,7 +16,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
+import org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOFileLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOResourceNodeLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.Couple;
+import org.eclipse.mylyn.docs.intent.mapping.EObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
@@ -164,6 +172,128 @@ public class MappingSwitch<T> extends Switch<T> {
 					result = defaultCase(theEObject);
 				return result;
 			}
+			case MappingPackage.EOBJECT_CONTAINER: {
+				EObjectContainer eObjectContainer = (EObjectContainer)theEObject;
+				T result = caseEObjectContainer(eObjectContainer);
+				if (result == null)
+					result = caseLocation(eObjectContainer);
+				if (result == null)
+					result = caseIEMFBaseElement(eObjectContainer);
+				if (result == null)
+					result = caseLocationContainer(eObjectContainer);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case MappingPackage.CDO_RESOURCE_NODE_LOCATION: {
+				CDOResourceNodeLocation cdoResourceNodeLocation = (CDOResourceNodeLocation)theEObject;
+				T result = caseCDOResourceNodeLocation(cdoResourceNodeLocation);
+				if (result == null)
+					result = caseLocation(cdoResourceNodeLocation);
+				if (result == null)
+					result = caseIEMFBaseElement(cdoResourceNodeLocation);
+				if (result == null)
+					result = caseLocationContainer(cdoResourceNodeLocation);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case MappingPackage.CDO_FILE_LOCATION: {
+				CDOFileLocation cdoFileLocation = (CDOFileLocation)theEObject;
+				T result = caseCDOFileLocation(cdoFileLocation);
+				if (result == null)
+					result = caseCDOResourceNodeLocation(cdoFileLocation);
+				if (result == null)
+					result = caseLocation(cdoFileLocation);
+				if (result == null)
+					result = caseIEMFBaseElement(cdoFileLocation);
+				if (result == null)
+					result = caseLocationContainer(cdoFileLocation);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case MappingPackage.CDO_FOLDER_LOCATION: {
+				CDOFolderLocation cdoFolderLocation = (CDOFolderLocation)theEObject;
+				T result = caseCDOFolderLocation(cdoFolderLocation);
+				if (result == null)
+					result = caseCDOResourceNodeLocation(cdoFolderLocation);
+				if (result == null)
+					result = caseLocation(cdoFolderLocation);
+				if (result == null)
+					result = caseIEMFBaseElement(cdoFolderLocation);
+				if (result == null)
+					result = caseLocationContainer(cdoFolderLocation);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case MappingPackage.CDO_REPOSITORY_LOCATION: {
+				CDORepositoryLocation cdoRepositoryLocation = (CDORepositoryLocation)theEObject;
+				T result = caseCDORepositoryLocation(cdoRepositoryLocation);
+				if (result == null)
+					result = caseLocation(cdoRepositoryLocation);
+				if (result == null)
+					result = caseIEMFBaseElement(cdoRepositoryLocation);
+				if (result == null)
+					result = caseLocationContainer(cdoRepositoryLocation);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case MappingPackage.CDO_BINARY_RESOURCE_LOCATION: {
+				CDOBinaryResourceLocation cdoBinaryResourceLocation = (CDOBinaryResourceLocation)theEObject;
+				T result = caseCDOBinaryResourceLocation(cdoBinaryResourceLocation);
+				if (result == null)
+					result = caseCDOFileLocation(cdoBinaryResourceLocation);
+				if (result == null)
+					result = caseCDOResourceNodeLocation(cdoBinaryResourceLocation);
+				if (result == null)
+					result = caseLocation(cdoBinaryResourceLocation);
+				if (result == null)
+					result = caseIEMFBaseElement(cdoBinaryResourceLocation);
+				if (result == null)
+					result = caseLocationContainer(cdoBinaryResourceLocation);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case MappingPackage.CDO_TEXT_RESOURCE_LOCATION: {
+				CDOTextResourceLocation cdoTextResourceLocation = (CDOTextResourceLocation)theEObject;
+				T result = caseCDOTextResourceLocation(cdoTextResourceLocation);
+				if (result == null)
+					result = caseCDOFileLocation(cdoTextResourceLocation);
+				if (result == null)
+					result = caseCDOResourceNodeLocation(cdoTextResourceLocation);
+				if (result == null)
+					result = caseLocation(cdoTextResourceLocation);
+				if (result == null)
+					result = caseIEMFBaseElement(cdoTextResourceLocation);
+				if (result == null)
+					result = caseLocationContainer(cdoTextResourceLocation);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case MappingPackage.CDO_RESOURCE_LOCATION: {
+				CDOResourceLocation cdoResourceLocation = (CDOResourceLocation)theEObject;
+				T result = caseCDOResourceLocation(cdoResourceLocation);
+				if (result == null)
+					result = caseCDOFileLocation(cdoResourceLocation);
+				if (result == null)
+					result = caseEObjectContainer(cdoResourceLocation);
+				if (result == null)
+					result = caseCDOResourceNodeLocation(cdoResourceLocation);
+				if (result == null)
+					result = caseLocation(cdoResourceLocation);
+				if (result == null)
+					result = caseIEMFBaseElement(cdoResourceLocation);
+				if (result == null)
+					result = caseLocationContainer(cdoResourceLocation);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
 			default:
 				return defaultCase(theEObject);
 		}
@@ -301,6 +431,127 @@ public class MappingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCouple(Couple object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EObject Container</em>'. <!--
+	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the
+	 * switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EObject Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEObjectContainer(EObjectContainer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>CDO Resource Node Location</em>'.
+	 * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will terminate
+	 * the switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>CDO Resource Node Location</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCDOResourceNodeLocation(CDOResourceNodeLocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>CDO File Location</em>'. <!--
+	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the
+	 * switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>CDO File Location</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCDOFileLocation(CDOFileLocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>CDO Folder Location</em>'. <!--
+	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the
+	 * switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>CDO Folder Location</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCDOFolderLocation(CDOFolderLocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>CDO Repository Location</em>'.
+	 * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will terminate
+	 * the switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>CDO Repository Location</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCDORepositoryLocation(CDORepositoryLocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>CDO Binary Resource
+	 * Location</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null result
+	 * will terminate the switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>CDO Binary Resource
+	 *         Location</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCDOBinaryResourceLocation(CDOBinaryResourceLocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>CDO Text Resource Location</em>'.
+	 * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will terminate
+	 * the switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>CDO Text Resource Location</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCDOTextResourceLocation(CDOTextResourceLocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>CDO Resource Location</em>'. <!--
+	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the
+	 * switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>CDO Resource Location</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCDOResourceLocation(CDOResourceLocation object) {
 		return null;
 	}
 

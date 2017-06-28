@@ -15,6 +15,8 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.impl;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.mylyn.docs.intent.mapping.EObjectContainer;
+import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage;
@@ -61,7 +63,7 @@ public class EObjectFileLocationImpl extends FileLocationImpl implements EObject
 	 * @generated
 	 */
 	public String getXMIContent() {
-		return (String)eGet(IdePackage.Literals.EOBJECT_FILE_LOCATION__XMI_CONTENT, true);
+		return (String)eGet(MappingPackage.Literals.EOBJECT_CONTAINER__XMI_CONTENT, true);
 	}
 
 	/**
@@ -70,7 +72,7 @@ public class EObjectFileLocationImpl extends FileLocationImpl implements EObject
 	 * @generated
 	 */
 	public void setXMIContent(String newXMIContent) {
-		eSet(IdePackage.Literals.EOBJECT_FILE_LOCATION__XMI_CONTENT, newXMIContent);
+		eSet(MappingPackage.Literals.EOBJECT_CONTAINER__XMI_CONTENT, newXMIContent);
 	}
 
 	/**
@@ -80,7 +82,47 @@ public class EObjectFileLocationImpl extends FileLocationImpl implements EObject
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ICouple> getSavedURIFragments() {
-		return (List<ICouple>)eGet(IdePackage.Literals.EOBJECT_FILE_LOCATION__SAVED_URI_FRAGMENTS, true);
+		return (List<ICouple>)eGet(MappingPackage.Literals.EOBJECT_CONTAINER__SAVED_URI_FRAGMENTS, true);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == EObjectContainer.class) {
+			switch (derivedFeatureID) {
+				case IdePackage.EOBJECT_FILE_LOCATION__XMI_CONTENT:
+					return MappingPackage.EOBJECT_CONTAINER__XMI_CONTENT;
+				case IdePackage.EOBJECT_FILE_LOCATION__SAVED_URI_FRAGMENTS:
+					return MappingPackage.EOBJECT_CONTAINER__SAVED_URI_FRAGMENTS;
+				default:
+					return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == EObjectContainer.class) {
+			switch (baseFeatureID) {
+				case MappingPackage.EOBJECT_CONTAINER__XMI_CONTENT:
+					return IdePackage.EOBJECT_FILE_LOCATION__XMI_CONTENT;
+				case MappingPackage.EOBJECT_CONTAINER__SAVED_URI_FRAGMENTS:
+					return IdePackage.EOBJECT_FILE_LOCATION__SAVED_URI_FRAGMENTS;
+				default:
+					return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } // EObjectFileLocationImpl

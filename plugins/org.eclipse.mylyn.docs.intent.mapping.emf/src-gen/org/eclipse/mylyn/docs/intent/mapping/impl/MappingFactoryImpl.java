@@ -21,6 +21,11 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.mylyn.docs.intent.mapping.Base;
+import org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOFolderLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.CDOTextResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.Couple;
 import org.eclipse.mylyn.docs.intent.mapping.EObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.Link;
@@ -82,6 +87,16 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 				return (EObject)createReport();
 			case MappingPackage.COUPLE:
 				return (EObject)createCouple();
+			case MappingPackage.CDO_FOLDER_LOCATION:
+				return (EObject)createCDOFolderLocation();
+			case MappingPackage.CDO_REPOSITORY_LOCATION:
+				return (EObject)createCDORepositoryLocation();
+			case MappingPackage.CDO_BINARY_RESOURCE_LOCATION:
+				return (EObject)createCDOBinaryResourceLocation();
+			case MappingPackage.CDO_TEXT_RESOURCE_LOCATION:
+				return (EObject)createCDOTextResourceLocation();
+			case MappingPackage.CDO_RESOURCE_LOCATION:
+				return (EObject)createCDOResourceLocation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName()
 						+ "' is not a valid classifier");
@@ -178,6 +193,56 @@ public class MappingFactoryImpl extends EFactoryImpl implements MappingFactory {
 	public Couple createCouple() {
 		CoupleImpl couple = new CoupleImpl();
 		return couple;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public CDOFolderLocation createCDOFolderLocation() {
+		CDOFolderLocationImpl cdoFolderLocation = new CDOFolderLocationImpl();
+		return cdoFolderLocation;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public CDORepositoryLocation createCDORepositoryLocation() {
+		CDORepositoryLocationImpl cdoRepositoryLocation = new CDORepositoryLocationImpl();
+		return cdoRepositoryLocation;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public CDOBinaryResourceLocation createCDOBinaryResourceLocation() {
+		CDOBinaryResourceLocationImpl cdoBinaryResourceLocation = new CDOBinaryResourceLocationImpl();
+		return cdoBinaryResourceLocation;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public CDOTextResourceLocation createCDOTextResourceLocation() {
+		CDOTextResourceLocationImpl cdoTextResourceLocation = new CDOTextResourceLocationImpl();
+		return cdoTextResourceLocation;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public CDOResourceLocation createCDOResourceLocation() {
+		CDOResourceLocationImpl cdoResourceLocation = new CDOResourceLocationImpl();
+		return cdoResourceLocation;
 	}
 
 	/**

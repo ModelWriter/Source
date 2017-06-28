@@ -46,7 +46,7 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 	/**
 	 * Mapping of {@link IEObjectFileLocation#getFullPath() full path} to {@link Resource}.
 	 */
-	private final Map<String, Resource> knownResrouces = new HashMap<String, Resource>();
+	private final Map<String, Resource> knownResources = new HashMap<String, Resource>();
 
 	/**
 	 * {@inheritDoc}
@@ -76,7 +76,7 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.getResource(URI.createPlatformResourceURI(element.getFullPath()
 				.toPortableString(), true), true);
-		knownResrouces.put(location.getFullPath(), resource);
+		knownResources.put(location.getFullPath(), resource);
 		try {
 			EObjectConnector.updateEObjectContainer((IEObjectContainer)location, resource);
 			// CHECKSTYLE:OFF
@@ -93,11 +93,11 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#getElement(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation)
 	 */
 	public Object getElement(IFileLocation location) {
-		if (!knownResrouces.containsKey(location.getFullPath())) {
+		if (!knownResources.containsKey(location.getFullPath())) {
 			initLocation(location, (IFile)super.getElement(location));
 		}
 
-		return knownResrouces.get(location.getFullPath());
+		return knownResources.get(location.getFullPath());
 	}
 
 }
