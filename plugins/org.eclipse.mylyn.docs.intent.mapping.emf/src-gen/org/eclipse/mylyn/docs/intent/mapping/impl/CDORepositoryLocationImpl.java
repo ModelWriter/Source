@@ -26,6 +26,8 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDORepositoryLocationImpl#getURL <em>URL</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDORepositoryLocationImpl#getUUID <em>UUID</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDORepositoryLocationImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.CDORepositoryLocationImpl#getBranchID <em>Branch
+ * ID</em>}</li>
  * </ul>
  *
  * @generated
@@ -102,6 +104,24 @@ public class CDORepositoryLocationImpl extends LocationImpl implements CDOReposi
 	 */
 	public void setName(String newName) {
 		eSet(MappingPackage.Literals.CDO_REPOSITORY_LOCATION__NAME, newName);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public int getBranchID() {
+		return (Integer)eGet(MappingPackage.Literals.CDO_REPOSITORY_LOCATION__BRANCH_ID, true);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setBranchID(int newBranchID) {
+		eSet(MappingPackage.Literals.CDO_REPOSITORY_LOCATION__BRANCH_ID, newBranchID);
 	}
 
 } // CDORepositoryLocationImpl

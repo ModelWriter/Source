@@ -31,9 +31,14 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ICDORepositoryLocation;
 public class CDOViewConnector extends AbstractConnector {
 
 	/**
+	 * The {@link MappingCDOListener}.
+	 */
+	private static final MappingCDOListener LISTENER = new MappingCDOListener();
+
+	/**
 	 * The {@link CDOView} cache.
 	 */
-	private static final Map<String, CDOView> VIEW_CACHE = new HashMap<String, CDOView>();
+	private static final Map<String, Map<Integer, CDOView>> VIEW_CACHE = new HashMap<String, Map<Integer, CDOView>>();
 
 	/**
 	 * Adds the given {@link CDOView} to the cache.
@@ -42,7 +47,14 @@ public class CDOViewConnector extends AbstractConnector {
 	 *            the {@link CDOView} to add
 	 */
 	public static void addSessionToCache(CDOView view) {
-		VIEW_CACHE.put(view.getSession().getRepositoryInfo().getUUID(), view);
+		Map<Integer, CDOView> map = VIEW_CACHE.get(view.getSession().getRepositoryInfo().getUUID());
+		if (map == null) {
+			map = new HashMap<Integer, CDOView>();
+			VIEW_CACHE.put(view.getSession().getRepositoryInfo().getUUID(), map);
+		}
+		map.put(view.getBranch().getID(), view);
+
+		view.addListener(LISTENER);
 	}
 
 	/**
@@ -52,7 +64,14 @@ public class CDOViewConnector extends AbstractConnector {
 	 *            the {@link CDOView} to remove
 	 */
 	public static void removeSessionFromCache(CDOView view) {
-		VIEW_CACHE.remove(view.getSession().getRepositoryInfo().getUUID());
+		view.removeListener(LISTENER);
+
+		Map<Integer, CDOView> map = VIEW_CACHE.get(view.getSession().getRepositoryInfo().getUUID());
+		if (map != null) {
+			if (map.remove(view.getBranch().getID()) != null && map.isEmpty()) {
+				VIEW_CACHE.remove(view.getSession().getRepositoryInfo().getUUID());
+			}
+		}
 	}
 
 	/**
@@ -102,8 +121,18 @@ public class CDOViewConnector extends AbstractConnector {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 	 */
 	public Object getElement(ILocation location) {
+		final CDOView res;
+
+		final Map<Integer, CDOView> map = VIEW_CACHE.get(((ICDORepositoryLocation)location).getUUID());
+		if (map != null) {
+			res = map.get(((ICDORepositoryLocation)location).getBranchID());
+		} else {
+			res = null;
+		}
+
 		// TODO if not in cache open a session/view...
-		return VIEW_CACHE.get(((ICDORepositoryLocation)location).getUUID());
+
+		return res;
 	}
 
 	/**
@@ -133,7 +162,8 @@ public class CDOViewConnector extends AbstractConnector {
 	@Override
 	protected boolean match(ILocation location, Object element) {
 		return ((ICDORepositoryLocation)location).getUUID().equals(((CDOView)element).getSession()
-				.getRepositoryInfo().getUUID());
+				.getRepositoryInfo().getUUID()) && ((ICDORepositoryLocation)location)
+						.getBranchID() == ((CDOView)element).getBranch().getID();
 	}
 
 	@Override
@@ -144,8 +174,7 @@ public class CDOViewConnector extends AbstractConnector {
 		toInit.setURL(getURL(cdoView));
 		toInit.setUUID(cdoView.getSession().getRepositoryInfo().getUUID());
 		toInit.setName(cdoView.getSession().getRepositoryInfo().getName());
-		// TODO add a listener for this view ?
-		// update listener when base change
+		toInit.setBranchID(cdoView.getBranch().getID());
 	}
 
 	/**

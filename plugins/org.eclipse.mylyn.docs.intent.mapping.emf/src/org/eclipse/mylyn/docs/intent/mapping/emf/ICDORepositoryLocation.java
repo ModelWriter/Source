@@ -65,4 +65,19 @@ public interface ICDORepositoryLocation extends ILocation {
 	 */
 	void setName(String name);
 
+	/**
+	 * Gets the banch ID.
+	 * 
+	 * @return the branch ID
+	 */
+	int getBranchID();
+
+	/**
+	 * Sets the branch ID.
+	 * 
+	 * @param id
+	 *            the new branch ID
+	 */
+	void setBranchID(int id);
+
 }

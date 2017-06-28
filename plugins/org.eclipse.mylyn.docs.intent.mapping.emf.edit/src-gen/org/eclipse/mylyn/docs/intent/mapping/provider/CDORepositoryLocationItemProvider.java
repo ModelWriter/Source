@@ -55,6 +55,7 @@ public class CDORepositoryLocationItemProvider extends LocationItemProvider {
 			addURLPropertyDescriptor(object);
 			addUUIDPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
+			addBranchIDPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -105,6 +106,23 @@ public class CDORepositoryLocationItemProvider extends LocationItemProvider {
 	}
 
 	/**
+	 * This adds a property descriptor for the Branch ID feature. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 */
+	protected void addBranchIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString(
+						"_UI_CDORepositoryLocation_branchID_feature"), getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_CDORepositoryLocation_branchID_feature",
+								"_UI_CDORepositoryLocation_type"),
+				MappingPackage.Literals.CDO_REPOSITORY_LOCATION__BRANCH_ID, true, false, false,
+				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+	}
+
+	/**
 	 * This returns CDORepositoryLocation.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -141,6 +159,7 @@ public class CDORepositoryLocationItemProvider extends LocationItemProvider {
 			case MappingPackage.CDO_REPOSITORY_LOCATION__URL:
 			case MappingPackage.CDO_REPOSITORY_LOCATION__UUID:
 			case MappingPackage.CDO_REPOSITORY_LOCATION__NAME:
+			case MappingPackage.CDO_REPOSITORY_LOCATION__BRANCH_ID:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false,
 						true));
 				return;

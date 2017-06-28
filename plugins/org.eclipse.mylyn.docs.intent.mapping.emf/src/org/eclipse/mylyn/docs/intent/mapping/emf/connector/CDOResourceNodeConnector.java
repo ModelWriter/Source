@@ -135,7 +135,8 @@ public class CDOResourceNodeConnector extends AbstractConnector {
 		// that
 		final ICDORepositoryLocation container = (ICDORepositoryLocation)location.getContainer();
 		final CDOResourceNode node = (CDOResourceNode)element;
-		if (node.cdoView().getSession().getRepositoryInfo().getUUID().equals(container.getUUID())) {
+		if (node.cdoView().getSession().getRepositoryInfo().getUUID().equals(container.getUUID()) && node
+				.cdoView().getBranch().getID() == container.getBranchID()) {
 			res = ((ICDOResourceNodeLocation)location).getPath().equals(((CDOResourceNode)element).getPath());
 		} else {
 			res = false;

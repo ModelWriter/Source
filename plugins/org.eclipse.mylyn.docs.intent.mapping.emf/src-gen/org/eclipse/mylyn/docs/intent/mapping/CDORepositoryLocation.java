@@ -24,6 +24,7 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ICDORepositoryLocation;
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getURL <em>URL</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getUUID <em>UUID</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getName <em>Name</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getBranchID <em>Branch ID</em>}</li>
  * </ul>
  *
  * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getCDORepositoryLocation()
@@ -111,5 +112,32 @@ public interface CDORepositoryLocation extends Location, ICDORepositoryLocation 
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Branch ID</b></em>' attribute. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Branch ID</em>' attribute isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Branch ID</em>' attribute.
+	 * @see #setBranchID(int)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.MappingPackage#getCDORepositoryLocation_BranchID()
+	 * @model required="true"
+	 * @generated
+	 */
+	int getBranchID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getBranchID
+	 * <em>Branch ID</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Branch ID</em>' attribute.
+	 * @see #getBranchID()
+	 * @generated
+	 */
+	void setBranchID(int value);
 
 } // CDORepositoryLocation

@@ -35,7 +35,9 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses(value = {EMFBaseTests.class, EMFLinkTests.class, EMFTextLocationTests.class,
 		EMFEObjectLocationTests.class, EObjectConnectorTests.class, EObjectConnectorCDOTests.class,
 		EObjectConnectorParametrizedTests.class, EObjectConnectorParametrizedCDOTests.class,
-		EMFReportTests.class, CDOViewConnectorTests.class, CDOResourceNodeConnectorTests.class, })
+		EMFReportTests.class, CDOViewConnectorTests.class, CDOResourceNodeConnectorTests.class,
+		EMFCDORepositoryLocationTests.class, EMFCDOFolderLocationTests.class,
+		EMFCDOBinaryResourceLocationTests.class, EMFCDOTextResourceLocationTests.class })
 public class AllTests {
 	/**
 	 * The {@link CDOServer}.

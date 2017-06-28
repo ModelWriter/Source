@@ -1089,13 +1089,22 @@ public interface MappingPackage extends EPackage {
 	int CDO_REPOSITORY_LOCATION__NAME = LOCATION_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Branch ID</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_REPOSITORY_LOCATION__BRANCH_ID = LOCATION_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>CDO Repository Location</em>' class. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int CDO_REPOSITORY_LOCATION_FEATURE_COUNT = LOCATION_FEATURE_COUNT + 3;
+	int CDO_REPOSITORY_LOCATION_FEATURE_COUNT = LOCATION_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>CDO Repository Location</em>' class. <!-- begin-user-doc --> <!--
@@ -1885,6 +1894,18 @@ public interface MappingPackage extends EPackage {
 	EAttribute getCDORepositoryLocation_Name();
 
 	/**
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getBranchID <em>Branch ID</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Branch ID</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.CDORepositoryLocation#getBranchID()
+	 * @see #getCDORepositoryLocation()
+	 * @generated
+	 */
+	EAttribute getCDORepositoryLocation_BranchID();
+
+	/**
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.mylyn.docs.intent.mapping.CDOBinaryResourceLocation <em>CDO Binary Resource
 	 * Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2324,6 +2345,14 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CDO_REPOSITORY_LOCATION__NAME = eINSTANCE.getCDORepositoryLocation_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Branch ID</b></em>' attribute feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute CDO_REPOSITORY_LOCATION__BRANCH_ID = eINSTANCE.getCDORepositoryLocation_BranchID();
 
 		/**
 		 * The meta object literal for the

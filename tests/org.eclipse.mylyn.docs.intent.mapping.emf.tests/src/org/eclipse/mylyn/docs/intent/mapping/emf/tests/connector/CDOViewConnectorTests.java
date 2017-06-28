@@ -60,6 +60,11 @@ public class CDOViewConnectorTests {
 		 */
 		private String name;
 
+		/**
+		 * The branch ID.
+		 */
+		private int branchID;
+
 		public String getURL() {
 			return url;
 		}
@@ -82,6 +87,14 @@ public class CDOViewConnectorTests {
 
 		public void setName(String newName) {
 			this.name = newName;
+		}
+
+		public int getBranchID() {
+			return branchID;
+		}
+
+		public void setBranchID(int id) {
+			this.branchID = id;
 		}
 
 	}
@@ -184,6 +197,7 @@ public class CDOViewConnectorTests {
 
 		assertEquals(null, location.getContainer());
 		assertEquals("testRepo", location.getName());
+		assertEquals(0, location.getBranchID());
 		assertEquals("tcp://127.0.0.1:12345", location.getURL());
 		assertEquals(transaction.getSession().getRepositoryInfo().getUUID(), location.getUUID());
 	}

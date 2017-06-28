@@ -66,6 +66,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//CDORepositoryLocation/URL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//CDORepositoryLocation/UUID"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//CDORepositoryLocation/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//CDORepositoryLocation/branchID"/>
     </genClasses>
     <genClasses ecoreClass="mapping.ecore#//CDOBinaryResourceLocation"/>
     <genClasses ecoreClass="mapping.ecore#//CDOTextResourceLocation"/>

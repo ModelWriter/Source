@@ -626,6 +626,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
+	public EAttribute getCDORepositoryLocation_BranchID() {
+		return (EAttribute)cdoRepositoryLocationEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getCDOBinaryResourceLocation() {
 		return cdoBinaryResourceLocationEClass;
 	}
@@ -741,6 +750,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		createEAttribute(cdoRepositoryLocationEClass, CDO_REPOSITORY_LOCATION__URL);
 		createEAttribute(cdoRepositoryLocationEClass, CDO_REPOSITORY_LOCATION__UUID);
 		createEAttribute(cdoRepositoryLocationEClass, CDO_REPOSITORY_LOCATION__NAME);
+		createEAttribute(cdoRepositoryLocationEClass, CDO_REPOSITORY_LOCATION__BRANCH_ID);
 
 		cdoBinaryResourceLocationEClass = createEClass(CDO_BINARY_RESOURCE_LOCATION);
 
@@ -922,6 +932,9 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 				CDORepositoryLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
 				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCDORepositoryLocation_Name(), ecorePackage.getEString(), "name", null, 1, 1,
+				CDORepositoryLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDORepositoryLocation_BranchID(), ecorePackage.getEInt(), "branchID", "-1", 1, 1,
 				CDORepositoryLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
 				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
