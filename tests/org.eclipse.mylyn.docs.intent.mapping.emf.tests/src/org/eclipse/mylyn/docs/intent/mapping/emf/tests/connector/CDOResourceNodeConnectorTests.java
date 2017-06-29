@@ -43,6 +43,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -138,6 +139,11 @@ public class CDOResourceNodeConnectorTests {
 		@Override
 		public void initLocation(ILocationContainer container, ILocation location, Object element) {
 			super.initLocation(container, location, element);
+		}
+
+		@Override
+		public boolean match(ILocation location, Object element) {
+			return super.match(location, element);
 		}
 
 	}
@@ -544,6 +550,346 @@ public class CDOResourceNodeConnectorTests {
 		assertEquals(
 				"/org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.CDOResourceNodeConnectorTests/test/test.resource",
 				location.getPath());
+	}
+
+	@Test
+	public void matchFolder() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOFolderLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOFolderLocation>(TestCDOFolderLocation.class));
+
+		final ILocation container = MappingUtils.getConnectorRegistry().createLocation(base, transaction);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, folder);
+		location.setContainer(container);
+
+		assertTrue(connector.match(location, folder));
+	}
+
+	@Test
+	public void matchFolderDifferenteBranch() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOFolderLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOFolderLocation>(TestCDOFolderLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+		container.setBranchID(container.getBranchID() + 42);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, folder);
+		location.setContainer(container);
+
+		assertFalse(connector.match(location, folder));
+	}
+
+	@Test
+	public void matchFolderDifferenteRepository() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOFolderLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOFolderLocation>(TestCDOFolderLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+		container.setUUID(container.getUUID() + "42");
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, folder);
+		location.setContainer(container);
+
+		assertFalse(connector.match(location, folder));
+	}
+
+	@Test
+	public void matchFolderDifferentePath() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOFolderLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOFolderLocation>(TestCDOFolderLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, folder);
+		location.setContainer(container);
+		location.setPath(location.getPath() + "42");
+
+		assertFalse(connector.match(location, folder));
+	}
+
+	@Test
+	public void matchBinaryResourceFile() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOBinaryResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOBinaryResourceLocation>(
+						TestCDOBinaryResourceLocation.class));
+
+		final ILocation container = MappingUtils.getConnectorRegistry().createLocation(base, transaction);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, binaryResource);
+		location.setContainer(container);
+
+		assertTrue(connector.match(location, binaryResource));
+	}
+
+	@Test
+	public void matchBinaryResourceFileDifferenteBranch() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOBinaryResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOBinaryResourceLocation>(
+						TestCDOBinaryResourceLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+		container.setBranchID(container.getBranchID() + 42);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, binaryResource);
+		location.setContainer(container);
+
+		assertFalse(connector.match(location, binaryResource));
+	}
+
+	@Test
+	public void matchBinaryResourceFileDifferenteRepository() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOBinaryResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOBinaryResourceLocation>(
+						TestCDOBinaryResourceLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+		container.setUUID(container.getUUID() + "42");
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, binaryResource);
+		location.setContainer(container);
+
+		assertFalse(connector.match(location, binaryResource));
+	}
+
+	@Test
+	public void matchBinaryResourceFileDifferentePath() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOBinaryResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOBinaryResourceLocation>(
+						TestCDOBinaryResourceLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, binaryResource);
+		location.setContainer(container);
+		location.setPath(location.getPath() + "42");
+
+		assertFalse(connector.match(location, binaryResource));
+	}
+
+	@Test
+	public void matchTextFile() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOTextResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOTextResourceLocation>(
+						TestCDOTextResourceLocation.class));
+
+		final ILocation container = MappingUtils.getConnectorRegistry().createLocation(base, transaction);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, textResource);
+		location.setContainer(container);
+
+		assertTrue(connector.match(location, textResource));
+	}
+
+	@Test
+	public void matchTextFileDifferenteBranch() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOTextResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOTextResourceLocation>(
+						TestCDOTextResourceLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+		container.setBranchID(container.getBranchID() + 42);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, textResource);
+		location.setContainer(container);
+
+		assertFalse(connector.match(location, textResource));
+	}
+
+	@Test
+	public void matchTextFileDifferenteRepository() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOTextResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOTextResourceLocation>(
+						TestCDOTextResourceLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+		container.setUUID(container.getUUID() + "42");
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, textResource);
+		location.setContainer(container);
+
+		assertFalse(connector.match(location, textResource));
+	}
+
+	@Test
+	public void matchTextFileDifferentePath() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOTextResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOTextResourceLocation>(
+						TestCDOTextResourceLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, textResource);
+		location.setContainer(container);
+		location.setPath(location.getPath() + "42");
+
+		assertFalse(connector.match(location, textResource));
+	}
+
+	@Test
+	public void matchResource() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOResourceLocation>(
+						TestCDOResourceLocation.class));
+
+		final ILocation container = MappingUtils.getConnectorRegistry().createLocation(base, transaction);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, resource);
+		location.setContainer(container);
+
+		assertTrue(connector.match(location, resource));
+	}
+
+	@Test
+	public void matchResourceDifferenteBranch() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOResourceLocation>(
+						TestCDOResourceLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+		container.setBranchID(container.getBranchID() + 42);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, resource);
+		location.setContainer(container);
+
+		assertFalse(connector.match(location, resource));
+	}
+
+	@Test
+	public void matchResourceDifferenteRepository() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOResourceLocation>(
+						TestCDOResourceLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+		container.setUUID(container.getUUID() + "42");
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, resource);
+		location.setContainer(container);
+
+		assertFalse(connector.match(location, resource));
+	}
+
+	@Test
+	public void matchResourceDifferentePath() throws Exception {
+
+		final IBase base = new BaseRegistryTests.TestBase();
+		base.getFactory().addDescriptor(ICDORepositoryLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDORepositoryLocation>(
+						TestCDORepositoryLocation.class));
+		base.getFactory().addDescriptor(ICDOResourceLocation.class,
+				new BaseElementFactory.FactoryDescriptor<TestCDOResourceLocation>(
+						TestCDOResourceLocation.class));
+
+		final ICDORepositoryLocation container = (ICDORepositoryLocation)MappingUtils.getConnectorRegistry()
+				.createLocation(base, transaction);
+
+		final TestCDOFolderLocation location = new TestCDOFolderLocation();
+		connector.initLocation(container, location, resource);
+		location.setContainer(container);
+		location.setPath(location.getPath() + "42");
+
+		assertFalse(connector.match(location, resource));
 	}
 
 }

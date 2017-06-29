@@ -29,7 +29,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests {@link CDOViewConnector}.
@@ -116,6 +118,11 @@ public class CDOViewConnectorTests {
 			super.initLocation(container, location, element);
 		}
 
+		@Override
+		public boolean match(ILocation location, Object element) {
+			return super.match(location, element);
+		}
+
 	}
 
 	/**
@@ -200,6 +207,39 @@ public class CDOViewConnectorTests {
 		assertEquals(0, location.getBranchID());
 		assertEquals("tcp://127.0.0.1:12345", location.getURL());
 		assertEquals(transaction.getSession().getRepositoryInfo().getUUID(), location.getUUID());
+	}
+
+	@Test
+	public void match() {
+		final TestCDORepositoryLocation location = new TestCDORepositoryLocation();
+
+		location.setName(transaction.getSession().getRepositoryInfo().getName());
+		location.setURL(((CDONet4jSessionImpl)transaction.getSession()).getConnector().getURL());
+		location.setUUID(transaction.getSession().getRepositoryInfo().getUUID());
+
+		assertTrue(connector.match(location, transaction));
+	}
+
+	@Test
+	public void matchDifferentBranch() {
+		final TestCDORepositoryLocation location = new TestCDORepositoryLocation();
+
+		location.setName(transaction.getSession().getRepositoryInfo().getName());
+		location.setURL(((CDONet4jSessionImpl)transaction.getSession()).getConnector().getURL());
+		location.setUUID(transaction.getSession().getRepositoryInfo().getUUID() + 42);
+
+		assertFalse(connector.match(location, transaction));
+	}
+
+	@Test
+	public void matchDifferentRepository() {
+		final TestCDORepositoryLocation location = new TestCDORepositoryLocation();
+
+		location.setName(transaction.getSession().getRepositoryInfo().getName());
+		location.setURL(((CDONet4jSessionImpl)transaction.getSession()).getConnector().getURL());
+		location.setUUID(transaction.getSession().getRepositoryInfo().getUUID() + "42");
+
+		assertFalse(connector.match(location, transaction));
 	}
 
 }
