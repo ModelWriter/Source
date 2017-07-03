@@ -11,6 +11,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.connector;
 
+import java.io.IOException;
+import java.io.Reader;
+
 import org.eclipse.emf.cdo.eresource.CDOBinaryResource;
 import org.eclipse.emf.cdo.eresource.CDOResource;
 import org.eclipse.emf.cdo.eresource.CDOResourceFolder;
@@ -29,6 +32,7 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ICDORepositoryLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOResourceNodeLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOTextResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;
 
 /**
  * {@link CDOResourceNode} connector.
@@ -36,6 +40,11 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOTextResourceLocation;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class CDOResourceNodeConnector extends AbstractConnector {
+
+	/**
+	 * The buffer size.
+	 */
+	private static final int BUFFZE_SIZE = 8192;
 
 	/**
 	 * {@inheritDoc}
@@ -159,8 +168,42 @@ public class CDOResourceNodeConnector extends AbstractConnector {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else if (toInit instanceof ICDOTextResourceLocation) {
+			try {
+				final CDOTextResource textResource = (CDOTextResource)element;
+				final String text = getContent(textResource.getContents().getContents(), textResource
+						.getEncoding());
+				TextConnector.updateTextContainer((ICDOTextResourceLocation)toInit, text);
+				// CHECKSTYLE:OFF
+			} catch (Exception e) {
+				// CHECKSTYLE:ON
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		// TODO binary and text file delegates ?
+	}
+
+	/**
+	 * Gets the content of the given {@link Reader}.
+	 * 
+	 * @param reader
+	 *            the {@link Reader}
+	 * @param encoding
+	 *            the encoding
+	 * @return the content of the given {@link Reader}
+	 * @throws IOException
+	 *             if the {@link Reader} can't be read
+	 */
+	private String getContent(Reader reader, String encoding) throws IOException {
+		final StringBuilder builder = new StringBuilder();
+
+		char[] buffer = new char[BUFFZE_SIZE];
+		while (reader.read(buffer) != -1) {
+			builder.append(buffer);
+		}
+
+		return builder.toString();
 	}
 
 }

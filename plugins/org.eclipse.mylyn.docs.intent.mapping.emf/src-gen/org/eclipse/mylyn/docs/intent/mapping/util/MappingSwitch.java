@@ -32,6 +32,7 @@ import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.Report;
+import org.eclipse.mylyn.docs.intent.mapping.TextContainer;
 import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
 
 /**
@@ -132,6 +133,19 @@ public class MappingSwitch<T> extends Switch<T> {
 					result = caseIEMFBaseElement(textLocation);
 				if (result == null)
 					result = caseLocationContainer(textLocation);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case MappingPackage.TEXT_CONTAINER: {
+				TextContainer textContainer = (TextContainer)theEObject;
+				T result = caseTextContainer(textContainer);
+				if (result == null)
+					result = caseLocation(textContainer);
+				if (result == null)
+					result = caseIEMFBaseElement(textContainer);
+				if (result == null)
+					result = caseLocationContainer(textContainer);
 				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -264,6 +278,8 @@ public class MappingSwitch<T> extends Switch<T> {
 				if (result == null)
 					result = caseCDOFileLocation(cdoTextResourceLocation);
 				if (result == null)
+					result = caseTextContainer(cdoTextResourceLocation);
+				if (result == null)
 					result = caseCDOResourceNodeLocation(cdoTextResourceLocation);
 				if (result == null)
 					result = caseLocation(cdoTextResourceLocation);
@@ -371,6 +387,21 @@ public class MappingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTextLocation(TextLocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Text Container</em>'. <!--
+	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the
+	 * switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Text Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTextContainer(TextContainer object) {
 		return null;
 	}
 

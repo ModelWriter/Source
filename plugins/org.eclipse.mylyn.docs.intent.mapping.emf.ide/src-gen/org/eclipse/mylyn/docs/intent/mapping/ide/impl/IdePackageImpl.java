@@ -164,15 +164,6 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 	 * 
 	 * @generated
 	 */
-	public EAttribute getTextFileLocation_Text() {
-		return (EAttribute)textFileLocationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public EClass getEObjectFileLocation() {
 		return eObjectFileLocationEClass;
 	}
@@ -211,7 +202,6 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 		fileLocationEClass = createEClass(FILE_LOCATION);
 
 		textFileLocationEClass = createEClass(TEXT_FILE_LOCATION);
-		createEAttribute(textFileLocationEClass, TEXT_FILE_LOCATION__TEXT);
 
 		eObjectFileLocationEClass = createEClass(EOBJECT_FILE_LOCATION);
 	}
@@ -251,6 +241,7 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 		resourceLocationEClass.getESuperTypes().add(theMappingPackage.getLocation());
 		fileLocationEClass.getESuperTypes().add(this.getResourceLocation());
 		textFileLocationEClass.getESuperTypes().add(this.getFileLocation());
+		textFileLocationEClass.getESuperTypes().add(theMappingPackage.getTextContainer());
 		eObjectFileLocationEClass.getESuperTypes().add(this.getFileLocation());
 		eObjectFileLocationEClass.getESuperTypes().add(theMappingPackage.getEObjectContainer());
 
@@ -266,9 +257,6 @@ public class IdePackageImpl extends EPackageImpl implements IdePackage {
 
 		initEClass(textFileLocationEClass, TextFileLocation.class, "TextFileLocation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTextFileLocation_Text(), ecorePackage.getEString(), "text", null, 1, 1,
-				TextFileLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eObjectFileLocationEClass, EObjectFileLocation.class, "EObjectFileLocation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

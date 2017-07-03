@@ -19,6 +19,7 @@ import org.eclipse.mylyn.docs.intent.mapping.EObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement;
 import org.eclipse.mylyn.docs.intent.mapping.Location;
 import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.TextContainer;
 import org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.FileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdePackage;
@@ -109,6 +110,8 @@ public class IdeSwitch<T> extends Switch<T> {
 				T result = caseTextFileLocation(textFileLocation);
 				if (result == null)
 					result = caseFileLocation(textFileLocation);
+				if (result == null)
+					result = caseTextContainer(textFileLocation);
 				if (result == null)
 					result = caseResourceLocation(textFileLocation);
 				if (result == null)
@@ -247,6 +250,21 @@ public class IdeSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLocation(Location object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Text Container</em>'. <!--
+	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the
+	 * switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Text Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTextContainer(TextContainer object) {
 		return null;
 	}
 

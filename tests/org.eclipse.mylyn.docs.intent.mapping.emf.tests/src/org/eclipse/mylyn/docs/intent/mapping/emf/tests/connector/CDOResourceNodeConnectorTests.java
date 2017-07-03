@@ -100,6 +100,19 @@ public class CDOResourceNodeConnectorTests {
 	 */
 	public static class TestCDOTextResourceLocation extends AbstractTestCDOResourceNodeLocation implements ICDOTextResourceLocation {
 
+		/**
+		 * The containing text.
+		 */
+		private String text;
+
+		public void setText(String text) {
+			this.text = text;
+		}
+
+		public String getText() {
+			return text;
+		}
+
 	}
 
 	/**
@@ -190,7 +203,7 @@ public class CDOResourceNodeConnectorTests {
 				+ CDOServer.PORT);
 		CDOSession session = CDOUtils.openSession(connector, CDOServer.REPOSITORY_NAME);
 		transaction = CDOUtils.openTransaction(session);
-		CDOViewConnector.addSessionToCache(transaction);
+		viewConnector.addSessionToCache(transaction);
 
 		folder = transaction.createResourceFolder(CDOResourceNodeConnectorTests.class.getCanonicalName()
 				+ "/test/");
@@ -202,13 +215,13 @@ public class CDOResourceNodeConnectorTests {
 				+ "/test/test.resource");
 		transaction.commit();
 
-		CDOViewConnector.addSessionToCache(transaction);
+		viewConnector.addSessionToCache(transaction);
 		MappingUtils.getConnectorRegistry().register(viewConnector);
 	}
 
 	@AfterClass
 	public static void afterClass() throws Exception {
-		CDOViewConnector.removeSessionFromCache(transaction);
+		viewConnector.removeSessionFromCache(transaction);
 
 		resource.delete(null);
 		binaryResource.delete(null);

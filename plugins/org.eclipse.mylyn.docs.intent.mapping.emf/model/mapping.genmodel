@@ -36,6 +36,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//TextLocation/startOffset"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//TextLocation/endOffset"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="mapping.ecore#//TextContainer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//TextContainer/text"/>
+    </genClasses>
     <genClasses ecoreClass="mapping.ecore#//EObjectLocation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectLocation/URIFragment"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//EObjectLocation/savedURIFragment"/>

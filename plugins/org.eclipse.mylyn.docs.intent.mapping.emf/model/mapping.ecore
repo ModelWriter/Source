@@ -35,6 +35,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="endOffset" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="-1"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextContainer" abstract="true" interface="true"
+      eSuperTypes="#//Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EObjectLocation" eSuperTypes="#//Location">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="URIFragment" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -81,6 +85,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="-1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CDOBinaryResourceLocation" eSuperTypes="#//CDOFileLocation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CDOTextResourceLocation" eSuperTypes="#//CDOFileLocation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDOTextResourceLocation" eSuperTypes="#//CDOFileLocation #//TextContainer"/>
   <eClassifiers xsi:type="ecore:EClass" name="CDOResourceLocation" eSuperTypes="#//CDOFileLocation #//EObjectContainer"/>
 </ecore:EPackage>

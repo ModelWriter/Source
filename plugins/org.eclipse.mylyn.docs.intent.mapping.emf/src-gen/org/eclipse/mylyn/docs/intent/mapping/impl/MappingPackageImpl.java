@@ -38,6 +38,7 @@ import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingFactory;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.Report;
+import org.eclipse.mylyn.docs.intent.mapping.TextContainer;
 import org.eclipse.mylyn.docs.intent.mapping.TextLocation;
 
 /**
@@ -80,6 +81,13 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * @generated
 	 */
 	private EClass textLocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass textContainerEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -410,6 +418,24 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
+	public EClass getTextContainer() {
+		return textContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getTextContainer_Text() {
+		return (EAttribute)textContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getEObjectLocation() {
 		return eObjectLocationEClass;
 	}
@@ -718,6 +744,9 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		createEAttribute(textLocationEClass, TEXT_LOCATION__START_OFFSET);
 		createEAttribute(textLocationEClass, TEXT_LOCATION__END_OFFSET);
 
+		textContainerEClass = createEClass(TEXT_CONTAINER);
+		createEAttribute(textContainerEClass, TEXT_CONTAINER__TEXT);
+
 		eObjectLocationEClass = createEClass(EOBJECT_LOCATION);
 		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__URI_FRAGMENT);
 		createEAttribute(eObjectLocationEClass, EOBJECT_LOCATION__SAVED_URI_FRAGMENT);
@@ -796,6 +825,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		baseEClass.getESuperTypes().add(this.getIEMFBaseElement());
 		baseEClass.getESuperTypes().add(this.getLocationContainer());
 		textLocationEClass.getESuperTypes().add(this.getLocation());
+		textContainerEClass.getESuperTypes().add(this.getLocation());
 		eObjectLocationEClass.getESuperTypes().add(this.getLocation());
 		reportEClass.getESuperTypes().add(this.getIEMFBaseElement());
 		eObjectContainerEClass.getESuperTypes().add(this.getLocation());
@@ -805,6 +835,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		cdoRepositoryLocationEClass.getESuperTypes().add(this.getLocation());
 		cdoBinaryResourceLocationEClass.getESuperTypes().add(this.getCDOFileLocation());
 		cdoTextResourceLocationEClass.getESuperTypes().add(this.getCDOFileLocation());
+		cdoTextResourceLocationEClass.getESuperTypes().add(this.getTextContainer());
 		cdoResourceLocationEClass.getESuperTypes().add(this.getCDOFileLocation());
 		cdoResourceLocationEClass.getESuperTypes().add(this.getEObjectContainer());
 
@@ -861,6 +892,12 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTextLocation_EndOffset(), ecorePackage.getEInt(), "endOffset", "-1", 1, 1,
 				TextLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(textContainerEClass, TextContainer.class, "TextContainer", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTextContainer_Text(), ecorePackage.getEString(), "text", null, 1, 1,
+				TextContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eObjectLocationEClass, EObjectLocation.class, "EObjectLocation", !IS_ABSTRACT,

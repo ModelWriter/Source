@@ -118,7 +118,8 @@ public class BaseElementFactoryTests {
 		public void setContainer(ILocationContainer container) {
 			if (container != null) {
 				container.getContents().add(this);
-			} else if (this.container != null) {
+			}
+			if (this.container != null) {
 				this.container.getContents().remove(this);
 			}
 			this.container = container;

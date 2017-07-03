@@ -55,6 +55,7 @@ public class CDOTextResourceLocationItemProvider extends LocationItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addPathPropertyDescriptor(object);
+			addTextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -73,6 +74,19 @@ public class CDOTextResourceLocationItemProvider extends LocationItemProvider {
 								"_UI_CDOResourceNodeLocation_type"),
 				MappingPackage.Literals.CDO_RESOURCE_NODE_LOCATION__PATH, true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Text feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected void addTextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_TextContainer_text_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_TextContainer_text_feature",
+						"_UI_TextContainer_type"), MappingPackage.Literals.TEXT_CONTAINER__TEXT, true, false,
+				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -111,6 +125,7 @@ public class CDOTextResourceLocationItemProvider extends LocationItemProvider {
 
 		switch (notification.getFeatureID(CDOTextResourceLocation.class)) {
 			case MappingPackage.CDO_TEXT_RESOURCE_LOCATION__PATH:
+			case MappingPackage.CDO_TEXT_RESOURCE_LOCATION__TEXT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false,
 						true));
 				return;

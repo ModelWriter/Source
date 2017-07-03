@@ -6,8 +6,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FileLocation" eSuperTypes="#//ResourceLocation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TextFileLocation" eSuperTypes="#//FileLocation">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextFileLocation" eSuperTypes="#//FileLocation ../../org.eclipse.mylyn.docs.intent.mapping.emf/model/mapping.ecore#//TextContainer"/>
   <eClassifiers xsi:type="ecore:EClass" name="EObjectFileLocation" eSuperTypes="#//FileLocation ../../org.eclipse.mylyn.docs.intent.mapping.emf/model/mapping.ecore#//EObjectContainer"/>
 </ecore:EPackage>

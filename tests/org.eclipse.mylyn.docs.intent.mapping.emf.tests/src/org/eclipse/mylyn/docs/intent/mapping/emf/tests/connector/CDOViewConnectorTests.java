@@ -133,21 +133,21 @@ public class CDOViewConnectorTests {
 	/**
 	 * The connector to test.
 	 */
-	private TestCDOViewConnector connector = new TestCDOViewConnector();
+	private static TestCDOViewConnector connector = new TestCDOViewConnector();
 
 	@BeforeClass
 	public static void beforeClass() {
 		AllTests.startCDOServer();
-		IConnector connector = CDOUtils.getConnector(CDOServer.PROTOCOL + "://" + CDOServer.IP + ":"
+		IConnector c = CDOUtils.getConnector(CDOServer.PROTOCOL + "://" + CDOServer.IP + ":"
 				+ CDOServer.PORT);
-		CDOSession session = CDOUtils.openSession(connector, CDOServer.REPOSITORY_NAME);
+		CDOSession session = CDOUtils.openSession(c, CDOServer.REPOSITORY_NAME);
 		transaction = CDOUtils.openTransaction(session);
-		CDOViewConnector.addSessionToCache(transaction);
+		connector.addSessionToCache(transaction);
 	}
 
 	@AfterClass
 	public static void afterClass() {
-		CDOViewConnector.removeSessionFromCache(transaction);
+		connector.removeSessionFromCache(transaction);
 		transaction.close();
 		AllTests.stopCDOServer();
 	}

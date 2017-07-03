@@ -22,5 +22,5 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOTextResourceLocation;
  * @model
  * @generated NOT
  */
-public interface CDOTextResourceLocation extends CDOFileLocation, ICDOTextResourceLocation {
+public interface CDOTextResourceLocation extends CDOFileLocation, TextContainer, ICDOTextResourceLocation {
 } // CDOTextResourceLocation

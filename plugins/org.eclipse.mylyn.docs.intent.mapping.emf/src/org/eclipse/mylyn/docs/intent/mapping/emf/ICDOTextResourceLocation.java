@@ -11,11 +11,13 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf;
 
+import org.eclipse.mylyn.docs.intent.mapping.text.ITextContainer;
+
 /**
  * {@link org.eclipse.emf.cdo.eresource.CDOTextResource CDOTextResource} location.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface ICDOTextResourceLocation extends ICDOFileLocation {
+public interface ICDOTextResourceLocation extends ICDOFileLocation, ITextContainer {
 
 }

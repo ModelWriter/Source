@@ -492,18 +492,6 @@ public interface IdePackage extends EPackage {
 	EClass getTextFileLocation();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.mylyn.docs.intent.mapping.ide.TextFileLocation#getText <em>Text</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the attribute '<em>Text</em>'.
-	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.TextFileLocation#getText()
-	 * @see #getTextFileLocation()
-	 * @generated
-	 */
-	EAttribute getTextFileLocation_Text();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.ide.EObjectFileLocation
 	 * <em>EObject File Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -576,14 +564,6 @@ public interface IdePackage extends EPackage {
 		 * @generated
 		 */
 		EClass TEXT_FILE_LOCATION = eINSTANCE.getTextFileLocation();
-
-		/**
-		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature. <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EAttribute TEXT_FILE_LOCATION__TEXT = eINSTANCE.getTextFileLocation_Text();
 
 		/**
 		 * The meta object literal for the

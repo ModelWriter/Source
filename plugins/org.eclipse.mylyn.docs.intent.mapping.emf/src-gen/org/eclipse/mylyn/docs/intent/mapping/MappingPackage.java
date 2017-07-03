@@ -396,6 +396,95 @@ public interface MappingPackage extends EPackage {
 	int TEXT_LOCATION_OPERATION_COUNT = LOCATION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.TextContainer <em>Text
+	 * Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.eclipse.mylyn.docs.intent.mapping.TextContainer
+	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getTextContainer()
+	 * @generated
+	 */
+	int TEXT_CONTAINER = 5;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_CONTAINER__CONTENTS = LOCATION__CONTENTS;
+
+	/**
+	 * The feature id for the '<em><b>Source Links</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_CONTAINER__SOURCE_LINKS = LOCATION__SOURCE_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Target Links</b></em>' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_CONTAINER__TARGET_LINKS = LOCATION__TARGET_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_CONTAINER__CONTAINER = LOCATION__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_CONTAINER__TYPE = LOCATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Marked As Deleted</b></em>' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_CONTAINER__MARKED_AS_DELETED = LOCATION__MARKED_AS_DELETED;
+
+	/**
+	 * The feature id for the '<em><b>Text</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_CONTAINER__TEXT = LOCATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Text Container</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_CONTAINER_FEATURE_COUNT = LOCATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Text Container</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_CONTAINER_OPERATION_COUNT = LOCATION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.mylyn.docs.intent.mapping.impl.EObjectLocationImpl
 	 * <em>EObject Location</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -403,7 +492,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getEObjectLocation()
 	 * @generated
 	 */
-	int EOBJECT_LOCATION = 5;
+	int EOBJECT_LOCATION = 6;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -519,7 +608,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getLocationContainer()
 	 * @generated
 	 */
-	int LOCATION_CONTAINER = 6;
+	int LOCATION_CONTAINER = 7;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -556,7 +645,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getReport()
 	 * @generated
 	 */
-	int REPORT = 7;
+	int REPORT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -600,7 +689,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCouple()
 	 * @generated
 	 */
-	int COUPLE = 8;
+	int COUPLE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -643,7 +732,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getEObjectContainer()
 	 * @generated
 	 */
-	int EOBJECT_CONTAINER = 9;
+	int EOBJECT_CONTAINER = 10;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -742,7 +831,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOResourceNodeLocation()
 	 * @generated
 	 */
-	int CDO_RESOURCE_NODE_LOCATION = 10;
+	int CDO_RESOURCE_NODE_LOCATION = 11;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -831,7 +920,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOFileLocation()
 	 * @generated
 	 */
-	int CDO_FILE_LOCATION = 11;
+	int CDO_FILE_LOCATION = 12;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -920,7 +1009,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOFolderLocation()
 	 * @generated
 	 */
-	int CDO_FOLDER_LOCATION = 12;
+	int CDO_FOLDER_LOCATION = 13;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -1009,7 +1098,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDORepositoryLocation()
 	 * @generated
 	 */
-	int CDO_REPOSITORY_LOCATION = 13;
+	int CDO_REPOSITORY_LOCATION = 14;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -1124,7 +1213,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOBinaryResourceLocation()
 	 * @generated
 	 */
-	int CDO_BINARY_RESOURCE_LOCATION = 14;
+	int CDO_BINARY_RESOURCE_LOCATION = 15;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -1214,7 +1303,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOTextResourceLocation()
 	 * @generated
 	 */
-	int CDO_TEXT_RESOURCE_LOCATION = 15;
+	int CDO_TEXT_RESOURCE_LOCATION = 16;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -1278,13 +1367,21 @@ public interface MappingPackage extends EPackage {
 	int CDO_TEXT_RESOURCE_LOCATION__PATH = CDO_FILE_LOCATION__PATH;
 
 	/**
+	 * The feature id for the '<em><b>Text</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CDO_TEXT_RESOURCE_LOCATION__TEXT = CDO_FILE_LOCATION_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>CDO Text Resource Location</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int CDO_TEXT_RESOURCE_LOCATION_FEATURE_COUNT = CDO_FILE_LOCATION_FEATURE_COUNT + 0;
+	int CDO_TEXT_RESOURCE_LOCATION_FEATURE_COUNT = CDO_FILE_LOCATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>CDO Text Resource Location</em>' class. <!-- begin-user-doc -->
@@ -1303,7 +1400,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getCDOResourceLocation()
 	 * @generated
 	 */
-	int CDO_RESOURCE_LOCATION = 16;
+	int CDO_RESOURCE_LOCATION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list. <!-- begin-user-doc -->
@@ -1409,7 +1506,7 @@ public interface MappingPackage extends EPackage {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 17;
+	int TYPE = 18;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.Location
@@ -1625,6 +1722,28 @@ public interface MappingPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTextLocation_EndOffset();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.TextContainer <em>Text
+	 * Container</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Text Container</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.TextContainer
+	 * @generated
+	 */
+	EClass getTextContainer();
+
+	/**
+	 * Returns the meta object for the attribute
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.TextContainer#getText <em>Text</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Text</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.TextContainer#getText()
+	 * @see #getTextContainer()
+	 * @generated
+	 */
+	EAttribute getTextContainer_Text();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.EObjectLocation
@@ -2131,6 +2250,24 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TEXT_LOCATION__END_OFFSET = eINSTANCE.getTextLocation_EndOffset();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.TextContainer
+		 * <em>Text Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.eclipse.mylyn.docs.intent.mapping.TextContainer
+		 * @see org.eclipse.mylyn.docs.intent.mapping.impl.MappingPackageImpl#getTextContainer()
+		 * @generated
+		 */
+		EClass TEXT_CONTAINER = eINSTANCE.getTextContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute TEXT_CONTAINER__TEXT = eINSTANCE.getTextContainer_Text();
 
 		/**
 		 * The meta object literal for the

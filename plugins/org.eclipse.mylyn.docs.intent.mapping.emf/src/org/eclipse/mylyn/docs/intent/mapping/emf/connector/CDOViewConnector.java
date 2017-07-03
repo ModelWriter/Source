@@ -11,11 +11,11 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.emf.connector;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.cdo.internal.net4j.CDONet4jSessionImpl;
 import org.eclipse.emf.cdo.view.CDOView;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -33,12 +33,7 @@ public class CDOViewConnector extends AbstractConnector {
 	/**
 	 * The {@link MappingCDOListener}.
 	 */
-	private static final MappingCDOListener LISTENER = new MappingCDOListener();
-
-	/**
-	 * The {@link CDOView} cache.
-	 */
-	private static final Map<String, Map<Integer, CDOView>> VIEW_CACHE = new HashMap<String, Map<Integer, CDOView>>();
+	private final MappingCDOListener listener = new MappingCDOListener();
 
 	/**
 	 * Adds the given {@link CDOView} to the cache.
@@ -46,15 +41,8 @@ public class CDOViewConnector extends AbstractConnector {
 	 * @param view
 	 *            the {@link CDOView} to add
 	 */
-	public static void addSessionToCache(CDOView view) {
-		Map<Integer, CDOView> map = VIEW_CACHE.get(view.getSession().getRepositoryInfo().getUUID());
-		if (map == null) {
-			map = new HashMap<Integer, CDOView>();
-			VIEW_CACHE.put(view.getSession().getRepositoryInfo().getUUID(), map);
-		}
-		map.put(view.getBranch().getID(), view);
-
-		view.addListener(LISTENER);
+	public void addSessionToCache(CDOView view) {
+		listener.addSessionToCache(view);
 	}
 
 	/**
@@ -63,15 +51,28 @@ public class CDOViewConnector extends AbstractConnector {
 	 * @param view
 	 *            the {@link CDOView} to remove
 	 */
-	public static void removeSessionFromCache(CDOView view) {
-		view.removeListener(LISTENER);
+	public void removeSessionFromCache(CDOView view) {
+		listener.removeSessionFromCache(view);
+	}
 
-		Map<Integer, CDOView> map = VIEW_CACHE.get(view.getSession().getRepositoryInfo().getUUID());
-		if (map != null) {
-			if (map.remove(view.getBranch().getID()) != null && map.isEmpty()) {
-				VIEW_CACHE.remove(view.getSession().getRepositoryInfo().getUUID());
-			}
-		}
+	/**
+	 * Adds the given {@link IBase} to the {@link Set} of {@link IBase} to update.
+	 * 
+	 * @param base
+	 *            the {@link IBase}
+	 */
+	public void addBaseToUpdate(IBase base) {
+		listener.addBaseToUpdate(base);
+	}
+
+	/**
+	 * Removes the given {@link IBase} from the {@link Set} of {@link IBase} to update.
+	 * 
+	 * @param base
+	 *            the {@link IBase}
+	 */
+	public void removeBaseToUpdate(IBase base) {
+		listener.removeBaseToUpdate(base);
 	}
 
 	/**
@@ -121,18 +122,7 @@ public class CDOViewConnector extends AbstractConnector {
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getElement(org.eclipse.mylyn.docs.intent.mapping.base.ILocation)
 	 */
 	public Object getElement(ILocation location) {
-		final CDOView res;
-
-		final Map<Integer, CDOView> map = VIEW_CACHE.get(((ICDORepositoryLocation)location).getUUID());
-		if (map != null) {
-			res = map.get(((ICDORepositoryLocation)location).getBranchID());
-		} else {
-			res = null;
-		}
-
-		// TODO if not in cache open a session/view...
-
-		return res;
+		return listener.getElement(location);
 	}
 
 	/**
