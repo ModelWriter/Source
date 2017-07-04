@@ -43,7 +43,7 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class MappingBaseListener implements IResourceChangeListener {
+public class WorkspaceMappingBaseListener implements IResourceChangeListener {
 
 	/**
 	 * The "Unable to load mapping base from " message.
@@ -63,7 +63,7 @@ public class MappingBaseListener implements IResourceChangeListener {
 	 * @param scan
 	 *            tells if we should scan the workspace
 	 */
-	public MappingBaseListener(boolean scan) {
+	public WorkspaceMappingBaseListener(boolean scan) {
 		if (scan) {
 			scan(ResourcesPlugin.getWorkspace().getRoot());
 		}

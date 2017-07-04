@@ -39,7 +39,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		EMFReportTests.class, CDOViewConnectorTests.class, CDOResourceNodeConnectorTests.class,
 		EMFCDORepositoryLocationTests.class, EMFCDOFolderLocationTests.class,
 		EMFCDOBinaryResourceLocationTests.class, EMFCDOTextResourceLocationTests.class,
-		MappingCDOListenerTest.class })
+		MappingCDOListenerTest.class, CDOMappingBaseListenerTests.class })
 public class AllTests {
 	/**
 	 * The {@link CDOServer}.

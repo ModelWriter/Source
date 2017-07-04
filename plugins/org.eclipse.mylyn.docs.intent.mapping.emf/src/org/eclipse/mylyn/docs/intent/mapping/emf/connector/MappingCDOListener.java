@@ -140,7 +140,6 @@ public class MappingCDOListener implements IListener {
 			checkDetachedObjects(cdoSessionInvalidationEvent);
 
 			checkChangedObjects(cdoSessionInvalidationEvent);
-
 		}
 	}
 

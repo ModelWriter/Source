@@ -35,7 +35,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses(value = {EMFResourceLocationTests.class, EMFTextFileLocationTests.class,
 		EMFEObjectFileLocationTests.class, EObjectFileConnectorDelegateTests.class,
-		MappingBaseListenerTests.class, IdeEObjectConnectorTests.class, IdeEObjectConnectorCDOTests.class,
+		WorkspaceMappingBaseListenerTests.class, IdeEObjectConnectorTests.class, IdeEObjectConnectorCDOTests.class,
 		IdeEObjectConnectorParametrizedTests.class, IdeEObjectConnectorParametrizedCDOTests.class,
 		EObjectLocationToMarkerAdapterFactoryTests.class, MarkerToEObjectLocationTests.class,
 		IdeCDOViewConnectorTests.class, IdeCDOResourceNodeConnectorTests.class, })

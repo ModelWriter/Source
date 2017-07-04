@@ -34,7 +34,7 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
-import org.eclipse.mylyn.docs.intent.mapping.emf.ide.MappingBaseListener;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.WorkspaceMappingBaseListener;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,16 +43,16 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
- * Tests {@link MappingBaseListener}.
+ * Tests {@link WorkspaceMappingBaseListener}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class MappingBaseListenerTests {
+public class WorkspaceMappingBaseListenerTests {
 
 	/**
 	 * Make sure org.eclipse.mylyn.docs.intent.mapping.emf.ide is activated.
 	 */
-	private static final MappingBaseListener LISTENER = new MappingBaseListener(false);
+	private static final WorkspaceMappingBaseListener LISTENER = new WorkspaceMappingBaseListener(false);
 
 	/**
 	 * Test {@link IBaseRegistryListener}.

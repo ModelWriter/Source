@@ -29,9 +29,9 @@ public class Activator extends Plugin {
 	private static Activator plugin;
 
 	/**
-	 * The {@link MappingBaseListener}.
+	 * The {@link WorkspaceMappingBaseListener}.
 	 */
-	private MappingBaseListener mappingBaseListener;
+	private WorkspaceMappingBaseListener mappingBaseListener;
 
 	/**
 	 * {@inheritDoc}
@@ -42,7 +42,7 @@ public class Activator extends Plugin {
 		super.start(context);
 		plugin = this;
 
-		mappingBaseListener = new MappingBaseListener(true);
+		mappingBaseListener = new WorkspaceMappingBaseListener(true);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(mappingBaseListener);
 	}
 
