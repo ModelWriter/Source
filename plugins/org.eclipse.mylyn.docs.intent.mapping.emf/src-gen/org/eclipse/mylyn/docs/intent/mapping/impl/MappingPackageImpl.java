@@ -382,6 +382,15 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 	 * 
 	 * @generated
 	 */
+	public EAttribute getBase_ContainerProviders() {
+		return (EAttribute)baseEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getIEMFBaseElement() {
 		return iemfBaseElementEClass;
 	}
@@ -737,6 +746,7 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		baseEClass = createEClass(BASE);
 		createEAttribute(baseEClass, BASE__NAME);
 		createEReference(baseEClass, BASE__REPORTS);
+		createEAttribute(baseEClass, BASE__CONTAINER_PROVIDERS);
 
 		iemfBaseElementEClass = createEClass(IEMF_BASE_ELEMENT);
 
@@ -881,6 +891,9 @@ public class MappingPackageImpl extends EPackageImpl implements MappingPackage {
 		initEReference(getBase_Reports(), this.getReport(), null, "reports", null, 0, -1, Base.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBase_ContainerProviders(), ecorePackage.getEString(), "containerProviders", null, 0,
+				-1, Base.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(iemfBaseElementEClass, IEMFBaseElement.class, "IEMFBaseElement", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

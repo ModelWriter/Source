@@ -6,6 +6,7 @@
    <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider" name="Base Provider" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.baseProvider.exsd"/>
    <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.connector" name="Mapping Connector" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.connector.exsd"/>
    <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.markerToLocation" name="MarkerToLocation" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.markerToLocation.exsd"/>
+   <extension-point id="org.eclipse.mylyn.docs.intent.mapping.ide.containerProvider" name="ContainerProvider" schema="schema/org.eclipse.mylyn.docs.intent.mapping.ide.containerProvider.exsd"/>
    <extension
          point="org.eclipse.mylyn.docs.intent.mapping.ide.connector">
       <connector

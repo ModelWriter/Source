@@ -30,6 +30,7 @@
     <genClasses ecoreClass="mapping.ecore#//Base">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Base/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mapping.ecore#//Base/reports"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mapping.ecore#//Base/containerProviders"/>
     </genClasses>
     <genClasses image="false" ecoreClass="mapping.ecore#//IEMFBaseElement"/>
     <genClasses ecoreClass="mapping.ecore#//TextLocation">

@@ -27,6 +27,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reports" upperBound="-1"
         eType="#//Report" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="containerProviders" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IEMFBaseElement" abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="TextLocation" eSuperTypes="#//Location">

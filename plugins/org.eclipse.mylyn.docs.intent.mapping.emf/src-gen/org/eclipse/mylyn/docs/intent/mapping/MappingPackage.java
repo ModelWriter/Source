@@ -280,13 +280,22 @@ public interface MappingPackage extends EPackage {
 	int BASE__REPORTS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Container Providers</b></em>' attribute list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int BASE__CONTAINER_PROVIDERS = IEMF_BASE_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Base</em>' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int BASE_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 3;
+	int BASE_FEATURE_COUNT = IEMF_BASE_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Base</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1680,6 +1689,18 @@ public interface MappingPackage extends EPackage {
 	EReference getBase_Reports();
 
 	/**
+	 * Returns the meta object for the attribute list
+	 * '{@link org.eclipse.mylyn.docs.intent.mapping.Base#getContainerProviders <em>Container
+	 * Providers</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute list '<em>Container Providers</em>'.
+	 * @see org.eclipse.mylyn.docs.intent.mapping.Base#getContainerProviders()
+	 * @see #getBase()
+	 * @generated
+	 */
+	EAttribute getBase_ContainerProviders();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement
 	 * <em>IEMF Base Element</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -2214,6 +2235,14 @@ public interface MappingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BASE__REPORTS = eINSTANCE.getBase_Reports();
+
+		/**
+		 * The meta object literal for the '<em><b>Container Providers</b></em>' attribute list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute BASE__CONTAINER_PROVIDERS = eINSTANCE.getBase_ContainerProviders();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.mylyn.docs.intent.mapping.IEMFBaseElement

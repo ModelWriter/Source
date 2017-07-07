@@ -62,6 +62,7 @@ public class BaseItemProvider extends CDOItemProviderAdapter implements IEditing
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addContainerProvidersPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -77,6 +78,21 @@ public class BaseItemProvider extends CDOItemProviderAdapter implements IEditing
 						"_UI_PropertyDescriptor_description", "_UI_Base_name_feature", "_UI_Base_type"),
 				MappingPackage.Literals.BASE__NAME, true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Container Providers feature. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected void addContainerProvidersPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString(
+						"_UI_Base_containerProviders_feature"), getString(
+								"_UI_PropertyDescriptor_description", "_UI_Base_containerProviders_feature",
+								"_UI_Base_type"), MappingPackage.Literals.BASE__CONTAINER_PROVIDERS, true,
+				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -145,6 +161,7 @@ public class BaseItemProvider extends CDOItemProviderAdapter implements IEditing
 
 		switch (notification.getFeatureID(Base.class)) {
 			case MappingPackage.BASE__NAME:
+			case MappingPackage.BASE__CONTAINER_PROVIDERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false,
 						true));
 				return;

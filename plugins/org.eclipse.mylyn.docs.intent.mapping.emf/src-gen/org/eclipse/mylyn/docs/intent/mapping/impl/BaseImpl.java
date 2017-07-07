@@ -29,6 +29,7 @@ import org.eclipse.mylyn.docs.intent.mapping.LocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.MappingPackage;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.base.ContainerProviderRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
@@ -52,18 +53,29 @@ import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getContents <em>Contents</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getName <em>Name</em>}</li>
  * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getReports <em>Reports</em>}</li>
+ * <li>{@link org.eclipse.mylyn.docs.intent.mapping.impl.BaseImpl#getContainerProviders <em>Container
+ * Providers</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class BaseImpl extends CDOObjectImpl implements Base {
+
+	/**
+	 * The {@link ContainerProviderRegistry}.
+	 * 
+	 * @generated NOT
+	 */
+	private final ContainerProviderRegistry registry;
+
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	public BaseImpl() {
 		super();
+		registry = new ContainerProviderRegistry(this);
 	}
 
 	/**
@@ -122,6 +134,16 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 	@SuppressWarnings("unchecked")
 	public EList<IReport> getReports() {
 		return (EList<IReport>)eGet(MappingPackage.Literals.BASE__REPORTS, true);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public EList<String> getContainerProviders() {
+		return (EList<String>)eGet(MappingPackage.Literals.BASE__CONTAINER_PROVIDERS, true);
 	}
 
 	/**
@@ -268,6 +290,43 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 							}
 					}
 					break;
+				case MappingPackage.BASE__CONTAINER_PROVIDERS:
+					switch (msg.getEventType()) {
+						case Notification.ADD:
+							for (Adapter adapter : eAdapters) {
+								if (adapter instanceof BaseAdapter) {
+									((BaseAdapter)adapter).listener.containerProviderAdded((String)msg
+											.getNewValue());
+								}
+							}
+							break;
+						case Notification.ADD_MANY:
+							for (Adapter adapter : eAdapters) {
+								if (adapter instanceof BaseAdapter) {
+									for (String provider : (List<String>)msg.getNewValue()) {
+										((BaseAdapter)adapter).listener.containerProviderAdded(provider);
+									}
+								}
+							}
+							break;
+						case Notification.REMOVE:
+							for (Adapter adapter : eAdapters) {
+								if (adapter instanceof BaseAdapter) {
+									((BaseAdapter)adapter).listener.containerProviderRemoved((String)msg
+											.getOldValue());
+								}
+							}
+							break;
+						case Notification.REMOVE_MANY:
+							for (Adapter adapter : eAdapters) {
+								if (adapter instanceof BaseAdapter) {
+									for (String provider : (List<String>)msg.getOldValue()) {
+										((BaseAdapter)adapter).listener.containerProviderRemoved(provider);
+									}
+								}
+							}
+					}
+					break;
 			}
 		}
 	}
@@ -306,6 +365,12 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 	 */
 	private final BaseElementFactory factory = initElementFactory();
 
+	/**
+	 * Initializes a {@link BaseElementFactory}.
+	 * 
+	 * @return the created and initialized {@link BaseElementFactory}
+	 * @generated NOT
+	 */
 	private BaseElementFactory initElementFactory() {
 		BaseElementFactory res = new BaseElementFactory();
 
@@ -356,4 +421,15 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 					+ " is not contained in a resource and can't be saved.");
 		}
 	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBase#getContainerProviderRegistry()
+	 * @generated NOT
+	 */
+	public ContainerProviderRegistry getContainerProviderRegistry() {
+		return registry;
+	}
+
 } // BaseImpl
