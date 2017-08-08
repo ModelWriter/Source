@@ -33,13 +33,13 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {EMFBaseTests.class, EMFLinkTests.class, EMFTextLocationTests.class,
-		EMFEObjectLocationTests.class, EObjectConnectorTests.class, EObjectConnectorCDOTests.class,
-		EObjectConnectorParametrizedTests.class, EObjectConnectorParametrizedCDOTests.class,
-		EMFReportTests.class, CDOViewConnectorTests.class, CDOResourceNodeConnectorTests.class,
-		EMFCDORepositoryLocationTests.class, EMFCDOFolderLocationTests.class,
-		EMFCDOBinaryResourceLocationTests.class, EMFCDOTextResourceLocationTests.class,
-		MappingCDOListenerTest.class, CDOMappingBaseListenerTests.class })
+@SuiteClasses(value = {CDOMappingBaseListenerTests.class, EMFBaseTests.class, EMFLinkTests.class,
+		EMFTextLocationTests.class, EMFEObjectLocationTests.class, EObjectConnectorTests.class,
+		EObjectConnectorCDOTests.class, EObjectConnectorParametrizedTests.class,
+		EObjectConnectorParametrizedCDOTests.class, EMFReportTests.class, CDOViewConnectorTests.class,
+		CDOResourceNodeConnectorTests.class, EMFCDORepositoryLocationTests.class,
+		EMFCDOFolderLocationTests.class, EMFCDOBinaryResourceLocationTests.class,
+		EMFCDOTextResourceLocationTests.class, MappingCDOListenerTest.class, })
 public class AllTests {
 	/**
 	 * The {@link CDOServer}.

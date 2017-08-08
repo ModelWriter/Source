@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
+import org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider;
+
 /**
  * Listen to {@link IBase} changes.
  *
@@ -53,6 +55,24 @@ public interface IBaseListener extends ILocationContainerListener {
 			// nothing to do here
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#containerProviderAdded(java.lang.String)
+		 */
+		public void containerProviderAdded(String provider) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#containerProviderRemoved(java.lang.String)
+		 */
+		public void containerProviderRemoved(String provider) {
+			// nothing to do here
+		}
+
 	}
 
 	/**
@@ -80,5 +100,21 @@ public interface IBaseListener extends ILocationContainerListener {
 	 *            the removed {@link IBase#getReports() reports} {@link IReport}
 	 */
 	void reportRemoved(IReport report);
+
+	/**
+	 * Notifies when the {@link IBase#getContainerProviders() providers} is added.
+	 * 
+	 * @param provider
+	 *            the {@link IContainerProvider} {@link Class#getCanonicalName() class name}
+	 */
+	void containerProviderAdded(String provider);
+
+	/**
+	 * Notifies when the {@link IBase#getContainerProviders() provider} is removed.
+	 * 
+	 * @param provider
+	 *            the {@link IContainerProvider} {@link Class#getCanonicalName() class name}
+	 */
+	void containerProviderRemoved(String provider);
 
 }

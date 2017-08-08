@@ -17,11 +17,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
+import org.eclipse.mylyn.docs.intent.mapping.base.ContainerProviderRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider;
 import org.eclipse.mylyn.docs.intent.mapping.internal.base.BaseRegistry;
 import org.junit.After;
 import org.junit.Before;
@@ -86,6 +88,20 @@ public class BaseRegistryTests {
 		 */
 		private final BaseElementFactory factory = new BaseElementFactory();
 
+		/**
+		 * The {@link ContainerProviderRegistry}.
+		 */
+		private final ContainerProviderRegistry registry;
+
+		/**
+		 * The {@link List} of {@link IContainerProvider} {@link Class#getCanonicalName() class name}.
+		 */
+		private List<String> containerProviders = new ArrayList<String>();
+
+		public TestBase() {
+			registry = new ContainerProviderRegistry(this);
+		}
+
 		public void setName(String name) {
 			// nothing to do here
 		}
@@ -117,6 +133,14 @@ public class BaseRegistryTests {
 
 		public void save() throws IOException {
 			// nothing to do here
+		}
+
+		public ContainerProviderRegistry getContainerProviderRegistry() {
+			return registry;
+		}
+
+		public List<String> getContainerProviders() {
+			return containerProviders;
 		}
 
 	}

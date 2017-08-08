@@ -44,7 +44,6 @@ public class BaseElementFactory {
 		 *             if the {@link Class} can't be found in the {@link ClassLoader}
 		 */
 		T createElement() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-
 	}
 
 	/**
@@ -89,7 +88,7 @@ public class BaseElementFactory {
 	private final Map<Class<? extends IBaseElement>, IFactoryDescriptor<?>> descriptorMapping = new HashMap<Class<? extends IBaseElement>, IFactoryDescriptor<?>>();
 
 	/**
-	 * Gets the instance {@link IFactoryDescriptor} of the given interface {@link Class} from the
+	 * Gets the instance {@link IFactoryDescriptor} for the given interface {@link Class} from the
 	 * {@link BaseElementFactory#descriptorMapping mapping}.
 	 * 
 	 * @param cls
@@ -146,7 +145,7 @@ public class BaseElementFactory {
 	 * @param interfaceCls
 	 *            the interface {@link Class}
 	 * @param descriptor
-	 *            the {@link LazyFactoryDescriptor}
+	 *            the {@link IFactoryDescriptor}
 	 * @param <T>
 	 *            the {@link IBaseElement} kind
 	 */

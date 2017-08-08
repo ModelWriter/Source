@@ -71,7 +71,7 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated NOT
+	 * @generated
 	 */
 	public BaseImpl() {
 		super();
@@ -210,47 +210,24 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 			final List<Adapter> eAdapters = new ArrayList<Adapter>(eAdapters());
 			switch (msg.getFeatureID(Base.class)) {
 				case MappingPackage.BASE__NAME:
-					for (Adapter adapter : eAdapters) {
-						if (adapter instanceof BaseAdapter) {
-							((BaseAdapter)adapter).listener.nameChanged((String)msg.getOldValue(), (String)msg
-									.getNewValue());
-						}
-					}
+					listener.nameChanged((String)msg.getOldValue(), (String)msg.getNewValue());
 					break;
 				case MappingPackage.BASE__CONTENTS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									((BaseAdapter)adapter).listener.contentsAdded((ILocation)msg
-											.getNewValue());
-								}
-							}
+							listener.contentsAdded((ILocation)msg.getNewValue());
 							break;
 						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									for (ILocation location : (List<ILocation>)msg.getNewValue()) {
-										((BaseAdapter)adapter).listener.contentsAdded(location);
-									}
-								}
+							for (ILocation location : (List<ILocation>)msg.getNewValue()) {
+								listener.contentsAdded(location);
 							}
 							break;
 						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									((BaseAdapter)adapter).listener.contentsRemoved((ILocation)msg
-											.getOldValue());
-								}
-							}
+							listener.contentsRemoved((ILocation)msg.getOldValue());
 							break;
 						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									for (ILocation location : (List<ILocation>)msg.getOldValue()) {
-										((BaseAdapter)adapter).listener.contentsRemoved(location);
-									}
-								}
+							for (ILocation location : (List<ILocation>)msg.getOldValue()) {
+								listener.contentsRemoved(location);
 							}
 							break;
 					}
@@ -258,73 +235,41 @@ public class BaseImpl extends CDOObjectImpl implements Base {
 				case MappingPackage.BASE__REPORTS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									((BaseAdapter)adapter).listener.reportAdded((IReport)msg.getNewValue());
-								}
-							}
+							listener.reportAdded((IReport)msg.getNewValue());
 							break;
 						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									for (IReport report : (List<IReport>)msg.getNewValue()) {
-										((BaseAdapter)adapter).listener.reportAdded(report);
-									}
-								}
+							for (IReport report : (List<IReport>)msg.getNewValue()) {
+								listener.reportAdded(report);
 							}
 							break;
 						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									((BaseAdapter)adapter).listener.reportRemoved((IReport)msg.getOldValue());
-								}
-							}
+							listener.reportRemoved((IReport)msg.getOldValue());
 							break;
 						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									for (IReport report : (List<IReport>)msg.getOldValue()) {
-										((BaseAdapter)adapter).listener.reportRemoved(report);
-									}
-								}
+							for (IReport report : (List<IReport>)msg.getOldValue()) {
+								listener.reportRemoved(report);
 							}
+							break;
 					}
 					break;
 				case MappingPackage.BASE__CONTAINER_PROVIDERS:
 					switch (msg.getEventType()) {
 						case Notification.ADD:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									((BaseAdapter)adapter).listener.containerProviderAdded((String)msg
-											.getNewValue());
-								}
-							}
+							listener.containerProviderAdded((String)msg.getNewValue());
 							break;
 						case Notification.ADD_MANY:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									for (String provider : (List<String>)msg.getNewValue()) {
-										((BaseAdapter)adapter).listener.containerProviderAdded(provider);
-									}
-								}
+							for (String provider : (List<String>)msg.getNewValue()) {
+								listener.containerProviderAdded(provider);
 							}
 							break;
 						case Notification.REMOVE:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									((BaseAdapter)adapter).listener.containerProviderRemoved((String)msg
-											.getOldValue());
-								}
-							}
+							listener.containerProviderRemoved((String)msg.getOldValue());
 							break;
 						case Notification.REMOVE_MANY:
-							for (Adapter adapter : eAdapters) {
-								if (adapter instanceof BaseAdapter) {
-									for (String provider : (List<String>)msg.getOldValue()) {
-										((BaseAdapter)adapter).listener.containerProviderRemoved(provider);
-									}
-								}
+							for (String provider : (List<String>)msg.getOldValue()) {
+								listener.containerProviderRemoved(provider);
 							}
+							break;
 					}
 					break;
 			}

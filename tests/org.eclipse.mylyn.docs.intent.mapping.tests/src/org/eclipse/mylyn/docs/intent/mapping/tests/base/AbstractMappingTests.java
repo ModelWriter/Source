@@ -64,6 +64,16 @@ public abstract class AbstractMappingTests {
 		 */
 		private int reportRemoved;
 
+		/**
+		 * Number of time {@link TestBaseListener#containerProviderAdded(String)} has been called.
+		 */
+		private int containerProviderAdded;
+
+		/**
+		 * Number of time {@link TestBaseListener#containerProviderRemoved(String)} has been called.
+		 */
+		private int containerProviderRemoved;
+
 		public void nameChanged(String oldName, String newName) {
 			nameChanged++;
 		}
@@ -102,6 +112,24 @@ public abstract class AbstractMappingTests {
 		 */
 		public void reportRemoved(IReport report) {
 			reportRemoved++;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#containerProviderAdded(java.lang.String)
+		 */
+		public void containerProviderAdded(String provider) {
+			containerProviderAdded++;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#containerProviderRemoved(java.lang.String)
+		 */
+		public void containerProviderRemoved(String provider) {
+			containerProviderRemoved++;
 		}
 
 	}
@@ -295,12 +323,15 @@ public abstract class AbstractMappingTests {
 	protected abstract IBaseFactory getFactory();
 
 	protected void assertTestBaseListener(TestBaseListener listener, int nameChanged, int rootLocationAdded,
-			int rootLocationRemoved, int reportAdded, int reportRemoved) {
+			int rootLocationRemoved, int reportAdded, int reportRemoved, int containerProviderAdded,
+			int containerProvidersRemoved) {
 		assertEquals(nameChanged, listener.nameChanged);
 		assertEquals(rootLocationAdded, listener.rootLocationAdded);
 		assertEquals(rootLocationRemoved, listener.rootLocationRemoved);
 		assertEquals(reportAdded, listener.reportAdded);
 		assertEquals(reportRemoved, listener.reportRemoved);
+		assertEquals(containerProviderAdded, listener.containerProviderAdded);
+		assertEquals(containerProvidersRemoved, listener.containerProviderRemoved);
 	}
 
 	protected void assertTestLinkListener(TestLinkListener listener, int descriptionChanged,

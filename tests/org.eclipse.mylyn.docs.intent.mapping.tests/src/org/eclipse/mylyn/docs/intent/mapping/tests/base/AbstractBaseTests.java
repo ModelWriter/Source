@@ -14,11 +14,15 @@ package org.eclipse.mylyn.docs.intent.mapping.tests.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.ContainerProviderFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
+import org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
 import org.eclipse.mylyn.docs.intent.mapping.text.ITextLocation;
 import org.junit.Test;
 
@@ -33,6 +37,76 @@ import static org.junit.Assert.assertTrue;
  */
 public abstract class AbstractBaseTests extends AbstractMappingTests {
 
+	/**
+	 * A test {@link IContainerProvider}.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class TestContainerProvider1 implements IContainerProvider {
+
+		/**
+		 * The container.
+		 */
+		public static final Object CONTAINER = new Object();
+
+		/**
+		 * The child.
+		 */
+		public static final Object CHILD = new Object();
+
+		public Object getContainer(Object element) {
+			final Object res;
+
+			if (element == CHILD) {
+				res = CONTAINER;
+			} else {
+				res = null;
+			}
+
+			return res;
+		}
+
+		public Class<? extends ILocation> getType() {
+			return TestLocation.class;
+		}
+
+	}
+
+	/**
+	 * A test {@link IContainerProvider}.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class TestContainerProvider2 implements IContainerProvider {
+
+		/**
+		 * The container.
+		 */
+		public static final Object CONTAINER = new Object();
+
+		/**
+		 * The child.
+		 */
+		public static final Object CHILD = new Object();
+
+		public Object getContainer(Object element) {
+			final Object res;
+
+			if (element == CHILD) {
+				res = CONTAINER;
+			} else {
+				res = null;
+			}
+
+			return res;
+		}
+
+		public Class<? extends ILocation> getType() {
+			return TestLocation.class;
+		}
+
+	}
+
 	@Test
 	public void setNameNull() {
 		final TestBaseListener listener = new TestBaseListener();
@@ -46,8 +120,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 
 		assertNull(base.getName());
 
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -64,8 +138,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 
 		assertEquals("base", base.getName());
 
-		assertTestBaseListener(listener, 1, 0, 0, 0, 0);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(listener, 1, 0, 0, 0, 0, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -92,8 +166,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 		assertEquals(1, base.getContents().size());
 		assertEquals(location, base.getContents().get(0));
 
-		assertTestBaseListener(listener, 0, 1, 0, 0, 0);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(listener, 0, 1, 0, 0, 0, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -118,8 +192,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 		assertEquals(location1, base.getContents().get(0));
 		assertEquals(location2, base.getContents().get(1));
 
-		assertTestBaseListener(listener, 0, 2, 0, 0, 0);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(listener, 0, 2, 0, 0, 0, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -143,8 +217,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 
 		assertEquals(0, base.getContents().size());
 
-		assertTestBaseListener(listener, 0, 1, 1, 0, 0);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(listener, 0, 1, 1, 0, 0, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -173,8 +247,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 
 		assertEquals(0, base.getContents().size());
 
-		assertTestBaseListener(listener, 0, 2, 2, 0, 0);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(listener, 0, 2, 2, 0, 0, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -193,8 +267,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 		assertEquals(1, base.getReports().size());
 		assertEquals(report, base.getReports().get(0));
 
-		assertTestBaseListener(listener, 0, 0, 0, 1, 0);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(listener, 0, 0, 0, 1, 0, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -219,8 +293,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 		assertEquals(report1, base.getReports().get(0));
 		assertEquals(report2, base.getReports().get(1));
 
-		assertTestBaseListener(listener, 0, 0, 0, 2, 0);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(listener, 0, 0, 0, 2, 0, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -243,8 +317,8 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 
 		assertEquals(0, base.getReports().size());
 
-		assertTestBaseListener(listener, 0, 0, 0, 1, 1);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(listener, 0, 0, 0, 1, 1, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test
@@ -273,8 +347,159 @@ public abstract class AbstractBaseTests extends AbstractMappingTests {
 
 		assertEquals(0, base.getReports().size());
 
-		assertTestBaseListener(listener, 0, 0, 0, 2, 2);
-		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0);
+		assertTestBaseListener(listener, 0, 0, 0, 2, 2, 0, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+	}
+
+	@Test
+	public void addContainerProvider() {
+		final TestBaseListener listener = new TestBaseListener();
+		final TestBaseListener removedListener = new TestBaseListener();
+
+		final IBase base = getBase();
+		base.addListener(listener);
+		base.addListener(removedListener);
+		base.removeListener(removedListener);
+
+		MappingUtils.getContainerProviderFactory().addDescriptor(
+				new ContainerProviderFactory.FactoryDescriptor(TestContainerProvider1.class));
+
+		final String containerProvider = "org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractBaseTests.TestContainerProvider1";
+
+		base.getContainerProviders().add(containerProvider);
+
+		assertEquals(1, base.getContainerProviders().size());
+		assertEquals(containerProvider, base.getContainerProviders().get(0));
+		assertEquals(TestContainerProvider1.CONTAINER, base.getContainerProviderRegistry().getContainer(
+				TestContainerProvider1.CHILD));
+
+		assertTestBaseListener(listener, 0, 0, 0, 0, 0, 1, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+
+		MappingUtils.getContainerProviderFactory().removeDescriptor(TestContainerProvider1.class
+				.getCanonicalName());
+	}
+
+	@Test
+	public void addManyContainerProviders() {
+		final TestBaseListener listener = new TestBaseListener();
+		final TestBaseListener removedListener = new TestBaseListener();
+
+		final IBase base = getBase();
+		base.addListener(listener);
+		base.addListener(removedListener);
+		base.removeListener(removedListener);
+
+		MappingUtils.getContainerProviderFactory().addDescriptor(
+				new ContainerProviderFactory.FactoryDescriptor(TestContainerProvider1.class));
+		MappingUtils.getContainerProviderFactory().addDescriptor(
+				new ContainerProviderFactory.FactoryDescriptor(TestContainerProvider2.class));
+
+		final String containerProvider1 = "org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractBaseTests.TestContainerProvider1";
+		final String containerProvider2 = "org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractBaseTests.TestContainerProvider2";
+		final List<String> containerProviders = new ArrayList<String>();
+		containerProviders.add(containerProvider1);
+		containerProviders.add(containerProvider2);
+
+		base.getContainerProviders().addAll(containerProviders);
+
+		assertEquals(2, base.getContainerProviders().size());
+		assertEquals(containerProvider1, base.getContainerProviders().get(0));
+		assertEquals(containerProvider2, base.getContainerProviders().get(1));
+		assertEquals(TestContainerProvider1.CONTAINER, base.getContainerProviderRegistry().getContainer(
+				TestContainerProvider1.CHILD));
+		assertEquals(TestContainerProvider2.CONTAINER, base.getContainerProviderRegistry().getContainer(
+				TestContainerProvider2.CHILD));
+
+		assertTestBaseListener(listener, 0, 0, 0, 0, 0, 2, 0);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+
+		MappingUtils.getContainerProviderFactory().removeDescriptor(TestContainerProvider1.class
+				.getCanonicalName());
+		MappingUtils.getContainerProviderFactory().removeDescriptor(TestContainerProvider2.class
+				.getCanonicalName());
+	}
+
+	@Test
+	public void removeContainerProvider() {
+		final TestBaseListener listener = new TestBaseListener();
+		final TestBaseListener removedListener = new TestBaseListener();
+
+		final IBase base = getBase();
+		base.addListener(listener);
+		base.addListener(removedListener);
+		base.removeListener(removedListener);
+
+		MappingUtils.getContainerProviderFactory().addDescriptor(
+				new ContainerProviderFactory.FactoryDescriptor(TestContainerProvider1.class));
+
+		final String containerProvider = "org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractBaseTests.TestContainerProvider1";
+
+		base.getContainerProviders().add(containerProvider);
+
+		assertEquals(1, base.getContainerProviders().size());
+		assertEquals(containerProvider, base.getContainerProviders().get(0));
+		assertEquals(TestContainerProvider1.CONTAINER, base.getContainerProviderRegistry().getContainer(
+				TestContainerProvider1.CHILD));
+
+		base.getContainerProviders().remove(containerProvider);
+
+		assertEquals(0, base.getContainerProviders().size());
+
+		assertEquals(null, base.getContainerProviderRegistry().getContainer(TestContainerProvider1.CHILD));
+
+		assertTestBaseListener(listener, 0, 0, 0, 0, 0, 1, 1);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+
+		MappingUtils.getContainerProviderFactory().removeDescriptor(TestContainerProvider1.class
+				.getCanonicalName());
+	}
+
+	@Test
+	public void removeManyContainerProviders() {
+		final TestBaseListener listener = new TestBaseListener();
+		final TestBaseListener removedListener = new TestBaseListener();
+
+		final IBase base = getBase();
+		base.addListener(listener);
+		base.addListener(removedListener);
+		base.removeListener(removedListener);
+
+		MappingUtils.getContainerProviderFactory().addDescriptor(
+				new ContainerProviderFactory.FactoryDescriptor(TestContainerProvider1.class));
+		MappingUtils.getContainerProviderFactory().addDescriptor(
+				new ContainerProviderFactory.FactoryDescriptor(TestContainerProvider2.class));
+
+		final String containerProvider1 = "org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractBaseTests.TestContainerProvider1";
+		final String containerProvider2 = "org.eclipse.mylyn.docs.intent.mapping.tests.base.AbstractBaseTests.TestContainerProvider2";
+		final List<String> containerProviders = new ArrayList<String>();
+		containerProviders.add(containerProvider1);
+		containerProviders.add(containerProvider2);
+
+		base.getContainerProviders().addAll(containerProviders);
+
+		assertEquals(2, base.getContainerProviders().size());
+		assertEquals(containerProvider1, base.getContainerProviders().get(0));
+		assertEquals(containerProvider2, base.getContainerProviders().get(1));
+		assertEquals(TestContainerProvider1.CONTAINER, base.getContainerProviderRegistry().getContainer(
+				TestContainerProvider1.CHILD));
+		assertEquals(TestContainerProvider2.CONTAINER, base.getContainerProviderRegistry().getContainer(
+				TestContainerProvider2.CHILD));
+
+		base.getContainerProviders().removeAll(containerProviders);
+
+		assertEquals(0, base.getContainerProviders().size());
+
+		assertEquals(null, base.getContainerProviderRegistry().getContainer(TestContainerProvider1.CHILD));
+		assertEquals(null, base.getContainerProviderRegistry().getContainer(TestContainerProvider2.CHILD));
+
+		assertTestBaseListener(listener, 0, 0, 0, 0, 0, 2, 2);
+		assertTestBaseListener(removedListener, 0, 0, 0, 0, 0, 0, 0);
+
+		MappingUtils.getContainerProviderFactory().removeDescriptor(TestContainerProvider1.class
+				.getCanonicalName());
+		MappingUtils.getContainerProviderFactory().removeDescriptor(TestContainerProvider2.class
+				.getCanonicalName());
 	}
 
 	@Test

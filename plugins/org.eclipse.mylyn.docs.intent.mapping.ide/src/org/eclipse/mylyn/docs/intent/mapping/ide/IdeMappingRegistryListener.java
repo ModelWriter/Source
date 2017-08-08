@@ -21,10 +21,12 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
+import org.eclipse.mylyn.docs.intent.mapping.base.ContainerProviderFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.connector.IConnector;
+import org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider;
 import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.IMarkerToLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.adapter.MarkerToLocationDescriptorAdapterFactory;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
@@ -130,13 +132,28 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	public static final String MARKER_TO_LOCATION_ATTRIBUTE_MARKER_TYPE = "markerType";
 
 	/**
-	 * An {@link IFactoryDescriptor} for an extension point.
+	 * {@link IContainerProvider} extension point to parse for extensions.
+	 */
+	public static final String CONTAINER_PROVIDER_EXTENSION_POINT = "org.eclipse.mylyn.docs.intent.mapping.ide.containerProvider";
+
+	/**
+	 * {@link IContainerProvider} tag.
+	 */
+	public static final String CONTAINER_PROVIDER_TAG_EXTENSION = "provider";
+
+	/**
+	 * The {@link IContainerProvider} extension point base attribute.
+	 */
+	public static final String CONTAINER_PROVIDER_ATTRIBUTE_CLASS = CLASS;
+
+	/**
+	 * An {@link BaseElementFactory.FactoryDescriptor} for an extension point.
 	 * 
 	 * @param <T>
 	 *            the kind of {@link ILocation}
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class ExtensionFactoryDescriptor<T extends ILocation> implements IFactoryDescriptor<T> {
+	public static class ExtensionFactoryDescriptor<T extends ILocation> implements BaseElementFactory.IFactoryDescriptor<T> {
 
 		/**
 		 * The {@link IConfigurationElement}.
@@ -173,6 +190,56 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	}
 
 	/**
+	 * An {@link ContainerProviderFactory.FactoryDescriptor} for an extension point.
+	 * 
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class ExtensionContainerProviderFactoryDescriptor implements ContainerProviderFactory.IFactoryDescriptor {
+
+		/**
+		 * The {@link IConfigurationElement}.
+		 */
+		private final IConfigurationElement element;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param element
+		 *            the {@link IConfigurationElement}
+		 */
+		public ExtensionContainerProviderFactoryDescriptor(IConfigurationElement element) {
+			this.element = element;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDescriptor#createElement()
+		 */
+		public IContainerProvider createElement() throws InstantiationException, IllegalAccessException,
+				ClassNotFoundException {
+			try {
+				return (IContainerProvider)element.createExecutableExtension(
+						CONTAINER_PROVIDER_ATTRIBUTE_CLASS);
+			} catch (CoreException e) {
+				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
+						.getMessage(), e));
+			}
+			return null;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.ContainerProviderFactory.IFactoryDescriptor#getClassName()
+		 */
+		public String getClassName() {
+			return element.getAttribute(CONTAINER_PROVIDER_ATTRIBUTE_CLASS);
+		}
+
+	}
+
+	/**
 	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.core.runtime.IRegistryEventListener#added(org.eclipse.core.runtime.IExtension[])
@@ -189,6 +256,8 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 				parseConnectorProviderExtension(extension);
 			} else if (MARKER_TO_LOCATION_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
 				parseMarkerToLocationExtension(extension);
+			} else if (CONTAINER_PROVIDER_EXTENSION_POINT.equals(extension.getUniqueIdentifier())) {
+				parseContainerProviderExtension(extension);
 			}
 		}
 	}
@@ -226,6 +295,10 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 		for (IExtension extension : registry.getExtensionPoint(MARKER_TO_LOCATION_EXTENSION_POINT)
 				.getExtensions()) {
 			parseMarkerToLocationExtension(extension);
+		}
+		for (IExtension extension : registry.getExtensionPoint(CONTAINER_PROVIDER_EXTENSION_POINT)
+				.getExtensions()) {
+			parseContainerProviderExtension(extension);
 		}
 	}
 
@@ -270,6 +343,9 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 					if (delegateToRemove != null) {
 						IdeMappingUtils.getFileConectorDelegateRegistry().unregister(delegateToRemove);
 					}
+				} else if (CONTAINER_PROVIDER_TAG_EXTENSION.equals(elem.getName())) {
+					MappingUtils.getContainerProviderFactory().removeDescriptor(elem.getAttribute(
+							CONTAINER_PROVIDER_ATTRIBUTE_CLASS));
 				}
 			}
 		}
@@ -398,6 +474,23 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
 							.getMessage(), e));
 				}
+			}
+		}
+	}
+
+	/**
+	 * Parses a single {@link IContainerProvider} extension contribution.
+	 * 
+	 * @param extension
+	 *            Parses the given extension and adds its contribution to the registry
+	 */
+	@SuppressWarnings("unchecked")
+	private void parseContainerProviderExtension(IExtension extension) {
+		final IConfigurationElement[] configElements = extension.getConfigurationElements();
+		for (IConfigurationElement elem : configElements) {
+			if (CONTAINER_PROVIDER_TAG_EXTENSION.equals(elem.getName())) {
+				MappingUtils.getContainerProviderFactory().addDescriptor(
+						new ExtensionContainerProviderFactoryDescriptor(elem));
 			}
 		}
 	}

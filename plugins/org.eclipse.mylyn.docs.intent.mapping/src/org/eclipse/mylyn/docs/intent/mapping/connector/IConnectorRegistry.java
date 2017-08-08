@@ -161,7 +161,7 @@ public interface IConnectorRegistry {
 	 * @param connectorType
 	 *            the {@link IConnector#getType() connector type}
 	 * @return the {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector} with the
-	 *         given {@link IConnector#getType() connector type}
+	 *         given {@link IConnector#getType() connector type} if any, <code>null</code> otherwise
 	 */
 	IConnector getConnector(Class<? extends ILocation> connectorType);
 

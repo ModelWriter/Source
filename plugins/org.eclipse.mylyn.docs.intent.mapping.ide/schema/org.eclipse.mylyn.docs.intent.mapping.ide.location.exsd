@@ -6,7 +6,7 @@
          <meta.schema plugin="org.eclipse.mylyn.docs.intent.mapping.ide" id="org.eclipse.mylyn.docs.intent.mapping.ide.location" name="Location"/>
       </appinfo>
       <documentation>
-         Defines an location class to instanciate for a location interface and a base implementation.
+         Defines a location class to instanciate for a location interface and a base implementation.
       </documentation>
    </annotation>
 
@@ -104,7 +104,7 @@
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-            &lt;extension
+         &lt;extension
          point=&quot;org.eclipse.mylyn.docs.intent.mapping.ide.location&quot;&gt;
       &lt;base
             class=&quot;org.eclipse.mylyn.docs.intent.mapping.Base&quot;&gt;
@@ -122,7 +122,6 @@
          &lt;/location&gt;
       &lt;/base&gt;
    &lt;/extension&gt;
-
       </documentation>
    </annotation>
 

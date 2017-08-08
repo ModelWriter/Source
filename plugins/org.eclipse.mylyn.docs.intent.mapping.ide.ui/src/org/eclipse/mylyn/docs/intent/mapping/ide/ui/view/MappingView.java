@@ -193,6 +193,24 @@ public class MappingView extends ViewPart {
 			// nothing to do here
 		}
 
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#containerProviderAdded(java.lang.String)
+		 */
+		public void containerProviderAdded(String provider) {
+			// nothing to do here
+		}
+
+		/**
+		 * {@inheritDoc}
+		 *
+		 * @see org.eclipse.mylyn.docs.intent.mapping.base.IBaseListener#containerProviderRemoved(java.lang.String)
+		 */
+		public void containerProviderRemoved(String provider) {
+			// nothing to do here
+		}
+
 	}
 
 	/**

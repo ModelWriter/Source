@@ -29,6 +29,7 @@ import name.fraser.neil.plaintext.diff_match_patch;
 import name.fraser.neil.plaintext.diff_match_patch.Diff;
 
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.IFactoryDescriptor;
+import org.eclipse.mylyn.docs.intent.mapping.base.ContainerProviderFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
@@ -144,6 +145,11 @@ public final class MappingUtils {
 	 * Diff match patch instance.
 	 */
 	private static final diff_match_patch DIFF_MATCH_PATCH = new diff_match_patch();
+
+	/**
+	 * The {@link ContainerProviderFactory}.
+	 */
+	private static final ContainerProviderFactory CONTAINER_PROVIDER_FACTORY = new ContainerProviderFactory();
 
 	/**
 	 * The {@link IFileTypeRegistry}.
@@ -697,6 +703,15 @@ public final class MappingUtils {
 	 */
 	public static void setFileTypeRegistry(IFileTypeRegistry registry) {
 		fileTypeRegistry = registry;
+	}
+
+	/**
+	 * Gets the {@link ContainerProviderFactory}.
+	 * 
+	 * @return the {@link ContainerProviderFactory}
+	 */
+	public static ContainerProviderFactory getContainerProviderFactory() {
+		return CONTAINER_PROVIDER_FACTORY;
 	}
 
 }

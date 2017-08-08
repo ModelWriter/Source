@@ -11,7 +11,6 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.connector;
 
-import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory.FactoryDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
@@ -36,30 +35,6 @@ import static org.junit.Assert.assertTrue;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class ConnectorRegistryTests {
-
-	/**
-	 * A test base.
-	 *
-	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
-	 */
-	public static class ConnectorRegistryTestBase extends TestBase {
-
-		/**
-		 * The {@link BaseElementFactory}.
-		 */
-		private final BaseElementFactory factory;
-
-		public ConnectorRegistryTestBase() {
-			super();
-			factory = new BaseElementFactory();
-		}
-
-		@Override
-		public BaseElementFactory getFactory() {
-			return factory;
-		}
-
-	}
 
 	/**
 	 * A test {@link IConnector} implementation.
@@ -333,7 +308,7 @@ public class ConnectorRegistryTests {
 	@Test
 	public void createLocationNoConnectors() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		final IBase base = new ConnectorRegistryTestBase();
+		final IBase base = new TestBase();
 		final ILocation container = new TestLocation1();
 		container.setContainer(base);
 		final Object element = new Object();
@@ -346,7 +321,7 @@ public class ConnectorRegistryTests {
 	@Test(expected = java.lang.IllegalArgumentException.class)
 	public void createLocationNotRegisteredInBase() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		final IBase base = new ConnectorRegistryTestBase();
+		final IBase base = new TestBase();
 		final ILocation container = new TestLocation1();
 		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
@@ -365,7 +340,7 @@ public class ConnectorRegistryTests {
 	@Test
 	public void createLocationFirstConnector() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		final IBase base = new ConnectorRegistryTestBase();
+		final IBase base = new TestBase();
 		final ILocation container = new TestLocation1();
 		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
@@ -389,7 +364,7 @@ public class ConnectorRegistryTests {
 	@Test
 	public void createLocationSecondConnector() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		final IBase base = new ConnectorRegistryTestBase();
+		final IBase base = new TestBase();
 		final ILocation container = new TestLocation2();
 		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
@@ -424,7 +399,7 @@ public class ConnectorRegistryTests {
 	@Test
 	public void getLocationFirstConnector() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		final IBase base = new ConnectorRegistryTestBase();
+		final IBase base = new TestBase();
 		final ILocation container = new TestLocation1();
 		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
@@ -450,7 +425,7 @@ public class ConnectorRegistryTests {
 	@Test
 	public void getLocationSecondConnector() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		final IBase base = new ConnectorRegistryTestBase();
+		final IBase base = new TestBase();
 		final ILocation container = new TestLocation2();
 		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
@@ -476,7 +451,7 @@ public class ConnectorRegistryTests {
 	@Test
 	public void getNameMarkedAsDeleted() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		final IBase base = new ConnectorRegistryTestBase();
+		final IBase base = new TestBase();
 		final ILocation container = new TestLocation1();
 		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
@@ -500,7 +475,7 @@ public class ConnectorRegistryTests {
 	@Test
 	public void getNameFirstConnector() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		final IBase base = new ConnectorRegistryTestBase();
+		final IBase base = new TestBase();
 		final ILocation container = new TestLocation1();
 		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();
@@ -523,7 +498,7 @@ public class ConnectorRegistryTests {
 	@Test
 	public void getNameSecondConnector() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		final IBase base = new ConnectorRegistryTestBase();
+		final IBase base = new TestBase();
 		final ILocation container = new TestLocation2();
 		container.setContainer(base);
 		final TestConnector1 connector1 = new TestConnector1();

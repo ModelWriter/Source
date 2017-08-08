@@ -94,8 +94,8 @@ public class LocationDescriptor implements ILocationDescriptor {
 	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getElement()
 	 */
-	public ILocation getElement() {
-		return location;
+	public Object getElement() {
+		return MappingUtils.getConnectorRegistry().getElement(location);
 	}
 
 	/**

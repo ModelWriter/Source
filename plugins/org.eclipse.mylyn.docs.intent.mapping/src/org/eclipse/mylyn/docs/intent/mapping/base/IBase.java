@@ -13,6 +13,8 @@ package org.eclipse.mylyn.docs.intent.mapping.base;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider;
+
 /**
  * A base stores root {@link ILocation}.
  *
@@ -66,6 +68,20 @@ public interface IBase extends IMappingElement, ILocationContainer {
 	 * @return the {@link List} of {@link IReport}
 	 */
 	List<IReport> getReports();
+
+	/**
+	 * Gets the {@link List} of {@link IContainerProvider} {@link Class#getCanonicalName() class name}.
+	 * 
+	 * @return the {@link List} of {@link IContainerProvider} {@link Class#getCanonicalName() class name}
+	 */
+	List<String> getContainerProviders();
+
+	/**
+	 * Gets the {@link ContainerProviderRegistry}.
+	 * 
+	 * @return the {@link ContainerProviderRegistry}
+	 */
+	ContainerProviderRegistry getContainerProviderRegistry();
 
 	/**
 	 * Saves the base.
