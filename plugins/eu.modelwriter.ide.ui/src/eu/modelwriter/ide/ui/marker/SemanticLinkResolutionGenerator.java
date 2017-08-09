@@ -108,9 +108,9 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 
 			try {
 				final ILink link = base.getFactory().createElement(ILink.class);
-				link.setSource(sourceDescriptor.getOrCreate(base));
+				link.setSource(sourceDescriptor.getOrCreate());
 				sourceDescriptor.dispose();
-				link.setTarget(targetDescriptor.getOrCreate(base));
+				link.setTarget(targetDescriptor.getOrCreate());
 				targetDescriptor.dispose();
 			} catch (InstantiationException e) {
 				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
@@ -160,15 +160,13 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 						ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE);
 				final IFile file = IdeMappingUtils.adapt(concept, IFile.class);
 				if (file != null) {
-					final IBase base = IdeMappingUtils.getCurrentBase();
-					final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
-							.getLocationDescriptor(null, file);
+					final IBase currentBase = IdeMappingUtils.getCurrentBase();
 					final ILocationDescriptor targetDescriptor = MappingUtils.getConnectorRegistry()
-							.getLocationDescriptor(containerDescriptor, concept);
-					if (!sourceDescriptor.exists(base) || !targetDescriptor.exists(base)) {
+							.getLocationDescriptor(currentBase, concept);
+					if (!sourceDescriptor.exists() || !targetDescriptor.exists()) {
 						res.add(new SemanticLinkMarkerResolution(sourceDescriptor, targetDescriptor));
-					} else if (MappingUtils.getLink(sourceDescriptor.getOrCreate(base), targetDescriptor
-							.getOrCreate(base)) == null) {
+					} else if (MappingUtils.getLink(sourceDescriptor.getOrCreate(), targetDescriptor
+							.getOrCreate()) == null) {
 						res.add(new SemanticLinkMarkerResolution(sourceDescriptor, targetDescriptor));
 					}
 				}

@@ -101,9 +101,8 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 			if (object instanceof ILocation) {
 				res = object;
 			} else {
-				final IBase base = IdeMappingUtils.getCurrentBase();
-				if (object instanceof ILocationDescriptor && ((ILocationDescriptor)object).exists(base)) {
-					res = ((ILocationDescriptor)object).getLocation(base);
+				if (object instanceof ILocationDescriptor && ((ILocationDescriptor)object).exists()) {
+					res = ((ILocationDescriptor)object).getLocation();
 				} else {
 					res = null;
 				}
@@ -163,11 +162,8 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 			}
 		}
 		if (file != null) {
-			// TODO we implicitly decide to have a flat structure of location here... we
-			// probably don't want to do that
-			final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
-					.getLocationDescriptor(null, file);
-			res = MappingUtils.getConnectorRegistry().getLocationDescriptor(containerDescriptor, element);
+			final IBase currentBase = IdeMappingUtils.getCurrentBase();
+			res = MappingUtils.getConnectorRegistry().getLocationDescriptor(currentBase, element);
 		} else {
 			res = null;
 		}
@@ -193,17 +189,12 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 			try {
 				final String content = MappingUtils.getContent((int)file.getLocation().toFile().length(), file
 						.getContents());
-				// TODO we implicitly decide to have a flat structure of location here... we
-				// probably
-				// don't want to do that
-				final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
-						.getLocationDescriptor(null, file);
 				final int start = selection.getOffset();
 				final Integer end = start + selection.getLength();
 				if (start > -1 && end < content.length()) {
 					final TextRegion region = new TextRegion(content.substring(start, end), start, end);
-					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(containerDescriptor,
-							region);
+					final IBase currentBase = IdeMappingUtils.getCurrentBase();
+					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(currentBase, region);
 				} else {
 					res = null;
 				}

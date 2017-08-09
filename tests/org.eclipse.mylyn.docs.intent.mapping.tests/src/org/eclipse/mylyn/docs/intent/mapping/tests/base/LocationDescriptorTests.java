@@ -69,7 +69,7 @@ public class LocationDescriptorTests {
 		final TestLocation1 location = new TestLocation1();
 		final LocationDescriptor descriptor = new LocationDescriptor(location);
 
-		assertTrue(location == descriptor.getLocation(null));
+		assertTrue(location == descriptor.getLocation());
 	}
 
 	@Test
@@ -79,7 +79,7 @@ public class LocationDescriptorTests {
 		final IBase base = new TestBase();
 		base.getContents().add(location);
 
-		final ILocation found = descriptor.getLocation(base);
+		final ILocation found = descriptor.getLocation();
 
 		assertTrue(location == found);
 	}
@@ -98,7 +98,7 @@ public class LocationDescriptorTests {
 		final TestLocation1 location = new TestLocation1();
 		final LocationDescriptor descriptor = new LocationDescriptor(location);
 
-		assertTrue(location == descriptor.getOrCreate(null));
+		assertTrue(location == descriptor.getOrCreate());
 	}
 
 	@Test
@@ -109,7 +109,7 @@ public class LocationDescriptorTests {
 		final IBase base = new TestBase();
 		base.getContents().add(location);
 
-		final ILocation res = descriptor.getOrCreate(base);
+		final ILocation res = descriptor.getOrCreate();
 
 		assertTrue(location == res);
 	}

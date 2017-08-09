@@ -29,28 +29,22 @@ public interface ILocationDescriptor {
 	/**
 	 * Tells if the described {@link ILocation} exists.
 	 * 
-	 * @param base
-	 *            the {@link IBase} to use for lookup
 	 * @return <code>true</code> if the described {@link ILocation} exists, <code>false</code> otherwise
 	 */
-	boolean exists(IBase base);
+	boolean exists();
 
 	/**
-	 * Gets the {@link ILocation} if it {@link ILocationDescriptor#exists(IBase) exists}.
+	 * Gets the {@link ILocation} if it {@link ILocationDescriptor#exists() exists}.
 	 * 
-	 * @param base
-	 *            the {@link IBase}
-	 * @return the {@link ILocation} if it {@link ILocationDescriptor#exists(IBase) exists}, <code>null</code>
+	 * @return the {@link ILocation} if it {@link ILocationDescriptor#exists() exists}, <code>null</code>
 	 *         otherwise
 	 */
-	ILocation getLocation(IBase base);
+	ILocation getLocation();
 
 	/**
-	 * Gets or creates the described {@link ILocation}. I should {@link ILocationDescriptor#getOrCreate()
-	 * creates} {@link ILocationDescriptor#getContainerDescriptor() described containers}.
+	 * Gets or creates the described {@link ILocation}. It will {@link ILocationDescriptor#getOrCreate()
+	 * create} {@link ILocationDescriptor#getContainerDescriptor() described containers}.
 	 * 
-	 * @param base
-	 *            the {@link IBase} to use for creation
 	 * @return the described {@link ILocation}
 	 * @throws IllegalAccessException
 	 *             if the class or its nullary constructor is not accessible.
@@ -61,8 +55,7 @@ public interface ILocationDescriptor {
 	 * @throws ClassNotFoundException
 	 *             if the {@link Class} can't be found
 	 */
-	ILocation getOrCreate(IBase base) throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException;
+	ILocation getOrCreate() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
 	/**
 	 * Updates with the given Element.

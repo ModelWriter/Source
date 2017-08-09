@@ -47,16 +47,11 @@ public class MarkerToEObjectLocationDescriptor implements IMarkerToLocationDescr
 		if (currentBase != null) {
 			try {
 				if (marker.isSubtypeOf(EValidator.MARKER)) {
-					// TODO we implicitly decide to have a flat structure of location here... we probably
-					// don't want to do that
-					final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
-							.getLocationDescriptor(null, marker.getResource());
 					final String uri = (String)marker.getAttribute(IEObjectLocationMaker.URI_ATTRIBUTE);
 					// TODO we should change this to use a global ResourceSet...
 					final ResourceSet rs = new ResourceSetImpl();
 					final EObject eObject = rs.getEObject(URI.createURI(uri), true);
-					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(containerDescriptor,
-							eObject);
+					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(currentBase, eObject);
 				}
 			} catch (CoreException e) {
 				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e

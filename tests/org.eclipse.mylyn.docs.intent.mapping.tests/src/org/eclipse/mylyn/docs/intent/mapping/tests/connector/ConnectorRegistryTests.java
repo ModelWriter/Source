@@ -90,12 +90,10 @@ public class ConnectorRegistryTests {
 			return res;
 		}
 
-		public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-				Object element) {
+		public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 			final ILocationDescriptor res;
 
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, "TestLocation1 " + element
-					.toString());
+			res = new ObjectLocationDescriptor(this, base, element, "TestLocation1 " + element.toString());
 
 			return res;
 		}
@@ -204,12 +202,10 @@ public class ConnectorRegistryTests {
 			return res;
 		}
 
-		public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-				Object element) {
+		public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 			final ILocationDescriptor res;
 
-			res = new ObjectLocationDescriptor(this, containerDescriptor, element, "TestLocation2 " + element
-					.toString());
+			res = new ObjectLocationDescriptor(this, base, element, "TestLocation2 " + element.toString());
 
 			return res;
 		}

@@ -55,27 +55,27 @@ public class LocationDescriptor implements ILocationDescriptor {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#exists(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#exists()
 	 */
-	public boolean exists(IBase base) {
+	public boolean exists() {
 		return true;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getLocation()
 	 */
-	public ILocation getLocation(IBase base) {
+	public ILocation getLocation() {
 		return location;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getOrCreate(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getOrCreate()
 	 */
-	public ILocation getOrCreate(IBase base) throws InstantiationException, IllegalAccessException,
+	public ILocation getOrCreate() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		return location;
 	}

@@ -113,8 +113,7 @@ public class EObjectConnectorParametrizedTests {
 	 */
 	public static class TestEObjectContainerConnector extends AbstractConnector {
 
-		public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-				Object element) {
+		public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 			// nothing to do here
 			return null;
 		}

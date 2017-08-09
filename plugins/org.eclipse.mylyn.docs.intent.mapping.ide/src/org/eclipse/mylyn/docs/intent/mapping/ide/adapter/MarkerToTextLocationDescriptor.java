@@ -44,17 +44,12 @@ public class MarkerToTextLocationDescriptor implements IMarkerToLocationDescript
 		if (currentBase != null) {
 			try {
 				if (marker.isSubtypeOf(IMarker.TEXT)) {
-					// TODO we implicitly decide to have a flat structure of location here... we probably
-					// don't want to do that
-					final ILocationDescriptor containerDescriptor = MappingUtils.getConnectorRegistry()
-							.getLocationDescriptor(null, marker.getResource());
 					final int start = (Integer)marker.getAttribute(IMarker.CHAR_START);
 					final Integer end = (Integer)marker.getAttribute(IMarker.CHAR_END);
 					final String content = MappingUtils.getContent((int)marker.getResource().getLocation()
 							.toFile().length(), ((IFile)marker.getResource()).getContents());
 					final TextRegion region = new TextRegion(content.substring(start, end), start, end);
-					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(containerDescriptor,
-							region);
+					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(currentBase, region);
 				}
 			} catch (CoreException e) {
 				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e

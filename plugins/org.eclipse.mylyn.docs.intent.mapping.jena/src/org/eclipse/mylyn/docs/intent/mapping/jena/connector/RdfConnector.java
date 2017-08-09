@@ -18,6 +18,7 @@ import java.util.Set;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -123,17 +124,15 @@ public class RdfConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.IBase,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-			Object element) {
+	public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 		final ILocationDescriptor res;
 
 		final Object adapted = adapt(element);
 		if (adapted instanceof Resource) {
-			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, ((Resource)adapted)
-					.getURI());
+			res = new ObjectLocationDescriptor(this, base, adapted, ((Resource)adapted).getURI());
 		} else {
 			res = null;
 		}

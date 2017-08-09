@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.connector;
 
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -72,15 +73,15 @@ public interface IConnectorRegistry {
 	/**
 	 * Gets the {@link ILocationDescriptor} for the given element.
 	 * 
-	 * @param containerDescriptor
-	 *            the container {@link ILocationDescriptor} can be <code>null</code>
+	 * @param base
+	 *            the containing {@link IBase}
 	 * @param element
 	 *            the element
 	 * @return the {@link ILocationDescriptor} for the given element if handled by a
 	 *         {@link IConnectorRegistry#register(IConnector) registered} {@link IConnector},
 	 *         <code>null</code> otherwise
 	 */
-	ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor, Object element);
+	ILocationDescriptor getLocationDescriptor(IBase base, Object element);
 
 	/**
 	 * Gets or creates an {@link ILocation} according to the given element.

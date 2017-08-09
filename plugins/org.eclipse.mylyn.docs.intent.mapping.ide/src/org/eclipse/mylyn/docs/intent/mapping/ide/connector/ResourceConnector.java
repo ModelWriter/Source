@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -210,17 +211,16 @@ public class ResourceConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.IBase,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-			Object element) {
+	public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 		final ILocationDescriptor res;
 
 		final Object adapted = adapt(element);
 		if (adapted instanceof IResource) {
-			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, ((IResource)adapted)
-					.getFullPath().toString());
+			res = new ObjectLocationDescriptor(this, base, adapted, ((IResource)adapted).getFullPath()
+					.toString());
 			resourceLocationListener.addKnownDescriptor(res);
 		} else {
 			res = null;

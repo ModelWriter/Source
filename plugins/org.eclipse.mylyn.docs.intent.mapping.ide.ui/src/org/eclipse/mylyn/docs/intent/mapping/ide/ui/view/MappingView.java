@@ -651,8 +651,8 @@ public class MappingView extends ViewPart {
 				if (part != MappingView.this && currentBase != null) {
 					final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(selection,
 							ILocationDescriptor.class);
-					if (locationDescriptor != null && locationDescriptor.exists(currentBase)) {
-						final ILocation location = locationDescriptor.getLocation(currentBase);
+					if (locationDescriptor != null && locationDescriptor.exists()) {
+						final ILocation location = locationDescriptor.getLocation();
 						if (location != null && areSameBase(currentBase, MappingUtils.getBase(location))) {
 							referencingTree.getViewer().setInput(location);
 							referencedTree.getViewer().setInput(location);

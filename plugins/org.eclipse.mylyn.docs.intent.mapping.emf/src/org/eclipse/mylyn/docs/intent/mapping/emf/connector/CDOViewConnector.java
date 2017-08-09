@@ -78,18 +78,17 @@ public class CDOViewConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.IBase,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-			Object element) {
+	public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 		final ILocationDescriptor res;
 
 		final Object adapted = adapt(element);
 		if (adapted instanceof CDOView) {
 			final CDOView cdoView = (CDOView)adapted;
-			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, cdoView.getSession()
-					.getRepositoryInfo().getName() + " (" + getURL(cdoView) + ")");
+			res = new ObjectLocationDescriptor(this, base, adapted, cdoView.getSession().getRepositoryInfo()
+					.getName() + " (" + getURL(cdoView) + ")");
 		} else {
 			res = null;
 		}

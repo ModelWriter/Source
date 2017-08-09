@@ -23,6 +23,7 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.tests.AllTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.CDOServer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.CDOUtils;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
 import org.eclipse.net4j.connector.IConnector;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -163,7 +164,8 @@ public class CDOViewConnectorTests {
 
 	@Test
 	public void getLocationDescriptor() {
-		final ILocationDescriptor descriptor = connector.getLocationDescriptor(null, transaction);
+		final TestBase base = new TestBase();
+		final ILocationDescriptor descriptor = connector.getLocationDescriptor(base, transaction);
 
 		assertEquals(null, descriptor.getContainerDescriptor());
 		assertEquals(transaction, descriptor.getElement());

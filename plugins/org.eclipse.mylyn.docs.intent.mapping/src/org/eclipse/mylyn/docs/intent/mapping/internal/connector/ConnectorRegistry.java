@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -153,14 +154,12 @@ public class ConnectorRegistry implements IConnectorRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.IBase,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-			Object element) {
+	public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 		for (IConnector connector : getConnectors()) {
-			final ILocationDescriptor descriptor = connector.getLocationDescriptor(containerDescriptor,
-					element);
+			final ILocationDescriptor descriptor = connector.getLocationDescriptor(base, element);
 			if (descriptor != null) {
 				return descriptor;
 			}

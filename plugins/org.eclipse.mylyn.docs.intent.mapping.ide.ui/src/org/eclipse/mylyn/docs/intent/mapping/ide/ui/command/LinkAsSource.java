@@ -12,7 +12,6 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.ui.command;
 
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
@@ -27,13 +26,12 @@ public class LinkAsSource extends AbstractLocationHandler {
 
 	@Override
 	protected void handleLocationDescriptor(ILocationDescriptor sourceDescriptor) {
-		final IBase base = IdeMappingUtils.getCurrentBase();
-		final ILocation source = createLocation(sourceDescriptor, base, UNABLE_TO_CREATE_SOURCE_LOCATION);
+		final ILocation source = createLocation(sourceDescriptor, UNABLE_TO_CREATE_SOURCE_LOCATION);
 		sourceDescriptor.dispose();
 		if (source != null) {
 			for (ILocationDescriptor targetDescriptor : IdeMappingUtils.getLocationsPool()) {
 				if (IdeMappingUtils.isActive(targetDescriptor)) {
-					final ILocation target = createLocation(targetDescriptor, base,
+					final ILocation target = createLocation(targetDescriptor,
 							UNABLE_TO_CREATE_TARGET_LOCATION);
 					if (!source.equals(target) && MappingUtils.getLink(source, target) == null) {
 						createLink(source, target);
@@ -47,16 +45,15 @@ public class LinkAsSource extends AbstractLocationHandler {
 	protected boolean canHandleLocation(ILocationDescriptor sourceDescriptor) {
 		boolean res = false;
 
-		final IBase base = IdeMappingUtils.getCurrentBase();
-		if (sourceDescriptor.exists(base)) {
-			final ILocation source = sourceDescriptor.getLocation(base);
+		if (sourceDescriptor.exists()) {
+			final ILocation source = sourceDescriptor.getLocation();
 			for (ILocationDescriptor targetDescriptor : IdeMappingUtils.getLocationsPool()) {
 				if (IdeMappingUtils.isActive(targetDescriptor)) {
-					if (!targetDescriptor.exists(base)) {
+					if (!targetDescriptor.exists()) {
 						res = true;
 						break;
-					} else if (!source.equals(targetDescriptor.getLocation(base)) && MappingUtils.getLink(
-							source, targetDescriptor.getLocation(base)) == null) {
+					} else if (!source.equals(targetDescriptor.getLocation()) && MappingUtils.getLink(source,
+							targetDescriptor.getLocation()) == null) {
 						res = true;
 						break;
 					}

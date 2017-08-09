@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 
 /**
@@ -31,6 +32,11 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 	private final AbstractConnector connector;
 
 	/**
+	 * The containing {@link IBase}.
+	 */
+	private final IBase base;
+
+	/**
 	 * The {@link ILocationDescriptor#getContainerDescriptor() container descriptor}.
 	 */
 	private final ILocationDescriptor containerDescriptor;
@@ -43,18 +49,29 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 	/**
 	 * Constructor.
 	 * 
-	 * @param containerDescriptor
-	 *            the {@link ILocationDescriptor#getContainerDescriptor() container descriptor}
+	 * @param connector
+	 *            the {@link AbstractConnector} creating the descriptor
+	 * @param base
+	 *            the containing {@link IBase}
 	 * @param element
 	 *            the {@link Object}
 	 * @param name
 	 *            the human readable name
-	 * @param connector
-	 *            the {@link AbstractConnector} creating the descriptor
 	 */
-	public ObjectLocationDescriptor(AbstractConnector connector, ILocationDescriptor containerDescriptor,
-			Object element, String name) {
-		this.containerDescriptor = containerDescriptor;
+	public ObjectLocationDescriptor(AbstractConnector connector, IBase base, Object element, String name) {
+		this.base = base;
+		final ILocationDescriptor containerDesc;
+		final Object container = base.getContainerProviderRegistry().getContainer(element);
+		if (container != null) {
+			containerDesc = MappingUtils.getConnectorRegistry().getLocationDescriptor(base, container);
+			if (containerDesc == null) {
+				throw new IllegalStateException(
+						"the ILocationDescriptor container should not be null at this point.");
+			}
+		} else {
+			containerDesc = null;
+		}
+		this.containerDescriptor = containerDesc;
 		this.element = element;
 		this.name = name;
 		this.connector = connector;
@@ -72,24 +89,24 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#exists(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#exists()
 	 */
-	public boolean exists(IBase base) {
-		return getLocation(base) != null;
+	public boolean exists() {
+		return getLocation() != null;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getLocation()
 	 */
-	public ILocation getLocation(IBase base) {
+	public ILocation getLocation() {
 		final ILocation res;
 
 		if (getContainerDescriptor() == null) {
 			res = connector.getLocation(base, element);
-		} else if (getContainerDescriptor().exists(base)) {
-			res = connector.getLocation(getContainerDescriptor().getLocation(base), element);
+		} else if (getContainerDescriptor().exists()) {
+			res = connector.getLocation(getContainerDescriptor().getLocation(), element);
 		} else {
 			res = null;
 		}
@@ -100,9 +117,9 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getOrCreate(org.eclipse.mylyn.docs.intent.mapping.base.IBase)
+	 * @see org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor#getOrCreate()
 	 */
-	public ILocation getOrCreate(IBase base) throws InstantiationException, IllegalAccessException,
+	public ILocation getOrCreate() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final ILocation res;
 
@@ -110,7 +127,7 @@ public class ObjectLocationDescriptor implements ILocationDescriptor {
 		if (getContainerDescriptor() == null) {
 			container = base;
 		} else {
-			container = getContainerDescriptor().getOrCreate(base);
+			container = getContainerDescriptor().getOrCreate();
 		}
 
 		final ILocation existingLocation = connector.getLocation(container, element);

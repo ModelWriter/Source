@@ -675,21 +675,20 @@ public class EObjectConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.IBase,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-			Object element) {
+	public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 		final ILocationDescriptor res;
 
 		final Object adapted = adapt(element);
 		if (adapted instanceof EObject) {
 			final EObject eObj = (EObject)adapted;
-			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, getName(eObj, null, 0));
+			res = new ObjectLocationDescriptor(this, base, adapted, getName(eObj, null, 0));
 		} else if (adapted instanceof Setting) {
 			final EObject eObj = ((Setting)adapted).getEObject();
 			final EStructuralFeature feature = ((Setting)adapted).getEStructuralFeature();
-			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, getName(eObj, feature, 0));
+			res = new ObjectLocationDescriptor(this, base, adapted, getName(eObj, feature, 0));
 		} else {
 			res = null;
 		}

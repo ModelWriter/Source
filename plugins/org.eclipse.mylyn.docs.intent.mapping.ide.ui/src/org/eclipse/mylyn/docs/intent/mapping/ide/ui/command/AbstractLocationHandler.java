@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -135,18 +134,15 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 	 * 
 	 * @param locationDescriptor
 	 *            the {@link ILocationDescriptor}
-	 * @param base
-	 *            the {@link IBase}
 	 * @param errorMessage
 	 *            the error message
 	 * @return the created {@link ILocation} if no error occurred, <code>null</code> otherwise
 	 */
-	protected ILocation createLocation(ILocationDescriptor locationDescriptor, final IBase base,
-			String errorMessage) {
+	protected ILocation createLocation(ILocationDescriptor locationDescriptor, String errorMessage) {
 		ILocation res;
 
 		try {
-			res = locationDescriptor.getOrCreate(base);
+			res = locationDescriptor.getOrCreate();
 		} catch (InstantiationException eLocation) {
 			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, errorMessage,
 					eLocation));

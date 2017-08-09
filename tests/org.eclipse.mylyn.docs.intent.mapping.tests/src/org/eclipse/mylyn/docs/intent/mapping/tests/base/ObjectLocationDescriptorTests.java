@@ -62,8 +62,7 @@ public class ObjectLocationDescriptorTests {
 			this.element = element;
 		}
 
-		public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-				Object elem) {
+		public ILocationDescriptor getLocationDescriptor(IBase base, Object elem) {
 			// nothing to do here
 			return null;
 		}
@@ -113,7 +112,8 @@ public class ObjectLocationDescriptorTests {
 	public void dispose() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
+		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
 				"test descriptor");
 
 		descriptor.dispose();
@@ -125,7 +125,8 @@ public class ObjectLocationDescriptorTests {
 	public void equalsNull() {
 		final Object element1 = new Object();
 		TestConnector connector1 = new TestConnector(element1);
-		final ObjectLocationDescriptor descriptor1 = new ObjectLocationDescriptor(connector1, null, element1,
+		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor1 = new ObjectLocationDescriptor(connector1, base, element1,
 				"test descriptor1");
 
 		// CHECKSTYLE:OFF
@@ -139,9 +140,10 @@ public class ObjectLocationDescriptorTests {
 		final Object element2 = new Object();
 		TestConnector connector1 = new TestConnector(element1);
 		TestConnector connector2 = new TestConnector(element2);
-		final ObjectLocationDescriptor descriptor1 = new ObjectLocationDescriptor(connector1, null, element1,
+		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor1 = new ObjectLocationDescriptor(connector1, base, element1,
 				"test descriptor1");
-		final ObjectLocationDescriptor descriptor2 = new ObjectLocationDescriptor(connector2, null, element2,
+		final ObjectLocationDescriptor descriptor2 = new ObjectLocationDescriptor(connector2, base, element2,
 				"test descriptor2");
 
 		assertFalse(descriptor1.equals(descriptor2));
@@ -152,34 +154,25 @@ public class ObjectLocationDescriptorTests {
 	public void equalsTrue() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor1 = new ObjectLocationDescriptor(connector, null, element,
+		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor1 = new ObjectLocationDescriptor(connector, base, element,
 				"test descriptor1");
-		final ObjectLocationDescriptor descriptor2 = new ObjectLocationDescriptor(connector, null, element,
+		final ObjectLocationDescriptor descriptor2 = new ObjectLocationDescriptor(connector, base, element,
 				"test descriptor2");
 
 		assertTrue(descriptor1.equals(descriptor2));
 		assertTrue(descriptor2.equals(descriptor1));
 	}
 
-	@Test(expected = NullPointerException.class)
-	public void getLocationNull() {
-		final Object element = new Object();
-		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
-				"test descriptor");
-
-		descriptor.getLocation(null);
-	}
-
 	@Test
 	public void getLocationNotExisting() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
-				"test descriptor");
 		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
+				"test descriptor");
 
-		final ILocation found = descriptor.getLocation(base);
+		final ILocation found = descriptor.getLocation();
 
 		assertNull(found);
 	}
@@ -188,14 +181,14 @@ public class ObjectLocationDescriptorTests {
 	public void getLocationExisting() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
-				"test descriptor");
 		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
+				"test descriptor");
 		final TestLocation1 location = new TestLocation1();
 		location.setObject(element);
 		base.getContents().add(location);
 
-		final ILocation found = descriptor.getLocation(base);
+		final ILocation found = descriptor.getLocation();
 
 		assertEquals(location, found);
 	}
@@ -204,21 +197,11 @@ public class ObjectLocationDescriptorTests {
 	public void getName() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
+		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
 				"test descriptor");
 
 		assertEquals("test descriptor", descriptor.getName());
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void getOrCreateNull() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		final Object element = new Object();
-		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
-				"test descriptor");
-
-		descriptor.getOrCreate(null);
 	}
 
 	@Test
@@ -226,13 +209,13 @@ public class ObjectLocationDescriptorTests {
 			ClassNotFoundException {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
-				"test descriptor");
 		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
+				"test descriptor");
 		base.getFactory().addDescriptor(ITestLocation.class,
 				new BaseElementFactory.FactoryDescriptor<TestLocation1>(TestLocation1.class));
 
-		final ILocation location = descriptor.getOrCreate(base);
+		final ILocation location = descriptor.getOrCreate();
 
 		assertTrue(location instanceof ITestLocation);
 		assertEquals(element, ((ITestLocation)location).getObject());
@@ -243,14 +226,14 @@ public class ObjectLocationDescriptorTests {
 			ClassNotFoundException {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
-				"test descriptor");
 		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
+				"test descriptor");
 		final TestLocation1 location = new TestLocation1();
 		location.setObject(element);
 		base.getContents().add(location);
 
-		final ILocation res = descriptor.getOrCreate(base);
+		final ILocation res = descriptor.getOrCreate();
 
 		assertTrue(location == res);
 	}
@@ -259,9 +242,9 @@ public class ObjectLocationDescriptorTests {
 	public void hashCodeTest() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
-				"test descriptor");
 		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
+				"test descriptor");
 		final TestLocation1 location = new TestLocation1();
 		location.setObject(element);
 		base.getContents().add(location);
@@ -273,7 +256,8 @@ public class ObjectLocationDescriptorTests {
 	public void setElementNull() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
+		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
 				"test descriptor");
 
 		descriptor.setElement(null);
@@ -285,7 +269,8 @@ public class ObjectLocationDescriptorTests {
 	public void setElement() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
+		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
 				"test descriptor");
 
 		final Object otherElement = new Object();
@@ -298,7 +283,8 @@ public class ObjectLocationDescriptorTests {
 	public void updateNull() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
+		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
 				"test descriptor");
 
 		descriptor.update(null);
@@ -310,7 +296,8 @@ public class ObjectLocationDescriptorTests {
 	public void updateElement() {
 		final Object element = new Object();
 		TestConnector connector = new TestConnector(element);
-		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, null, element,
+		final IBase base = new TestBase();
+		final ObjectLocationDescriptor descriptor = new ObjectLocationDescriptor(connector, base, element,
 				"test descriptor");
 
 		final Object otherElement = new Object();

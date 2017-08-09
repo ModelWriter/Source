@@ -13,6 +13,7 @@ package org.eclipse.mylyn.docs.intent.mapping.text;
 
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils.DiffMatch;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
@@ -152,17 +153,15 @@ public class TextConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationDescriptor(org.eclipse.mylyn.docs.intent.mapping.base.IBase,
 	 *      java.lang.Object)
 	 */
-	public ILocationDescriptor getLocationDescriptor(ILocationDescriptor containerDescriptor,
-			Object element) {
+	public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 		final ILocationDescriptor res;
 
 		final Object adapted = adapt(element);
 		if (adapted instanceof TextRegion) {
-			res = new ObjectLocationDescriptor(this, containerDescriptor, adapted, ((TextRegion)adapted)
-					.getText());
+			res = new ObjectLocationDescriptor(this, base, adapted, ((TextRegion)adapted).getText());
 		} else {
 			res = null;
 		}
