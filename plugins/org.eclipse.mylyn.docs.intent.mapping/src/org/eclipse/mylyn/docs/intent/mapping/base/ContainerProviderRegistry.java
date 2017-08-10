@@ -21,6 +21,7 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider;
 import org.eclipse.mylyn.docs.intent.mapping.internal.connector.ConnectorRegistry;
+import org.eclipse.mylyn.docs.intent.mapping.text.TextRegionContainerProvider;
 
 /**
  * The default implementation of {@link IContainerProviderRegistry}.
@@ -54,6 +55,9 @@ public class ContainerProviderRegistry implements IContainerProviderRegistry {
 	 */
 	public ContainerProviderRegistry(IBase base) {
 		this.base = base;
+		synchronized(providers) {
+			providers.add(new TextRegionContainerProvider());
+		}
 		for (String providerName : base.getContainerProviders()) {
 			try {
 				register(MappingUtils.getContainerProviderFactory().createProvider(providerName));
@@ -105,20 +109,7 @@ public class ContainerProviderRegistry implements IContainerProviderRegistry {
 		if (provider != null) {
 			synchronized(providers) {
 				if (!nameToProvider.containsKey(provider.getClass().getCanonicalName())) {
-					int index = 0;
-					boolean added = false;
-					for (IContainerProvider currentprovider : providers) {
-						if (currentprovider.getType().isAssignableFrom(provider.getType())) {
-							providers.add(index, provider);
-							added = true;
-							break;
-						} else {
-							index++;
-						}
-					}
-					if (!added) {
-						providers.add(index, provider);
-					}
+					providers.add(provider);
 					nameToProvider.put(provider.getClass().getCanonicalName(), provider);
 					base.getContainerProviders().add(provider.getClass().getCanonicalName());
 				}
@@ -139,7 +130,7 @@ public class ContainerProviderRegistry implements IContainerProviderRegistry {
 					.getCanonicalName());
 			if (providerInstance != null) {
 				providers.remove(provider);
-				base.getContainerProviders().remove(provider.getType().getCanonicalName());
+				base.getContainerProviders().remove(provider.getClass().getCanonicalName());
 			}
 		}
 	}

@@ -13,7 +13,9 @@ package org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests;
 
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.adapter.EObjectLocationToMarkerAdapterFactoryTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.adapter.MarkerToEObjectLocationTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.EObjectContainerProviderTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.EObjectFileConnectorDelegateTests;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.IdeCDOContainerProviderTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.IdeCDOResourceNodeConnectorTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.IdeCDOViewConnectorTests;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.IdeEObjectConnectorCDOTests;
@@ -35,10 +37,13 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses(value = {EMFResourceLocationTests.class, EMFTextFileLocationTests.class,
 		EMFEObjectFileLocationTests.class, EObjectFileConnectorDelegateTests.class,
-		WorkspaceMappingBaseListenerTests.class, IdeEObjectConnectorTests.class, IdeEObjectConnectorCDOTests.class,
-		IdeEObjectConnectorParametrizedTests.class, IdeEObjectConnectorParametrizedCDOTests.class,
-		EObjectLocationToMarkerAdapterFactoryTests.class, MarkerToEObjectLocationTests.class,
-		IdeCDOViewConnectorTests.class, IdeCDOResourceNodeConnectorTests.class, })
+		WorkspaceMappingBaseListenerTests.class, IdeEObjectConnectorTests.class,
+		IdeEObjectConnectorCDOTests.class, IdeCDOContainerProviderTests.class,
+		EObjectContainerProviderTests.class, IdeEObjectConnectorParametrizedTests.class,
+		IdeEObjectConnectorParametrizedCDOTests.class, EObjectLocationToMarkerAdapterFactoryTests.class,
+		MarkerToEObjectLocationTests.class, IdeCDOViewConnectorTests.class,
+		IdeCDOResourceNodeConnectorTests.class, })
+
 public class AllTests {
 
 }

@@ -9,24 +9,31 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.connector;
+package org.eclipse.mylyn.docs.intent.mapping.jena.ide.connector;
 
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.apache.jena.rdf.model.Resource;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider;
+import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 
 /**
- * Provides container element for {@link ILocation}.
+ * {@link Resource} -> {@link IFile}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface IContainerProvider {
+public class ResourceContainerProvider implements IContainerProvider {
 
-	/**
-	 * Gets the container of the given element.
-	 * 
-	 * @param element
-	 *            the element
-	 * @return the container of the given element if any, <code>null</code> otherwise
-	 */
-	Object getContainer(Object element);
+	@Override
+	public Object getContainer(Object element) {
+		final Object res;
+
+		if (element instanceof Resource) {
+			res = IdeMappingUtils.adapt(element, IFile.class);
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
 
 }

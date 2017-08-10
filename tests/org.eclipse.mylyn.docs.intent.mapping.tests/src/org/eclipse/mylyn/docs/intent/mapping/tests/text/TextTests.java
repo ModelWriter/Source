@@ -21,7 +21,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {TextConnectorTests.class, TextConnectorParametrizedTests.class, })
+@SuiteClasses(value = {TextConnectorTests.class, TextConnectorParametrizedTests.class,
+		TextRegionContainerProviderTests.class })
 public class TextTests {
 
 }

@@ -192,7 +192,8 @@ public class ObjectToLocationAdapterFactory extends MarkerToLocationDescriptorAd
 				final int start = selection.getOffset();
 				final Integer end = start + selection.getLength();
 				if (start > -1 && end < content.length()) {
-					final TextRegion region = new TextRegion(content.substring(start, end), start, end);
+					// TODO find a way to provide more dynamic container
+					final TextRegion region = new TextRegion(file, content.substring(start, end), start, end);
 					final IBase currentBase = IdeMappingUtils.getCurrentBase();
 					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(currentBase, region);
 				} else {

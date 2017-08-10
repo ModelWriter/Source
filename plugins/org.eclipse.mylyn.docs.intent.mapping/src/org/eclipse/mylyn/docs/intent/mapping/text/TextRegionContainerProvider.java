@@ -9,24 +9,32 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.connector;
+package org.eclipse.mylyn.docs.intent.mapping.text;
 
-import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
+import org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider;
 
 /**
- * Provides container element for {@link ILocation}.
+ * {@link TextRegion} -> {@link TextRegion#getContainer() text region container}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public interface IContainerProvider {
+public class TextRegionContainerProvider implements IContainerProvider {
 
 	/**
-	 * Gets the container of the given element.
-	 * 
-	 * @param element
-	 *            the element
-	 * @return the container of the given element if any, <code>null</code> otherwise
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider#getContainer(java.lang.Object)
 	 */
-	Object getContainer(Object element);
+	public Object getContainer(Object element) {
+		final Object res;
+
+		if (element instanceof TextRegion) {
+			res = ((TextRegion)element).getContainer();
+		} else {
+			res = null;
+		}
+
+		return res;
+	}
 
 }

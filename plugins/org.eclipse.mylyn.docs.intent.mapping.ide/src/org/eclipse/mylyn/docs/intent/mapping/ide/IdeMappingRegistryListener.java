@@ -484,7 +484,6 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	 * @param extension
 	 *            Parses the given extension and adds its contribution to the registry
 	 */
-	@SuppressWarnings("unchecked")
 	private void parseContainerProviderExtension(IExtension extension) {
 		final IConfigurationElement[] configElements = extension.getConfigurationElements();
 		for (IConfigurationElement elem : configElements) {

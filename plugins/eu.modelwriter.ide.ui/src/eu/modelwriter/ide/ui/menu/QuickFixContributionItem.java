@@ -124,19 +124,21 @@ public class QuickFixContributionItem extends ContributionItem {
 
 		final IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getActiveEditor();
-		final IVerticalRulerInfo rulerInfo = (IVerticalRulerInfo)activeEditor.getAdapter(
-				IVerticalRulerInfo.class);
+		if (activeEditor != null) {
+			final IVerticalRulerInfo rulerInfo = (IVerticalRulerInfo)activeEditor.getAdapter(
+					IVerticalRulerInfo.class);
 
-		// TODO check if the last right click has been done on the ruler
-		final IResource resource = getResource(activeEditor);
-		if (resource != null) {
-			final IDocument document = (IDocument)((ITextEditor)activeEditor).getDocumentProvider()
-					.getDocument(activeEditor.getEditorInput());
-			if (document != null) {
-				final AbstractMarkerAnnotationModel model = getAnnotationModel((ITextEditor)activeEditor);
-				if (model != null) {
-					final int activeLine = rulerInfo.getLineOfLastMouseButtonActivity();
-					res.addAll(getMarkers(document, model, activeLine));
+			// TODO check if the last right click has been done on the ruler
+			final IResource resource = getResource(activeEditor);
+			if (resource != null) {
+				final IDocument document = (IDocument)((ITextEditor)activeEditor).getDocumentProvider()
+						.getDocument(activeEditor.getEditorInput());
+				if (document != null) {
+					final AbstractMarkerAnnotationModel model = getAnnotationModel((ITextEditor)activeEditor);
+					if (model != null) {
+						final int activeLine = rulerInfo.getLineOfLastMouseButtonActivity();
+						res.addAll(getMarkers(document, model, activeLine));
+					}
 				}
 			}
 		}

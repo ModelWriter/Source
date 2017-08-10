@@ -110,5 +110,14 @@
             markerType="org.eclipse.emf.ecore.diagnostic">
       </markerToLocation>
    </extension>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.containerProvider">
+      <provider
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.connector.CDOContainerProvider">
+      </provider>
+      <provider
+            class="org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.EObjectContainerProvider">
+      </provider>
+   </extension>
 
 </plugin>

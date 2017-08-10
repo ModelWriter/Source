@@ -59,7 +59,9 @@ public class TextConnector extends AbstractConnector {
 		final int endOffset = textLocation.getEndOffset();
 		final String text = ((ITextContainer)location.getContainer()).getText().substring(startOffset,
 				endOffset);
-		res = new TextRegion(text, startOffset, endOffset);
+		final Object container = MappingUtils.getConnectorRegistry().getElement((ITextContainer)location
+				.getContainer());
+		res = new TextRegion(container, text, startOffset, endOffset);
 
 		return res;
 	}

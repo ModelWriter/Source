@@ -34,8 +34,19 @@ public class TextRegion {
 	private final String text;
 
 	/**
+	 * The containing {@link Object} should
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer, Object)
+	 * be located} by a {@link ITextContainer}.
+	 */
+	private final Object container;
+
+	/**
 	 * Constructor.
 	 * 
+	 * @param container
+	 *            the containing {@link Object} should
+	 *            {@link org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer, Object)
+	 *            be located} by a {@link ITextContainer}
 	 * @param text
 	 *            the text
 	 * @param startOffset
@@ -43,7 +54,8 @@ public class TextRegion {
 	 * @param endOffset
 	 *            the end offset
 	 */
-	public TextRegion(String text, int startOffset, int endOffset) {
+	public TextRegion(Object container, String text, int startOffset, int endOffset) {
+		this.container = container;
 		this.text = text;
 		this.startOffset = startOffset;
 		this.endOffset = endOffset;
@@ -76,15 +88,29 @@ public class TextRegion {
 		return text;
 	}
 
+	/**
+	 * Gets the containing {@link Object} should
+	 * {@link org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer, Object)
+	 * be located} by a {@link ITextContainer}.
+	 * 
+	 * @return the containing {@link Object} should
+	 *         {@link org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry#getLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer, Object)
+	 *         be located} by a {@link ITextContainer}
+	 */
+	public Object getContainer() {
+		return container;
+	}
+
 	@Override
 	public int hashCode() {
-		return (text.hashCode() ^ endOffset) - startOffset;
+		return (text.hashCode() ^ endOffset) - startOffset ^ container.hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof TextRegion && startOffset == ((TextRegion)obj).startOffset
-				&& endOffset == ((TextRegion)obj).endOffset && text.equals(((TextRegion)obj).text);
+				&& endOffset == ((TextRegion)obj).endOffset && text.equals(((TextRegion)obj).text)
+				&& container.equals(((TextRegion)obj).container);
 	}
 
 }

@@ -23,5 +23,11 @@
             priority="normal">
       </content-type>
    </extension>
+   <extension
+         point="org.eclipse.mylyn.docs.intent.mapping.ide.containerProvider">
+      <provider
+            class="org.eclipse.mylyn.docs.intent.mapping.jena.ide.connector.ResourceContainerProvider">
+      </provider>
+   </extension>
 
 </plugin>

@@ -48,7 +48,9 @@ public class MarkerToTextLocationDescriptor implements IMarkerToLocationDescript
 					final Integer end = (Integer)marker.getAttribute(IMarker.CHAR_END);
 					final String content = MappingUtils.getContent((int)marker.getResource().getLocation()
 							.toFile().length(), ((IFile)marker.getResource()).getContents());
-					final TextRegion region = new TextRegion(content.substring(start, end), start, end);
+					// TODO find a way to provide more dynamic container
+					final TextRegion region = new TextRegion(marker.getResource(), content.substring(start,
+							end), start, end);
 					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(currentBase, region);
 				}
 			} catch (CoreException e) {
