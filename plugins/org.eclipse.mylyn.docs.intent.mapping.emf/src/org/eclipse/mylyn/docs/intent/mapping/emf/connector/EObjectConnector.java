@@ -319,7 +319,7 @@ public class EObjectConnector extends AbstractConnector {
 		final String newXMIContent = XMLHelperImpl.saveString(new HashMap<Object, Object>(), newResource
 				.getContents(), UTF_8, null);
 
-		if (container.getXMIContent() != null) {
+		if (container.getXMIContent() != null && !container.getXMIContent().isEmpty()) {
 			final XMIResourceImpl oldResource = new XMIResourceImpl(URI.createURI(""));
 			oldResource.load(new ByteArrayInputStream(container.getXMIContent().getBytes(UTF_8)),
 					new HashMap<Object, Object>());

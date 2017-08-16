@@ -278,16 +278,16 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 	public void parseInitialContributions() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 
+		for (IExtension extension : registry.getExtensionPoint(CONTAINER_PROVIDER_EXTENSION_POINT)
+				.getExtensions()) {
+			parseContainerProviderExtension(extension);
+		}
 		for (IExtension extension : registry.getExtensionPoint(LOCATION_EXTENSION_POINT).getExtensions()) {
 			parseLocationExtension(extension);
 		}
 		for (IExtension extension : registry.getExtensionPoint(FILE_CONNECTOR_DELEGATE_EXTENSION_POINT)
 				.getExtensions()) {
 			parseFileConnectorDelegateExtension(extension);
-		}
-		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT)
-				.getExtensions()) {
-			parseBaseProviderExtension(extension);
 		}
 		for (IExtension extension : registry.getExtensionPoint(CONNECTOR_EXTENSION_POINT).getExtensions()) {
 			parseConnectorProviderExtension(extension);
@@ -296,9 +296,9 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 				.getExtensions()) {
 			parseMarkerToLocationExtension(extension);
 		}
-		for (IExtension extension : registry.getExtensionPoint(CONTAINER_PROVIDER_EXTENSION_POINT)
+		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT)
 				.getExtensions()) {
-			parseContainerProviderExtension(extension);
+			parseBaseProviderExtension(extension);
 		}
 	}
 

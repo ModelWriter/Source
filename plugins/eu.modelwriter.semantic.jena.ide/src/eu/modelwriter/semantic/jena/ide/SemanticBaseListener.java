@@ -133,12 +133,14 @@ public class SemanticBaseListener implements IResourceChangeListener {
 	private void scan(IContainer container) {
 		IResource[] members;
 		try {
-			members = container.members();
-			for (IResource member : members) {
-				if (member instanceof IContainer) {
-					scan((IContainer)member);
-				} else if (member instanceof IFile) {
-					register((IFile)member);
+			if (container.isAccessible()) {
+				members = container.members();
+				for (IResource member : members) {
+					if (member instanceof IContainer) {
+						scan((IContainer)member);
+					} else if (member instanceof IFile) {
+						register((IFile)member);
+					}
 				}
 			}
 		} catch (CoreException e) {

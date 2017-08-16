@@ -124,7 +124,7 @@ public class QuickFixContributionItem extends ContributionItem {
 
 		final IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getActiveEditor();
-		if (activeEditor != null) {
+		if (activeEditor instanceof ITextEditor) {
 			final IVerticalRulerInfo rulerInfo = (IVerticalRulerInfo)activeEditor.getAdapter(
 					IVerticalRulerInfo.class);
 
@@ -169,7 +169,6 @@ public class QuickFixContributionItem extends ContributionItem {
 			line = null;
 		}
 		if (line != null) {
-			@SuppressWarnings("unchecked")
 			final Iterator<Annotation> it = model.getAnnotationIterator(line.getOffset(), line.getLength()
 					+ 1, true, true);
 			while (it.hasNext()) {

@@ -49,9 +49,12 @@ import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
@@ -110,6 +113,17 @@ public class MappingView extends ViewPart {
 			if (newBase != null) {
 				for (ILocation child : newBase.getContents()) {
 					addLocation(child);
+				}
+			}
+			for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+				for (IWorkbenchPage page : window.getPages()) {
+					for (IEditorReference editorRef : page.getEditorReferences()) {
+						final IEditorPart editorPart = editorRef.getEditor(false);
+						if (editorPart != null) {
+							clearLocationMarker(oldBase, editorPart);
+							createLocationMarker(newBase, editorPart);
+						}
+					}
 				}
 			}
 		}
@@ -332,7 +346,8 @@ public class MappingView extends ViewPart {
 		public void partClosed(IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (part instanceof IEditorPart) {
-				clearLocationMarker((IEditorPart)part);
+				final IBase currentBase = IdeMappingUtils.getCurrentBase();
+				createLocationMarker(currentBase, (IEditorPart)part);
 			}
 		}
 
@@ -354,7 +369,8 @@ public class MappingView extends ViewPart {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (part instanceof IEditorPart) {
 				setInput((IEditorPart)part);
-				createLocationMarker((IEditorPart)part);
+				final IBase currentBase = IdeMappingUtils.getCurrentBase();
+				createLocationMarker(currentBase, (IEditorPart)part);
 			}
 		}
 
@@ -416,7 +432,8 @@ public class MappingView extends ViewPart {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (part instanceof IEditorPart) {
 				setInput((IEditorPart)part);
-				createLocationMarker((IEditorPart)part);
+				final IBase currentBase = IdeMappingUtils.getCurrentBase();
+				createLocationMarker(currentBase, (IEditorPart)part);
 			}
 		}
 
@@ -492,8 +509,8 @@ public class MappingView extends ViewPart {
 		composite.setLayout(new GridLayout(1, false));
 
 		Composite headerComposite = new Composite(composite, SWT.NONE);
-		headerComposite.setLayout(new GridLayout(2, false));
-		headerComposite.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false, 1, 1));
+		headerComposite.setLayout(new GridLayout(3, false));
+		headerComposite.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
 
 		final ComboViewer mappingBaseCombo = addMappingBaseCombo(headerComposite);
 
@@ -504,20 +521,22 @@ public class MappingView extends ViewPart {
 		addDocumentTabItem(bodyTabFolder, mappingBaseCombo);
 		addReportTabItem(bodyTabFolder, mappingBaseCombo);
 
+		final Button containerProviderButton = new Button(headerComposite, SWT.NONE);
+		containerProviderButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
+		containerProviderButton.setText("Select Container Providers");
+		containerProviderButton.setEnabled(IdeMappingUtils.getCurrentBase() != null);
 		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			public void selectionChanged(SelectionChangedEvent event) {
-				for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
-					for (IWorkbenchPage page : window.getPages()) {
-						for (IEditorReference editorRef : page.getEditorReferences()) {
-							final IEditorPart editorPart = editorRef.getEditor(false);
-							if (editorPart != null) {
-								clearLocationMarker(editorPart);
-								createLocationMarker(editorPart);
-							}
-						}
-					}
-				}
+				containerProviderButton.setEnabled(IdeMappingUtils.getCurrentBase() != null);
+			}
+		});
+		containerProviderButton.addListener(SWT.Selection, new Listener() {
+
+			public void handleEvent(Event event) {
+				final ContainerProviderSelectionDialog dialog = new ContainerProviderSelectionDialog(getSite()
+						.getShell(), IdeMappingUtils.getCurrentBase());
+				dialog.open();
 			}
 
 		});
@@ -925,7 +944,7 @@ public class MappingView extends ViewPart {
 				for (IEditorReference editorRef : page.getEditorReferences()) {
 					final IEditorPart editorPart = editorRef.getEditor(false);
 					if (editorPart != null) {
-						clearLocationMarker(editorPart);
+						clearLocationMarker(oldBase, editorPart);
 					}
 				}
 			}
@@ -972,24 +991,24 @@ public class MappingView extends ViewPart {
 	/**
 	 * Clears all location markers for the given {@link IEditorPart}.
 	 * 
+	 * @param base
+	 *            the {@link IBase}
 	 * @param part
 	 *            the {@link IEditorPart}
 	 */
-	private void clearLocationMarker(IEditorPart part) {
+	private void clearLocationMarker(IBase base, IEditorPart part) {
 		final IEditorInput editorInput = part.getEditorInput();
 
 		if (editorInput != null) {
 			final IFile file = UiIdeMappingUtils.getFile(editorInput);
-			final IBase currentBase = IdeMappingUtils.getCurrentBase();
-			if (file != null && currentBase != null) {
+			if (file != null && base != null) {
 				try {
 					file.deleteMarkers(ILocationMarker.LOCATION_ID, true, IResource.DEPTH_INFINITE);
 				} catch (CoreException e) {
 					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
 							"unable to clear all location markers for " + file.getFullPath().toString(), e));
 				}
-				final ILocation fileLocation = MappingUtils.getConnectorRegistry().getLocation(currentBase,
-						file);
+				final ILocation fileLocation = MappingUtils.getConnectorRegistry().getLocation(base, file);
 				if (fileLocation != null) {
 					editedLocations.remove(fileLocation);
 					removeLocation(fileLocation);
@@ -1046,18 +1065,18 @@ public class MappingView extends ViewPart {
 	/**
 	 * Creates all location markers for the given {@link IEditorPart}.
 	 * 
+	 * @param base
+	 *            the IBase
 	 * @param part
 	 *            the {@link IEditorPart}
 	 */
-	private void createLocationMarker(IEditorPart part) {
+	private void createLocationMarker(IBase base, IEditorPart part) {
 		final IEditorInput editorInput = part.getEditorInput();
 
 		if (editorInput != null) {
 			final IFile file = UiIdeMappingUtils.getFile(editorInput);
-			final IBase currentBase = IdeMappingUtils.getCurrentBase();
-			if (file != null && currentBase != null) {
-				final ILocation fileLocation = MappingUtils.getConnectorRegistry().getLocation(currentBase,
-						file);
+			if (file != null && base != null) {
+				final ILocation fileLocation = MappingUtils.getConnectorRegistry().getLocation(base, file);
 				if (fileLocation != null) {
 					editedLocations.add(fileLocation);
 					addLocation(fileLocation);

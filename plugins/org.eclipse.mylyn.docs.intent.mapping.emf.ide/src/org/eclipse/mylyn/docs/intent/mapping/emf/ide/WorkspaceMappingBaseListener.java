@@ -77,18 +77,20 @@ public class WorkspaceMappingBaseListener implements IResourceChangeListener {
 	 */
 	private void scan(IContainer container) {
 		IResource[] members;
-		try {
-			members = container.members();
-			for (IResource member : members) {
-				if (member instanceof IContainer) {
-					scan((IContainer)member);
-				} else if (member instanceof IFile) {
-					register((IFile)member);
+		if (container.isAccessible()) {
+			try {
+				members = container.members();
+				for (IResource member : members) {
+					if (member instanceof IContainer) {
+						scan((IContainer)member);
+					} else if (member instanceof IFile) {
+						register((IFile)member);
+					}
 				}
+			} catch (CoreException e) {
+				Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
+						UNABLE_TO_LOAD_MAPPING_BASE_FROM + e.getMessage(), e));
 			}
-		} catch (CoreException e) {
-			Activator.getDefault().getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
-					UNABLE_TO_LOAD_MAPPING_BASE_FROM + e.getMessage(), e));
 		}
 	}
 

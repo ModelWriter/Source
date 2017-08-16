@@ -11,7 +11,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.base;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.mylyn.docs.intent.mapping.connector.IContainerProvider;
@@ -100,7 +102,7 @@ public class ContainerProviderFactory {
 	/**
 	 * Mapping from {@link IFactoryDescriptor#getClassName() class name} to {@link IFactoryDescriptor}.
 	 */
-	private final Map<String, IFactoryDescriptor> descriptorMapping = new HashMap<String, IFactoryDescriptor>();
+	private final Map<String, IFactoryDescriptor> descriptorMapping = new LinkedHashMap<String, IFactoryDescriptor>();
 
 	/**
 	 * Gets the instance {@link IFactoryDescriptor} for the given {@link Class#getCanonicalName() class name}
@@ -167,6 +169,10 @@ public class ContainerProviderFactory {
 	 */
 	public void removeDescriptor(String className) {
 		descriptorMapping.remove(className);
+	}
+
+	public List<String> getProviderNames() {
+		return new ArrayList<String>(descriptorMapping.keySet());
 	}
 
 }
