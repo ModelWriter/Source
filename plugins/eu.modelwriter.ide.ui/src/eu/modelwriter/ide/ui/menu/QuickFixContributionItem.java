@@ -131,15 +131,32 @@ public class QuickFixContributionItem extends ContributionItem {
 			// TODO check if the last right click has been done on the ruler
 			final IResource resource = getResource(activeEditor);
 			if (resource != null) {
-				final IDocument document = (IDocument)((ITextEditor)activeEditor).getDocumentProvider()
-						.getDocument(activeEditor.getEditorInput());
-				if (document != null) {
-					final AbstractMarkerAnnotationModel model = getAnnotationModel((ITextEditor)activeEditor);
-					if (model != null) {
-						final int activeLine = rulerInfo.getLineOfLastMouseButtonActivity();
-						res.addAll(getMarkers(document, model, activeLine));
-					}
-				}
+				res.addAll(getMarkers((ITextEditor)activeEditor, rulerInfo));
+			}
+		}
+
+		return res;
+	}
+
+	/**
+	 * Gets the {@link List} of {@link IMarker} for the current line of the given {@link ITextEditor}.
+	 * 
+	 * @param editor
+	 *            the {@link ITextEditor}
+	 * @param rulerInfo
+	 *            the {@link IVerticalRulerInfo}
+	 * @return the {@link List} of {@link IMarker} for the current line of the given {@link ITextEditor}
+	 */
+	protected List<IMarker> getMarkers(final ITextEditor editor, final IVerticalRulerInfo rulerInfo) {
+		final List<IMarker> res = new ArrayList<IMarker>();
+
+		final IDocument document = (IDocument)editor.getDocumentProvider().getDocument(editor
+				.getEditorInput());
+		if (document != null) {
+			final AbstractMarkerAnnotationModel model = getAnnotationModel(editor);
+			if (model != null) {
+				final int activeLine = rulerInfo.getLineOfLastMouseButtonActivity();
+				res.addAll(getMarkers(document, model, activeLine));
 			}
 		}
 

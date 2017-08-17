@@ -45,6 +45,16 @@ import org.eclipse.swt.widgets.Table;
 public class ContainerProviderSelectionDialog extends Dialog {
 
 	/**
+	 * The Y size.
+	 */
+	private static final int Y = 300;
+
+	/**
+	 * The X size.
+	 */
+	private static final int X = 900;
+
+	/**
 	 * The {@link IBase} to edit.
 	 */
 	protected final IBase base;
@@ -161,7 +171,7 @@ public class ContainerProviderSelectionDialog extends Dialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(900, 300);
+		return new Point(X, Y);
 	}
 
 	@Override
