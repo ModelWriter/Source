@@ -95,7 +95,13 @@ public class MappingView extends ViewPart {
 		 */
 		public void selectionChanged(SelectionChangedEvent event) {
 			final IBase oldBase = IdeMappingUtils.getCurrentBase();
-			final IBase newBase = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
+			final Object selected = ((IStructuredSelection)event.getSelection()).getFirstElement();
+			final IBase newBase;
+			if (selected == MappingBaseRegistryContentProvider.NO_VALUE) {
+				newBase = null;
+			} else {
+				newBase = (IBase)selected;
+			}
 			if (oldBase != null) {
 				for (ILocation child : oldBase.getContents()) {
 					deleteLocation(child);
@@ -381,26 +387,33 @@ public class MappingView extends ViewPart {
 		 *            the {@link IEditorPart}
 		 */
 		public void setInput(final IEditorPart editorPart) {
-			final IEditorInput input = editorPart.getEditorInput();
-			final IFile file = UiIdeMappingUtils.getFile(input);
-			final IBase base = IdeMappingUtils.getCurrentBase();
-			if (base != null) {
-				try {
-					// TODO get the location and add a listener to be notified when the location is created
-					final ILocation location = MappingUtils.getConnectorRegistry().getOrCreateLocation(base,
-							file);
-					for (Viewer viewer : viewers) {
-						viewer.setInput(location);
+			if (editorPart == null) {
+				for (Viewer viewer : viewers) {
+					viewer.setInput(null);
+				}
+			} else {
+				final IEditorInput input = editorPart.getEditorInput();
+				final IFile file = UiIdeMappingUtils.getFile(input);
+				final IBase base = IdeMappingUtils.getCurrentBase();
+				if (base != null) {
+					try {
+						// TODO get the location and add a listener to be notified when the location is
+						// created
+						final ILocation location = MappingUtils.getConnectorRegistry().getOrCreateLocation(
+								base, file);
+						for (Viewer viewer : viewers) {
+							viewer.setInput(location);
+						}
+					} catch (InstantiationException e) {
+						Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+								UNABLE_TO_CREATE_LOCATION, e));
+					} catch (IllegalAccessException e) {
+						Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+								UNABLE_TO_CREATE_LOCATION, e));
+					} catch (ClassNotFoundException e) {
+						Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+								UNABLE_TO_CREATE_LOCATION, e));
 					}
-				} catch (InstantiationException e) {
-					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-							UNABLE_TO_CREATE_LOCATION, e));
-				} catch (IllegalAccessException e) {
-					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-							UNABLE_TO_CREATE_LOCATION, e));
-				} catch (ClassNotFoundException e) {
-					Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-							UNABLE_TO_CREATE_LOCATION, e));
 				}
 			}
 		}
@@ -654,7 +667,13 @@ public class MappingView extends ViewPart {
 		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			public void selectionChanged(SelectionChangedEvent event) {
-				final IBase base = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
+				final IBase base;
+				final Object selected = ((IStructuredSelection)event.getSelection()).getFirstElement();
+				if (selected == MappingBaseRegistryContentProvider.NO_VALUE) {
+					base = null;
+				} else {
+					base = (IBase)selected;
+				}
 				final ILocation location = (ILocation)referencedTree.getViewer().getInput();
 				if (location != null && areSameBase(MappingUtils.getBase(location), base)) {
 					referencingTree.getViewer().setInput(null);
@@ -808,16 +827,23 @@ public class MappingView extends ViewPart {
 		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			public void selectionChanged(SelectionChangedEvent event) {
-				final IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-						.getActivePage().getActiveEditor();
-				if (activeEditor != null && editorPartListener != null) {
-					editorPartListener.setInput(activeEditor);
+				final Object selected = ((IStructuredSelection)event.getSelection()).getFirstElement();
+				if (selected == MappingBaseRegistryContentProvider.NO_VALUE) {
+					editorPartListener.setInput(null);
+				} else {
+					final IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+							.getActivePage().getActiveEditor();
+					if (activeEditor != null && editorPartListener != null) {
+						editorPartListener.setInput(activeEditor);
+					}
 				}
 			}
 		});
 
 		editorPartListener = new EditorPartListener(referencingTree.getViewer(), referencedTree.getViewer());
-		for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+		for (
+
+		IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
 			for (IWorkbenchPage page : window.getPages()) {
 				final IEditorPart activeEditor = page.getActiveEditor();
 				if (activeEditor != null) {
@@ -887,7 +913,13 @@ public class MappingView extends ViewPart {
 		mappingBaseCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			public void selectionChanged(SelectionChangedEvent event) {
-				final IBase base = (IBase)((IStructuredSelection)event.getSelection()).getFirstElement();
+				final IBase base;
+				final Object selected = ((IStructuredSelection)event.getSelection()).getFirstElement();
+				if (selected == MappingBaseRegistryContentProvider.NO_VALUE) {
+					base = null;
+				} else {
+					base = (IBase)selected;
+				}
 				reportTree.getViewer().setInput(base);
 			}
 		});

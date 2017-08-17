@@ -73,7 +73,9 @@ public class MappingLabelProvider extends BaseLabelProvider implements ILabelPro
 	public String getText(Object element) {
 		final String res;
 
-		if (column == SOURCE) {
+		if (element == MappingBaseRegistryContentProvider.NO_VALUE) {
+			res = "";
+		} else if (column == SOURCE) {
 			if (element instanceof ILocation) {
 				res = MappingUtils.getConnectorRegistry().getName((ILocation)element);
 			} else if (element instanceof ILocationDescriptor) {

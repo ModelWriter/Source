@@ -13,12 +13,11 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.adapter;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.ILocationMarker;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
@@ -48,8 +47,7 @@ public class TextLocationToMarkerAdapterFactory implements IAdapterFactory {
 				res = existingMarker;
 			} else {
 				final IFileLocation fileLocation = IdeMappingUtils.getContainingFileLocation(textLocation);
-				final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(
-						fileLocation.getFullPath()));
+				final IFile file = (IFile)MappingUtils.getConnectorRegistry().getElement(fileLocation);
 				try {
 					res = file.createMarker(ILocationMarker.TEXT_LOCATION_ID);
 					res.setAttribute(IMarker.CHAR_START, textLocation.getStartOffset());

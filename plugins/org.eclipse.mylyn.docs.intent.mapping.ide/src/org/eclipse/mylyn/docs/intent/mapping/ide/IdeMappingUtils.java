@@ -176,6 +176,17 @@ public final class IdeMappingUtils {
 	 */
 	private static IBase currentBase;
 
+	static {
+		CURRENT_BASE_LISTENERS.add(new ICurrentBaseListener() {
+
+			public void currentBaseChanged(IBase oldBase, IBase newBase) {
+				for (ILocationDescriptor descriptor : getLocationsPool()) {
+					removeLocationFromPool(descriptor);
+				}
+			}
+		});
+	}
+
 	/**
 	 * Constructor.
 	 */

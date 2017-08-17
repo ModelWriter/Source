@@ -29,6 +29,11 @@ import org.eclipse.swt.widgets.Display;
  */
 public class MappingBaseRegistryContentProvider implements IStructuredContentProvider {
 
+	/**
+	 * Workaround for null in JFace combo box...
+	 */
+	public static final Object NO_VALUE = new Object();
+
 	// Force the start of org.eclipse.intent.mapping.ide
 	// TODO we should find a better way to do that
 	{
@@ -135,7 +140,12 @@ public class MappingBaseRegistryContentProvider implements IStructuredContentPro
 		final Object[] res;
 
 		if (inputElement instanceof IBaseRegistry) {
-			res = ((IBaseRegistry)inputElement).getBases().toArray();
+			res = new Object[((IBaseRegistry)inputElement).getBases().size() + 1];
+			int index = 0;
+			res[index++] = NO_VALUE;
+			for (IBase base : ((IBaseRegistry)inputElement).getBases()) {
+				res[index++] = base;
+			}
 		} else {
 			res = new Object[0];
 		}
