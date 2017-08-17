@@ -121,17 +121,6 @@ public class MappingView extends ViewPart {
 					addLocation(child);
 				}
 			}
-			for (IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
-				for (IWorkbenchPage page : window.getPages()) {
-					for (IEditorReference editorRef : page.getEditorReferences()) {
-						final IEditorPart editorPart = editorRef.getEditor(false);
-						if (editorPart != null) {
-							clearLocationMarker(oldBase, editorPart);
-							createLocationMarker(newBase, editorPart);
-						}
-					}
-				}
-			}
 		}
 	}
 

@@ -55,7 +55,7 @@ public final class UiIdeMappingUtils {
 	 */
 	public static void showLocation(ILocation location) {
 		if (!location.isMarkedAsDeleted()) {
-			final IMarker marker = IdeMappingUtils.getOrCreateMarker(location);
+			final IMarker marker = IdeMappingUtils.getMarker(location);
 			if (marker != null) {
 				showMarker(marker);
 			} else {
