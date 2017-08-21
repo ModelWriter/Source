@@ -36,6 +36,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBaseRegistryListener;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.IReport;
 import org.eclipse.mylyn.docs.intent.mapping.connector.IConnectorRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeRegistry;
@@ -376,6 +377,26 @@ public final class MappingUtils {
 	}
 
 	/**
+	 * Tells if an {@link ILink} can be
+	 * {@link MappingUtils#createLink(ILocationDescriptor, ILocationDescriptor) created} between the given
+	 * {@link ILocationDescriptor sourceDescriptor} and {@link ILocationDescriptor targetDescriptor}.
+	 * 
+	 * @param sourceDescriptor
+	 *            the source {@link ILocationDescriptor}
+	 * @param targetDescriptor
+	 *            the target {@link ILocationDescriptor}
+	 * @return <code>true</code> if an {@link ILink} can be
+	 *         {@link MappingUtils#createLink(ILocationDescriptor, ILocationDescriptor) created} between the
+	 *         given {@link ILocationDescriptor sourceDescriptor} and {@link ILocationDescriptor
+	 *         targetDescriptor}, <code>false</code> otherwise
+	 */
+	public static boolean canCreateLink(ILocationDescriptor sourceDescriptor,
+			ILocationDescriptor targetDescriptor) {
+		return !sourceDescriptor.exists() || !targetDescriptor.exists() || MappingUtils.canCreateLink(
+				sourceDescriptor.getLocation(), targetDescriptor.getLocation());
+	}
+
+	/**
 	 * Creates an {@link ILink} between the given {@link ILink#getSource() source} and
 	 * {@link ILink#getTarget() target}.
 	 * 
@@ -402,6 +423,37 @@ public final class MappingUtils {
 			res = base.getFactory().createElement(ILink.class);
 			res.setSource(source);
 			res.setTarget(target);
+		} else {
+			throw new IllegalStateException("can't create the Link.");
+		}
+
+		return res;
+	}
+
+	/**
+	 * Creates an {@link ILink} between the given {@link ILink#getSource() source} and
+	 * {@link ILink#getTarget() target}.
+	 * 
+	 * @param sourceDescriptor
+	 *            the {@link ILink#getSource() source} {@link ILocationDescriptor}
+	 * @param targetDescriptor
+	 *            the {@link ILink#getTarget() target} {@link ILocationDescriptor}
+	 * @return the created {@link ILink}
+	 * @throws IllegalAccessException
+	 *             if the class or its nullary constructor is not accessible
+	 * @throws InstantiationException
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
+	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
+	 *             other reason
+	 * @throws ClassNotFoundException
+	 *             if the {@link Class} can't be found
+	 */
+	public static ILink createLink(ILocationDescriptor sourceDescriptor, ILocationDescriptor targetDescriptor)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		final ILink res;
+
+		if (canCreateLink(sourceDescriptor, targetDescriptor)) {
+			res = MappingUtils.createLink(sourceDescriptor.getOrCreate(), targetDescriptor.getOrCreate());
 		} else {
 			throw new IllegalStateException("can't create the Link.");
 		}

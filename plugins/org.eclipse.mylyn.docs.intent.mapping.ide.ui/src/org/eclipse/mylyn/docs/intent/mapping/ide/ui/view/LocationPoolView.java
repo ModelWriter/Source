@@ -12,18 +12,34 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.ui.view;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ICheckStateProvider;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerDropAdapter;
+import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener;
+import org.eclipse.mylyn.docs.intent.mapping.ide.ui.Activator;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DropTarget;
+import org.eclipse.swt.dnd.TextTransfer;
+import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -31,6 +47,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.part.ViewPart;
 
@@ -40,6 +57,173 @@ import org.eclipse.ui.part.ViewPart;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public class LocationPoolView extends ViewPart {
+
+	/**
+	 * Listen to text drop.
+	 *
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	private final class LocationDropTargetListener extends ViewerDropAdapter {
+
+		/**
+		 * The "unable to create link" message.
+		 */
+		private static final String UNABLE_TO_CREATE_LINK = "unable to create link";
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param viewer
+		 *            the {@link Viewer}
+		 */
+		protected LocationDropTargetListener(Viewer viewer) {
+			super(viewer);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public boolean performDrop(Object data) {
+			boolean res = false;
+
+			final List<Object> sources = new ArrayList<Object>();
+			if (data instanceof String) {
+				final ISelectionService selectionService = getSite().getPage().getWorkbenchWindow()
+						.getWorkbench().getActiveWorkbenchWindow().getSelectionService();
+				final ISelection selection = selectionService.getSelection();
+				if (selection instanceof ITextSelection) {
+					sources.add(selection);
+				}
+			} else if (data instanceof IStructuredSelection) {
+				sources.addAll(((IStructuredSelection)data).toList());
+			} else if (data instanceof Collection<?>) {
+				sources.addAll((Collection<?>)data);
+			}
+
+			final Object target = getCurrentTarget();
+			for (Object source : sources) {
+				if (target == null) {
+					final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(source,
+							ILocationDescriptor.class);
+					if (locationDescriptor != null) {
+						IdeMappingUtils.addLocationToPool(locationDescriptor);
+						res = true;
+					}
+				} else {
+					final ILocationDescriptor sourceDescriptor = IdeMappingUtils.adapt(source,
+							ILocationDescriptor.class);
+					final ILocationDescriptor targetDescriptor = IdeMappingUtils.adapt(target,
+							ILocationDescriptor.class);
+					if (sourceDescriptor != null && targetDescriptor != null) {
+						try {
+							if (MappingUtils.createLink(sourceDescriptor, targetDescriptor) != null) {
+								res = true;
+							}
+						} catch (InstantiationException e) {
+							Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+									UNABLE_TO_CREATE_LINK, e));
+						} catch (IllegalAccessException e) {
+							Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+									UNABLE_TO_CREATE_LINK, e));
+						} catch (ClassNotFoundException e) {
+							Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+									UNABLE_TO_CREATE_LINK, e));
+						}
+					}
+				}
+			}
+
+			return res;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public boolean validateDrop(Object target, int operation, TransferData transferType) {
+			final boolean res;
+
+			final List<Object> sources = new ArrayList<Object>();
+
+			if (TextTransfer.getInstance().isSupportedType(transferType)) {
+				final ISelectionService selectionService = getSite().getPage().getWorkbenchWindow()
+						.getWorkbench().getActiveWorkbenchWindow().getSelectionService();
+				final ISelection selection = selectionService.getSelection();
+				if (selection instanceof ITextSelection) {
+					sources.add(selection);
+				}
+			} else if (LocalSelectionTransfer.getTransfer().isSupportedType(transferType)) {
+				sources.addAll(((IStructuredSelection)LocalSelectionTransfer.getTransfer().nativeToJava(
+						transferType)).toList());
+			} else {
+				// nothing to do here
+			}
+
+			if (!sources.isEmpty()) {
+				if (target == null) {
+					res = canCreateLocationDescription(sources);
+				} else {
+					res = canCreateLink(sources, target);
+				}
+			} else {
+				res = false;
+			}
+
+			return res;
+		}
+
+		/**
+		 * Tells if we can create an {@link ILink} between the given source and target element.
+		 * 
+		 * @param sources
+		 *            the {@link List} of sources
+		 * @param target
+		 *            the target
+		 * @return <code>true</code> if we can create an {@link ILink} between the given source and target
+		 *         element, <code>false</code>
+		 */
+		protected boolean canCreateLink(List<Object> sources, Object target) {
+			boolean res = false;
+
+			for (Object source : sources) {
+				final ILocationDescriptor sourceDescriptor = IdeMappingUtils.adapt(source,
+						ILocationDescriptor.class);
+				if (sourceDescriptor != null) {
+					final ILocationDescriptor targetDescriptor = IdeMappingUtils.adapt(target,
+							ILocationDescriptor.class);
+					if (targetDescriptor != null && MappingUtils.canCreateLink(sourceDescriptor,
+							targetDescriptor)) {
+						res = true;
+						break;
+					}
+				}
+			}
+
+			return res;
+		}
+
+		/**
+		 * Tells if an {@link ILocationDescriptor} can be created for the given element.
+		 * 
+		 * @param elements
+		 *            the element
+		 * @return <code>true</code> if an {@link ILocationDescriptor} can be created for the given element,
+		 *         <code>false</code> otherwise
+		 */
+		protected boolean canCreateLocationDescription(final List<Object> elements) {
+			boolean res = false;
+
+			for (Object element : elements) {
+				final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(element,
+						ILocationDescriptor.class);
+				if (locationDescriptor != null) {
+					res = true;
+					locationDescriptor.dispose();
+					break;
+				}
+			}
+
+			return res;
+		}
+
+	}
 
 	/**
 	 * A flat content provider for the {@link IdeMappingUtils#getLocationsPool() location pool}.
@@ -248,6 +432,12 @@ public class LocationPoolView extends ViewPart {
 				}
 			}
 		});
+
+		final DropTarget textDropTarget = new DropTarget(locationsList.getViewer().getTree(), DND.DROP_COPY
+				| DND.DROP_MOVE | DND.DROP_LINK | DND.DROP_DEFAULT);
+		textDropTarget.setTransfer(new Transfer[] {TextTransfer.getInstance(), LocalSelectionTransfer
+				.getTransfer(), });
+		textDropTarget.addDropListener(new LocationDropTargetListener(locationsList.getViewer()));
 
 		getSite().setSelectionProvider(locationsList.getViewer());
 

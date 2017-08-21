@@ -44,12 +44,12 @@ public abstract class AbstractLocationHandler extends AbstractHandler {
 	/**
 	 * Unable to create source {@link ILocation} message.
 	 */
-	protected static final String UNABLE_TO_CREATE_SOURCE_LOCATION = "unable to create source link";
+	protected static final String UNABLE_TO_CREATE_SOURCE_LOCATION = "unable to create source location";
 
 	/**
 	 * Unable to create target {@link ILocation} message.
 	 */
-	protected static final String UNABLE_TO_CREATE_TARGET_LOCATION = "unable to create target link";
+	protected static final String UNABLE_TO_CREATE_TARGET_LOCATION = "unable to create target location";
 
 	/**
 	 * {@inheritDoc}

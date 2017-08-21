@@ -373,17 +373,17 @@ public final class IdeMappingUtils {
 	 * Adds the given {@link ILocationDescriptor} to the {@link #getLocationsPool() pool of location
 	 * descriptor}.
 	 * 
-	 * @param locationDesciptor
+	 * @param locationDescriptor
 	 *            the {@link ILocationDescriptor} to add
 	 */
-	public static void addLocationToPool(ILocationDescriptor locationDesciptor) {
+	public static void addLocationToPool(ILocationDescriptor locationDescriptor) {
 		final Boolean added;
 		synchronized(LOCATIONS_POOL) {
-			added = LOCATIONS_POOL.put(locationDesciptor, false);
+			added = LOCATIONS_POOL.put(locationDescriptor, false);
 		}
 		if (added == null || added) {
 			for (ILocationsPoolListener listener : getLocationPoolListeners()) {
-				listener.contentsAdded(locationDesciptor);
+				listener.contentsAdded(locationDescriptor);
 			}
 		}
 	}
