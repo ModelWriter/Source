@@ -11,19 +11,15 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.tests.base;
 
-import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.LocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.connector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.ObjectLocationDescriptorTests.TestConnector;
 import org.eclipse.mylyn.docs.intent.mapping.tests.connector.ConnectorRegistryTests.TestLocation1;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -122,35 +118,6 @@ public class LocationDescriptorTests {
 		base.getContents().add(location);
 
 		assertEquals(location.hashCode(), descriptor.hashCode());
-	}
-
-	@Test
-	public void updateNull() {
-		final TestLocation1 location = new TestLocation1();
-		location.setObject(new Object());
-		final LocationDescriptor descriptor = new LocationDescriptor(location);
-
-		IConnector connector = new TestConnector(null);
-		MappingUtils.getConnectorRegistry().register(connector);
-		descriptor.update(null);
-		MappingUtils.getConnectorRegistry().unregister(connector);
-
-		assertNull(location.getObject());
-	}
-
-	@Test
-	public void updateElement() {
-		final TestLocation1 location = new TestLocation1();
-		location.setObject(new Object());
-		final LocationDescriptor descriptor = new LocationDescriptor(location);
-
-		final Object otherElement = new Object();
-		IConnector connector = new TestConnector(otherElement);
-		MappingUtils.getConnectorRegistry().register(connector);
-		descriptor.update(otherElement);
-		MappingUtils.getConnectorRegistry().unregister(connector);
-
-		assertEquals(otherElement, location.getObject());
 	}
 
 }

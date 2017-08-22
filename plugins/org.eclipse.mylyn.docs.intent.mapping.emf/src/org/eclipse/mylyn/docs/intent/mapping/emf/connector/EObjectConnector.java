@@ -43,7 +43,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
@@ -684,11 +683,11 @@ public class EObjectConnector extends AbstractConnector {
 		final Object adapted = adapt(element);
 		if (adapted instanceof EObject) {
 			final EObject eObj = (EObject)adapted;
-			res = new ObjectLocationDescriptor(this, base, adapted, getName(eObj, null, 0));
+			res = new ObjectLocationDescriptor(base, adapted, getName(eObj, null, 0));
 		} else if (adapted instanceof Setting) {
 			final EObject eObj = ((Setting)adapted).getEObject();
 			final EStructuralFeature feature = ((Setting)adapted).getEStructuralFeature();
-			res = new ObjectLocationDescriptor(this, base, adapted, getName(eObj, feature, 0));
+			res = new ObjectLocationDescriptor(base, adapted, getName(eObj, feature, 0));
 		} else {
 			res = null;
 		}

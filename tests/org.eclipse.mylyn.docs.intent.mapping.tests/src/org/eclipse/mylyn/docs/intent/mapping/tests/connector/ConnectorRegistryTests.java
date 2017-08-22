@@ -16,7 +16,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.connector.IConnector;
 import org.eclipse.mylyn.docs.intent.mapping.internal.connector.ConnectorRegistry;
@@ -93,7 +92,7 @@ public class ConnectorRegistryTests {
 		public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 			final ILocationDescriptor res;
 
-			res = new ObjectLocationDescriptor(this, base, element, "TestLocation1 " + element.toString());
+			res = new ObjectLocationDescriptor(base, element, "TestLocation1 " + element.toString());
 
 			return res;
 		}
@@ -205,7 +204,7 @@ public class ConnectorRegistryTests {
 		public ILocationDescriptor getLocationDescriptor(IBase base, Object element) {
 			final ILocationDescriptor res;
 
-			res = new ObjectLocationDescriptor(this, base, element, "TestLocation2 " + element.toString());
+			res = new ObjectLocationDescriptor(base, element, "TestLocation2 " + element.toString());
 
 			return res;
 		}

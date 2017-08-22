@@ -19,7 +19,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICDORepositoryLocation;
 
@@ -87,7 +86,7 @@ public class CDOViewConnector extends AbstractConnector {
 		final Object adapted = adapt(element);
 		if (adapted instanceof CDOView) {
 			final CDOView cdoView = (CDOView)adapted;
-			res = new ObjectLocationDescriptor(this, base, adapted, cdoView.getSession().getRepositoryInfo()
+			res = new ObjectLocationDescriptor(base, adapted, cdoView.getSession().getRepositoryInfo()
 					.getName() + " (" + getURL(cdoView) + ")");
 		} else {
 			res = null;

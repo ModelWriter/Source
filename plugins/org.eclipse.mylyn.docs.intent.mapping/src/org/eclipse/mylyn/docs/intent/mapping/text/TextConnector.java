@@ -17,7 +17,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 
 /**
@@ -163,7 +162,7 @@ public class TextConnector extends AbstractConnector {
 
 		final Object adapted = adapt(element);
 		if (adapted instanceof TextRegion) {
-			res = new ObjectLocationDescriptor(this, base, adapted, ((TextRegion)adapted).getText());
+			res = new ObjectLocationDescriptor(base, adapted, ((TextRegion)adapted).getText());
 		} else {
 			res = null;
 		}

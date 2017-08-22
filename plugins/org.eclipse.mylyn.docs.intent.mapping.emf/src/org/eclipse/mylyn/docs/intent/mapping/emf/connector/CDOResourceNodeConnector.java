@@ -25,7 +25,6 @@ import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocation;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
-import org.eclipse.mylyn.docs.intent.mapping.base.ObjectLocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOBinaryResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOFolderLocation;
@@ -58,7 +57,7 @@ public class CDOResourceNodeConnector extends AbstractConnector {
 
 		final Object adapted = adapt(element);
 		if (adapted instanceof CDOResourceNode) {
-			res = new ObjectLocationDescriptor(this, base, adapted, ((CDOResourceNode)adapted).getPath());
+			res = new ObjectLocationDescriptor(base, adapted, ((CDOResourceNode)adapted).getPath());
 			// TODO register the descriptor to the CDO repository connector
 		} else {
 			res = null;
