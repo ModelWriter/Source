@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
@@ -40,26 +39,23 @@ public class MarkerToTextLocationDescriptor implements IMarkerToLocationDescript
 	public ILocationDescriptor getAdapter(IMarker marker) {
 		ILocationDescriptor res = null;
 
-		final IBase currentBase = IdeMappingUtils.getCurrentBase();
-		if (currentBase != null) {
-			try {
-				if (marker.isSubtypeOf(IMarker.TEXT)) {
-					final int start = (Integer)marker.getAttribute(IMarker.CHAR_START);
-					final Integer end = (Integer)marker.getAttribute(IMarker.CHAR_END);
-					final String content = MappingUtils.getContent((int)marker.getResource().getLocation()
-							.toFile().length(), ((IFile)marker.getResource()).getContents());
-					// TODO find a way to provide more dynamic container
-					final TextRegion region = new TextRegion(marker.getResource(), content.substring(start,
-							end), start, end);
-					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(currentBase, region);
-				}
-			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
-						.getMessage(), e));
-			} catch (IOException e) {
-				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
-						.getMessage(), e));
+		try {
+			if (marker.isSubtypeOf(IMarker.TEXT)) {
+				final int start = (Integer)marker.getAttribute(IMarker.CHAR_START);
+				final Integer end = (Integer)marker.getAttribute(IMarker.CHAR_END);
+				final String content = MappingUtils.getContent((int)marker.getResource().getLocation()
+						.toFile().length(), ((IFile)marker.getResource()).getContents());
+				// TODO find a way to provide more dynamic container
+				final TextRegion region = new TextRegion(marker.getResource(), content.substring(start, end),
+						start, end);
+				res = IdeMappingUtils.adapt(region, ILocationDescriptor.class);
 			}
+		} catch (CoreException e) {
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
+		} catch (IOException e) {
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
 		}
 
 		return res;

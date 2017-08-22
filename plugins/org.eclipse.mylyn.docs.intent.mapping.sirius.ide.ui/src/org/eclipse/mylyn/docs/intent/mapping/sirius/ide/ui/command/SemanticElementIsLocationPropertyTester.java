@@ -13,7 +13,6 @@ package org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
@@ -32,15 +31,11 @@ public class SemanticElementIsLocationPropertyTester extends PropertyTester {
 
 		if (receiver instanceof DSemanticDecorator) {
 			final EObject element = ((DSemanticDecorator)receiver).getTarget();
-			if (IdeMappingUtils.getCurrentBase() != null) {
-				final ILocationDescriptor locationDescriptor = MappingUtils.getConnectorRegistry()
-						.getLocationDescriptor(null, element);
-				if (locationDescriptor != null) {
-					locationDescriptor.dispose();
-					res = true;
-				} else {
-					res = false;
-				}
+			final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(element,
+					ILocationDescriptor.class);
+			if (locationDescriptor != null) {
+				locationDescriptor.dispose();
+				res = true;
 			} else {
 				res = false;
 			}

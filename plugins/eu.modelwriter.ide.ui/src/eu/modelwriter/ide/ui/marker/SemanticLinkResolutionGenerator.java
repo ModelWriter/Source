@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
@@ -104,13 +103,9 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 		 * @see org.eclipse.ui.IMarkerResolution#run(org.eclipse.core.resources.IMarker)
 		 */
 		public void run(IMarker marker) {
-			final IBase base = IdeMappingUtils.getCurrentBase();
-
 			try {
-				final ILink link = base.getFactory().createElement(ILink.class);
-				link.setSource(sourceDescriptor.getOrCreate());
+				MappingUtils.createLink(sourceDescriptor, targetDescriptor);
 				sourceDescriptor.dispose();
-				link.setTarget(targetDescriptor.getOrCreate());
 				targetDescriptor.dispose();
 			} catch (InstantiationException e) {
 				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
@@ -160,26 +155,13 @@ public class SemanticLinkResolutionGenerator implements IMarkerResolutionGenerat
 						ISemanticAnnotationMarker.SEMANTIC_CONCEPT_ATTRIBUTE);
 				final IFile file = IdeMappingUtils.adapt(concept, IFile.class);
 				if (file != null) {
-					final IBase currentBase = IdeMappingUtils.getCurrentBase();
-					final ILocationDescriptor targetDescriptor = MappingUtils.getConnectorRegistry()
-							.getLocationDescriptor(currentBase, concept);
-					if (!sourceDescriptor.exists() || !targetDescriptor.exists()) {
-						res.add(new SemanticLinkMarkerResolution(sourceDescriptor, targetDescriptor));
-					} else if (MappingUtils.getLink(sourceDescriptor.getOrCreate(), targetDescriptor
-							.getOrCreate()) == null) {
+					final ILocationDescriptor targetDescriptor = IdeMappingUtils.adapt(concept,
+							ILocationDescriptor.class);
+					if (MappingUtils.canCreateLink(sourceDescriptor, targetDescriptor)) {
 						res.add(new SemanticLinkMarkerResolution(sourceDescriptor, targetDescriptor));
 					}
 				}
 			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-						UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
-			} catch (InstantiationException e) {
-				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-						UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
-			} catch (IllegalAccessException e) {
-				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-						UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
-			} catch (ClassNotFoundException e) {
 				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
 						UNABLE_TO_GET_THE_CONCEPT_ATTRIBUTE_ON_THE_MARKER, e));
 			}

@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker.IEObjectLocationMaker;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
@@ -43,20 +41,17 @@ public class MarkerToEObjectLocationDescriptor implements IMarkerToLocationDescr
 	public ILocationDescriptor getAdapter(IMarker marker) {
 		ILocationDescriptor res = null;
 
-		final IBase currentBase = IdeMappingUtils.getCurrentBase();
-		if (currentBase != null) {
-			try {
-				if (marker.isSubtypeOf(EValidator.MARKER)) {
-					final String uri = (String)marker.getAttribute(IEObjectLocationMaker.URI_ATTRIBUTE);
-					// TODO we should change this to use a global ResourceSet...
-					final ResourceSet rs = new ResourceSetImpl();
-					final EObject eObject = rs.getEObject(URI.createURI(uri), true);
-					res = MappingUtils.getConnectorRegistry().getLocationDescriptor(currentBase, eObject);
-				}
-			} catch (CoreException e) {
-				Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e
-						.getMessage(), e));
+		try {
+			if (marker.isSubtypeOf(EValidator.MARKER)) {
+				final String uri = (String)marker.getAttribute(IEObjectLocationMaker.URI_ATTRIBUTE);
+				// TODO we should change this to use a global ResourceSet...
+				final ResourceSet rs = new ResourceSetImpl();
+				final EObject eObject = rs.getEObject(URI.createURI(uri), true);
+				res = IdeMappingUtils.adapt(eObject, ILocationDescriptor.class);
 			}
+		} catch (CoreException e) {
+			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
+					e));
 		}
 
 		return res;
