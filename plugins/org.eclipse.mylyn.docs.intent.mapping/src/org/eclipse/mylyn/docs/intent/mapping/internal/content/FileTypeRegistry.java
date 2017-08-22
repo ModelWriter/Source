@@ -43,6 +43,15 @@ public class FileTypeRegistry implements IFileTypeRegistry {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeRegistry#getFileTypeProviders()
+	 */
+	public List<IFileTypeProvider> getFileTypeProviders() {
+		return providers;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeRegistry#registerFileType(java.lang.String,
 	 *      java.util.Set)
 	 */

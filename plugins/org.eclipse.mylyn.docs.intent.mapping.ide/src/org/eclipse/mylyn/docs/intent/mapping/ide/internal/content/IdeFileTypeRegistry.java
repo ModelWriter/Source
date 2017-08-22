@@ -13,12 +13,14 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.internal.content;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeManager;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
+import org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeProvider;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeRegistry;
 import org.eclipse.mylyn.docs.intent.mapping.internal.content.FileType;
 import org.eclipse.mylyn.docs.intent.mapping.internal.content.FileTypeRegistry;
@@ -43,6 +45,15 @@ public class IdeFileTypeRegistry implements IFileTypeRegistry {
 	 */
 	public IdeFileTypeRegistry(IFileTypeRegistry registry) {
 		this.registry = registry;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.mylyn.docs.intent.mapping.content.IFileTypeRegistry#getFileTypeProviders()
+	 */
+	public List<IFileTypeProvider> getFileTypeProviders() {
+		return registry.getFileTypeProviders();
 	}
 
 	/**
@@ -129,7 +140,7 @@ public class IdeFileTypeRegistry implements IFileTypeRegistry {
 			final IContentTypeManager contentTypeManager = Platform.getContentTypeManager();
 			final IContentType contentType = contentTypeManager.getContentType(typeID);
 			final IContentType superContentType = contentTypeManager.getContentType(superTypeID);
-			res = contentType.isKindOf(superContentType);
+			res = contentType != null && contentType.isKindOf(superContentType);
 		}
 
 		return res;

@@ -16,6 +16,7 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector.IdeTextConnecto
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector.ResourceConnectorTests;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector.ResourceLocationListenerTests;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector.TextFileConnectorDelegateTests;
+import org.eclipse.mylyn.docs.intent.mapping.ide.tests.content.ContentTests;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector.FileDelegateRegistryTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -30,7 +31,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses(value = {FileDelegateRegistryTests.class, ResourceConnectorTests.class,
 		TextFileConnectorDelegateTests.class, IdeTextConnectorTests.class,
 		MarkerToTextLocationDesciptorTests.class, ResourceLocationListenerTests.class,
-		IdeMappingUtilsTests.class })
+		IdeMappingUtilsTests.class, ContentTests.class, })
 public class AllTests {
 
 }

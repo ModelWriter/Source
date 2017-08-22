@@ -379,4 +379,24 @@ public class IdeMappingUtilsTests {
 		IdeMappingUtils.removeCurrentBaseListener(listener);
 	}
 
+	@Test
+	public void changeCurrentBaseEmptyLocationPool() {
+		final IBase base = new TestBase();
+		IdeMappingUtils.setCurrentBase(base);
+		final ILocation location = new TestLocation1();
+		base.getContents().add(location);
+		location.setContainer(base);
+
+		final ILocationDescriptor desciptor = new LocationDescriptor(location);
+
+		IdeMappingUtils.addLocationToPool(desciptor);
+
+		assertFalse(IdeMappingUtils.getLocationsPool().isEmpty());
+
+		final IBase newBase = new TestBase();
+		IdeMappingUtils.setCurrentBase(newBase);
+
+		assertTrue(IdeMappingUtils.getLocationsPool().isEmpty());
+	}
+
 }

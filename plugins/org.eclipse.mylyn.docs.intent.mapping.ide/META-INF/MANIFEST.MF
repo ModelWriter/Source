@@ -13,6 +13,7 @@ Export-Package: org.eclipse.mylyn.docs.intent.mapping.ide,
  org.eclipse.mylyn.docs.intent.mapping.ide.adapter,
  org.eclipse.mylyn.docs.intent.mapping.ide.connector,
  org.eclipse.mylyn.docs.intent.mapping.ide.internal.connector;x-friends:="org.eclipse.mylyn.docs.intent.mapping.ide.tests",
+ org.eclipse.mylyn.docs.intent.mapping.ide.internal.content;x-friends:="org.eclipse.mylyn.docs.intent.mapping.ide.tests",
  org.eclipse.mylyn.docs.intent.mapping.ide.resource
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.mylyn.docs.intent.mapping.ide.Activator

@@ -9,14 +9,8 @@
  *    Obeo - initial API and implementation and/or initial documentation
  *    ...
  *******************************************************************************/
-package org.eclipse.mylyn.docs.intent.mapping.tests;
+package org.eclipse.mylyn.docs.intent.mapping.tests.content;
 
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.LocationDescriptorTests;
-import org.eclipse.mylyn.docs.intent.mapping.tests.base.ObjectLocationDescriptorTests;
-import org.eclipse.mylyn.docs.intent.mapping.tests.connector.ConnectorTests;
-import org.eclipse.mylyn.docs.intent.mapping.tests.content.ContentTests;
-import org.eclipse.mylyn.docs.intent.mapping.tests.internal.base.BaseTests;
-import org.eclipse.mylyn.docs.intent.mapping.tests.text.TextTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -27,8 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 @RunWith(Suite.class)
-@SuiteClasses(value = {BaseTests.class, ConnectorTests.class, TextTests.class, MappingUtilsTests.class,
-		ObjectLocationDescriptorTests.class, LocationDescriptorTests.class, ContentTests.class })
-public class AllTests {
+@SuiteClasses(value = {FileTypeRegistryTests.class })
+public class ContentTests {
 
 }

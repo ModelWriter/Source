@@ -13,6 +13,7 @@ package org.eclipse.mylyn.docs.intent.mapping.content;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,6 +22,13 @@ import java.util.Set;
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
 public interface IFileTypeRegistry {
+
+	/**
+	 * Gets the {@link List} of {@link IFileTypeProvider}.
+	 * 
+	 * @return the {@link List} of {@link IFileTypeProvider}
+	 */
+	List<IFileTypeProvider> getFileTypeProviders();
 
 	/**
 	 * Registers the given {@link IFileType#getID() type ID} with the given {@link Set} of its super
