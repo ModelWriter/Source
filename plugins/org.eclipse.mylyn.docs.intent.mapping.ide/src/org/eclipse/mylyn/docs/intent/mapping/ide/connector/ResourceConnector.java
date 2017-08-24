@@ -181,7 +181,7 @@ public class ResourceConnector extends AbstractConnector {
 		if (element instanceof IFile) {
 			final IFileConnectorDelegate delegate = getDelegate((IFile)element);
 			if (delegate != null) {
-				delegate.initLocation((IFileLocation)location, (IFile)element);
+				delegate.initLocation(container, (IFileLocation)location, (IFile)element);
 			}
 		}
 	}

@@ -92,6 +92,8 @@ public class TextConnector extends AbstractConnector {
 	 * Updates the given {@link ITextContainer} with the given {@link ITextContainer#getText() text}.
 	 * 
 	 * @param container
+	 *            the {@link ILocationContainer}
+	 * @param textContainer
 	 *            the {@link ITextContainer}
 	 * @param text
 	 *            the {@link ITextContainer#getText() text}
@@ -104,13 +106,13 @@ public class TextConnector extends AbstractConnector {
 	 * @throws ClassNotFoundException
 	 *             if the {@link Class} can't be found
 	 */
-	public static void updateTextContainer(ITextContainer container, String text)
-			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		final String oldText = container.getText();
-		container.setText(text);
+	public static void updateTextContainer(ILocationContainer container, ITextContainer textContainer,
+			String text) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		final String oldText = textContainer.getText();
+		textContainer.setText(text);
 		if (oldText != null) {
 			final DiffMatch diff = MappingUtils.getDiffMatch(oldText, text);
-			for (ILocation child : container.getContents()) {
+			for (ILocation child : textContainer.getContents()) {
 				if (child instanceof ITextLocation && !child.isMarkedAsDeleted()) {
 					final ITextLocation location = (ITextLocation)child;
 					final int newStartOffset = diff.getIndex(location.getStartOffset());

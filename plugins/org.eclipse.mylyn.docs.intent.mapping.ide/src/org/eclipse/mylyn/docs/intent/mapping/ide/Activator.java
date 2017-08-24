@@ -75,11 +75,11 @@ public class Activator extends Plugin {
 
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 		registry.addListener(registryListener, IdeMappingRegistryListener.CONTAINER_PROVIDER_EXTENSION_POINT);
-		registry.addListener(registryListener, IdeMappingRegistryListener.LOCATION_EXTENSION_POINT);
 		registry.addListener(registryListener,
 				IdeMappingRegistryListener.FILE_CONNECTOR_DELEGATE_EXTENSION_POINT);
 		registry.addListener(registryListener, IdeMappingRegistryListener.CONNECTOR_EXTENSION_POINT);
 		registry.addListener(registryListener, IdeMappingRegistryListener.MARKER_TO_LOCATION_EXTENSION_POINT);
+		registry.addListener(registryListener, IdeMappingRegistryListener.LOCATION_EXTENSION_POINT);
 		registry.addListener(registryListener, IdeMappingRegistryListener.BASE_PROVIDER_EXTENSION_POINT);
 		registryListener.parseInitialContributions();
 	}

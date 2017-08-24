@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.connector.EObjectFileConnectorDelegate;
@@ -37,6 +39,8 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocati
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.tests.connector.ResourceConnectorTests.TestResourceLocation;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestCouple;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -154,9 +158,13 @@ public class EObjectFileConnectorDelegateTests {
 	public void initLocation() {
 		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(
 				"TestProject/TestFolder/TestFile.xmi"));
+		final IBase base = new TestBase();
+		base.getFactory().addDescriptor(ICouple.class, new BaseElementFactory.FactoryDescriptor<TestCouple>(
+				TestCouple.class));
 		TestEObjectFileLocation location = new TestEObjectFileLocation();
+		location.setContainer(base);
 
-		delegate.initLocation(location, file);
+		delegate.initLocation(location.getContainer(), location, file);
 
 		assertEquals(180, location.getXMIContent().length());
 	}

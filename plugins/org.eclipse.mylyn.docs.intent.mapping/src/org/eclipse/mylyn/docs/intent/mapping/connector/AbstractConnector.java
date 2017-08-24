@@ -229,8 +229,8 @@ public abstract class AbstractConnector implements IConnector {
 			if (location == null) {
 				throw new IllegalArgumentException("The base can't create " + locationType.getSimpleName());
 			} else {
-				location.setContainer(container);
 				initLocation(container, location, adaptedElement);
+				location.setContainer(container);
 				res = location;
 			}
 		} else {

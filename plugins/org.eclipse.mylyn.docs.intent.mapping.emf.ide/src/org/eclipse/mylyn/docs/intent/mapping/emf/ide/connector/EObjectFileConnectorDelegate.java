@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
 import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
@@ -69,16 +70,17 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#initLocation(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#initLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 *      org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation,
 	 *      org.eclipse.core.resources.IFile)
 	 */
-	public void initLocation(IFileLocation location, IFile element) {
+	public void initLocation(ILocationContainer container, IFileLocation location, IFile element) {
 		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.getResource(URI.createPlatformResourceURI(element.getFullPath()
 				.toPortableString(), true), true);
 		knownResources.put(location.getFullPath(), resource);
 		try {
-			EObjectConnector.updateEObjectContainer((IEObjectContainer)location, resource);
+			EObjectConnector.updateEObjectContainer(container, (IEObjectContainer)location, resource);
 			// CHECKSTYLE:OFF
 		} catch (Exception e) {
 			// CHECKSTYLE:ON
@@ -94,7 +96,7 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 	 */
 	public Object getElement(IFileLocation location) {
 		if (!knownResources.containsKey(location.getFullPath())) {
-			initLocation(location, (IFile)super.getElement(location));
+			initLocation(location.getContainer(), location, (IFile)super.getElement(location));
 		}
 
 		return knownResources.get(location.getFullPath());

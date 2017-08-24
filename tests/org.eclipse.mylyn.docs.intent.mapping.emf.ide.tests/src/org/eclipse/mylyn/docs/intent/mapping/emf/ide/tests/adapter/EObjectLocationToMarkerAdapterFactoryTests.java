@@ -22,12 +22,17 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
+import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
+import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.EObjectLocationToMarkerAdapterFactory;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker.IEObjectLocationMaker;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.EObjectFileConnectorDelegateTests.TestEObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.tests.connector.EObjectConnectorParametrizedTests;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestCouple;
+import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -56,8 +61,13 @@ public class EObjectLocationToMarkerAdapterFactoryTests {
 		r.save(null);
 		project.refreshLocal(1, new NullProgressMonitor());
 
+		final IBase base = new TestBase();
+		base.getFactory().addDescriptor(ICouple.class, new BaseElementFactory.FactoryDescriptor<TestCouple>(
+				TestCouple.class));
+
 		TestEObjectFileLocation container = new TestEObjectFileLocation();
-		EObjectConnector.updateEObjectContainer(container, r);
+		container.setContainer(base);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, r);
 		container.setResource(r);
 		container.setFullPath("/test/test.xmi");
 

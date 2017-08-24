@@ -159,7 +159,8 @@ public class CDOResourceNodeConnector extends AbstractConnector {
 		toInit.setPath(((CDOResourceNode)element).getPath());
 		if (toInit instanceof ICDOResourceLocation) {
 			try {
-				EObjectConnector.updateEObjectContainer((ICDOResourceLocation)toInit, (CDOResource)element);
+				EObjectConnector.updateEObjectContainer(container, (ICDOResourceLocation)toInit,
+						(CDOResource)element);
 				// CHECKSTYLE:OFF
 			} catch (Exception e) {
 				// CHECKSTYLE:ON
@@ -171,7 +172,7 @@ public class CDOResourceNodeConnector extends AbstractConnector {
 				final CDOTextResource textResource = (CDOTextResource)element;
 				final String text = getContent(textResource.getContents().getContents(), textResource
 						.getEncoding());
-				TextConnector.updateTextContainer((ICDOTextResourceLocation)toInit, text);
+				TextConnector.updateTextContainer(container, (ICDOTextResourceLocation)toInit, text);
 				// CHECKSTYLE:OFF
 			} catch (Exception e) {
 				// CHECKSTYLE:ON

@@ -13,9 +13,10 @@ package org.eclipse.mylyn.docs.intent.mapping.emf.connector;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
@@ -33,7 +34,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -307,84 +308,85 @@ public class EObjectConnector extends AbstractConnector {
 	 * Updates the given {@link IEObjectContainer} with the given {@link Resource}.
 	 * 
 	 * @param container
+	 *            the {@link ILocationContainer}
+	 * @param eObjectContainer
 	 *            the {@link IEObjectContainer}
 	 * @param newResource
 	 *            the {@link Resource}
 	 * @throws Exception
 	 *             if the XMI serialization failed
 	 */
-	public static void updateEObjectContainer(IEObjectContainer container, Resource newResource)
-			throws Exception {
-		final String newXMIContent = XMLHelperImpl.saveString(new HashMap<Object, Object>(), newResource
-				.getContents(), UTF_8, null);
-
-		if (container.getXMIContent() != null && !container.getXMIContent().isEmpty()) {
+	public static void updateEObjectContainer(ILocationContainer container,
+			IEObjectContainer eObjectContainer, Resource newResource) throws Exception {
+		if (eObjectContainer.getXMIContent() != null && !eObjectContainer.getXMIContent().isEmpty()) {
 			final XMIResourceImpl oldResource = new XMIResourceImpl(URI.createURI(""));
-			oldResource.load(new ByteArrayInputStream(container.getXMIContent().getBytes(UTF_8)),
+			oldResource.load(new ByteArrayInputStream(eObjectContainer.getXMIContent().getBytes(UTF_8)),
 					new HashMap<Object, Object>());
 			final IComparisonScope scope = new DefaultComparisonScope(oldResource, newResource, null);
 			final Comparison comparison = EMFCompare.builder().build().compare(scope);
-			for (ILocation child : new ArrayList<ILocation>(container.getContents())) {
+			for (ILocation child : new ArrayList<ILocation>(eObjectContainer.getContents())) {
 				if (child instanceof IEObjectLocation && !child.isMarkedAsDeleted()) {
 					final IEObjectLocation location = (IEObjectLocation)child;
-					updateEObjectLocation(oldResource, comparison, location,
-							!(newResource instanceof XMIResource));
+					updateEObjectLocation(oldResource, comparison, location, needSavedURIFragment(
+							newResource));
 				}
 			}
 		}
 
-		container.getSavedURIFragments().clear();
-		if (!(newResource instanceof XMIResource)) {
-			updateSavedURIFragment(container, newResource, newXMIContent);
+		eObjectContainer.getSavedURIFragments().clear();
+		if (needSavedURIFragment(newResource)) {
+			updateSavedURIFragment(container, eObjectContainer, newResource);
 		}
 
-		container.setXMIContent(newXMIContent);
+		final String newXMIContent = XMLHelperImpl.saveString(new HashMap<Object, Object>(), newResource
+				.getContents(), UTF_8, null);
+		eObjectContainer.setXMIContent(newXMIContent);
+	}
+
+	/**
+	 * Tells if the given {@link Resource} need to use {@link IEObjectLocation#getSavedURIFragment() saved URI
+	 * fragment}.
+	 * 
+	 * @param resource
+	 *            the {@link Resource}
+	 * @return <code>true</code> if the given {@link Resource} need to use
+	 *         {@link IEObjectLocation#getSavedURIFragment() saved URI fragment}, <code>false</code> otherwise
+	 */
+	public static boolean needSavedURIFragment(Resource resource) {
+		// !(resource instanceof XMIResource);
+		// TODO make an accurate guess...
+		return true;
 	}
 
 	/**
 	 * Updates {@link IEObjectLocation#getSavedURIFragment() saved URI fragment}.
 	 * 
 	 * @param container
+	 *            the {@link ILocationContainer}
+	 * @param eObjectContainer
 	 *            the {@link IEObjectContainer}
 	 * @param newResource
 	 *            the new {@link Resource}
-	 * @param newXMIContent
-	 *            the new XMI content
 	 * @throws Exception
 	 *             if the XMI serialization failed or elements couldn't be created
 	 */
-	private static void updateSavedURIFragment(IEObjectContainer container, Resource newResource,
-			String newXMIContent) throws Exception {
+	private static void updateSavedURIFragment(ILocationContainer container,
+			IEObjectContainer eObjectContainer, Resource newResource) throws Exception {
 		final IBase base = MappingUtils.getBase(container);
-		final XMIResourceImpl savedResource = new XMIResourceImpl(URI.createURI(""));
-		savedResource.load(new ByteArrayInputStream(newXMIContent.getBytes(UTF_8)),
-				new HashMap<Object, Object>());
-		final IComparisonScope scope = new DefaultComparisonScope(newResource, savedResource, null);
-		final Comparison comparison = EMFCompare.builder().build().compare(scope);
 
-		final List<EObject> eObjects = new ArrayList<EObject>();
-		for (EObject eObj : newResource.getContents()) {
-			eObjects.add(eObj);
-			final Iterator<EObject> it = eObj.eAllContents();
-			while (it.hasNext()) {
-				eObjects.add(it.next());
-			}
-		}
+		final Copier copier = new Copier();
+		final Collection<EObject> copiedContents = copier.copyAll(newResource.getContents());
+		copier.copyReferences();
+		final XMIResourceImpl newXMIResource = new XMIResourceImpl();
+		newXMIResource.getContents().addAll(copiedContents);
 
-		for (EObject newEObject : eObjects) {
-			final Match match = comparison.getMatch(newEObject);
-			if (match != null) {
-				final EObject savedEObject = match.getRight();
-				final ICouple couple = base.getFactory().createElement(ICouple.class);
-				couple.setKey(newResource.getURIFragment(newEObject));
-				if (savedEObject != null) {
-					couple.setValue(savedResource.getURIFragment(savedEObject));
-				} else {
-					// new object never been saved
-					couple.setValue(null);
-				}
-				container.getSavedURIFragments().add(couple);
-			}
+		for (Entry<EObject, EObject> entry : copier.entrySet()) {
+			final EObject newEObject = entry.getKey();
+			final EObject savedEObject = entry.getValue();
+			final ICouple couple = base.getFactory().createElement(ICouple.class);
+			couple.setKey(newResource.getURIFragment(newEObject));
+			couple.setValue(newXMIResource.getURIFragment(savedEObject));
+			eObjectContainer.getSavedURIFragments().add(couple);
 		}
 	}
 

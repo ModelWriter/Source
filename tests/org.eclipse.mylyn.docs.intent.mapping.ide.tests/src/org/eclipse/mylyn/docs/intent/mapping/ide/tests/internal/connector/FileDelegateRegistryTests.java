@@ -14,6 +14,7 @@ package org.eclipse.mylyn.docs.intent.mapping.ide.tests.internal.connector;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.AbstractFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate;
@@ -70,7 +71,7 @@ public class FileDelegateRegistryTests {
 			return FileLocationA.class;
 		}
 
-		public void initLocation(IFileLocation location, IFile element) {
+		public void initLocation(ILocationContainer container, IFileLocation location, IFile element) {
 			// nothing to do here
 		}
 
@@ -105,7 +106,7 @@ public class FileDelegateRegistryTests {
 			return FileLocationB.class;
 		}
 
-		public void initLocation(IFileLocation location, IFile element) {
+		public void initLocation(ILocationContainer container, IFileLocation location, IFile element) {
 			// nothing to do here
 		}
 
@@ -140,7 +141,7 @@ public class FileDelegateRegistryTests {
 			return FileLocationC.class;
 		}
 
-		public void initLocation(IFileLocation location, IFile element) {
+		public void initLocation(ILocationContainer container, IFileLocation location, IFile element) {
 			// nothing to do here
 		}
 

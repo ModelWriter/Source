@@ -282,9 +282,6 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 				.getExtensions()) {
 			parseContainerProviderExtension(extension);
 		}
-		for (IExtension extension : registry.getExtensionPoint(LOCATION_EXTENSION_POINT).getExtensions()) {
-			parseLocationExtension(extension);
-		}
 		for (IExtension extension : registry.getExtensionPoint(FILE_CONNECTOR_DELEGATE_EXTENSION_POINT)
 				.getExtensions()) {
 			parseFileConnectorDelegateExtension(extension);
@@ -295,6 +292,9 @@ public class IdeMappingRegistryListener implements IRegistryEventListener {
 		for (IExtension extension : registry.getExtensionPoint(MARKER_TO_LOCATION_EXTENSION_POINT)
 				.getExtensions()) {
 			parseMarkerToLocationExtension(extension);
+		}
+		for (IExtension extension : registry.getExtensionPoint(LOCATION_EXTENSION_POINT).getExtensions()) {
+			parseLocationExtension(extension);
 		}
 		for (IExtension extension : registry.getExtensionPoint(BASE_PROVIDER_EXTENSION_POINT)
 				.getExtensions()) {

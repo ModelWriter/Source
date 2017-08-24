@@ -401,7 +401,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource initialResource = createResource("initialResource");
 		container.setResource(initialResource);
 		initialResource.getContents().addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, initialResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final EObject expectedEObject = copier.get(original[0]);
@@ -417,7 +417,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource newResource = createResource("newResource");
 		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, newResource);
 		container.setResource(newResource);
 
 		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
@@ -439,7 +439,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource initialResource = createResource("initialResource");
 		container.setResource(initialResource);
 		initialResource.getContents().addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, initialResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final EObject expectedEObject = copier.get(original[0]);
@@ -456,7 +456,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource newResource = createResource("newResource");
 		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, newResource);
 		container.setResource(newResource);
 
 		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
@@ -478,7 +478,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource initialResource = createResource("initialResource");
 		container.setResource(initialResource);
 		initialResource.getContents().addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, initialResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final EObject expectedEObject = copier.get(original[0]);
@@ -496,7 +496,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource newResource = createResource("newResource");
 		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, newResource);
 		container.setResource(newResource);
 
 		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
@@ -521,7 +521,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource initialResource = createResource("initialResource");
 		container.setResource(initialResource);
 		initialResource.getContents().addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, initialResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final EObject expectedEObject = copier.get(altered[0]);
@@ -539,7 +539,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource newResource = createResource("newResource");
 		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, newResource);
 		container.setResource(newResource);
 
 		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
@@ -564,7 +564,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource initialResource = createResource("initialResource");
 		container.setResource(initialResource);
 		initialResource.getContents().addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, initialResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final EObject expectedEObject = copier.get(altered[0]);
@@ -583,7 +583,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource newResource = createResource("newResource");
 		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, newResource);
 		container.setResource(newResource);
 
 		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
@@ -608,7 +608,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource initialResource = createResource("initialResource");
 		container.setResource(initialResource);
 		initialResource.getContents().addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, initialResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final EObject expectedEObject = copier.get(altered[0]);
@@ -628,7 +628,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource newResource = createResource("newResource");
 		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, newResource);
 		container.setResource(newResource);
 
 		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
@@ -650,7 +650,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource initialResource = createResource("initialResource");
 		container.setResource(initialResource);
 		initialResource.getContents().addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, initialResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final EObject expectedEObject = null;
@@ -666,7 +666,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource newResource = createResource("newResource");
 		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, newResource);
 		container.setResource(newResource);
 
 		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
@@ -688,7 +688,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource initialResource = createResource("initialResource");
 		container.setResource(initialResource);
 		initialResource.getContents().addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, initialResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final EObject expectedEObject = null;
@@ -706,7 +706,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource newResource = createResource("newResource");
 		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, newResource);
 		container.setResource(newResource);
 
 		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);
@@ -728,7 +728,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource initialResource = createResource("initialResource");
 		container.setResource(initialResource);
 		initialResource.getContents().addAll(testEObjects);
-		EObjectConnector.updateEObjectContainer(container, initialResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, initialResource);
 		final IEObjectLocation location = createEObjectLocation(copier, container);
 
 		final EObject expectedEObject = null;
@@ -747,7 +747,7 @@ public class EObjectConnectorParametrizedTests {
 		final Resource newResource = createResource("newResource");
 		newResource.getContents().addAll(newEObjects);
 
-		EObjectConnector.updateEObjectContainer(container, newResource);
+		EObjectConnector.updateEObjectContainer(container.getContainer(), container, newResource);
 		container.setResource(newResource);
 
 		assertEObjectLocation(location, expectedEObject, expectedFeature, expectedValue);

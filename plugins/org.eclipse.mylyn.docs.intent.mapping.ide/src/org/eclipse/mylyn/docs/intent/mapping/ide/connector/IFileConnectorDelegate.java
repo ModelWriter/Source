@@ -12,6 +12,7 @@
 package org.eclipse.mylyn.docs.intent.mapping.ide.connector;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 
@@ -39,12 +40,14 @@ public interface IFileConnectorDelegate {
 	/**
 	 * Initializes the given {@link IFileLocation} with the given {@link IFile}.
 	 * 
+	 * @param container
+	 *            the {@link ILocationContainer}
 	 * @param location
 	 *            the {@link IFileLocation}
 	 * @param element
 	 *            the {@link IFile}
 	 */
-	void initLocation(IFileLocation location, IFile element);
+	void initLocation(ILocationContainer container, IFileLocation location, IFile element);
 
 	/**
 	 * Updates the given {@link IFileLocation} with the given {@link IFile}.

@@ -131,7 +131,7 @@ public class TextFileConnectorDelegateTests {
 				"TestProject/TestFolder/TestFile.txt"));
 		TestTextFileLocation location = new TestTextFileLocation();
 
-		delegate.initLocation(location, file);
+		delegate.initLocation(null, location, file);
 
 		assertEquals("text content", location.getText());
 	}

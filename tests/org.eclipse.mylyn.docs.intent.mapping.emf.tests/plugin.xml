@@ -7,14 +7,6 @@
 <plugin>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated Test -->
-      <package
-            uri="test"
-            class="test.TestPackage"
-            genModel="model/Test.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated anydsl -->
       <package
             uri="http://www.eclipse.org/acceleo/anydsl"

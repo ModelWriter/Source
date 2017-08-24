@@ -230,13 +230,13 @@ public class TextConnectorParametrizedTests {
 	public void updateTextContainer() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestTextContainerLocation container = new TestTextContainerLocation();
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 		final ITextLocation location = createTextLocations(container);
 
 		final int expectedStartOffset = location.getStartOffset();
 		final int expectedEndOffset = location.getEndOffset();
 
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 
 		assertEquals(testText, container.getText());
 		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
@@ -246,14 +246,14 @@ public class TextConnectorParametrizedTests {
 	public void updateTextContainerPlusShift() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestTextContainerLocation container = new TestTextContainerLocation();
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 		final ITextLocation location = createTextLocations(container);
 
 		final int expectedStartOffset = location.getStartOffset() + 20;
 		final int expectedEndOffset = location.getEndOffset() + 20;
 
 		final String newText = createString(20) + container.getText();
-		TextConnector.updateTextContainer(container, newText);
+		TextConnector.updateTextContainer(container.getContainer(), container, newText);
 
 		assertEquals(newText, container.getText());
 		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
@@ -263,14 +263,14 @@ public class TextConnectorParametrizedTests {
 	public void updateTextContainerMinusShift() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestTextContainerLocation container = new TestTextContainerLocation();
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 		final ITextLocation location = createTextLocations(container);
 
 		final int expectedStartOffset = location.getStartOffset() - 20;
 		final int expectedEndOffset = location.getEndOffset() - 20;
 
 		final String newText = container.getText().substring(20);
-		TextConnector.updateTextContainer(container, newText);
+		TextConnector.updateTextContainer(container.getContainer(), container, newText);
 
 		assertEquals(newText, container.getText());
 		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
@@ -280,14 +280,14 @@ public class TextConnectorParametrizedTests {
 	public void updateTextContainerAltered() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestTextContainerLocation container = new TestTextContainerLocation();
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 		final ITextLocation location = createTextLocations(container);
 
 		final int expectedStartOffset = location.getStartOffset();
 		final int expectedEndOffset = location.getStartOffset() + altered.length();
 
 		final String newText = container.getText().replace(original, altered);
-		TextConnector.updateTextContainer(container, newText);
+		TextConnector.updateTextContainer(container.getContainer(), container, newText);
 
 		assertEquals(newText, container.getText());
 		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
@@ -297,14 +297,14 @@ public class TextConnectorParametrizedTests {
 	public void updateTextContainerPlusShiftAltered() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestTextContainerLocation container = new TestTextContainerLocation();
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 		final ITextLocation location = createTextLocations(container);
 
 		final int expectedStartOffset = location.getStartOffset() + 20;
 		final int expectedEndOffset = location.getStartOffset() + altered.length() + 20;
 
 		final String newText = createString(20) + container.getText().replace(original, altered);
-		TextConnector.updateTextContainer(container, newText);
+		TextConnector.updateTextContainer(container.getContainer(), container, newText);
 
 		assertEquals(newText, container.getText());
 		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
@@ -314,14 +314,14 @@ public class TextConnectorParametrizedTests {
 	public void updateTextContainerMinusShiftAltered() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestTextContainerLocation container = new TestTextContainerLocation();
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 		final ITextLocation location = createTextLocations(container);
 
 		final int expectedStartOffset = location.getStartOffset() - 20;
 		final int expectedEndOffset = location.getStartOffset() + altered.length() - 20;
 
 		final String newText = container.getText().replace(original, altered).substring(20);
-		TextConnector.updateTextContainer(container, newText);
+		TextConnector.updateTextContainer(container.getContainer(), container, newText);
 
 		assertEquals(newText, container.getText());
 		assertTextLocation(location, expectedStartOffset, expectedEndOffset);
@@ -336,14 +336,14 @@ public class TextConnectorParametrizedTests {
 	public void updateTextContainerRemoved() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestTextContainerLocation container = new TestTextContainerLocation();
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 		final ITextLocation location = createTextLocations(container);
 
 		final int expectedStartOffset = location.getStartOffset();
 		final int expectedEndOffset = expectedStartOffset;
 
 		final String newText = container.getText().replace(original, "");
-		TextConnector.updateTextContainer(container, newText);
+		TextConnector.updateTextContainer(container.getContainer(), container, newText);
 
 		assertEquals(newText, container.getText());
 		assertNull(location.getContainer());
@@ -354,14 +354,14 @@ public class TextConnectorParametrizedTests {
 	public void updateTextContainerPlusShiftRemoved() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestTextContainerLocation container = new TestTextContainerLocation();
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 		final ITextLocation location = createTextLocations(container);
 
 		final int expectedStartOffset = location.getStartOffset() + 20;
 		final int expectedEndOffset = expectedStartOffset;
 
 		final String newText = createString(20) + container.getText().replace(original, "");
-		TextConnector.updateTextContainer(container, newText);
+		TextConnector.updateTextContainer(container.getContainer(), container, newText);
 
 		assertEquals(newText, container.getText());
 		assertNull(location.getContainer());
@@ -372,14 +372,14 @@ public class TextConnectorParametrizedTests {
 	public void updateTextContainerMinusShiftRemoved() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		final TestTextContainerLocation container = new TestTextContainerLocation();
-		TextConnector.updateTextContainer(container, testText);
+		TextConnector.updateTextContainer(container.getContainer(), container, testText);
 		final ITextLocation location = createTextLocations(container);
 
 		final int expectedStartOffset = location.getStartOffset() - 20;
 		final int expectedEndOffset = expectedStartOffset;
 
 		final String newText = container.getText().replace(original, "").substring(20);
-		TextConnector.updateTextContainer(container, newText);
+		TextConnector.updateTextContainer(container.getContainer(), container, newText);
 
 		assertEquals(newText, container.getText());
 		assertNull(location.getContainer());

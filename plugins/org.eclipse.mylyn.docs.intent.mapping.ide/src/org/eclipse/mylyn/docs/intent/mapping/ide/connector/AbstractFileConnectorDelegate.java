@@ -30,7 +30,7 @@ public abstract class AbstractFileConnectorDelegate implements IFileConnectorDel
 	 *      org.eclipse.core.resources.IFile)
 	 */
 	public void update(IFileLocation location, IFile element) {
-		initLocation(location, element);
+		initLocation(location.getContainer(), location, element);
 	}
 
 	/**

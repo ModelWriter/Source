@@ -42,6 +42,9 @@ public class Activator extends Plugin {
 		super.start(context);
 		plugin = this;
 
+		// make sure org.eclipse.mylyn.docs.intent.mapping.ide is activated
+		org.eclipse.mylyn.docs.intent.mapping.ide.Activator.getDefault();
+
 		mappingBaseListener = new WorkspaceMappingBaseListener(true);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(mappingBaseListener);
 	}

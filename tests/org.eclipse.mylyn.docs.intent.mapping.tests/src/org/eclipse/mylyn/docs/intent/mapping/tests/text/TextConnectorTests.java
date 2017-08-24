@@ -121,7 +121,7 @@ public class TextConnectorTests extends TextConnector {
 
 		super.initLocation(container, location, new TextRegion(null, "cd", 2, 4));
 
-		super.updateTextContainer(container, "abefgh");
+		super.updateTextContainer(container.getContainer(), container, "abefgh");
 
 		assertTrue(location.isMarkedAsDeleted());
 		assertEquals(1, base.getReports().size());
@@ -151,7 +151,7 @@ public class TextConnectorTests extends TextConnector {
 
 		super.initLocation(container, location, new TextRegion(null, "cd", 2, 4));
 
-		super.updateTextContainer(container, "abc1defgh");
+		super.updateTextContainer(container.getContainer(), container, "abc1defgh");
 
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);

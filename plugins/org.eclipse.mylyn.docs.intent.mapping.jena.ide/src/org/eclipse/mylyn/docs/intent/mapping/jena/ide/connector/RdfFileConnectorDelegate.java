@@ -26,6 +26,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
+import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.AbstractFileConnectorDelegate;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
@@ -121,10 +122,11 @@ public class RdfFileConnectorDelegate extends AbstractFileConnectorDelegate {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#initLocation(org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation,
+	 * @see org.eclipse.mylyn.docs.intent.mapping.ide.connector.IFileConnectorDelegate#initLocation(org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer,
+	 *      org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation,
 	 *      org.eclipse.core.resources.IFile)
 	 */
-	public void initLocation(IFileLocation location, IFile element) {
+	public void initLocation(ILocationContainer container, IFileLocation location, IFile element) {
 		final Lang lang = EXTENSION_TO_LANG.get(element.getFileExtension());
 		final Model model = RDFDataMgr.loadModel(element.getLocation().toFile().getAbsolutePath(), lang);
 
