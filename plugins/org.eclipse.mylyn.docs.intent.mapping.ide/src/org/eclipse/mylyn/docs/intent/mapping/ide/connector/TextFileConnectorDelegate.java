@@ -24,7 +24,7 @@ import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.ITextFileLocation;
-import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;
+import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector.TextContainerHelper;
 
 /**
  * {@link ITextFileLocation} delegate.
@@ -38,6 +38,11 @@ public class TextFileConnectorDelegate extends AbstractFileConnectorDelegate {
 	 */
 	private static final IFileType FILE_TYPE = MappingUtils.getFileTypeRegistry().getFileType(
 			IContentTypeManager.CT_TEXT);
+
+	/**
+	 * The {@link TextContainerHelper}.
+	 */
+	private final TextContainerHelper textContainerHelper = new TextContainerHelper();
 
 	/**
 	 * {@inheritDoc}
@@ -67,7 +72,7 @@ public class TextFileConnectorDelegate extends AbstractFileConnectorDelegate {
 	public void initLocation(ILocationContainer container, IFileLocation location, IFile element) {
 		try {
 			final String text = MappingUtils.getContent(element.getLocation().toFile(), element.getCharset());
-			TextConnector.updateTextContainer(container, (ITextFileLocation)location, text);
+			textContainerHelper.updateTextContainer(container, (ITextFileLocation)location, text);
 		} catch (CoreException e) {
 			Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(),
 					e));

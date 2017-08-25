@@ -25,7 +25,7 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationContainer;
 import org.eclipse.mylyn.docs.intent.mapping.content.IFileType;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectContainer;
-import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
+import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector.EObjectContainerHelper;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.resource.IEObjectFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.ide.Activator;
 import org.eclipse.mylyn.docs.intent.mapping.ide.connector.AbstractFileConnectorDelegate;
@@ -43,6 +43,11 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 	 */
 	private static final IFileType FILE_TYPE = MappingUtils.getFileTypeRegistry().getFileType(
 			"org.eclipse.emf.ecore.xmi");
+
+	/**
+	 * The {@link EObjectContainerHelper}.
+	 */
+	private final EObjectContainerHelper eObjectContainerHelper = new EObjectContainerHelper();
 
 	/**
 	 * Mapping of {@link IEObjectFileLocation#getFullPath() full path} to {@link Resource}.
@@ -80,7 +85,7 @@ public class EObjectFileConnectorDelegate extends AbstractFileConnectorDelegate 
 				.toPortableString(), true), true);
 		knownResources.put(location.getFullPath(), resource);
 		try {
-			EObjectConnector.updateEObjectContainer(container, (IEObjectContainer)location, resource);
+			eObjectContainerHelper.updateEObjectContainer(container, (IEObjectContainer)location, resource);
 			// CHECKSTYLE:OFF
 		} catch (Exception e) {
 			// CHECKSTYLE:ON

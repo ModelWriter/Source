@@ -57,6 +57,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class EObjectConnectorTests extends EObjectConnector {
 
+	/**
+	 * The {@link EObjectContainerHelper}.
+	 */
+	private final EObjectContainerHelper eObjectContainerHelper = new EObjectContainerHelper();
+
 	@Test
 	public void getLocationTypeNotTypeContainer() {
 		final Class<? extends ILocation> type = getLocationType(ITestLocation.class, "");
@@ -112,7 +117,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final Resource resource = createResource("test.xmi");
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
-		updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 
@@ -146,7 +151,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final Resource resource = createResource("test.xmi");
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
-		updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 
@@ -184,7 +189,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final Resource resource = createResource("test.xmi");
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
-		updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 		container.getContents().add(location);
@@ -215,7 +220,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final Resource resource = createResource("test.xmi");
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
-		updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 		container.getContents().add(location);
@@ -249,7 +254,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final Resource resource = createResource("test.xmi");
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
-		updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 		final ILocation target = new TestTextLocation();
@@ -265,7 +270,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		super.initLocation(container, location, producerEClass);
 
 		resource.getContents().remove(producerEClass);
-		super.updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 
 		assertTrue(location.isMarkedAsDeleted());
 		assertEquals(1, base.getReports().size());
@@ -295,7 +300,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final Resource resource = createResource("test.xmi");
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
-		updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 		final ILocation target = new TestTextLocation();
@@ -311,7 +316,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		super.initLocation(container, location, producerEClass);
 
 		producerEClass.setInterface(!producerEClass.isInterface());
-		super.updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);
@@ -338,7 +343,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final Resource resource = createResource("test.xmi");
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
-		updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 		final ILocation target = new TestTextLocation();
@@ -378,7 +383,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		});
 
 		producerEClass.setInterface(!producerEClass.isInterface());
-		super.updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);
@@ -408,7 +413,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		final Resource resource = createResource("test.xmi");
 		resource.getContents().addAll(eObjects);
 		container.setResource(resource);
-		updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 		final IEObjectLocation location = new TestEObjectLocation();
 		location.setContainer(container);
 		final ILocation target = new TestTextLocation();
@@ -448,7 +453,7 @@ public class EObjectConnectorTests extends EObjectConnector {
 		});
 
 		foodEClass.getEOperations().remove(1);
-		super.updateEObjectContainer(container.getContainer(), container, resource);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, resource);
 
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);

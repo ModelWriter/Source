@@ -32,7 +32,8 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.ICDORepositoryLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOResourceLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOResourceNodeLocation;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICDOTextResourceLocation;
-import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector;
+import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector.EObjectContainerHelper;
+import org.eclipse.mylyn.docs.intent.mapping.text.TextConnector.TextContainerHelper;
 
 /**
  * {@link CDOResourceNode} connector.
@@ -45,6 +46,16 @@ public class CDOResourceNodeConnector extends AbstractConnector {
 	 * The buffer size.
 	 */
 	private static final int BUFFZE_SIZE = 8192;
+
+	/**
+	 * The {@link EObjectContainerHelper}.
+	 */
+	private final EObjectContainerHelper eObjectContainerHelper = new EObjectContainerHelper();
+
+	/**
+	 * The {@link TextContainerHelper}.
+	 */
+	private final TextContainerHelper textContainerHelper = new TextContainerHelper();
 
 	/**
 	 * {@inheritDoc}
@@ -159,7 +170,7 @@ public class CDOResourceNodeConnector extends AbstractConnector {
 		toInit.setPath(((CDOResourceNode)element).getPath());
 		if (toInit instanceof ICDOResourceLocation) {
 			try {
-				EObjectConnector.updateEObjectContainer(container, (ICDOResourceLocation)toInit,
+				eObjectContainerHelper.updateEObjectContainer(container, (ICDOResourceLocation)toInit,
 						(CDOResource)element);
 				// CHECKSTYLE:OFF
 			} catch (Exception e) {
@@ -172,7 +183,7 @@ public class CDOResourceNodeConnector extends AbstractConnector {
 				final CDOTextResource textResource = (CDOTextResource)element;
 				final String text = getContent(textResource.getContents().getContents(), textResource
 						.getEncoding());
-				TextConnector.updateTextContainer(container, (ICDOTextResourceLocation)toInit, text);
+				textContainerHelper.updateTextContainer(container, (ICDOTextResourceLocation)toInit, text);
 				// CHECKSTYLE:OFF
 			} catch (Exception e) {
 				// CHECKSTYLE:ON

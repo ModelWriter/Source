@@ -27,6 +27,66 @@ import org.eclipse.mylyn.docs.intent.mapping.connector.AbstractConnector;
 public class TextConnector extends AbstractConnector {
 
 	/**
+	 * Utility helper to
+	 * {@link TextContainerHelper#updateTextContainer(ILocationContainer, ITextContainer, String) update text
+	 * container}.
+	 * 
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
+	 */
+	public static class TextContainerHelper {
+
+		/**
+		 * Updates the given {@link ITextContainer} with the given {@link ITextContainer#getText() text}.
+		 * 
+		 * @param container
+		 *            the {@link ILocationContainer}
+		 * @param textContainer
+		 *            the {@link ITextContainer}
+		 * @param text
+		 *            the {@link ITextContainer#getText() text}
+		 * @throws IllegalAccessException
+		 *             if the class or its nullary constructor is not accessible.
+		 * @throws InstantiationException
+		 *             if this Class represents an abstract class, an interface, an array class, a primitive
+		 *             type, or void; or if the class has no nullary constructor; or if the instantiation
+		 *             fails for some other reason.
+		 * @throws ClassNotFoundException
+		 *             if the {@link Class} can't be found
+		 */
+		public void updateTextContainer(ILocationContainer container, ITextContainer textContainer,
+				String text) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+			final String oldText = textContainer.getText();
+			textContainer.setText(text);
+			if (oldText != null) {
+				final DiffMatch diff = MappingUtils.getDiffMatch(oldText, text);
+				for (ILocation child : textContainer.getContents()) {
+					if (child instanceof ITextLocation && !child.isMarkedAsDeleted()) {
+						final ITextLocation location = (ITextLocation)child;
+						final int newStartOffset = diff.getIndex(location.getStartOffset());
+						final int newEndOffset = diff.getIndex(location.getEndOffset());
+						final String oldValue = oldText.substring(location.getStartOffset(), location
+								.getEndOffset());
+						final String newValue = text.substring(newStartOffset, newEndOffset);
+						if (newStartOffset == newEndOffset) {
+							MappingUtils.markAsDeletedOrDelete(location, String.format(
+									"\"%s\" at (%d, %d) has been deleted.", oldValue, location
+											.getStartOffset(), location.getEndOffset()));
+						} else if (!oldValue.equals(newValue)) {
+							MappingUtils.markAsChanged(location, String.format(
+									"\"%s\" at (%d, %d) has been changed to \"%s\" at (%d, %d).", oldValue,
+									location.getStartOffset(), location.getEndOffset(), newValue,
+									newStartOffset, newEndOffset));
+						}
+						location.setStartOffset(newStartOffset);
+						location.setEndOffset(newEndOffset);
+					}
+				}
+			}
+		}
+
+	}
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @see org.eclipse.mylyn.docs.intent.mapping.connector.IConnector#getLocationType(java.lang.Class,
@@ -86,55 +146,6 @@ public class TextConnector extends AbstractConnector {
 	@Override
 	protected boolean canUpdate(Object element) {
 		return element instanceof TextRegion;
-	}
-
-	/**
-	 * Updates the given {@link ITextContainer} with the given {@link ITextContainer#getText() text}.
-	 * 
-	 * @param container
-	 *            the {@link ILocationContainer}
-	 * @param textContainer
-	 *            the {@link ITextContainer}
-	 * @param text
-	 *            the {@link ITextContainer#getText() text}
-	 * @throws IllegalAccessException
-	 *             if the class or its nullary constructor is not accessible.
-	 * @throws InstantiationException
-	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
-	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
-	 *             other reason.
-	 * @throws ClassNotFoundException
-	 *             if the {@link Class} can't be found
-	 */
-	public static void updateTextContainer(ILocationContainer container, ITextContainer textContainer,
-			String text) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		final String oldText = textContainer.getText();
-		textContainer.setText(text);
-		if (oldText != null) {
-			final DiffMatch diff = MappingUtils.getDiffMatch(oldText, text);
-			for (ILocation child : textContainer.getContents()) {
-				if (child instanceof ITextLocation && !child.isMarkedAsDeleted()) {
-					final ITextLocation location = (ITextLocation)child;
-					final int newStartOffset = diff.getIndex(location.getStartOffset());
-					final int newEndOffset = diff.getIndex(location.getEndOffset());
-					final String oldValue = oldText.substring(location.getStartOffset(), location
-							.getEndOffset());
-					final String newValue = text.substring(newStartOffset, newEndOffset);
-					if (newStartOffset == newEndOffset) {
-						MappingUtils.markAsDeletedOrDelete(location, String.format(
-								"\"%s\" at (%d, %d) has been deleted.", oldValue, location.getStartOffset(),
-								location.getEndOffset()));
-					} else if (!oldValue.equals(newValue)) {
-						MappingUtils.markAsChanged(location, String.format(
-								"\"%s\" at (%d, %d) has been changed to \"%s\" at (%d, %d).", oldValue,
-								location.getStartOffset(), location.getEndOffset(), newValue, newStartOffset,
-								newEndOffset));
-					}
-					location.setStartOffset(newStartOffset);
-					location.setEndOffset(newEndOffset);
-				}
-			}
-		}
 	}
 
 	/**

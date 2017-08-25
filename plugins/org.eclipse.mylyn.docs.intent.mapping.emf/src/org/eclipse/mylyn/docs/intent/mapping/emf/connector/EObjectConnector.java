@@ -57,9 +57,283 @@ import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
 public class EObjectConnector extends AbstractConnector {
 
 	/**
-	 * {@link MatchEngineFactoryImpl} {@link MatchEngineFactoryImpl#getRanking() ranking}.
+	 * Utility helper to
+	 * {@link EObjectContainerHelper#updateEObjectContainer(ILocationContainer, IEObjectContainer, Resource)
+	 * update EObject container}.
+	 * 
+	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	// private static final int MATCH_ENGINE_FACTORY_RANKING = 20;
+	public static class EObjectContainerHelper {
+
+		/**
+		 * Updates the given {@link IEObjectContainer} with the given {@link Resource}.
+		 * 
+		 * @param container
+		 *            the {@link ILocationContainer}
+		 * @param eObjectContainer
+		 *            the {@link IEObjectContainer}
+		 * @param newResource
+		 *            the {@link Resource}
+		 * @throws Exception
+		 *             if the XMI serialization failed
+		 */
+		public void updateEObjectContainer(ILocationContainer container, IEObjectContainer eObjectContainer,
+				Resource newResource) throws Exception {
+			if (eObjectContainer.getXMIContent() != null && !eObjectContainer.getXMIContent().isEmpty()) {
+				final XMIResourceImpl oldResource = new XMIResourceImpl(URI.createURI(""));
+				oldResource.load(new ByteArrayInputStream(eObjectContainer.getXMIContent().getBytes(UTF_8)),
+						new HashMap<Object, Object>());
+				final IComparisonScope scope = new DefaultComparisonScope(oldResource, newResource, null);
+				final Comparison comparison = EMFCompare.builder().build().compare(scope);
+				for (ILocation child : new ArrayList<ILocation>(eObjectContainer.getContents())) {
+					if (child instanceof IEObjectLocation && !child.isMarkedAsDeleted()) {
+						final IEObjectLocation location = (IEObjectLocation)child;
+						updateEObjectLocation(oldResource, comparison, location, needSavedURIFragment(
+								newResource));
+					}
+				}
+			}
+
+			eObjectContainer.getSavedURIFragments().clear();
+			if (needSavedURIFragment(newResource)) {
+				updateSavedURIFragment(container, eObjectContainer, newResource);
+			}
+
+			final String newXMIContent = XMLHelperImpl.saveString(new HashMap<Object, Object>(), newResource
+					.getContents(), UTF_8, null);
+			eObjectContainer.setXMIContent(newXMIContent);
+		}
+
+		/**
+		 * Tells if the given {@link Resource} need to use {@link IEObjectLocation#getSavedURIFragment() saved
+		 * URI fragment}.
+		 * 
+		 * @param resource
+		 *            the {@link Resource}
+		 * @return <code>true</code> if the given {@link Resource} need to use
+		 *         {@link IEObjectLocation#getSavedURIFragment() saved URI fragment}, <code>false</code>
+		 *         otherwise
+		 */
+		protected boolean needSavedURIFragment(Resource resource) {
+			// !(resource instanceof XMIResource);
+			// TODO make an accurate guess...
+			return true;
+		}
+
+		/**
+		 * Updates the given {@link IEObjectLocation}.
+		 * 
+		 * @param oldResource
+		 *            the old {@link Resource}
+		 * @param comparison
+		 *            the {@link Comparison}
+		 * @param eObjectlocation
+		 *            the {@link IEObjectLocation}
+		 * @param useSaveURIFragment
+		 *            tells if we should use {@link IEObjectLocation#getSavedURIFragment()}
+		 * @throws Exception
+		 *             if {@link org.eclipse.mylyn.docs.intent.mapping.Report Report} can't be created
+		 */
+		protected void updateEObjectLocation(Resource oldResource, Comparison comparison,
+				IEObjectLocation eObjectlocation, boolean useSaveURIFragment) throws Exception {
+			final EObject oldObject;
+			if (useSaveURIFragment) {
+				oldObject = oldResource.getEObject(eObjectlocation.getSavedURIFragment());
+			} else {
+				oldObject = oldResource.getEObject(eObjectlocation.getURIFragment());
+			}
+			final Match match = comparison.getMatch(oldObject);
+
+			if (match.getRight() != null) {
+				final String newURIFragment = match.getRight().eResource().getURIFragment(match.getRight());
+				if (!match.getDifferences().isEmpty()) {
+					final EObject newObject = match.getRight();
+					if (eObjectlocation.getFeatureName() == null) {
+						MappingUtils.markAsChanged(eObjectlocation, getMatchMessage(oldObject, newObject,
+								match));
+					} else {
+						updateLoccationSetting(comparison, eObjectlocation, oldObject, newObject, match);
+					}
+				}
+				eObjectlocation.setURIFragment(newURIFragment);
+			} else {
+				MappingUtils.markAsDeletedOrDelete(eObjectlocation, String.format(
+						"%s at %s has been deleted.", getValueString(oldObject), eObjectlocation
+								.getURIFragment()));
+			}
+		}
+
+		/**
+		 * Gets a human readable messages for the given {@link Match}.
+		 * 
+		 * @param oldObject
+		 *            the old {@link EObject}
+		 * @param newObject
+		 *            the new {@link EObject}
+		 * @param match
+		 *            the {@link Match}
+		 * @return a human readable messages for the given {@link Match}
+		 */
+		protected String getMatchMessage(EObject oldObject, EObject newObject, Match match) {
+			final StringBuilder res = new StringBuilder();
+
+			for (Diff diff : match.getDifferences()) {
+				if (diff instanceof AttributeChange) {
+					res.append("Attribure ");
+					final EAttribute attribute = ((AttributeChange)diff).getAttribute();
+					res.append(attribute.getName());
+					res.append(" was ");
+					res.append(getValueString(oldObject.eGet(attribute)));
+					res.append(" changed to ");
+					res.append(getValueString(newObject.eGet(attribute)));
+				} else if (diff instanceof ReferenceChange) {
+					res.append("Reference ");
+					final EReference reference = ((ReferenceChange)diff).getReference();
+					res.append(reference.getName());
+					res.append(" was ");
+					res.append(getValueString(oldObject.eGet(reference)));
+					res.append(" changed to ");
+					res.append(getValueString(newObject.eGet(reference)));
+				}
+				res.append(".\n");
+			}
+
+			return res.substring(0, res.length() - 1);
+		}
+
+		/**
+		 * Updates the given {@link IEObjectLocation} for a {@link LocationSetting}.
+		 * 
+		 * @param comparison
+		 *            the {@link Comparison}
+		 * @param eObjectlocation
+		 *            the {@link IEObjectLocation} to update
+		 * @param oldObject
+		 *            the old holding {@link EObject}
+		 * @param newObject
+		 *            the new holding {@link EObject}
+		 * @param match
+		 *            the {@link Match}
+		 * @throws IllegalAccessException
+		 *             if the class or its nullary constructor is not accessible.
+		 * @throws InstantiationException
+		 *             if this Class represents an abstract class, an interface, an array class, a primitive
+		 *             type, or void; or if the class has no nullary constructor; or if the instantiation
+		 *             fails for some other reason.
+		 * @throws ClassNotFoundException
+		 *             if the {@link Class} can't be found
+		 */
+		protected void updateLoccationSetting(Comparison comparison, IEObjectLocation eObjectlocation,
+				final EObject oldObject, EObject newObject, final Match match) throws InstantiationException,
+				IllegalAccessException, ClassNotFoundException {
+			final EStructuralFeature feature = oldObject.eClass().getEStructuralFeature(eObjectlocation
+					.getFeatureName());
+			final boolean hasDiffForFeature = hasDiffForFeature(match, feature);
+			if (hasDiffForFeature) {
+				final Object oldValue;
+				final Object newValue;
+				if (feature.isMany()) {
+					oldValue = ((List<?>)oldObject.eGet(feature)).get(eObjectlocation.getIndex());
+					newValue = getNewValueInManySetting(comparison, oldValue);
+					final int newIndex = ((List<?>)newObject.eGet(feature)).indexOf(newValue);
+					eObjectlocation.setIndex(newIndex);
+				} else {
+					oldValue = oldObject.eGet(feature);
+					newValue = newObject.eGet(feature);
+				}
+				if (eObjectlocation.getIndex() == -1) {
+					MappingUtils.markAsDeletedOrDelete(eObjectlocation, String.format(
+							"%s (%s) value %s has been removed from feature %s.", getLabel(oldObject),
+							eObjectlocation.getURIFragment(), getValueString(oldValue), eObjectlocation
+									.getFeatureName()));
+				} else if (!oldValue.equals(newValue)) {
+					MappingUtils.markAsChanged(eObjectlocation, String.format(
+							"%s (%s) feature %s value %s has been changed to %s.", getLabel(oldObject),
+							eObjectlocation.getURIFragment(), eObjectlocation.getFeatureName(),
+							getValueString(oldValue), getValueString(newValue)));
+				}
+			} else {
+				// there is a diff for the holding EObject but not the located setting
+				// nothing to do here
+			}
+		}
+
+		/**
+		 * Gets the string representation of the given value.
+		 * 
+		 * @param value
+		 *            the value
+		 * @return the string representation of the given value
+		 */
+		protected String getValueString(Object value) {
+			final String res;
+
+			if (value instanceof EObject) {
+				res = getLabel((EObject)value);
+			} else if (value == null) {
+				res = "null";
+			} else {
+				res = value.toString();
+			}
+
+			return res;
+		}
+
+		/**
+		 * Gets the new value for a multi-valuated setting.
+		 * 
+		 * @param comparison
+		 *            the {@link Comparison}
+		 * @param oldValue
+		 *            the old value
+		 * @return the new value for a multi-valuated setting
+		 */
+		protected Object getNewValueInManySetting(Comparison comparison, final Object oldValue) {
+			final Object newValue;
+			if (oldValue instanceof EObject) {
+				final Match valueMatch = comparison.getMatch((EObject)oldValue);
+				if (valueMatch != null) {
+					newValue = valueMatch.getRight();
+				} else {
+					newValue = oldValue;
+				}
+			} else {
+				newValue = oldValue;
+			}
+			return newValue;
+		}
+
+		/**
+		 * Tells if there is a difference in the given {@link Match} for the given {@link EStructuralFeature}.
+		 * 
+		 * @param match
+		 *            the {@link Match}
+		 * @param feature
+		 *            the {@link EStructuralFeature}
+		 * @return <code>true</code> if there is a difference in the given {@link Match} for the given
+		 *         {@link EStructuralFeature}, <code>false</code> otherwise
+		 */
+		protected boolean hasDiffForFeature(Match match, EStructuralFeature feature) {
+			boolean res = false;
+
+			for (Diff diff : match.getDifferences()) {
+				if (diff instanceof AttributeChange) {
+					if (((AttributeChange)diff).getAttribute() == feature) {
+						res = true;
+						break;
+					}
+				} else if (diff instanceof ReferenceChange) {
+					if (((ReferenceChange)diff).getReference() == feature) {
+						res = true;
+						break;
+					}
+				}
+			}
+
+			return res;
+		}
+
+	}
 
 	/**
 	 * Locate a specific {@link Setting}.
@@ -305,60 +579,6 @@ public class EObjectConnector extends AbstractConnector {
 	}
 
 	/**
-	 * Updates the given {@link IEObjectContainer} with the given {@link Resource}.
-	 * 
-	 * @param container
-	 *            the {@link ILocationContainer}
-	 * @param eObjectContainer
-	 *            the {@link IEObjectContainer}
-	 * @param newResource
-	 *            the {@link Resource}
-	 * @throws Exception
-	 *             if the XMI serialization failed
-	 */
-	public static void updateEObjectContainer(ILocationContainer container,
-			IEObjectContainer eObjectContainer, Resource newResource) throws Exception {
-		if (eObjectContainer.getXMIContent() != null && !eObjectContainer.getXMIContent().isEmpty()) {
-			final XMIResourceImpl oldResource = new XMIResourceImpl(URI.createURI(""));
-			oldResource.load(new ByteArrayInputStream(eObjectContainer.getXMIContent().getBytes(UTF_8)),
-					new HashMap<Object, Object>());
-			final IComparisonScope scope = new DefaultComparisonScope(oldResource, newResource, null);
-			final Comparison comparison = EMFCompare.builder().build().compare(scope);
-			for (ILocation child : new ArrayList<ILocation>(eObjectContainer.getContents())) {
-				if (child instanceof IEObjectLocation && !child.isMarkedAsDeleted()) {
-					final IEObjectLocation location = (IEObjectLocation)child;
-					updateEObjectLocation(oldResource, comparison, location, needSavedURIFragment(
-							newResource));
-				}
-			}
-		}
-
-		eObjectContainer.getSavedURIFragments().clear();
-		if (needSavedURIFragment(newResource)) {
-			updateSavedURIFragment(container, eObjectContainer, newResource);
-		}
-
-		final String newXMIContent = XMLHelperImpl.saveString(new HashMap<Object, Object>(), newResource
-				.getContents(), UTF_8, null);
-		eObjectContainer.setXMIContent(newXMIContent);
-	}
-
-	/**
-	 * Tells if the given {@link Resource} need to use {@link IEObjectLocation#getSavedURIFragment() saved URI
-	 * fragment}.
-	 * 
-	 * @param resource
-	 *            the {@link Resource}
-	 * @return <code>true</code> if the given {@link Resource} need to use
-	 *         {@link IEObjectLocation#getSavedURIFragment() saved URI fragment}, <code>false</code> otherwise
-	 */
-	public static boolean needSavedURIFragment(Resource resource) {
-		// !(resource instanceof XMIResource);
-		// TODO make an accurate guess...
-		return true;
-	}
-
-	/**
 	 * Updates {@link IEObjectLocation#getSavedURIFragment() saved URI fragment}.
 	 * 
 	 * @param container
@@ -388,217 +608,6 @@ public class EObjectConnector extends AbstractConnector {
 			couple.setValue(newXMIResource.getURIFragment(savedEObject));
 			eObjectContainer.getSavedURIFragments().add(couple);
 		}
-	}
-
-	/**
-	 * Updates the given {@link IEObjectLocation}.
-	 * 
-	 * @param oldResource
-	 *            the old {@link Resource}
-	 * @param comparison
-	 *            the {@link Comparison}
-	 * @param eObjectlocation
-	 *            the {@link IEObjectLocation}
-	 * @param useSaveURIFragment
-	 *            tells if we should use {@link IEObjectLocation#getSavedURIFragment()}
-	 * @throws Exception
-	 *             if {@link org.eclipse.mylyn.docs.intent.mapping.Report Report} can't be created
-	 */
-	private static void updateEObjectLocation(Resource oldResource, Comparison comparison,
-			IEObjectLocation eObjectlocation, boolean useSaveURIFragment) throws Exception {
-		final EObject oldObject;
-		if (useSaveURIFragment) {
-			oldObject = oldResource.getEObject(eObjectlocation.getSavedURIFragment());
-		} else {
-			oldObject = oldResource.getEObject(eObjectlocation.getURIFragment());
-		}
-		final Match match = comparison.getMatch(oldObject);
-
-		if (match.getRight() != null) {
-			final String newURIFragment = match.getRight().eResource().getURIFragment(match.getRight());
-			if (!match.getDifferences().isEmpty()) {
-				final EObject newObject = match.getRight();
-				if (eObjectlocation.getFeatureName() == null) {
-					MappingUtils.markAsChanged(eObjectlocation, getMatchMessage(oldObject, newObject, match));
-				} else {
-					updateLoccationSetting(comparison, eObjectlocation, oldObject, newObject, match);
-				}
-			}
-			eObjectlocation.setURIFragment(newURIFragment);
-		} else {
-			MappingUtils.markAsDeletedOrDelete(eObjectlocation, String.format("%s at %s has been deleted.",
-					getValueString(oldObject), eObjectlocation.getURIFragment()));
-		}
-	}
-
-	/**
-	 * Gets a human readable messages for the given {@link Match}.
-	 * 
-	 * @param oldObject
-	 *            the old {@link EObject}
-	 * @param newObject
-	 *            the new {@link EObject}
-	 * @param match
-	 *            the {@link Match}
-	 * @return a human readable messages for the given {@link Match}
-	 */
-	private static String getMatchMessage(EObject oldObject, EObject newObject, Match match) {
-		final StringBuilder res = new StringBuilder();
-
-		for (Diff diff : match.getDifferences()) {
-			if (diff instanceof AttributeChange) {
-				res.append("Attribure ");
-				final EAttribute attribute = ((AttributeChange)diff).getAttribute();
-				res.append(attribute.getName());
-				res.append(" was ");
-				res.append(getValueString(oldObject.eGet(attribute)));
-				res.append(" changed to ");
-				res.append(getValueString(newObject.eGet(attribute)));
-			} else if (diff instanceof ReferenceChange) {
-				res.append("Reference ");
-				final EReference reference = ((ReferenceChange)diff).getReference();
-				res.append(reference.getName());
-				res.append(" was ");
-				res.append(getValueString(oldObject.eGet(reference)));
-				res.append(" changed to ");
-				res.append(getValueString(newObject.eGet(reference)));
-			}
-			res.append(".\n");
-		}
-
-		return res.substring(0, res.length() - 1);
-	}
-
-	/**
-	 * Updates the given {@link IEObjectLocation} for a {@link LocationSetting}.
-	 * 
-	 * @param comparison
-	 *            the {@link Comparison}
-	 * @param eObjectlocation
-	 *            the {@link IEObjectLocation} to update
-	 * @param oldObject
-	 *            the old holding {@link EObject}
-	 * @param newObject
-	 *            the new holding {@link EObject}
-	 * @param match
-	 *            the {@link Match}
-	 * @throws IllegalAccessException
-	 *             if the class or its nullary constructor is not accessible.
-	 * @throws InstantiationException
-	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
-	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
-	 *             other reason.
-	 * @throws ClassNotFoundException
-	 *             if the {@link Class} can't be found
-	 */
-	private static void updateLoccationSetting(Comparison comparison, IEObjectLocation eObjectlocation,
-			final EObject oldObject, EObject newObject, final Match match) throws InstantiationException,
-			IllegalAccessException, ClassNotFoundException {
-		final EStructuralFeature feature = oldObject.eClass().getEStructuralFeature(eObjectlocation
-				.getFeatureName());
-		final boolean hasDiffForFeature = hasDiffForFeature(match, feature);
-		if (hasDiffForFeature) {
-			final Object oldValue;
-			final Object newValue;
-			if (feature.isMany()) {
-				oldValue = ((List<?>)oldObject.eGet(feature)).get(eObjectlocation.getIndex());
-				newValue = getNewValueInManySetting(comparison, oldValue);
-				final int newIndex = ((List<?>)newObject.eGet(feature)).indexOf(newValue);
-				eObjectlocation.setIndex(newIndex);
-			} else {
-				oldValue = oldObject.eGet(feature);
-				newValue = newObject.eGet(feature);
-			}
-			if (eObjectlocation.getIndex() == -1) {
-				MappingUtils.markAsDeletedOrDelete(eObjectlocation, String.format(
-						"%s (%s) value %s has been removed from feature %s.", getLabel(oldObject),
-						eObjectlocation.getURIFragment(), getValueString(oldValue), eObjectlocation
-								.getFeatureName()));
-			} else if (!oldValue.equals(newValue)) {
-				MappingUtils.markAsChanged(eObjectlocation, String.format(
-						"%s (%s) feature %s value %s has been changed to %s.", getLabel(oldObject),
-						eObjectlocation.getURIFragment(), eObjectlocation.getFeatureName(), getValueString(
-								oldValue), getValueString(newValue)));
-			}
-		} else {
-			// there is a diff for the holding EObject but not the located setting
-			// nothing to do here
-		}
-	}
-
-	/**
-	 * Gets the string representation of the given value.
-	 * 
-	 * @param value
-	 *            the value
-	 * @return the string representation of the given value
-	 */
-	private static String getValueString(Object value) {
-		final String res;
-
-		if (value instanceof EObject) {
-			res = getLabel((EObject)value);
-		} else if (value == null) {
-			res = "null";
-		} else {
-			res = value.toString();
-		}
-
-		return res;
-	}
-
-	/**
-	 * Gets the new value for a multi-valuated setting.
-	 * 
-	 * @param comparison
-	 *            the {@link Comparison}
-	 * @param oldValue
-	 *            the old value
-	 * @return the new value for a multi-valuated setting
-	 */
-	private static Object getNewValueInManySetting(Comparison comparison, final Object oldValue) {
-		final Object newValue;
-		if (oldValue instanceof EObject) {
-			final Match valueMatch = comparison.getMatch((EObject)oldValue);
-			if (valueMatch != null) {
-				newValue = valueMatch.getRight();
-			} else {
-				newValue = oldValue;
-			}
-		} else {
-			newValue = oldValue;
-		}
-		return newValue;
-	}
-
-	/**
-	 * Tells if there is a difference in the given {@link Match} for the given {@link EStructuralFeature}.
-	 * 
-	 * @param match
-	 *            the {@link Match}
-	 * @param feature
-	 *            the {@link EStructuralFeature}
-	 * @return <code>true</code> if there is a difference in the given {@link Match} for the given
-	 *         {@link EStructuralFeature}, <code>false</code> otherwise
-	 */
-	private static boolean hasDiffForFeature(Match match, EStructuralFeature feature) {
-		boolean res = false;
-
-		for (Diff diff : match.getDifferences()) {
-			if (diff instanceof AttributeChange) {
-				if (((AttributeChange)diff).getAttribute() == feature) {
-					res = true;
-					break;
-				}
-			} else if (diff instanceof ReferenceChange) {
-				if (((ReferenceChange)diff).getReference() == feature) {
-					res = true;
-					break;
-				}
-			}
-		}
-
-		return res;
 	}
 
 	/**

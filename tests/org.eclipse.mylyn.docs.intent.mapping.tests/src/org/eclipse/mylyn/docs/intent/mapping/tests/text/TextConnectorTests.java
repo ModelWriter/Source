@@ -39,6 +39,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class TextConnectorTests extends TextConnector {
 
+	/**
+	 * The {@link TextContainerHelper}.
+	 */
+	private final TextContainerHelper textContainerHelper = new TextContainerHelper();
+
 	@Test
 	public void getLocationTypeNotTypeContainer() {
 		final Class<? extends ILocation> type = getLocationType(ITestLocation.class, "");
@@ -121,7 +126,7 @@ public class TextConnectorTests extends TextConnector {
 
 		super.initLocation(container, location, new TextRegion(null, "cd", 2, 4));
 
-		super.updateTextContainer(container.getContainer(), container, "abefgh");
+		textContainerHelper.updateTextContainer(container.getContainer(), container, "abefgh");
 
 		assertTrue(location.isMarkedAsDeleted());
 		assertEquals(1, base.getReports().size());
@@ -151,7 +156,7 @@ public class TextConnectorTests extends TextConnector {
 
 		super.initLocation(container, location, new TextRegion(null, "cd", 2, 4));
 
-		super.updateTextContainer(container.getContainer(), container, "abc1defgh");
+		textContainerHelper.updateTextContainer(container.getContainer(), container, "abc1defgh");
 
 		assertEquals(1, base.getReports().size());
 		final IReport report = base.getReports().get(0);

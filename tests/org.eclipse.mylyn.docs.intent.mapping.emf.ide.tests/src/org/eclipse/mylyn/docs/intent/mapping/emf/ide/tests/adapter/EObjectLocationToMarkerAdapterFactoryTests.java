@@ -26,7 +26,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.BaseElementFactory;
 import org.eclipse.mylyn.docs.intent.mapping.base.IBase;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ICouple;
 import org.eclipse.mylyn.docs.intent.mapping.emf.IEObjectLocation;
-import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector;
+import org.eclipse.mylyn.docs.intent.mapping.emf.connector.EObjectConnector.EObjectContainerHelper;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.adapter.EObjectLocationToMarkerAdapterFactory;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.marker.IEObjectLocationMaker;
 import org.eclipse.mylyn.docs.intent.mapping.emf.ide.tests.connector.EObjectFileConnectorDelegateTests.TestEObjectFileLocation;
@@ -50,6 +50,11 @@ public class EObjectLocationToMarkerAdapterFactoryTests {
 	 */
 	private static final EObjectLocationToMarkerAdapterFactory FACTORY = new EObjectLocationToMarkerAdapterFactory();
 
+	/**
+	 * The {@link EObjectContainerHelper}.
+	 */
+	private final EObjectContainerHelper eObjectContainerHelper = new EObjectContainerHelper();
+
 	@Test
 	public void getAdapter() throws Exception {
 		final IProject project = createProject();
@@ -67,7 +72,7 @@ public class EObjectLocationToMarkerAdapterFactoryTests {
 
 		TestEObjectFileLocation container = new TestEObjectFileLocation();
 		container.setContainer(base);
-		EObjectConnector.updateEObjectContainer(container.getContainer(), container, r);
+		eObjectContainerHelper.updateEObjectContainer(container.getContainer(), container, r);
 		container.setResource(r);
 		container.setFullPath("/test/test.xmi");
 
