@@ -11,16 +11,17 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command;
 
-import org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.AddToLocationsPoolHandler;
+import org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.RemoveFromSynchronizationPaletteHandler;
 
 /**
- * Adds selected semantic {@link org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor
- * ILocationDescriptor} to the
- * {@link org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils#getLocationsPool() locations pool}.
+ * Removes selected semantic elements {@link org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor
+ * ILocationDescriptor} from the
+ * {@link org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils#getSynchronizationPalette()
+ * synchronization palette}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class AddSemanticElementToLocationsPoolHandler extends AddToLocationsPoolHandler {
+public class RemoveSemanticElementFromSynchronizationPaletteHandler extends RemoveFromSynchronizationPaletteHandler {
 
 	@Override
 	protected Object getElementFromSelectedObject(Object selected) {

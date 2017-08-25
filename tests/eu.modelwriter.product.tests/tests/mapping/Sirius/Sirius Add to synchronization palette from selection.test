@@ -1,0 +1,42 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Contexts: _l8MccPLOEeadt4DOVTJnHw,_4A3_UPLNEeadt4DOVTJnHw
+Element-Name: Sirius Add to synchronization palette from selection
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _dJuhQPLOEeadt4DOVTJnHw
+Runtime-Version: 2.1.0.201606221726
+Save-Time: 8/25/17 4:44 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+with [get-view "Synchronization Palette" | get-tree] {
+    key-type "M1+a"
+    key-type Del
+}
+
+get-view "Model Explorer" | get-tree | select "sirius.test/mapping.ecore/mapping/mapping class diagram" | double-click
+get-editor "mapping class diagram" | get-diagram -index 1 | get-edit-part -name "mapping class diagram" 
+    | mouse-move 310 549 -height 900 -width 1252
+with [get-view Mapping] {
+    click
+    get-combo -after [get-label "Mapping base:"] | select "Sirius test"
+}
+with [get-editor "mapping class diagram" | get-diagram -index 1] {
+    with [get-edit-part -name "mapping class diagram"] {
+        mouse-move 404 702 -height 900 -width 765
+        with [get-edit-part -name TextLocation | get-edit-part -className DNodeListViewNodeListCompartment2EditPart] {
+            mouse-move 71 46 button3 -height 71 -width 133
+            mouse-press 71 46 button3 -height 71 -width 133
+        }
+    }
+    get-menu "Mapping/Add location to synchronization palette" | click
+}
+get-view "Synchronization Palette" | click
+get-view "Synchronization Palette" | get-tree | get-item TextLocation | get-property caption | equals TextLocation 
+    | verify-true
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

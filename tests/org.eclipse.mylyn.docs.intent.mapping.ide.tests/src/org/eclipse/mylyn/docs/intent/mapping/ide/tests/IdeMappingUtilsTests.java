@@ -17,7 +17,7 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.base.LocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ICurrentBaseListener;
-import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener;
+import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener;
 import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseElementFactoryTests.TestLocation;
 import org.eclipse.mylyn.docs.intent.mapping.tests.base.BaseRegistryTests.TestBase;
@@ -78,29 +78,29 @@ public class IdeMappingUtilsTests {
 	}
 
 	/**
-	 * Test {@link ILocationsPoolListener}.
+	 * Test {@link ISynchronizationPaletteListener}.
 	 *
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public static class TestLocationsPoolListener implements ILocationsPoolListener {
+	public static class TestSynchronizationPaletteListener implements ISynchronizationPaletteListener {
 
 		/**
-		 * Counts calls to {@link ILocationsPoolListener#locationActivated(ILocationDescriptor)}.
+		 * Counts calls to {@link ISynchronizationPaletteListener#locationActivated(ILocationDescriptor)}.
 		 */
 		private int locationActivatedCount;
 
 		/**
-		 * Counts calls to {@link ILocationsPoolListener#locationDeactivated(ILocationDescriptor)}.
+		 * Counts calls to {@link ISynchronizationPaletteListener#locationDeactivated(ILocationDescriptor)}.
 		 */
 		private int locationDeactivatedCount;
 
 		/**
-		 * Counts calls to {@link ILocationsPoolListener#contentsAdded(ILocationDescriptor)}.
+		 * Counts calls to {@link ISynchronizationPaletteListener#contentsAdded(ILocationDescriptor)}.
 		 */
 		private int contentsAddedCount;
 
 		/**
-		 * Counts calls to {@link ILocationsPoolListener#contentsRemoved(ILocationDescriptor)}.
+		 * Counts calls to {@link ISynchronizationPaletteListener#contentsRemoved(ILocationDescriptor)}.
 		 */
 		private int contentsRemovedCount;
 
@@ -124,8 +124,8 @@ public class IdeMappingUtilsTests {
 
 	@Before
 	public void before() {
-		for (ILocationDescriptor descriptor : IdeMappingUtils.getLocationsPool()) {
-			IdeMappingUtils.removeLocationFromPool(descriptor);
+		for (ILocationDescriptor descriptor : IdeMappingUtils.getSynchronizationPalette()) {
+			IdeMappingUtils.removeLocationFromPalette(descriptor);
 		}
 	}
 
@@ -134,7 +134,7 @@ public class IdeMappingUtilsTests {
 		assertEquals(currentBaseChangedCount, listener.currentBaseChangedCount);
 	}
 
-	public static void assertLocationPoolListener(TestLocationsPoolListener listener,
+	public static void assertSynchronizationPaletteListener(TestSynchronizationPaletteListener listener,
 			int locationActivatedCount, int locationDeactivatedCount, int contentsAddedCount,
 			int contentsRemovedCount) {
 		assertEquals(locationActivatedCount, listener.locationActivatedCount);
@@ -145,44 +145,44 @@ public class IdeMappingUtilsTests {
 
 	@Test
 	public void activateLocationNull() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
-		IdeMappingUtils.addLocationPoolListener(listener);
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 
 		IdeMappingUtils.activateLocation(null);
 
-		assertLocationPoolListener(listener, 0, 0, 0, 0);
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		assertSynchronizationPaletteListener(listener, 0, 0, 0, 0);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test
-	public void activateLocationNotInPool() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
-		IdeMappingUtils.addLocationPoolListener(listener);
+	public void activateLocationNotInPalette() {
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 		final ILocation location = new TestLocation1();
 		ILocationDescriptor descriptor = new LocationDescriptor(location);
 
 		IdeMappingUtils.activateLocation(descriptor);
 
 		assertFalse(IdeMappingUtils.isActive(descriptor));
-		assertLocationPoolListener(listener, 0, 0, 0, 0);
+		assertSynchronizationPaletteListener(listener, 0, 0, 0, 0);
 
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test
-	public void activateLocationInPool() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
-		IdeMappingUtils.addLocationPoolListener(listener);
+	public void activateLocationInPalette() {
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 		final ILocation location = new TestLocation1();
 		ILocationDescriptor descriptor = new LocationDescriptor(location);
 
-		IdeMappingUtils.addLocationToPool(descriptor);
+		IdeMappingUtils.addLocationToPalette(descriptor);
 		IdeMappingUtils.activateLocation(descriptor);
 
 		assertTrue(IdeMappingUtils.isActive(descriptor));
-		assertLocationPoolListener(listener, 1, 0, 1, 0);
+		assertSynchronizationPaletteListener(listener, 1, 0, 1, 0);
 
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -204,41 +204,41 @@ public class IdeMappingUtilsTests {
 	}
 
 	@Test
-	public void addLocationToPoolNull() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
-		IdeMappingUtils.addLocationPoolListener(listener);
+	public void addLocationToPaletteNull() {
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 
-		IdeMappingUtils.addLocationToPool(null);
-		assertLocationPoolListener(listener, 0, 0, 1, 0);
+		IdeMappingUtils.addLocationToPalette(null);
+		assertSynchronizationPaletteListener(listener, 0, 0, 1, 0);
 
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test
-	public void addLocationToPoolNotInPool() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
-		IdeMappingUtils.addLocationPoolListener(listener);
+	public void addLocationToPaletteNotInPalette() {
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 		final ILocation location = new TestLocation1();
 		ILocationDescriptor descriptor = new LocationDescriptor(location);
 
-		IdeMappingUtils.addLocationToPool(descriptor);
-		assertLocationPoolListener(listener, 0, 0, 1, 0);
+		IdeMappingUtils.addLocationToPalette(descriptor);
+		assertSynchronizationPaletteListener(listener, 0, 0, 1, 0);
 
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test
-	public void addLocationToPoolInPool() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
+	public void addLocationToPaletteInPalette() {
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
 		final ILocation location = new TestLocation1();
 		ILocationDescriptor descriptor = new LocationDescriptor(location);
-		IdeMappingUtils.addLocationToPool(descriptor);
-		IdeMappingUtils.addLocationPoolListener(listener);
+		IdeMappingUtils.addLocationToPalette(descriptor);
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 
-		IdeMappingUtils.addLocationToPool(descriptor);
-		assertLocationPoolListener(listener, 0, 0, 0, 0);
+		IdeMappingUtils.addLocationToPalette(descriptor);
+		assertSynchronizationPaletteListener(listener, 0, 0, 0, 0);
 
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test
@@ -250,7 +250,7 @@ public class IdeMappingUtilsTests {
 	public void asActiveLocationDescriptorTrue() {
 		final ILocation location = new TestLocation1();
 		ILocationDescriptor descriptor = new LocationDescriptor(location);
-		IdeMappingUtils.addLocationToPool(descriptor);
+		IdeMappingUtils.addLocationToPalette(descriptor);
 		IdeMappingUtils.activateLocation(descriptor);
 
 		assertTrue(IdeMappingUtils.asActiveLocationDescriptor());
@@ -258,61 +258,61 @@ public class IdeMappingUtilsTests {
 
 	@Test
 	public void deactivateLocationNull() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
-		IdeMappingUtils.addLocationPoolListener(listener);
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 
 		IdeMappingUtils.deactivateLocation(null);
 
-		assertLocationPoolListener(listener, 0, 0, 0, 0);
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		assertSynchronizationPaletteListener(listener, 0, 0, 0, 0);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test
-	public void deactivateLocationNotInPool() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
-		IdeMappingUtils.addLocationPoolListener(listener);
+	public void deactivateLocationNotInPalette() {
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 		final ILocation location = new TestLocation1();
 		ILocationDescriptor descriptor = new LocationDescriptor(location);
 
 		IdeMappingUtils.deactivateLocation(descriptor);
 
 		assertFalse(IdeMappingUtils.isActive(descriptor));
-		assertLocationPoolListener(listener, 0, 0, 0, 0);
+		assertSynchronizationPaletteListener(listener, 0, 0, 0, 0);
 
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test
-	public void deactivateLocationInPoolNotActivated() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
+	public void deactivateLocationInPaletteNotActivated() {
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
 		final ILocation location = new TestLocation1();
 		ILocationDescriptor descriptor = new LocationDescriptor(location);
-		IdeMappingUtils.addLocationToPool(descriptor);
-		IdeMappingUtils.addLocationPoolListener(listener);
+		IdeMappingUtils.addLocationToPalette(descriptor);
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 
 		IdeMappingUtils.deactivateLocation(descriptor);
 
 		assertFalse(IdeMappingUtils.isActive(descriptor));
-		assertLocationPoolListener(listener, 0, 0, 0, 0);
+		assertSynchronizationPaletteListener(listener, 0, 0, 0, 0);
 
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test
-	public void deactivateLocationInPoolActivated() {
-		final TestLocationsPoolListener listener = new TestLocationsPoolListener();
+	public void deactivateLocationInPaletteActivated() {
+		final TestSynchronizationPaletteListener listener = new TestSynchronizationPaletteListener();
 		final ILocation location = new TestLocation1();
 		ILocationDescriptor descriptor = new LocationDescriptor(location);
-		IdeMappingUtils.addLocationToPool(descriptor);
+		IdeMappingUtils.addLocationToPalette(descriptor);
 		IdeMappingUtils.activateLocation(descriptor);
-		IdeMappingUtils.addLocationPoolListener(listener);
+		IdeMappingUtils.addSynchronizationPaletteListener(listener);
 
 		IdeMappingUtils.deactivateLocation(descriptor);
 
 		assertFalse(IdeMappingUtils.isActive(descriptor));
-		assertLocationPoolListener(listener, 0, 1, 0, 0);
+		assertSynchronizationPaletteListener(listener, 0, 1, 0, 0);
 
-		IdeMappingUtils.removeLocationPoolListener(listener);
+		IdeMappingUtils.removeSynchronizationPaletteListener(listener);
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -380,7 +380,7 @@ public class IdeMappingUtilsTests {
 	}
 
 	@Test
-	public void changeCurrentBaseEmptyLocationPool() {
+	public void changeCurrentBaseEmptySynchronizationPalette() {
 		final IBase base = new TestBase();
 		IdeMappingUtils.setCurrentBase(base);
 		final ILocation location = new TestLocation1();
@@ -389,14 +389,14 @@ public class IdeMappingUtilsTests {
 
 		final ILocationDescriptor desciptor = new LocationDescriptor(location);
 
-		IdeMappingUtils.addLocationToPool(desciptor);
+		IdeMappingUtils.addLocationToPalette(desciptor);
 
-		assertFalse(IdeMappingUtils.getLocationsPool().isEmpty());
+		assertFalse(IdeMappingUtils.getSynchronizationPalette().isEmpty());
 
 		final IBase newBase = new TestBase();
 		IdeMappingUtils.setCurrentBase(newBase);
 
-		assertTrue(IdeMappingUtils.getLocationsPool().isEmpty());
+		assertTrue(IdeMappingUtils.getSynchronizationPalette().isEmpty());
 	}
 
 }

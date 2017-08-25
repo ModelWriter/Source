@@ -15,7 +15,8 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.LinkAsSource;
 
 /**
  * Links the selection semantic elements as
- * {@link org.eclipse.mylyn.docs.intent.mapping.base.ILink#getSource() source} of the active locations pool.
+ * {@link org.eclipse.mylyn.docs.intent.mapping.base.ILink#getSource() source} of the active synchronization
+ * palette.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */

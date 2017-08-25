@@ -1,20 +1,20 @@
 --- RCPTT testcase ---
 Format-Version: 1.0
 Contexts: _k2NaAHwYEeaC-KGN0DI6Vw,_a10TIHwYEeaC-KGN0DI6Vw
-Element-Name: Remove from location pool from pool
+Element-Name: Remove from synchronization palette from palette
 Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
 Id: _xi784KHLEea__8ecebJRnQ
 Runtime-Version: 2.1.0.201606221726
-Save-Time: 2/15/17 3:53 PM
+Save-Time: 8/25/17 3:56 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
 Content-Type: text/ecl
 Entry-Name: .content
 
-with [get-view "Location Pool" | get-tree] {
+with [get-view "Synchronization Palette" | get-tree] {
     key-type "M1+a"
     key-type Del
 }
@@ -26,8 +26,8 @@ with [get-view Navigator | get-tree] {
 with [get-editor "test2.txt" | get-text-viewer] {
     set-caret-pos 1 6
     select-range 1 5 1 6
-    get-menu "Mapping/Add location to Pool" | click
+    get-menu "Mapping/Add location to synchronization palette" | click
 }
-get-view "Location Pool" | get-tree | select c | key-type Del
-get-view "Location Pool" | get-tree | get-property itemCount | equals 0 | verify-true
+get-view "Synchronization Palette" | get-tree | select c | key-type Del
+get-view "Synchronization Palette" | get-tree | get-property itemCount | equals 0 | verify-true
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

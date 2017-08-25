@@ -32,7 +32,7 @@ import org.eclipse.mylyn.docs.intent.mapping.MappingUtils;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILink;
 import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
-import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener;
+import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener;
 import org.eclipse.mylyn.docs.intent.mapping.ide.ui.Activator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
@@ -52,11 +52,11 @@ import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.part.ViewPart;
 
 /**
- * Pool of {@link ILocationDescriptor} view.
+ * Palette of {@link ILocationDescriptor} view.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class LocationPoolView extends ViewPart {
+public class SynchronizationPaletteView extends ViewPart {
 
 	/**
 	 * Listen to text drop.
@@ -105,7 +105,7 @@ public class LocationPoolView extends ViewPart {
 					final ILocationDescriptor locationDescriptor = IdeMappingUtils.adapt(source,
 							ILocationDescriptor.class);
 					if (locationDescriptor != null) {
-						IdeMappingUtils.addLocationToPool(locationDescriptor);
+						IdeMappingUtils.addLocationToPalette(locationDescriptor);
 						res = true;
 					}
 				} else {
@@ -226,11 +226,12 @@ public class LocationPoolView extends ViewPart {
 	}
 
 	/**
-	 * A flat content provider for the {@link IdeMappingUtils#getLocationsPool() location pool}.
+	 * A flat content provider for the {@link IdeMappingUtils#getSynchronizationPalette() synchronization
+	 * palette}.
 	 * 
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	private static class LocationPoolContentProvider implements ITreeContentProvider {
+	private static class SynchronizationPaletteContentProvider implements ITreeContentProvider {
 
 		/**
 		 * {@inheritDoc}
@@ -257,7 +258,7 @@ public class LocationPoolView extends ViewPart {
 		 * @see org.eclipse.jface.viewers.ITreeContentProvider#getElements(java.lang.Object)
 		 */
 		public Object[] getElements(Object inputElement) {
-			return IdeMappingUtils.getLocationsPool().toArray();
+			return IdeMappingUtils.getSynchronizationPalette().toArray();
 		}
 
 		/**
@@ -290,12 +291,12 @@ public class LocationPoolView extends ViewPart {
 	}
 
 	/**
-	 * {@link ILocationsPoolListener} refreshing a {@link Viewer} with the
-	 * {@link IdeMappingUtils#getLocationsPool() location pool}.
+	 * {@link ISynchronizationPaletteListener} refreshing a {@link Viewer} with the
+	 * {@link IdeMappingUtils#getSynchronizationPalette() synchronization palette}.
 	 * 
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	private static class LocationsPoolListener implements ILocationsPoolListener {
+	private static class SynchronizationPaletteListener implements ISynchronizationPaletteListener {
 
 		/**
 		 * The {@link TreeViewer} to refresh.
@@ -308,57 +309,57 @@ public class LocationPoolView extends ViewPart {
 		 * @param viewer
 		 *            the {@link TreeViewer} to refresh
 		 */
-		LocationsPoolListener(TreeViewer viewer) {
+		SynchronizationPaletteListener(TreeViewer viewer) {
 			this.viewer = viewer;
-			viewer.setInput(IdeMappingUtils.getLocationsPool());
+			viewer.setInput(IdeMappingUtils.getSynchronizationPalette());
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationActivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener#locationActivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 		 */
 		public void locationActivated(ILocationDescriptor locationDescriptor) {
-			viewer.setInput(IdeMappingUtils.getLocationsPool());
+			viewer.setInput(IdeMappingUtils.getSynchronizationPalette());
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationDeactivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener#locationDeactivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 		 */
 		public void locationDeactivated(ILocationDescriptor locationDescriptor) {
-			viewer.setInput(IdeMappingUtils.getLocationsPool());
+			viewer.setInput(IdeMappingUtils.getSynchronizationPalette());
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 		 */
 		public void contentsAdded(ILocationDescriptor locationDescriptor) {
-			viewer.setInput(IdeMappingUtils.getLocationsPool());
+			viewer.setInput(IdeMappingUtils.getSynchronizationPalette());
 		}
 
 		/**
 		 * {@inheritDoc}
 		 *
-		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+		 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 		 */
 		public void contentsRemoved(ILocationDescriptor locationDescriptor) {
-			viewer.setInput(IdeMappingUtils.getLocationsPool());
+			viewer.setInput(IdeMappingUtils.getSynchronizationPalette());
 		}
 	}
 
 	/**
 	 * The view ID.
 	 */
-	public static final String ID = "org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.LocationPoolView"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.SynchronizationPaletteView"; //$NON-NLS-1$
 
 	/**
-	 * The {@link LocationsPoolListener} refreshing the viewer.
+	 * The {@link SynchronizationPaletteListener} refreshing the viewer.
 	 */
-	private LocationsPoolListener locationsPoolListener;
+	private SynchronizationPaletteListener synchronizationPaletteListener;
 
 	/**
 	 * The {@link MenuManager}.
@@ -373,7 +374,7 @@ public class LocationPoolView extends ViewPart {
 	/**
 	 * Constructor.
 	 */
-	public LocationPoolView() {
+	public SynchronizationPaletteView() {
 		// nothing to do here
 	}
 
@@ -389,7 +390,7 @@ public class LocationPoolView extends ViewPart {
 
 		final FilteredCheckboxTree locationsList = new FilteredCheckboxTree(container, SWT.CHECK | SWT.MULTI
 				| SWT.BORDER, new PatternFilter(), false);
-		locationsList.getViewer().setContentProvider(new LocationPoolContentProvider());
+		locationsList.getViewer().setContentProvider(new SynchronizationPaletteContentProvider());
 		locationsList.getViewer().setLabelProvider(new MappingLabelProvider(MappingLabelProvider.SOURCE));
 		locationsList.getViewer().setCheckStateProvider(new ICheckStateProvider() {
 
@@ -401,8 +402,8 @@ public class LocationPoolView extends ViewPart {
 				return IdeMappingUtils.isActive((ILocationDescriptor)element);
 			}
 		});
-		locationsPoolListener = new LocationsPoolListener(locationsList.getViewer());
-		IdeMappingUtils.addLocationPoolListener(locationsPoolListener);
+		synchronizationPaletteListener = new SynchronizationPaletteListener(locationsList.getViewer());
+		IdeMappingUtils.addSynchronizationPaletteListener(synchronizationPaletteListener);
 		locationsList.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(locationsList.getViewer().getTree()));
 		locationsList.getViewer().getTree().addListener(SWT.KeyUp, new Listener() {
@@ -414,7 +415,7 @@ public class LocationPoolView extends ViewPart {
 						toDelete.add((ILocationDescriptor)item.getData());
 					}
 					for (ILocationDescriptor locationDescriptor : toDelete) {
-						IdeMappingUtils.removeLocationFromPool(locationDescriptor);
+						IdeMappingUtils.removeLocationFromPalette(locationDescriptor);
 						locationDescriptor.dispose();
 					}
 				}
@@ -471,7 +472,7 @@ public class LocationPoolView extends ViewPart {
 	@Override
 	public void dispose() {
 		super.dispose();
-		IdeMappingUtils.removeLocationPoolListener(locationsPoolListener);
+		IdeMappingUtils.removeSynchronizationPaletteListener(synchronizationPaletteListener);
 		menu.dispose();
 		menuManager.dispose();
 	}

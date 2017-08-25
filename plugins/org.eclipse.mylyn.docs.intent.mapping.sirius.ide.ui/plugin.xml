@@ -10,7 +10,7 @@
                commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsSource"
                label="Link semantic element location as source"
                style="push"
-               tooltip="Links the current location as source with activated locations from the pool">
+               tooltip="Links the current location as source with activated locations from the synchronization palette">
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -38,7 +38,7 @@
                commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsTarget"
                label="Link semantic element location as target"
                style="push"
-               tooltip="Links the current location as target with activated locations from the pool">
+               tooltip="Links the current location as target with activated locations from the synchronization palette">
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -63,10 +63,10 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.addSemanticElementToLocationsPool"
-               label="Add semantic element location to Pool"
+               commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.addSemanticElementToSynchronizationPalette"
+               label="Add semantic element location to synchronization palette"
                style="push"
-               tooltip="Adds the selected location to locations pool">
+               tooltip="Adds the selected location to synchronization palette">
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -91,10 +91,10 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromLocationsPool"
-               label="Remove semantic element location from  Pool"
+               commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromSynchronizationPalette"
+               label="Remove semantic element location from  synchronization palette"
                style="push"
-               tooltip="Removes the selected location from the locations pool">
+               tooltip="Removes the selected location from the synchronization palette">
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -123,12 +123,12 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.AddSemanticElementToLocationsPoolHandler"
-            commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.addSemanticElementToLocationsPool">
+            class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.AddSemanticElementToSynchronizationPaletteHandler"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.addSemanticElementToSynchronizationPalette">
       </handler>
       <handler
-            class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.RemoveSemanticElementFromLocationsPoolHandler"
-            commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromLocationsPool">
+            class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.RemoveSemanticElementFromSynchronizationPaletteHandler"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromSynchronizationPalette">
       </handler>
       <handler
             class="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.command.LinkSemanticElementAsSource"
@@ -142,22 +142,22 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            description="Adds the selected semantic element location to locations pool"
-            id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.addSemanticElementToLocationsPool"
-            name="Add semantic element location to Pool">
+            description="Adds the selected semantic element location to synchronization palette"
+            id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.addSemanticElementToSynchronizationPalette"
+            name="Add semantic element location to synchronization palette">
       </command>
       <command
-            description="Removes the selected semantic element location from the locations pool"
-            id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromLocationsPool"
-            name="Remove semantic element location from  Pool">
+            description="Removes the selected semantic element location from the synchronization palette"
+            id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromSynchronizationPalette"
+            name="Remove semantic element location from  synchronization palette">
       </command>
       <command
-            description="Links the selected semantic element location as source with activated locations from the pool"
+            description="Links the selected semantic element location as source with activated locations from the synchronization palette"
             id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsSource"
             name="Link semantic element as source">
       </command>
       <command
-            description="Links the selected semantic element location as target with activated locations from the pool"
+            description="Links the selected semantic element location as target with activated locations from the synchronization palette"
             id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsTarget"
             name="Link semantic element as target">
       </command>

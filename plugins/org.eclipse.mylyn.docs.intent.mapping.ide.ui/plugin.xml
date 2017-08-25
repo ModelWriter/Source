@@ -15,9 +15,9 @@
       </view>
       <view
             category="org.eclipse.mylyn.docs.intent.mapping.ide.ui.mapping"
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.LocationPoolView"
-            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.LocationPoolView"
-            name="Location Pool">
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.SynchronizationPaletteView"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.view.SynchronizationPaletteView"
+            name="Synchronization Palette">
       </view>
    </extension>
    <extension
@@ -46,7 +46,7 @@
                   commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"
                   label="Link location as source"
                   style="push"
-                  tooltip="Links the current location as source with activated locations from the pool">
+                  tooltip="Links the current location as source with activated locations from the synchronization palette">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -68,7 +68,7 @@
                   commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
                   label="Link location as target"
                   style="push"
-                  tooltip="Links the current location as target with activated locations from the pool">
+                  tooltip="Links the current location as target with activated locations from the synchronization palette">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -87,10 +87,10 @@
                </visibleWhen>
             </command>
             <command
-                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool"
-                  label="Add location to Pool"
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToSynchronizationPalette"
+                  label="Add location to synchronization palette"
                   style="push"
-                  tooltip="Adds the selected location to locations pool">
+                  tooltip="Adds the selected location to synchronization palette">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -109,10 +109,10 @@
                </visibleWhen>
             </command>
             <command
-                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool"
-                  label="Remove location from  Pool"
+                  commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromSynchronizationPalette"
+                  label="Remove location from  synchronization palette"
                   style="push"
-                  tooltip="Removes the selected location from the locations pool">
+                  tooltip="Removes the selected location from the synchronization palette">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -212,12 +212,12 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.AddToLocationsPoolHandler"
-            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool">
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.AddToSynchronizationPaletteHandler"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToSynchronizationPalette">
       </handler>
       <handler
-            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.RemoveFromLocationsPoolHandler"
-            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool">
+            class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.RemoveFromSynchronizationPaletteHandler"
+            commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromSynchronizationPalette">
       </handler>
       <handler
             class="org.eclipse.mylyn.docs.intent.mapping.ide.ui.command.LinkAsSource"
@@ -243,22 +243,22 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            description="Adds the selected location to locations pool"
-            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToLocationsPool"
-            name="Add Location to Pool">
+            description="Adds the selected location to synchronization palette"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.addToSynchronizationPalette"
+            name="Add Location to synchronization palette">
       </command>
       <command
-            description="Removes the selected location from the locations pool"
-            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromLocationsPool"
-            name="Remove Location from  Pool">
+            description="Removes the selected location from the synchronization palette"
+            id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.removeFromSynchronizationPalette"
+            name="Remove Location from  synchronization palette">
       </command>
       <command
-            description="Links the selected location as source with activated locations from the pool"
+            description="Links the selected location as source with activated locations from the synchronization palette"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"
             name="Link as source">
       </command>
       <command
-            description="Links the selected location as target with activated locations from the pool"
+            description="Links the selected location as target with activated locations from the synchronization palette"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
             name="Link as target">
       </command>

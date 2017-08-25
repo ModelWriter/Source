@@ -18,7 +18,7 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 
 /**
  * Links the selection as {@link org.eclipse.mylyn.docs.intent.mapping.base.ILink#getSource() source} of the
- * active locations pool.
+ * active synchronization palette.
  * 
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
@@ -29,7 +29,7 @@ public class LinkAsSource extends AbstractLocationHandler {
 		final ILocation source = createLocation(sourceDescriptor, UNABLE_TO_CREATE_SOURCE_LOCATION);
 		sourceDescriptor.dispose();
 		if (source != null) {
-			for (ILocationDescriptor targetDescriptor : IdeMappingUtils.getLocationsPool()) {
+			for (ILocationDescriptor targetDescriptor : IdeMappingUtils.getSynchronizationPalette()) {
 				if (IdeMappingUtils.isActive(targetDescriptor)) {
 					final ILocation target = createLocation(targetDescriptor,
 							UNABLE_TO_CREATE_TARGET_LOCATION);
@@ -47,7 +47,7 @@ public class LinkAsSource extends AbstractLocationHandler {
 
 		if (sourceDescriptor.exists()) {
 			final ILocation source = sourceDescriptor.getLocation();
-			for (ILocationDescriptor targetDescriptor : IdeMappingUtils.getLocationsPool()) {
+			for (ILocationDescriptor targetDescriptor : IdeMappingUtils.getSynchronizationPalette()) {
 				if (IdeMappingUtils.isActive(targetDescriptor)) {
 					if (!targetDescriptor.exists()) {
 						res = true;

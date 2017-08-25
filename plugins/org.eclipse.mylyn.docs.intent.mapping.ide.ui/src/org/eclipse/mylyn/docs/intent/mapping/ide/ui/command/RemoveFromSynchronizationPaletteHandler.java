@@ -15,22 +15,22 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 
 /**
- * Removes selected {@link ILocationDescriptor} from the {@link IdeMappingUtils#getLocationsPool() location
- * descriptors pool}.
+ * Removes selected {@link ILocationDescriptor} from the {@link IdeMappingUtils#getSynchronizationPalette()
+ * synchronization palette}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class RemoveFromLocationsPoolHandler extends AbstractLocationHandler {
+public class RemoveFromSynchronizationPaletteHandler extends AbstractLocationHandler {
 
 	@Override
 	protected void handleLocationDescriptor(ILocationDescriptor locationDescriptor) {
-		IdeMappingUtils.removeLocationFromPool(locationDescriptor);
+		IdeMappingUtils.removeLocationFromPalette(locationDescriptor);
 		locationDescriptor.dispose();
 	}
 
 	@Override
 	protected boolean canHandleLocation(ILocationDescriptor locationDescriptor) {
-		return IdeMappingUtils.getLocationsPool().contains(locationDescriptor);
+		return IdeMappingUtils.getSynchronizationPalette().contains(locationDescriptor);
 	}
 
 }

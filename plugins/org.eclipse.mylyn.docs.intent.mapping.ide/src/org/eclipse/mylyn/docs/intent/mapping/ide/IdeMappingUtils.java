@@ -40,23 +40,23 @@ import org.eclipse.mylyn.docs.intent.mapping.ide.resource.IFileLocation;
 public final class IdeMappingUtils {
 
 	/**
-	 * Listener for the {@link IdeMappingUtils#getLocationsPool() locations pool}.
+	 * Listener for the {@link IdeMappingUtils#getSynchronizationPalette() synchronization palette}.
 	 * 
 	 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 	 */
-	public interface ILocationsPoolListener {
+	public interface ISynchronizationPaletteListener {
 
 		/**
 		 * Stub implementation.
 		 *
 		 * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
 		 */
-		class Stub implements ILocationsPoolListener {
+		class Stub implements ISynchronizationPaletteListener {
 
 			/**
 			 * {@inheritDoc}
 			 *
-			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationActivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener#locationActivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 			 */
 			public void locationActivated(ILocationDescriptor locationDescriptor) {
 				// nothing to do here
@@ -65,7 +65,7 @@ public final class IdeMappingUtils {
 			/**
 			 * {@inheritDoc}
 			 *
-			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#locationDeactivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener#locationDeactivated(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 			 */
 			public void locationDeactivated(ILocationDescriptor locationDescriptor) {
 				// nothing to do here
@@ -74,7 +74,7 @@ public final class IdeMappingUtils {
 			/**
 			 * {@inheritDoc}
 			 *
-			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener#contentsAdded(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 			 */
 			public void contentsAdded(ILocationDescriptor locationDescriptor) {
 				// nothing to do here
@@ -83,7 +83,7 @@ public final class IdeMappingUtils {
 			/**
 			 * {@inheritDoc}
 			 *
-			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ILocationsPoolListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
+			 * @see org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils.ISynchronizationPaletteListener#contentsRemoved(org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor)
 			 */
 			public void contentsRemoved(ILocationDescriptor locationDescriptor) {
 				// nothing to do here
@@ -157,17 +157,17 @@ public final class IdeMappingUtils {
 	private static final Map<ILocation, IMarker> LOCATION_TO_MARKER = new HashMap<ILocation, IMarker>();
 
 	/**
-	 * The pool of {@link ILocationDescriptor} to link with.
+	 * The palette of {@link ILocationDescriptor} to link with.
 	 */
-	private static final Map<ILocationDescriptor, Boolean> LOCATIONS_POOL = new LinkedHashMap<ILocationDescriptor, Boolean>();
+	private static final Map<ILocationDescriptor, Boolean> LOCATIONS_PALETTE = new LinkedHashMap<ILocationDescriptor, Boolean>();
 
 	/**
-	 * The {@link List} of {@link ILocationsPoolListener}.
+	 * The {@link List} of {@link ISynchronizationPaletteListener}.
 	 */
-	private static final List<ILocationsPoolListener> LOCATIONS_POOL_LISTENERS = new ArrayList<ILocationsPoolListener>();
+	private static final List<ISynchronizationPaletteListener> LOCATIONS_PALETTE_LISTENERS = new ArrayList<ISynchronizationPaletteListener>();
 
 	/**
-	 * The {@link List} of {@link ILocationsPoolListener}.
+	 * The {@link List} of {@link ISynchronizationPaletteListener}.
 	 */
 	private static final List<ICurrentBaseListener> CURRENT_BASE_LISTENERS = new ArrayList<ICurrentBaseListener>();
 
@@ -180,8 +180,8 @@ public final class IdeMappingUtils {
 		CURRENT_BASE_LISTENERS.add(new ICurrentBaseListener() {
 
 			public void currentBaseChanged(IBase oldBase, IBase newBase) {
-				for (ILocationDescriptor descriptor : getLocationsPool()) {
-					removeLocationFromPool(descriptor);
+				for (ILocationDescriptor descriptor : getSynchronizationPalette()) {
+					removeLocationFromPalette(descriptor);
 				}
 			}
 		});
@@ -350,90 +350,90 @@ public final class IdeMappingUtils {
 	}
 
 	/**
-	 * Gets the pool of {@link ILocationDescriptor} to link with.
+	 * Gets the palette of {@link ILocationDescriptor} to link with.
 	 * 
-	 * @return the pool of {@link ILocationDescriptor} to link with
+	 * @return the palette of {@link ILocationDescriptor} to link with
 	 */
-	public static Set<ILocationDescriptor> getLocationsPool() {
-		return Collections.unmodifiableSet(LOCATIONS_POOL.keySet());
+	public static Set<ILocationDescriptor> getSynchronizationPalette() {
+		return Collections.unmodifiableSet(LOCATIONS_PALETTE.keySet());
 	}
 
 	/**
-	 * Gets the {@link List} of {@link ILocationsPoolListener} in a thread safe way.
+	 * Gets the {@link List} of {@link ISynchronizationPaletteListener} in a thread safe way.
 	 * 
-	 * @return the {@link List} of {@link ILocationsPoolListener} in a thread safe way
+	 * @return the {@link List} of {@link ISynchronizationPaletteListener} in a thread safe way
 	 */
-	private static List<ILocationsPoolListener> getLocationPoolListeners() {
-		synchronized(LOCATIONS_POOL_LISTENERS) {
-			return new ArrayList<ILocationsPoolListener>(LOCATIONS_POOL_LISTENERS);
+	private static List<ISynchronizationPaletteListener> getSynchronizationPaletteListeners() {
+		synchronized(LOCATIONS_PALETTE_LISTENERS) {
+			return new ArrayList<ISynchronizationPaletteListener>(LOCATIONS_PALETTE_LISTENERS);
 		}
 	}
 
 	/**
-	 * Adds the given {@link ILocationDescriptor} to the {@link #getLocationsPool() pool of location
-	 * descriptor}.
+	 * Adds the given {@link ILocationDescriptor} to the {@link #getSynchronizationPalette() palette of
+	 * location descriptor}.
 	 * 
 	 * @param locationDescriptor
 	 *            the {@link ILocationDescriptor} to add
 	 */
-	public static void addLocationToPool(ILocationDescriptor locationDescriptor) {
+	public static void addLocationToPalette(ILocationDescriptor locationDescriptor) {
 		final Boolean added;
-		synchronized(LOCATIONS_POOL) {
-			added = LOCATIONS_POOL.put(locationDescriptor, false);
+		synchronized(LOCATIONS_PALETTE) {
+			added = LOCATIONS_PALETTE.put(locationDescriptor, false);
 		}
 		if (added == null || added) {
-			for (ILocationsPoolListener listener : getLocationPoolListeners()) {
+			for (ISynchronizationPaletteListener listener : getSynchronizationPaletteListeners()) {
 				listener.contentsAdded(locationDescriptor);
 			}
 		}
 	}
 
 	/**
-	 * Removes the given {@link ILocationDescriptor} from the {@link #getLocationsPool() pool of location
-	 * descriptor}.
+	 * Removes the given {@link ILocationDescriptor} from the {@link #getSynchronizationPalette() palette of
+	 * location descriptor}.
 	 * 
 	 * @param locationDescriptor
 	 *            the {@link ILocation} to remove
 	 */
-	public static void removeLocationFromPool(ILocationDescriptor locationDescriptor) {
+	public static void removeLocationFromPalette(ILocationDescriptor locationDescriptor) {
 		final Boolean removed;
-		synchronized(LOCATIONS_POOL) {
-			removed = LOCATIONS_POOL.remove(locationDescriptor);
+		synchronized(LOCATIONS_PALETTE) {
+			removed = LOCATIONS_PALETTE.remove(locationDescriptor);
 		}
 		if (removed != null) {
-			for (ILocationsPoolListener listener : getLocationPoolListeners()) {
+			for (ISynchronizationPaletteListener listener : getSynchronizationPaletteListeners()) {
 				listener.contentsRemoved(locationDescriptor);
 			}
 		}
 	}
 
 	/**
-	 * Adds the given {@link ILocationsPoolListener}.
+	 * Adds the given {@link ISynchronizationPaletteListener}.
 	 * 
 	 * @param listener
-	 *            the {@link ILocationsPoolListener} to add
+	 *            the {@link ISynchronizationPaletteListener} to add
 	 */
-	public static void addLocationPoolListener(ILocationsPoolListener listener) {
-		synchronized(LOCATIONS_POOL_LISTENERS) {
-			LOCATIONS_POOL_LISTENERS.add(listener);
+	public static void addSynchronizationPaletteListener(ISynchronizationPaletteListener listener) {
+		synchronized(LOCATIONS_PALETTE_LISTENERS) {
+			LOCATIONS_PALETTE_LISTENERS.add(listener);
 		}
 	}
 
 	/**
-	 * removes the given {@link ILocationsPoolListener}.
+	 * removes the given {@link ISynchronizationPaletteListener}.
 	 * 
 	 * @param listener
-	 *            the {@link ILocationsPoolListener} to remove
+	 *            the {@link ISynchronizationPaletteListener} to remove
 	 */
-	public static void removeLocationPoolListener(ILocationsPoolListener listener) {
-		synchronized(LOCATIONS_POOL_LISTENERS) {
-			LOCATIONS_POOL_LISTENERS.remove(listener);
+	public static void removeSynchronizationPaletteListener(ISynchronizationPaletteListener listener) {
+		synchronized(LOCATIONS_PALETTE_LISTENERS) {
+			LOCATIONS_PALETTE_LISTENERS.remove(listener);
 		}
 	}
 
 	/**
-	 * Activates the given {@link ILocationDescriptor} form the {@link #getLocationsPool() pool of location
-	 * descriptor}.
+	 * Activates the given {@link ILocationDescriptor} form the {@link #getSynchronizationPalette() palette of
+	 * location descriptor}.
 	 * 
 	 * @param locationDescriptor
 	 *            the {@link ILocationDescriptor} to activate
@@ -441,9 +441,9 @@ public final class IdeMappingUtils {
 	public static void activateLocation(ILocationDescriptor locationDescriptor) {
 		final boolean changed;
 
-		synchronized(LOCATIONS_POOL) {
-			if (LOCATIONS_POOL.containsKey(locationDescriptor)) {
-				final Boolean lastValue = LOCATIONS_POOL.put(locationDescriptor, Boolean.TRUE);
+		synchronized(LOCATIONS_PALETTE) {
+			if (LOCATIONS_PALETTE.containsKey(locationDescriptor)) {
+				final Boolean lastValue = LOCATIONS_PALETTE.put(locationDescriptor, Boolean.TRUE);
 				changed = lastValue == null || !lastValue;
 			} else {
 				changed = false;
@@ -451,15 +451,15 @@ public final class IdeMappingUtils {
 		}
 
 		if (changed) {
-			for (ILocationsPoolListener listener : getLocationPoolListeners()) {
+			for (ISynchronizationPaletteListener listener : getSynchronizationPaletteListeners()) {
 				listener.locationActivated(locationDescriptor);
 			}
 		}
 	}
 
 	/**
-	 * Deactivates the given {@link ILocationDescriptor} form the {@link #getLocationsPool() pool of location
-	 * descriptor}.
+	 * Deactivates the given {@link ILocationDescriptor} form the {@link #getSynchronizationPalette() palette
+	 * of location descriptor}.
 	 * 
 	 * @param locationDescriptor
 	 *            the {@link ILocationDescriptor} to deactivate
@@ -467,9 +467,9 @@ public final class IdeMappingUtils {
 	public static void deactivateLocation(ILocationDescriptor locationDescriptor) {
 		final boolean changed;
 
-		synchronized(LOCATIONS_POOL) {
-			if (LOCATIONS_POOL.containsKey(locationDescriptor)) {
-				final Boolean lastValue = LOCATIONS_POOL.put(locationDescriptor, Boolean.FALSE);
+		synchronized(LOCATIONS_PALETTE) {
+			if (LOCATIONS_PALETTE.containsKey(locationDescriptor)) {
+				final Boolean lastValue = LOCATIONS_PALETTE.put(locationDescriptor, Boolean.FALSE);
 				changed = lastValue == null || lastValue;
 			} else {
 				changed = false;
@@ -477,27 +477,27 @@ public final class IdeMappingUtils {
 		}
 
 		if (changed) {
-			for (ILocationsPoolListener listener : getLocationPoolListeners()) {
+			for (ISynchronizationPaletteListener listener : getSynchronizationPaletteListeners()) {
 				listener.locationDeactivated(locationDescriptor);
 			}
 		}
 	}
 
 	/**
-	 * Tells if the given {@link ILocationDescriptor} from the {@link IdeMappingUtils#getLocationsPool()
-	 * location descriptors pool} is active.
+	 * Tells if the given {@link ILocationDescriptor} from the
+	 * {@link IdeMappingUtils#getSynchronizationPalette() location descriptors palette} is active.
 	 * 
 	 * @param locationDescriptor
 	 *            the {@link ILocationDescriptor}
 	 * @return <code>true</code> if the given {@link ILocationDescriptor} from the
-	 *         {@link IdeMappingUtils#getLocationsPool() location descriptors pool} is active,
+	 *         {@link IdeMappingUtils#getSynchronizationPalette() location descriptors palette} is active,
 	 *         <code>false</code> otherwise
 	 */
 	public static boolean isActive(ILocationDescriptor locationDescriptor) {
 		final boolean res;
 
-		synchronized(LOCATIONS_POOL) {
-			final Boolean isActive = LOCATIONS_POOL.get(locationDescriptor);
+		synchronized(LOCATIONS_PALETTE) {
+			final Boolean isActive = LOCATIONS_PALETTE.get(locationDescriptor);
 			res = isActive != null && isActive;
 		}
 
@@ -506,16 +506,16 @@ public final class IdeMappingUtils {
 
 	/**
 	 * Tells if there is at least one {@link IdeMappingUtils#isActive(ILocationDescriptor) active}
-	 * {@link ILocationDescriptor} in the {@link IdeMappingUtils#getLocationsPool() location descriptors pool}
-	 * .
+	 * {@link ILocationDescriptor} in the {@link IdeMappingUtils#getSynchronizationPalette() location
+	 * descriptors palette} .
 	 * 
 	 * @return <code>true</code> if there is at least one {@link IdeMappingUtils#isActive(ILocationDescriptor)
-	 *         active} {@link ILocationDescriptor} in the {@link IdeMappingUtils#getLocationsPool() location
-	 *         descriptors pool}, <code>false</code> otherwise
+	 *         active} {@link ILocationDescriptor} in the {@link IdeMappingUtils#getSynchronizationPalette()
+	 *         location descriptors palette}, <code>false</code> otherwise
 	 */
 	public static boolean asActiveLocationDescriptor() {
-		synchronized(LOCATIONS_POOL) {
-			return LOCATIONS_POOL.values().contains(Boolean.TRUE);
+		synchronized(LOCATIONS_PALETTE) {
+			return LOCATIONS_PALETTE.values().contains(Boolean.TRUE);
 		}
 	}
 

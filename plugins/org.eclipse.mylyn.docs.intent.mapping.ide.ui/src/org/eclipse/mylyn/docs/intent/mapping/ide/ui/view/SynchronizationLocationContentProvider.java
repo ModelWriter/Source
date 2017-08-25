@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class SyncronizationLocationContentProvider extends AbstractLocationContentProvider {
+public class SynchronizationLocationContentProvider extends AbstractLocationContentProvider {
 
 	/**
 	 * Refresh the current viewer when the {@link IReport} change.
@@ -67,7 +67,7 @@ public class SyncronizationLocationContentProvider extends AbstractLocationConte
 	/**
 	 * Constructor.
 	 */
-	public SyncronizationLocationContentProvider() {
+	public SynchronizationLocationContentProvider() {
 		super();
 		showReport = true;
 	}

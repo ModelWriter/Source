@@ -15,20 +15,21 @@ import org.eclipse.mylyn.docs.intent.mapping.base.ILocationDescriptor;
 import org.eclipse.mylyn.docs.intent.mapping.ide.IdeMappingUtils;
 
 /**
- * Adds selected {@link ILocationDescriptor} to the {@link IdeMappingUtils#getLocationsPool() locations pool}.
+ * Adds selected {@link ILocationDescriptor} to the {@link IdeMappingUtils#getSynchronizationPalette()
+ * synchronization palette}.
  *
  * @author <a href="mailto:yvan.lussaud@obeo.fr">Yvan Lussaud</a>
  */
-public class AddToLocationsPoolHandler extends AbstractLocationHandler {
+public class AddToSynchronizationPaletteHandler extends AbstractLocationHandler {
 
 	@Override
 	protected void handleLocationDescriptor(ILocationDescriptor locationDescriptor) {
-		IdeMappingUtils.addLocationToPool(locationDescriptor);
+		IdeMappingUtils.addLocationToPalette(locationDescriptor);
 	}
 
 	@Override
 	protected boolean canHandleLocation(ILocationDescriptor locationDescriptor) {
-		return !IdeMappingUtils.getLocationsPool().contains(locationDescriptor);
+		return !IdeMappingUtils.getSynchronizationPalette().contains(locationDescriptor);
 	}
 
 }

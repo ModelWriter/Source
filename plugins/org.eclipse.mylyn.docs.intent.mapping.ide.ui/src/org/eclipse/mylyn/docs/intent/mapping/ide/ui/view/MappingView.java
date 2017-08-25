@@ -868,7 +868,7 @@ public class MappingView extends ViewPart {
 		reportTree.getViewer().getTree().addListener(SWT.KeyDown, new MappingKeyUpListener());
 		reportTree.getViewer().getTree().addListener(SWT.MouseDoubleClick,
 				new ShowLocationDoubleClickListener(reportTree.getViewer().getTree()));
-		reportTree.getViewer().setContentProvider(new SyncronizationLocationContentProvider());
+		reportTree.getViewer().setContentProvider(new SynchronizationLocationContentProvider());
 
 		reportTree.getViewer().getTree().setHeaderVisible(true);
 		TreeViewerColumn linkTreeSourceColumn = new TreeViewerColumn(reportTree.getViewer(), SWT.NONE);
