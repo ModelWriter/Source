@@ -46,14 +46,9 @@ public class LinkAsSource extends AbstractLocationHandler {
 		boolean res = false;
 
 		if (sourceDescriptor.exists()) {
-			final ILocation source = sourceDescriptor.getLocation();
 			for (ILocationDescriptor targetDescriptor : IdeMappingUtils.getSynchronizationPalette()) {
 				if (IdeMappingUtils.isActive(targetDescriptor)) {
-					if (!targetDescriptor.exists()) {
-						res = true;
-						break;
-					} else if (!source.equals(targetDescriptor.getLocation()) && MappingUtils.getLink(source,
-							targetDescriptor.getLocation()) == null) {
+					if (MappingUtils.canCreateLink(sourceDescriptor, targetDescriptor)) {
 						res = true;
 						break;
 					}

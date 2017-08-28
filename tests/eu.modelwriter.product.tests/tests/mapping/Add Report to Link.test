@@ -6,8 +6,8 @@ Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
 Id: _bIJXwLMXEeargc_mJ1hPzA
-Runtime-Version: 2.1.0.201606221726
-Save-Time: 2/14/17 5:07 PM
+Runtime-Version: 2.2.0.201706152316
+Save-Time: 8/28/17 2:47 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -18,7 +18,7 @@ get-view Mapping | get-combo -after [get-label "Mapping base:"] | select test
 get-view Mapping | get-tab-folder | get-tab-item Report | click
 with [get-view Mapping | get-tree] {
     select "\\/test\\/test1.txt/\"1\"/\"1\""
-    get-menu "Mapping/Add Report" | click
+    get-menu "Synchronize/Add Report" | click
 }
 with [get-window -class MultiLineTextDialog] {
     get-editbox | set-text "New test report"

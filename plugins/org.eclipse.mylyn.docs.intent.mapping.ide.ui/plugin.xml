@@ -40,7 +40,7 @@
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <menu
                id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.menu"
-               label="Mapping"
+               label="Synchronize"
                tooltip="Locations and Links menu">
             <command
                   commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"

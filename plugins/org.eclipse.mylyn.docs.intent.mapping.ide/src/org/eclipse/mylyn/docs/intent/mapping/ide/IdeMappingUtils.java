@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -355,7 +356,9 @@ public final class IdeMappingUtils {
 	 * @return the palette of {@link ILocationDescriptor} to link with
 	 */
 	public static Set<ILocationDescriptor> getSynchronizationPalette() {
-		return Collections.unmodifiableSet(LOCATIONS_PALETTE.keySet());
+		synchronized(LOCATIONS_PALETTE) {
+			return Collections.unmodifiableSet(new LinkedHashSet(LOCATIONS_PALETTE.keySet()));
+		}
 	}
 
 	/**
