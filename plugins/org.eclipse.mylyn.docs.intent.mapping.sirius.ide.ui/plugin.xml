@@ -8,9 +8,9 @@
             locationURI="popup:org.eclipse.mylyn.docs.intent.mapping.ide.ui.menu?after=additions">
          <command
                commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsSource"
-               label="Link semantic element location as source"
+               label="Link semantic element location as master source"
                style="push"
-               tooltip="Links the current location as source with activated locations from the synchronization palette">
+               tooltip="Links the current location as master source with activated locations from the synchronization palette">
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -36,9 +36,9 @@
          </command>
          <command
                commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsTarget"
-               label="Link semantic element location as target"
+               label="Link semantic element location as slave target"
                style="push"
-               tooltip="Links the current location as target with activated locations from the synchronization palette">
+               tooltip="Links the current location as slave target with activated locations from the synchronization palette">
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -152,14 +152,14 @@
             name="Remove semantic element location from  synchronization palette">
       </command>
       <command
-            description="Links the selected semantic element location as source with activated locations from the synchronization palette"
+            description="Links the selected semantic element location as master source with activated locations from the synchronization palette"
             id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsSource"
-            name="Link semantic element as source">
+            name="Link semantic element as master source">
       </command>
       <command
-            description="Links the selected semantic element location as target with activated locations from the synchronization palette"
+            description="Links the selected semantic element location as slave target with activated locations from the synchronization palette"
             id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.linkSemanticElementAsTarget"
-            name="Link semantic element as target">
+            name="Link semantic element as slave target">
       </command>
    </extension>
    <extension

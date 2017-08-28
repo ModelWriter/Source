@@ -44,9 +44,9 @@
                tooltip="Locations and Links menu">
             <command
                   commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"
-                  label="Link location as source"
+                  label="Link location as master source"
                   style="push"
-                  tooltip="Links the current location as source with activated locations from the synchronization palette">
+                  tooltip="Links the current location as master source with activated locations from the synchronization palette">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -66,9 +66,9 @@
             </command>
             <command
                   commandId="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
-                  label="Link location as target"
+                  label="Link location as slave target"
                   style="push"
-                  tooltip="Links the current location as target with activated locations from the synchronization palette">
+                  tooltip="Links the current location as slave target with activated locations from the synchronization palette">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -253,14 +253,14 @@
             name="Remove Location from  synchronization palette">
       </command>
       <command
-            description="Links the selected location as source with activated locations from the synchronization palette"
+            description="Links the selected location as master source with activated locations from the synchronization palette"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsSource"
-            name="Link as source">
+            name="Link as master source">
       </command>
       <command
-            description="Links the selected location as target with activated locations from the synchronization palette"
+            description="Links the selected location as slave target with activated locations from the synchronization palette"
             id="org.eclipse.mylyn.docs.intent.mapping.ide.ui.linkAsTarget"
-            name="Link as target">
+            name="Link as slave target">
       </command>
       <command
             description="Deletes the selection"

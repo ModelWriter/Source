@@ -454,12 +454,12 @@ public class MappingView extends ViewPart {
 	/**
 	 * Source column label.
 	 */
-	private static final String SOURCE_LABEL = "Source";
+	private static final String SOURCE_LABEL = "Master source";
 
 	/**
 	 * Target column label.
 	 */
-	private static final String TARGET_LABEL = "Target";
+	private static final String TARGET_LABEL = "Slave target";
 
 	/**
 	 * The {@link SelectionProviderIntermediate} delegating to {@link org.eclipse.jface.viewers.Viewer Viewer}
