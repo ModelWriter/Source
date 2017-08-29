@@ -92,7 +92,7 @@
          </command>
          <command
                commandId="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromSynchronizationPalette"
-               label="Remove semantic element location from  synchronization palette"
+               label="Remove semantic element location from synchronization palette"
                style="push"
                tooltip="Removes the selected location from the synchronization palette">
             <visibleWhen
@@ -149,7 +149,7 @@
       <command
             description="Removes the selected semantic element location from the synchronization palette"
             id="org.eclipse.mylyn.docs.intent.mapping.sirius.ide.ui.removeSemanticElementFromSynchronizationPalette"
-            name="Remove semantic element location from  synchronization palette">
+            name="Remove semantic element location from synchronization palette">
       </command>
       <command
             description="Links the selected semantic element location as master source with activated locations from the synchronization palette"
