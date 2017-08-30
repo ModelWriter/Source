@@ -85,10 +85,12 @@ public class ExtractTextHandler extends AbstractHandler {
 			final IPath textPath = file.getFullPath().removeFileExtension().addFileExtension("txt");
 			final IFile textFile = ResourcesPlugin.getWorkspace().getRoot().getFile(textPath);
 			if (textFile.exists()) {
-				textFile.delete(true, new NullProgressMonitor());
+				textFile.setContents(new ByteArrayInputStream(we.getText().getBytes()), true, true,
+						new NullProgressMonitor());
+			} else {
+				textFile.create(new ByteArrayInputStream(we.getText().getBytes()), true,
+						new NullProgressMonitor());
 			}
-			textFile.create(new ByteArrayInputStream(we.getText().getBytes()), true,
-					new NullProgressMonitor());
 			we.close();
 			docx.close();
 			fis.close();
@@ -115,10 +117,12 @@ public class ExtractTextHandler extends AbstractHandler {
 			final IPath textPath = file.getFullPath().removeFileExtension().addFileExtension("txt");
 			final IFile textFile = ResourcesPlugin.getWorkspace().getRoot().getFile(textPath);
 			if (textFile.exists()) {
-				textFile.delete(true, new NullProgressMonitor());
+				textFile.setContents(new ByteArrayInputStream(we.getText().getBytes()), true, true,
+						new NullProgressMonitor());
+			} else {
+				textFile.create(new ByteArrayInputStream(we.getText().getBytes()), true,
+						new NullProgressMonitor());
 			}
-			textFile.create(new ByteArrayInputStream(we.getText().getBytes()), true,
-					new NullProgressMonitor());
 			we.close();
 			fis.close();
 		} catch (IOException e) {
